@@ -17,7 +17,7 @@ const {
   canonical,
 } = Astro.props;
 
-const fullTitle = title === 'Home' ? 'Abhishek Mohanty — Oracle HCM Cloud Notes' : `${title} — Abhishek Mohanty`;
+const fullTitle = title === 'Home' ? 'Abhishek Mohanty — Oracle HCM Cloud' : `${title} — Abhishek Mohanty`;
 const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
@@ -32,15 +32,11 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toStri
   <link rel="canonical" href={canonicalURL} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="alternate" type="application/rss+xml" title="Abhishek Mohanty" href="/rss.xml" />
-
-  <!-- Open Graph -->
   <meta property="og:type" content={ogType} />
   <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonicalURL} />
   <meta property="og:site_name" content="Abhishek Mohanty" />
-
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={fullTitle} />
   <meta name="twitter:description" content={description} />

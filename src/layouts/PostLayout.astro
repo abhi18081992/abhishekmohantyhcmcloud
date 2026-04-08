@@ -7,20 +7,38 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, description, pubDate, updatedDate, tags, module } = post.data;
+const { title, description, pubDate, updatedDate, tags } = post.data;
 
 const formatDate = (date: Date) =>
   date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const tagColor = (tag: string): string => {
+  const t = tag.toLowerCase();
+  if (t.includes('fast formula')) return 'red';
+  if (t.includes('null') || t.includes('default')) return 'orange';
+  if (t.includes('advanced') || t.includes('intermediate') || t.includes('beginner')) return 'navy';
+  return ['red', 'orange', 'navy', 'purple'][
+    t.split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 4
+  ];
+};
 ---
 
 <BaseLayout title={title} description={description} ogType="article">
   <article class="post">
     <header class="post-header prose-container">
-      {module && <p class="eyebrow">{module}</p>}
+      {tags.length > 0 && (
+        <div class="post-pills">
+          {tags.slice(0, 4).map((tag) => (
+            <span class={`pill pill-${tagColor(tag)}`}>{tag}</span>
+          ))}
+        </div>
+      )}
       <h1>{title}</h1>
       {description && <p class="lede">{description}</p>}
       <div class="post-meta">
         <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+        <span class="dot">·</span>
+        <span>Oracle HCM Cloud</span>
         {updatedDate && (
           <>
             <span class="dot">·</span>
@@ -34,16 +52,9 @@ const formatDate = (date: Date) =>
       <slot />
     </div>
 
-    {tags.length > 0 && (
-      <footer class="post-footer prose-container">
-        <p class="tags-label">Tagged</p>
-        <div class="tag-list">
-          {tags.map((tag) => (
-            <a href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag">{tag}</a>
-          ))}
-        </div>
-      </footer>
-    )}
+    <footer class="post-footer prose-container">
+      <a href="/" class="back-link">← Back to all articles</a>
+    </footer>
   </article>
 
   <style>
@@ -52,43 +63,54 @@ const formatDate = (date: Date) =>
     }
     .post-header {
       margin-bottom: 3rem;
-      text-align: left;
+    }
+    .post-pills {
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .post-header h1 {
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin: 0 0 0.6em;
     }
     .lede {
-      font-family: var(--font-display);
+      font-family: var(--font-italic);
       font-style: italic;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       color: var(--ink-muted);
       line-height: 1.55;
-      margin: 1em 0 1.5em;
+      margin: 1em 0 1.6em;
+      padding-left: 1.25rem;
+      border-left: 3px solid var(--red);
       max-width: 60ch;
     }
     .post-meta {
       font-family: var(--font-mono);
       font-size: 0.78rem;
       color: var(--ink-faint);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding-top: 1rem;
+      padding-top: 1.2rem;
       border-top: 1px solid var(--border);
     }
     .dot { margin: 0 0.5em; }
-    .post-body {
-      font-size: 1.05rem;
-    }
+    .post-body { font-size: 1.05rem; }
     .post-footer {
       margin-top: 4rem;
       padding-top: 2rem;
       border-top: 1px solid var(--border);
     }
-    .tags-label {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--ink-faint);
-      margin: 0 0 0.75em;
+    .back-link {
+      font-family: var(--font-display);
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      border: none;
     }
-    .tag-list { display: flex; flex-wrap: wrap; }
+    .back-link:hover {
+      color: var(--orange);
+      border: none;
+    }
   </style>
 </BaseLayout>
