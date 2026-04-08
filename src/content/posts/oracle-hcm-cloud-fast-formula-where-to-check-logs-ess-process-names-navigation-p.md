@@ -1,6 +1,6 @@
 ---
-title: "Oracle HCM Cloud Fast Formula — Where to Check Logs: ESS Process Names, Navigation Paths & Prerequisites for Absence, Payroll, Compensation, Benefits, OTL, HCM Extract & Talent Management"
-description: "You added `ESS_LOG_WRITE` to your formula. You ran the process. Now you're staring at the screen wondering where the output went. This post is for that moment."
+title: "Where to Check Fast Formula Logs — ESS Process Names & Navigation Paths"
+description: "A practical guide to finding Fast Formula debug logs in Oracle HCM Cloud — ESS process names, navigation paths, and log locations for Absence, Payroll, Compensation, Benefits and OTL."
 pubDate: 2026-03-20
 tags: ["Fast Formula", "Debugging", "ESS Logs", "Consolidated Reference"]
 ---

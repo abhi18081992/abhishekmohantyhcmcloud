@@ -1,12 +1,11 @@
 ---
-title: "Oracle Fast Formula: Post Election Edit — How to Validate Cross-Plan Dependencies Using CHANGE_CONTEXTS and BEN_PEN Array DBIs"
-description: "Oracle Fast Formula: Post Election Edit — Cross-Plan Enrollment Validation with Waiting Period Logic"
+title: "Oracle Fast Formula Post Election Edit — Cross-Plan Validation with CHANGE_CONTEXTS"
+description: "Using CHANGE_CONTEXTS and BEN_PEN array DBIs to validate cross-plan dependencies in an Oracle Benefits Post Election Edit formula."
 pubDate: 2026-04-06
+tags: []
 ---
 
-Fast Formula
-  Benefits
-  Post Election Edit
+Post Election Edit
   CHANGE_CONTEXTS
   BEN_PEN Array DBI
   ESS_LOG_WRITE
@@ -548,3 +547,4 @@ Abhishek Mohanty
   Oracle HCM Cloud
 
 © 2026 Abhishek Mohanty — Oracle HCM Cloud Insights
+

@@ -1,10 +1,10 @@
 ---
-title: "Step-by-step code walkthrough of Oracle HCM Cloud HDL Transformation Fast Formula — INPUTS ARE declaration, GET_VALUE_SET parameter construction, ISNULL checking, SourceSystemId resolution, ESS_LOG_WRITE tracing, LINEREPEATNO pass logic for ElementEntry and ElementEntryValue, and Cancel end-dating with ReplaceLastEffectiveEndDate. Part 2 of 3."
-description: "Oracle HCM Cloud HDL Transformation Fast Formula — Line-by-Line Code Walkthrough"
+title: "HDL Transformation Fast Formula — Part 2: INPUTS, GET_VALUE_SET & Cancel End-Dating"
+description: "Line-by-line code walkthrough of the HDL Transformation Fast Formula — INPUTS ARE, GET_VALUE_SET, ISNULL, SourceSystemId resolution, ESS_LOG_WRITE tracing and ReplaceLastEffectiveEndDate."
 pubDate: 2026-03-26
+tags: []
 ---
 
-Fast Formula
 HCM Data Loader
 Transformation Formula
 ESS_LOG_WRITE
@@ -794,3 +794,4 @@ Part 2: Code Walkthrough ← This post
 Part 3: Build Your Own Soon
 
 Abhishek Mohanty
+

@@ -1,62 +1,9 @@
 ---
 title: "Breaking Down a PH Vacation Leave Accrual Matrix Formula — Section by Section"
-description: ".am-blog{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;color:#1a1a1a;line-height:1.8;max-width:780px;margin:0 auto}"
+description: "A detailed section-by-section breakdown of a Philippines vacation leave accrual matrix formula covering eligibility, tenure bands, and proration logic."
 pubDate: 2026-03-14
+tags: []
 ---
-
-.am-blog{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;color:#1a1a1a;line-height:1.8;max-width:780px;margin:0 auto}
-  .am-blog p{font-size:16px;margin-bottom:18px;color:#2a2a2a}
-  .am-tag{display:inline-block;background:#c0392b;color:#fff;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;margin-bottom:6px;margin-right:6px}
-  .am-tag.blue{background:#2c3e50}
-  .am-meta{font-size:13px;color:#888;margin-bottom:25px;letter-spacing:0.5px}
-  .am-intro{font-size:17px;color:#666;line-height:1.7;margin-bottom:30px;font-style:italic;border-left:4px solid #c0392b;padding-left:18px}
-  .am-author-box{display:flex;align-items:center;gap:14px;padding:20px 0;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;margin-bottom:35px}
-  .am-avatar{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0}
-  .am-author-name{font-weight:700;font-size:15px}
-  .am-author-role{font-size:13px;color:#888}
-  .am-h2{font-size:24px;font-weight:700;color:#1a1a1a;margin:40px 0 18px;padding-left:16px;border-left:4px solid #c0392b;line-height:1.3}
-  .am-h3{font-size:19px;font-weight:700;color:#1a1a1a;margin:28px 0 12px}
-  .am-hr{border:none;border-top:1px solid #e0dcd6;margin:35px 0}
-  .am-code{background:#2d2926;border-radius:6px;padding:20px 24px;margin:20px 0;font-family:'Courier New',Consolas,monospace;font-size:13px;color:#f5ebe0;line-height:1.7;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word}
-  .am-code .cm{color:#6b8e6b;font-style:italic}
-  .am-code .kw{color:#e67e22}
-  .am-code .str{color:#8bc48b}
-  .am-code .fn{color:#6cacec}
-  .am-inline-code{background:#f0ece6;padding:2px 7px;border-radius:3px;font-family:'Courier New',Consolas,monospace;font-size:14px;color:#c0392b}
-  .am-callout{display:flex;gap:14px;background:#fff;border:1px solid #e0dcd6;border-radius:6px;padding:22px;margin:24px 0;align-items:flex-start}
-  .am-callout-icon{font-size:22px;flex-shrink:0}
-  .am-callout h4{font-size:15px;font-weight:700;margin:0 0 6px}
-  .am-callout p{font-size:14px;color:#666;margin:0;line-height:1.6}
-  .am-pullquote{margin:28px 0;padding:22px 25px 22px 28px;background:#fdf6f0;border-left:5px solid #c0392b;font-size:17px;font-style:italic;color:#333;line-height:1.7}
-  .am-table-wrap{overflow-x:auto;margin:20px 0}
-  .am-table{width:100%;border-collapse:collapse;font-size:14px}
-  .am-table th{background:#2d2926;color:#f5ebe0;padding:12px 16px;text-align:left;font-weight:600;font-size:13px;letter-spacing:0.5px;text-transform:uppercase}
-  .am-table td{padding:10px 16px;border-bottom:1px solid #e0dcd6;color:#333;vertical-align:top}
-  .am-table tr:hover td{background:#fdf6f0}
-  .am-table code{background:#f0ece6;padding:1px 5px;border-radius:3px;font-family:'Courier New',monospace;font-size:13px;color:#c0392b}
-  .am-list{margin:16px 0;padding-left:0;list-style:none}
-  .am-list li{position:relative;padding-left:22px;margin-bottom:10px;font-size:15px;color:#2a2a2a;line-height:1.65}
-  .am-list li::before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;background:#c0392b;border-radius:50%}
-  .am-syntax-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
-  .am-syntax-card{background:#fff;border:1px solid #e0dcd6;padding:16px;border-radius:6px;font-size:14px}
-  .am-syntax-card strong{display:block;margin-bottom:4px;color:#c0392b;font-size:13px;text-transform:uppercase;letter-spacing:0.5px}
-  .am-syntax-card p{margin:0;color:#555;line-height:1.55;font-size:13.5px}
-  .am-phase-badge{display:inline-block;background:#c0392b;color:#fff;padding:3px 12px;border-radius:3px;font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:10px}
-  .am-phase-badge.bridge{background:#e67e22}
-  .am-phase-badge.lump{background:#27ae60}
-  .am-phase-badge.done{background:#7f8c8d}
-  .am-footer-box{display:flex;align-items:center;gap:16px;padding-top:25px;border-top:2px solid #1a1a1a;margin-top:40px}
-  .am-footer-avatar{width:65px;height:65px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;flex-shrink:0}
-  .am-footer-name{font-size:18px;font-weight:700}
-  .am-footer-bio{font-size:14px;color:#666;line-height:1.6}
-  @media(max-width:600px){
-    .am-author-box,.am-footer-box{flex-direction:column;text-align:center}
-    .am-syntax-grid{grid-template-columns:1fr}
-    .am-code{font-size:12px;padding:14px 16px}
-  }
-
-Fast Formula
-Absence Management
 
 My first blog post so bear with me. I wanted to write this because when I started learning Fast Formula I couldn't find anyone explaining the actual concepts behind each block. So here we go.
 
@@ -481,3 +428,4 @@ AM
 Abhishek Mohanty
 
 Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Core HR, Redwood migrations, HDL, and OTBI reporting. Follow me for more Oracle HCM deep dives.
+

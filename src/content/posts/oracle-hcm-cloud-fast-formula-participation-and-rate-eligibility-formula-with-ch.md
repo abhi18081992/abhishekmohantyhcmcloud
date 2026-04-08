@@ -1,6 +1,6 @@
 ---
-title: "Oracle HCM Cloud Fast Formula - Participation and Rate Eligibility formula with CHANGE_CONTEXTS, WAS DEFAULTED null handling, PER_EXT_ORG array DBI loop"
-description: "The business says \"exclude workers in Puerto Rico and Washington DC.\" Simple — until you realize that the worker's work state can come from three different places in Oracle HCM depending on whether they work from home, whether their departm"
+title: "Participation & Rate Eligibility Formula with CHANGE_CONTEXTS and Array DBIs"
+description: "Oracle HCM Cloud Fast Formula for Participation and Rate Eligibility — CHANGE_CONTEXTS, WAS DEFAULTED null handling, and PER_EXT_ORG array DBI looping."
 pubDate: 2026-03-19
 tags: ["Fast Formula", "Participation & Rate Eligibility", "CHANGE_CONTEXTS", "WAS DEFAULTED"]
 ---

@@ -1,6 +1,6 @@
 ---
-title: "Oracle Recruiting Cloud Fast Formulas — The Fast Formula Guide Every HCM Cloud Consultant Needs"
-description: "Oracle Fast Formula: The Complete Guide to Recruiting CSP Formulas"
+title: "Oracle Recruiting Cloud Fast Formulas — The Complete Guide"
+description: "Every CSP (Candidate Selection Process) Fast Formula type in Oracle Recruiting Cloud, with worked examples for scoring, routing and validation."
 pubDate: 2026-04-02
 tags: ["Fast Formula", "Recruiting", "CSP", "DBIs"]
 ---

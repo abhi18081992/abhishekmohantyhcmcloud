@@ -1,10 +1,10 @@
 ---
-title: "Step-by-step WSA implementation and complete code of Oracle HCM Cloud HDL Transformation Fast Formula — WSA_EXISTS, WSA_GET, WSA_SET for Person caching and MultipleEntryCount tracking, full formula with INPUTS ARE, OPERATION routing, METADATA, GET_VALUE_SET, SourceSystemId, LINEREPEATNO, and ElementEntry .dat output. Part 3 of 3."
-description: "WSA Implementation and Complete HDL Transformation Fast Formula Code"
+title: "HDL Transformation Fast Formula — Part 3: WSA Implementation & Complete Code"
+description: "Full WSA_EXISTS / WSA_GET / WSA_SET implementation for Person caching and MultipleEntryCount tracking, with the complete HDL Transformation Fast Formula code end to end."
 pubDate: 2026-03-27
+tags: []
 ---
 
-Fast Formula
 HCM Data Loader
 Transformation Formula
 WSA
@@ -488,3 +488,4 @@ Part 2: Code Walkthrough
 Part 3: WSA + Complete Formula ← This post
 
 Abhishek Mohanty
+
