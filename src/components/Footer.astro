@@ -4,24 +4,22 @@ const year = new Date().getFullYear();
 
 <footer class="site-footer">
   <div class="container footer-inner">
-    <div class="bio">
-      <p class="bio-headline">Abhishek Mohanty</p>
-      <p class="bio-text">
-        Oracle HCM Cloud Technical Lead, <strong>Oracle ACE Apprentice</strong>, and member of the
-        <strong>All India Oracle Users Group (AIOUG)</strong>. Over a decade of techno-functional work
-        across Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, and OTBI —
-        with deep delivery experience across the APAC region.
+    <div class="footer-brand">
+      <a href="/" class="brand">
+        <span class="brand-mark">AM</span>
+        <span class="brand-name">Abhishek Mohanty</span>
+      </a>
+      <p class="bio">
+        Oracle HCM Cloud Technical Lead. <strong>Oracle ACE Apprentice</strong> and member of the
+        <strong>All India Oracle Users Group (AIOUG)</strong>.
       </p>
     </div>
-    <div class="meta">
-      <p class="copy">© {year} Abhishek Mohanty</p>
-      <p class="links">
-        <a href="/rss.xml">RSS</a>
-        <span class="sep">·</span>
-        <a href="/sitemap-index.xml">Sitemap</a>
-        <span class="sep">·</span>
-        <a href="/about">About</a>
-      </p>
+    <div class="footer-links">
+      <a href="/about">About</a>
+      <a href="/rss.xml">RSS</a>
+    </div>
+    <div class="footer-legal">
+      <p>© {year} Abhishek Mohanty. All rights reserved.</p>
       <p class="disclaimer">
         Notes are personal and reflect the author's views, not those of any employer or client.
         Oracle and the Oracle product names referenced are trademarks of Oracle Corporation.
@@ -34,58 +32,74 @@ const year = new Date().getFullYear();
   .site-footer {
     margin-top: 6rem;
     border-top: 1px solid var(--border);
-    background: var(--bg-subtle);
-    padding-block: 3rem;
+    background: var(--bg-elevated);
+    padding-block: 3rem 2rem;
   }
   .footer-inner {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
+    padding-bottom: 1.5rem;
   }
-  .bio-headline {
+  .footer-brand .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--ink-strong);
+    border: none;
+    margin-bottom: 1rem;
+  }
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--bg-dark);
+    color: white;
     font-family: var(--font-display);
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.5em;
-    color: var(--ink);
-  }
-  .bio-text {
-    font-size: 0.92rem;
-    color: var(--ink-muted);
-    line-height: 1.7;
-    margin: 0;
-  }
-  .meta {
-    text-align: right;
-  }
-  .copy {
-    font-family: var(--font-mono);
+    font-weight: 800;
     font-size: 0.78rem;
+    border-radius: 50%;
+  }
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.02rem;
+  }
+  .bio {
     color: var(--ink-muted);
-    margin: 0 0 0.5em;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    margin: 0;
+    max-width: 50ch;
   }
-  .links {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin: 0 0 1em;
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    justify-content: flex-end;
   }
-  .links a {
+  .footer-links a {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 500;
     color: var(--ink-muted);
     border: none;
   }
-  .links a:hover { color: var(--accent); }
-  .sep { color: var(--ink-faint); margin: 0 0.5em; }
-  .disclaimer {
-    font-size: 0.72rem;
+  .footer-links a:hover { color: var(--ink); }
+  .footer-legal {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
     color: var(--ink-faint);
+    font-size: 0.78rem;
     line-height: 1.6;
-    margin: 0;
-    font-style: italic;
   }
+  .footer-legal p { margin: 0 0 0.3em; }
+  .disclaimer { font-style: italic; }
   @media (max-width: 720px) {
-    .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
-    .meta { text-align: left; }
+    .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+    .footer-links { justify-content: flex-start; }
   }
 </style>
