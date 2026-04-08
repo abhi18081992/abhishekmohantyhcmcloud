@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  const tagSet = new Set<string>();
+  for (const post of posts) for (const t of post.data.tags) tagSet.add(t);
+
+  return Array.from(tagSet).map((tag) => {
+    const slug = tag.toLowerCase().replace(/\s+/g, '-');
+    const tagPosts = posts
+      .filter((p) => p.data.tags.includes(tag))
+      .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+    return {
+      params: { tag: slug },
+      props: { tag, posts: tagPosts },
+    };
+  });
+}
+
+const { tag, posts } = Astro.props;
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<BaseLayout title={`#${tag}`} description={`Posts tagged ${tag}.`}>
+  <section class="container">
+    <div class="header">
+      <p class="eyebrow">Topic</p>
+      <h1>{tag}</h1>
+      <p class="muted">{posts.length} {posts.length === 1 ? 'post' : 'posts'}</p>
+    </div>
+    <ul class="post-list">
+      {posts.map((post) => (
+        <li>
+          <a href={`/posts/${post.slug}`}>
+            <time>{formatDate(post.data.pubDate)}</time>
+            <span class="title">{post.data.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  section { padding-block: clamp(2.5rem, 5vw, 4rem); }
+  .header { margin-bottom: 2.5rem; }
+  .post-list { list-style: none; padding: 0; margin: 0; }
+  .post-list li { border-bottom: 1px solid var(--border); }
+  .post-list a {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 1.5rem;
+    padding: 1em 0;
+    color: var(--ink);
+    border: none;
+    align-items: baseline;
+  }
+  .post-list a:hover .title { color: var(--accent); }
+  .post-list time {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    transition: color 0.2s ease;
+  }
+  @media (max-width: 640px) {
+    .post-list a { grid-template-columns: 1fr; gap: 0.3rem; }
+  }
+</style>

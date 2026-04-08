@@ -1,0 +1,241 @@
+/* ============================================
+   Design System — abhishekmohantyhcmcloud.com
+   Editorial technical publication aesthetic
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* Color tokens */
+  --bg: #fdfcfa;
+  --bg-elevated: #ffffff;
+  --bg-subtle: #f5f2ec;
+  --ink: #1a1a1a;
+  --ink-muted: #4a4a4a;
+  --ink-faint: #8a8580;
+  --border: #e8e4dd;
+  --border-strong: #d4cfc6;
+  --accent: #c0392b;
+  --accent-dark: #962d22;
+  --accent-soft: #fdf0ee;
+
+  /* Code (One Dark Pro alignment) */
+  --code-bg: #282c34;
+  --code-border: #3e4451;
+  --inline-code-bg: #f5f2ec;
+  --inline-code-ink: #c0392b;
+
+  /* Typography */
+  --font-display: 'Lora', Georgia, 'Times New Roman', serif;
+  --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Menlo', 'Consolas', monospace;
+
+  /* Scale */
+  --measure: 68ch;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --section-y: clamp(2.5rem, 6vw, 5rem);
+}
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(26,26,26,0.025) 1px, transparent 0);
+  background-size: 24px 24px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg { max-width: 100%; display: block; }
+
+/* Layout container */
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.prose-container {
+  width: 100%;
+  max-width: 760px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 2.5em 0 0.6em;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 4.5vw, 3.4rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4em;
+}
+
+h3 { font-size: 1.4rem; }
+h4 { font-size: 1.15rem; }
+
+p { margin: 0 0 1.25em; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+a:hover { border-bottom-color: var(--accent); }
+
+strong { font-weight: 600; color: var(--ink); }
+em { font-style: italic; }
+
+/* Code */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+}
+
+:not(pre) > code {
+  background: var(--inline-code-bg);
+  color: var(--inline-code-ink);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  font-weight: 500;
+}
+
+pre {
+  background: var(--code-bg) !important;
+  border: 1px solid var(--code-border);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  margin: 1.75em 0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+pre code {
+  background: transparent !important;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* Blockquote */
+blockquote {
+  margin: 1.75em 0;
+  padding: 0.5em 0 0.5em 1.5em;
+  border-left: 3px solid var(--accent);
+  color: var(--ink-muted);
+  font-style: italic;
+  font-family: var(--font-display);
+  font-size: 1.05em;
+}
+
+/* Lists */
+ul, ol { padding-left: 1.5em; margin: 0 0 1.25em; }
+li { margin-bottom: 0.4em; }
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.75em 0;
+  font-size: 0.92em;
+}
+th, td {
+  border: 1px solid var(--border);
+  padding: 0.6em 0.85em;
+  text-align: left;
+}
+th {
+  background: var(--bg-subtle);
+  font-weight: 600;
+  font-family: var(--font-body);
+}
+
+/* HR */
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 3em 0;
+}
+
+/* Tag — rectangular bordered, his signature style */
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  padding: 0.3em 0.7em;
+  margin: 0 0.3em 0.3em 0;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.tag:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* Eyebrow / kicker */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 0.5em;
+}
+
+/* Selection */
+::selection { background: var(--accent); color: white; }
+
+/* Focus */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Utility */
+.muted { color: var(--ink-muted); }
+.faint { color: var(--ink-faint); }
+.center { text-align: center; }
+
+/* Responsive */
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  pre { padding: 1rem; font-size: 0.78rem; border-radius: 4px; }
+}

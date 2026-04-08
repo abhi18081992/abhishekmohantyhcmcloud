@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About" description="About Abhishek Mohanty — Oracle HCM Cloud Technical Lead, Oracle ACE Apprentice, AIOUG member.">
+  <article class="prose-container about">
+    <p class="eyebrow">About</p>
+    <h1>Abhishek Mohanty</h1>
+    <p class="lede">
+      Oracle HCM Cloud Technical Lead writing notes from the field — mostly on
+      Fast Formulas, but also anything else that bites me in production.
+    </p>
+
+    <p>
+      I'm an <strong>Oracle ACE Apprentice</strong> and a member of the
+      <strong>All India Oracle Users Group (AIOUG)</strong>. Over the last decade I've
+      worked across most of the modules in Oracle HCM Cloud — Core HR, Absence Management,
+      Time and Labor, Compensation, Benefits, Payroll, Recruiting, Redwood, HDL, and OTBI —
+      with a heavy lean toward the techno-functional side. Most of my recent delivery has
+      been multi-country APAC implementations: Taiwan, Singapore, Malaysia, Philippines,
+      Hong Kong, Thailand.
+    </p>
+
+    <h2>Why this site exists</h2>
+    <p>
+      Oracle's documentation is excellent at telling you <em>what</em> a feature does, and
+      mostly silent on the <em>edges</em> — the way <code>IV_ACCRUAL</code> actually
+      behaves inside a matrix accrual, why <code>ESS_LOG_WRITE</code> blows up in 26A
+      when used inside a Global Absence Carryover formula, what happens to
+      <code>PER_ASG_REL_ORIGINAL_DATE_OF_HIRE</code> after a Global Transfer. These are
+      the things I write down here, partly so I can find them again, and partly because
+      somebody else is going to hit the same wall.
+    </p>
+
+    <h2>What you'll find here</h2>
+    <ul>
+      <li>Production-ready Fast Formulas with named-employee worked examples</li>
+      <li>Debug logging idioms for every formula type that has them</li>
+      <li>Multi-country APAC patterns — leave policies, accrual matrices, TER/TCR</li>
+      <li>Redwood and HDL Transformation Formula notes</li>
+      <li>Occasional rants about things that broke in a release upgrade</li>
+    </ul>
+
+    <h2>Standing on the shoulders of</h2>
+    <p>
+      Big thanks to the AIOUG community, the global Oracle ACE program, and the
+      colleagues and functional leads I've learned the craft from over the years.
+      Mistakes and bad takes here are entirely my own.
+    </p>
+
+    <hr />
+    <p class="muted small">
+      The notes on this site are personal and reflect the author's views, not those of
+      any employer or client. Oracle and the Oracle product names referenced are
+      trademarks of Oracle Corporation.
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .about {
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+  }
+  .lede {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--ink-muted);
+    line-height: 1.55;
+    margin: 1em 0 2em;
+  }
+  .small { font-size: 0.85rem; }
+</style>

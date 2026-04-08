@@ -1,0 +1,94 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, updatedDate, tags, module } = post.data;
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title={title} description={description} ogType="article">
+  <article class="post">
+    <header class="post-header prose-container">
+      {module && <p class="eyebrow">{module}</p>}
+      <h1>{title}</h1>
+      {description && <p class="lede">{description}</p>}
+      <div class="post-meta">
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+        {updatedDate && (
+          <>
+            <span class="dot">·</span>
+            <span>Updated {formatDate(updatedDate)}</span>
+          </>
+        )}
+      </div>
+    </header>
+
+    <div class="post-body prose-container">
+      <slot />
+    </div>
+
+    {tags.length > 0 && (
+      <footer class="post-footer prose-container">
+        <p class="tags-label">Tagged</p>
+        <div class="tag-list">
+          {tags.map((tag) => (
+            <a href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag">{tag}</a>
+          ))}
+        </div>
+      </footer>
+    )}
+  </article>
+
+  <style>
+    .post {
+      padding-block: clamp(2.5rem, 5vw, 4rem);
+    }
+    .post-header {
+      margin-bottom: 3rem;
+      text-align: left;
+    }
+    .lede {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--ink-muted);
+      line-height: 1.55;
+      margin: 1em 0 1.5em;
+      max-width: 60ch;
+    }
+    .post-meta {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    .dot { margin: 0 0.5em; }
+    .post-body {
+      font-size: 1.05rem;
+    }
+    .post-footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .tags-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-faint);
+      margin: 0 0 0.75em;
+    }
+    .tag-list { display: flex; flex-wrap: wrap; }
+  </style>
+</BaseLayout>

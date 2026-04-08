@@ -1,0 +1,29 @@
+# ============================================
+# Cloudflare Pages redirects
+# ============================================
+# Blogger URL pattern: /YYYY/MM/post-slug.html
+# New URL pattern    : /posts/post-slug/
+#
+# Cloudflare Pages supports :placeholder syntax and the splat (*).
+# 301 = permanent (correct for SEO migration; transfers ranking signal).
+# ============================================
+
+# Old Blogger feed URL -> new RSS
+/feeds/posts/default                  /rss.xml                    301
+/feeds/posts/default/*                /rss.xml                    301
+
+# Blogger search/label pages -> new tag system
+/search/label/:label                  /tags/:label                301
+
+# Blogger dated post URLs -> new clean post URLs
+# Strips the year/month prefix and the .html suffix
+/:year/:month/:slug.html              /posts/:slug/               301
+/:year/:month/:slug                   /posts/:slug/               301
+
+# Blogger archive pages -> homepage
+/:year/                               /                           301
+/:year/:month/                        /                           301
+
+# Old contact / pages
+/p/about.html                         /about/                     301
+/p/about                              /about/                     301
