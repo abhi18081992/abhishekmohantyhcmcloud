@@ -4,73 +4,235 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
+
+  // Collect every actual tag for exact-match pages
   const tagSet = new Set<string>();
   for (const post of posts) for (const t of post.data.tags) tagSet.add(t);
 
+  // Add a few "category" slugs that may not exist as exact tags but should fuzzy-match
+  const fuzzyCategories = [
+    'Fast Formula',
+    'Benefits',
+    'HDL',
+    'Recruiting',
+    'Null Handling',
+    'Absence Management',
+    'Time and Labor',
+  ];
+  for (const c of fuzzyCategories) tagSet.add(c);
+
   return Array.from(tagSet).map((tag) => {
-    const slug = tag.toLowerCase().replace(/\s+/g, '-');
-    const tagPosts = posts
-      .filter((p) => p.data.tags.includes(tag))
-      .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+    const slug = tag.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const needle = tag.toLowerCase();
+
+    // Try exact tag match first
+    let matched = posts.filter((p) =>
+      p.data.tags.some((t) => t.toLowerCase() === needle)
+    );
+
+    // Fallback: substring match against tags + title
+    if (matched.length === 0) {
+      matched = posts.filter((p) => {
+        const haystack = (p.data.tags.join(' ') + ' ' + p.data.title).toLowerCase();
+        return haystack.includes(needle);
+      });
+    }
+
+    matched.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
     return {
       params: { tag: slug },
-      props: { tag, posts: tagPosts },
+      props: { tag, posts: matched },
     };
   });
 }
 
 const { tag, posts } = Astro.props;
-const formatDate = (date: Date) =>
-  date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+const formatShort = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+const formatDate = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const tagColor = (t: string): string => {
+  const x = t.toLowerCase();
+  if (x.includes('fast formula')) return 'red';
+  if (x.includes('null') || x.includes('default')) return 'orange';
+  if (x.includes('advanced') || x.includes('intermediate') || x.includes('beginner')) return 'navy';
+  return ['red', 'orange', 'navy', 'purple'][
+    x.split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 4
+  ];
+};
+
+const primaryCategory = (tags: string[], title: string): string => {
+  const all = (tags.join(' ') + ' ' + title).toLowerCase();
+  if (all.includes('hdl')) return 'HDL';
+  if (all.includes('benefit')) return 'Benefits';
+  if (all.includes('recruit')) return 'Recruiting';
+  if (all.includes('absence')) return 'Absence';
+  if (tags.length > 0) return tags[0];
+  return 'Fast Formula';
+};
+
+const currentSlug = Astro.params.tag;
 ---
 
-<BaseLayout title={`#${tag}`} description={`Posts tagged ${tag}.`}>
-  <section class="container">
-    <div class="header">
-      <p class="eyebrow">Topic</p>
-      <h1>{tag}</h1>
-      <p class="muted">{posts.length} {posts.length === 1 ? 'post' : 'posts'}</p>
-    </div>
-    <ul class="post-list">
-      {posts.map((post) => (
-        <li>
-          <a href={`/posts/${post.slug}`}>
-            <time>{formatDate(post.data.pubDate)}</time>
-            <span class="title">{post.data.title}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
+<BaseLayout title={tag} description={`Posts about ${tag}`}>
+  <section class="container articles">
+    <header class="articles-header">
+      <h1>Articles</h1>
+      <p class="articles-sub">Technical guides, deep-dives, and practical solutions.</p>
+    </header>
+
+    <nav class="filter-row" aria-label="Categories">
+      <a href="/" class="pill-outline">All</a>
+      <a href="/tags/fast-formula" class={currentSlug === 'fast-formula' ? 'pill-outline is-active' : 'pill-outline'}>Fast Formula</a>
+      <a href="/tags/benefits" class={currentSlug === 'benefits' ? 'pill-outline is-active' : 'pill-outline'}>Benefits</a>
+      <a href="/tags/hdl" class={currentSlug === 'hdl' ? 'pill-outline is-active' : 'pill-outline'}>HDL</a>
+      <a href="/tags/recruiting" class={currentSlug === 'recruiting' ? 'pill-outline is-active' : 'pill-outline'}>Recruiting</a>
+      <a href="/tags/null-handling" class={currentSlug === 'null-handling' ? 'pill-outline is-active' : 'pill-outline'}>Null Handling</a>
+    </nav>
+
+    {posts.length === 0 ? (
+      <div class="empty">
+        <p class="muted">No posts in this category yet.</p>
+        <p><a href="/">← Back to all articles</a></p>
+      </div>
+    ) : (
+      <div class="card-grid">
+        {posts.map((post) => {
+          const category = primaryCategory(post.data.tags, post.data.title);
+          return (
+            <a href={`/posts/${post.slug}`} class="card">
+              <div class="card-top">
+                <span class="card-category">{category}</span>
+                <span class="card-date">{formatShort(post.data.pubDate)}</span>
+                <span class="card-arrow" aria-hidden="true">↗</span>
+              </div>
+              <h3 class="card-title">{post.data.title}</h3>
+              {post.data.description && (
+                <p class="card-desc">{post.data.description}</p>
+              )}
+              {post.data.tags.length > 0 && (
+                <div class="card-tags">
+                  {post.data.tags.slice(0, 3).map((t) => (
+                    <span class={`pill pill-${tagColor(t)}`}>{t}</span>
+                  ))}
+                </div>
+              )}
+              <div class="card-foot">
+                <time>{formatDate(post.data.pubDate)}</time>
+                <span class="dot">·</span>
+                <span>Oracle HCM Cloud</span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    )}
   </section>
 </BaseLayout>
 
 <style>
-  section { padding-block: clamp(2.5rem, 5vw, 4rem); }
-  .header { margin-bottom: 2.5rem; }
-  .post-list { list-style: none; padding: 0; margin: 0; }
-  .post-list li { border-bottom: 1px solid var(--border); }
-  .post-list a {
-    display: grid;
-    grid-template-columns: 110px 1fr;
-    gap: 1.5rem;
-    padding: 1em 0;
-    color: var(--ink);
-    border: none;
-    align-items: baseline;
+  .articles { padding-block: clamp(3rem, 6vw, 5rem); }
+  .articles-header { margin-bottom: 1.5rem; }
+  .articles-header h1 {
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.3em;
   }
-  .post-list a:hover .title { color: var(--accent); }
-  .post-list time {
+  .articles-sub {
+    color: var(--ink-muted);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 2rem 0 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 760px) {
+    .card-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  }
+  .card {
+    display: block;
+    padding: 1.75rem 1.85rem 1.6rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--ink-strong);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    text-decoration: none;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(26,26,26,0.08);
+    border-color: var(--border-strong);
+    border-bottom-color: var(--border-strong);
+  }
+  .card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.9rem;
+  }
+  .card-category {
+    background: var(--orange-soft);
+    color: var(--orange-dark);
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.35em 0.85em;
+    border-radius: 999px;
+  }
+  .card-date {
     font-family: var(--font-mono);
     font-size: 0.78rem;
     color: var(--ink-faint);
-    text-transform: uppercase;
   }
-  .title {
+  .card-arrow {
+    margin-left: auto;
+    font-size: 1.2rem;
+    color: var(--ink-faint);
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+  .card:hover .card-arrow { color: var(--orange); transform: translate(2px, -2px); }
+  .card-title {
     font-family: var(--font-display);
-    font-size: 1.1rem;
-    transition: color 0.2s ease;
+    font-size: 1.32rem;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.018em;
+    margin: 0 0 0.65em;
   }
-  @media (max-width: 640px) {
-    .post-list a { grid-template-columns: 1fr; gap: 0.3rem; }
+  .card-desc {
+    font-size: 0.94rem;
+    color: var(--ink-muted);
+    line-height: 1.55;
+    margin: 0 0 1.1em;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
+  .card-tags { display: flex; flex-wrap: wrap; margin-bottom: 1em; }
+  .card-foot {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--border);
+  }
+  .card-foot .dot { margin: 0 0.5em; }
+  .empty { padding-block: 4rem; text-align: center; }
 </style>
