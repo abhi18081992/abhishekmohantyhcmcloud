@@ -12,3 +12,5 @@ export default defineConfig({
     format: 'directory',
   },
 });
+
+// rebuild trigger
