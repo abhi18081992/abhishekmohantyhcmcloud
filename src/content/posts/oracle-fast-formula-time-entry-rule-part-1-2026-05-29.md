@@ -943,85 +943,9 @@ inStretch    = 'N'</div>
 
 <div style="background:#fafaf7; border:1px solid #e8e3d8; border-radius:6px; padding:24px; margin:24px 0; box-shadow:0 2px 12px rgba(0,0,0,0.04);">
 
-<svg viewBox="0 0 760 460" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:760px; display:block; margin:0 auto;" font-family="Manrope, sans-serif">
 
-  <text x="380" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="#2d2926">Block 6 Routing Tree — What happens to each row</text>
-  <text x="380" y="40" text-anchor="middle" font-size="11" fill="#7a7570">Two questions. Five outcomes. Every iteration ends in exactly one path.</text>
+<img src="/diagrams/oracle-fast-formula-time-entry-rule_01788502086-fig1.png" alt="Figure 1" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
 
-  
-  <rect x="320" y="62" width="120" height="44" rx="22" fill="#1f1c19" stroke="#1f1c19" stroke-width="1"/>
-  <text x="380" y="80" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">Read row [nidx]</text>
-  <text x="380" y="96" text-anchor="middle" font-size="9.5" fill="#c8b88a">into local vars (ai*)</text>
-
-  
-  <line x1="380" y1="106" x2="380" y2="130" stroke="#7a7570" stroke-width="1.5" marker-end="url(#arrowDT)"/>
-  <polygon points="380,135 460,170 380,205 300,170" fill="#fff" stroke="#7a7570" stroke-width="1.5"/>
-  <text x="380" y="165" text-anchor="middle" font-size="11" font-weight="700" fill="#2d2926">aiRecPos</text>
-  <text x="380" y="180" text-anchor="middle" font-size="10" fill="#5a544e">empty?</text>
-
-  
-  <line x1="460" y1="170" x2="540" y2="170" stroke="#7a7570" stroke-width="1.5" marker-end="url(#arrowDT)"/>
-  <text x="500" y="162" text-anchor="middle" font-size="10" fill="#7a7570" font-style="italic">no — marker</text>
-
-  <rect x="544" y="146" width="180" height="48" rx="4" fill="#fff3e0" stroke="#b97417" stroke-width="1.5"/>
-  <text x="634" y="166" text-anchor="middle" font-size="11" font-weight="700" fill="#b97417">PATH 1 · MARKER ROW</text>
-  <text x="634" y="182" text-anchor="middle" font-size="10" fill="#2d2926">If END_DAY/END_PERIOD →</text>
-  <text x="634" y="194" text-anchor="middle" font-size="10" fill="#2d2926">trigger Block 7</text>
-
-  
-  <line x1="380" y1="205" x2="380" y2="232" stroke="#7a7570" stroke-width="1.5" marker-end="url(#arrowDT)"/>
-  <text x="395" y="222" font-size="10" fill="#7a7570" font-style="italic">yes — real entry</text>
-
-  
-  <polygon points="380,237 460,275 380,313 300,275" fill="#fff" stroke="#7a7570" stroke-width="1.5"/>
-  <text x="380" y="270" text-anchor="middle" font-size="11" font-weight="700" fill="#2d2926">aiTimeType</text>
-  <text x="380" y="286" text-anchor="middle" font-size="10" fill="#5a544e">= ?</text>
-
-  
-  <line x1="304" y1="252" x2="240" y2="220" stroke="#7a7570" stroke-width="1.5" marker-end="url(#arrowDT)"/>
-  <text x="222" y="240" text-anchor="end" font-size="9" fill="#7a7570" font-style="italic">Reg Hours,</text>
-  <text x="222" y="252" text-anchor="end" font-size="9" fill="#7a7570" font-style="italic">qty-only</text>
-
-  <rect x="40" y="200" width="180" height="48" rx="4" fill="#fff5f0" stroke="#c0392b" stroke-width="1.5"/>
-  <text x="130" y="220" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">PATH 2 · QTY-ONLY</text>
-  <text x="130" y="236" text-anchor="middle" font-size="10" fill="#2d2926">Flag immediately:</text>
-  <text x="130" y="248" text-anchor="middle" font-size="10" fill="#2d2926">"real punches required"</text>
-
-  
-  <line x1="304" y1="287" x2="220" y2="320" stroke="#7a7570" stroke-width="1.5" marker-end="url(#arrowDT)"/>
-  <text x="220" y="305" text-anchor="end" font-size="9" fill="#7a7570" font-style="italic">Reg Hours,</text>
-  <text x="220" y="317" text-anchor="end" font-size="9" fill="#7a7570" font-style="italic">real punches</text>
-
-  <rect x="40" y="324" width="180" height="62" rx="4" fill="#e8f4ea" stroke="#27704a" stroke-width="1.5"/>
-  <text x="130" y="344" text-anchor="middle" font-size="11" font-weight="700" fill="#27704a">PATH 3 · REG HOURS</text>
-  <text x="130" y="360" text-anchor="middle" font-size="10" fill="#2d2926">Add to day buffer (Block 7)</text>
-  <text x="130" y="372" text-anchor="middle" font-size="10" fill="#2d2926">+ feed stretch tracker (Block 8)</text>
-
-  
-  <line x1="460" y1="287" x2="540" y2="320" stroke="#7a7570" stroke-width="1.5" marker-end="url(#arrowDT)"/>
-  <text x="540" y="305" text-anchor="start" font-size="9" fill="#7a7570" font-style="italic">Meal Break</text>
-
-  <rect x="544" y="324" width="180" height="62" rx="4" fill="#f0f4fa" stroke="#4472c4" stroke-width="1.5"/>
-  <text x="634" y="344" text-anchor="middle" font-size="11" font-weight="700" fill="#4472c4">PATH 4 · MEAL BREAK</text>
-  <text x="634" y="360" text-anchor="middle" font-size="10" fill="#2d2926">Schedule-window check</text>
-  <text x="634" y="372" text-anchor="middle" font-size="10" fill="#2d2926">+ flip l_meal_taken = 'Y'</text>
-
-  
-  <line x1="380" y1="313" x2="380" y2="408" stroke="#7a7570" stroke-width="1.5" marker-end="url(#arrowDT)"/>
-  <text x="395" y="350" font-size="9" fill="#7a7570" font-style="italic">Other</text>
-  <text x="395" y="362" font-size="9" fill="#7a7570" font-style="italic">(Annual Leave, Sick, ...)</text>
-
-  <rect x="290" y="412" width="180" height="38" rx="4" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
-  <text x="380" y="430" text-anchor="middle" font-size="11" font-weight="700" fill="#7a7570">PATH 5 · SKIP</text>
-  <text x="380" y="442" text-anchor="middle" font-size="10" fill="#5a544e">No validation, continue loop</text>
-
-  <defs>
-    <marker id="arrowDT" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse">
-      <path d="M0,0 L0,9 L9,4.5 z" fill="#7a7570"/>
-    </marker>
-  </defs>
-
-</svg>
 
 </div>
 
