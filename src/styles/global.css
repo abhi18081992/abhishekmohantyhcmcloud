@@ -265,3 +265,4 @@ hr {
   pre { padding: 1rem 1.1rem; font-size: 0.78rem; border-radius: 5px; }
 }
 /* cache-bust */
+.blog-content img { background: #f8f8f8; border: 1px solid #e8e3dd; border-radius: 4px; }
