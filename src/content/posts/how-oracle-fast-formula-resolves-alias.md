@@ -109,23 +109,9 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
 
 <div class="figure-title">Figure 1 · Compile-Time Binding</div>
 
-<svg class="svg-figure" viewBox="0 0 660 220" xmlns="http://www.w3.org/2000/svg">
-<text x="160" y="28" text-anchor="middle" class="svg-label-tag">declared by ALIAS</text>
-<rect x="20" y="44" width="280" height="38" rx="3" fill="#ffffff" stroke="#c8c0b4" stroke-width="1.2"/>
-<text x="160" y="68" text-anchor="middle" class="svg-code">CMP_ASSIGNMENT_SALARY_AMOUNT</text>
-<rect x="20" y="124" width="280" height="38" rx="3" fill="#ffffff" stroke="#c8c0b4" stroke-width="1.2"/>
-<text x="160" y="148" text-anchor="middle" class="svg-code">ASG_SAL</text>
-<path d="M 305 63 Q 380 63 412 100" fill="none" stroke="#5a4338" stroke-width="1.5"/>
-<path d="M 305 143 Q 380 143 412 110" fill="none" stroke="#5a4338" stroke-width="1.5"/>
-<polygon points="408,97 418,104 412,107" fill="#5a4338"/>
-<polygon points="408,113 418,106 412,103" fill="#5a4338"/>
-<text x="525" y="70" text-anchor="middle" class="svg-label-tag">resolves to</text>
-<rect x="420" y="84" width="210" height="56" rx="4" fill="#9c2818"/>
-<text x="525" y="108" text-anchor="middle" class="svg-handle">ONE METADATA</text>
-<text x="525" y="126" text-anchor="middle" class="svg-handle">HANDLE</text>
-<line x1="20" y1="184" x2="640" y2="184" stroke="#e0d8c8" stroke-width="1"/>
-<text x="330" y="206" text-anchor="middle" class="svg-text-sm">Both names share the same route, user-entity, and context dependency.</text>
-</svg>
+
+<img src="/diagrams/how-oracle-fast-formula-resolves-alias-fig1.png" alt="Figure 1" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
+
 
 <div class="figure-caption"><strong>One handle, two labels.</strong> Reading either name at runtime triggers the same DBI fetch under whichever contexts are active.</div>
 </div>
@@ -359,48 +345,9 @@ L_ASG_LOS = PER_ASG_REL_LENGTH_OF_SERVICE
 
 <div class="figure-title">Figure 2 · Reference vs Snapshot — Same Logic, Different Runtime Behaviour</div>
 
-<svg class="svg-figure" viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg">
-<rect x="20" y="14" width="310" height="32" rx="3" fill="#7a3a2b"/>
-<text x="175" y="35" text-anchor="middle" class="svg-header">LOCAL VARIABLE  ·  SNAPSHOT</text>
-<rect x="350" y="14" width="310" height="32" rx="3" fill="#9c2818"/>
-<text x="505" y="35" text-anchor="middle" class="svg-header">ALIAS  ·  REFERENCE</text>
 
-<rect x="20" y="62" width="310" height="68" rx="3" fill="#ffffff" stroke="#c8c0b4" stroke-width="1"/>
-<text x="32" y="80" class="svg-label-tag">Line 4 — initial context active</text>
-<text x="32" y="100" class="svg-code-sm">L_SAL = CMP_ASSIGNMENT_SALARY_AMOUNT</text>
-<text x="32" y="120" class="svg-value-bad">→ fetched · stored as $75,000</text>
+<img src="/diagrams/how-oracle-fast-formula-resolves-alias-fig2.png" alt="Figure 2" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
 
-<rect x="350" y="62" width="310" height="68" rx="3" fill="#ffffff" stroke="#c8c0b4" stroke-width="1"/>
-<text x="362" y="80" class="svg-label-tag">Line 4 — declaration only</text>
-<text x="362" y="100" class="svg-code-sm">ALIAS CMP_..._SALARY_AMOUNT AS ASG_SAL</text>
-<text x="362" y="120" class="svg-value-good">→ no fetch yet · label only</text>
-
-<rect x="20" y="142" width="310" height="68" rx="3" fill="#fdf3f1" stroke="#c8c0b4" stroke-width="1"/>
-<text x="32" y="160" class="svg-label-tag">inside CHANGE_CONTEXTS (start_dt)</text>
-<text x="32" y="180" class="svg-code-sm">L_START_SAL = L_SAL</text>
-<text x="32" y="200" class="svg-value-bad">→ $75,000  (frozen — original ctx)</text>
-
-<rect x="350" y="142" width="310" height="68" rx="3" fill="#f3f8f4" stroke="#c8c0b4" stroke-width="1"/>
-<text x="362" y="160" class="svg-label-tag">inside CHANGE_CONTEXTS (start_dt)</text>
-<text x="362" y="180" class="svg-code-sm">L_START_SAL = ASG_SAL</text>
-<text x="362" y="200" class="svg-value-good">→ $75,000  (fresh fetch under start_dt)</text>
-
-<rect x="20" y="222" width="310" height="68" rx="3" fill="#fdf3f1" stroke="#c8c0b4" stroke-width="1"/>
-<text x="32" y="240" class="svg-label-tag">inside CHANGE_CONTEXTS (end_dt)</text>
-<text x="32" y="260" class="svg-code-sm">L_END_SAL = L_SAL</text>
-<text x="32" y="280" class="svg-value-bad">→ $75,000  (still frozen — wrong)</text>
-
-<rect x="350" y="222" width="310" height="68" rx="3" fill="#f3f8f4" stroke="#c8c0b4" stroke-width="1"/>
-<text x="362" y="240" class="svg-label-tag">inside CHANGE_CONTEXTS (end_dt)</text>
-<text x="362" y="260" class="svg-code-sm">L_END_SAL = ASG_SAL</text>
-<text x="362" y="280" class="svg-value-good">→ $82,500  (fresh fetch under end_dt)</text>
-
-<rect x="20" y="306" width="310" height="38" rx="3" fill="#fbecea" stroke="#b73a2c" stroke-width="1.2"/>
-<text x="175" y="330" text-anchor="middle" class="svg-result-bad">L_DELTA = $0  →  WRONG</text>
-
-<rect x="350" y="306" width="310" height="38" rx="3" fill="#eaf4ec" stroke="#2e6b3a" stroke-width="1.2"/>
-<text x="505" y="330" text-anchor="middle" class="svg-result-good">L_DELTA = $7,500  →  CORRECT</text>
-</svg>
 
 <div class="figure-caption"><strong>The same three references, two different runtime behaviours.</strong> Local-variable assignment captures the value once at the assignment line; ALIAS re-evaluates the underlying DBI at every reference, under whatever context is active.</div>
 </div>
@@ -464,32 +411,9 @@ L_DELTA = L_END_SAL - L_START_SAL</div>
 
 <div class="figure-title">Figure 3 · ALIAS Re-Evaluates Under Each Context</div>
 
-<svg class="svg-figure" viewBox="0 0 660 260" xmlns="http://www.w3.org/2000/svg">
-<rect x="260" y="20" width="140" height="42" rx="4" fill="#9c2818"/>
-<text x="330" y="46" text-anchor="middle" class="svg-handle">ASG_SAL</text>
-<text x="330" y="82" text-anchor="middle" class="svg-label-tag">one alias identifier · two code paths</text>
 
-<line x1="330" y1="96" x2="330" y2="110" stroke="#5a4338" stroke-width="1.5"/>
-<line x1="155" y1="110" x2="505" y2="110" stroke="#5a4338" stroke-width="1.5"/>
-<line x1="155" y1="110" x2="155" y2="126" stroke="#5a4338" stroke-width="1.5"/>
-<line x1="505" y1="110" x2="505" y2="126" stroke="#5a4338" stroke-width="1.5"/>
+<img src="/diagrams/how-oracle-fast-formula-resolves-alias-fig3.png" alt="Figure 3" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
 
-<rect x="40" y="130" width="230" height="50" rx="4" fill="#ffffff" stroke="#1e3a5e" stroke-width="1.3"/>
-<text x="155" y="150" text-anchor="middle" class="svg-label-context">EFFECTIVE_DATE</text>
-<text x="155" y="169" text-anchor="middle" class="svg-code-sm">= PERIOD_START_DT</text>
-
-<rect x="390" y="130" width="230" height="50" rx="4" fill="#ffffff" stroke="#1e3a5e" stroke-width="1.3"/>
-<text x="505" y="150" text-anchor="middle" class="svg-label-context">EFFECTIVE_DATE</text>
-<text x="505" y="169" text-anchor="middle" class="svg-code-sm">= PERIOD_END_DT</text>
-
-<line x1="155" y1="184" x2="155" y2="206" stroke="#5a4338" stroke-width="1.5"/>
-<polygon points="150,202 160,202 155,212" fill="#5a4338"/>
-<line x1="505" y1="184" x2="505" y2="206" stroke="#5a4338" stroke-width="1.5"/>
-<polygon points="500,202 510,202 505,212" fill="#5a4338"/>
-
-<text x="155" y="240" text-anchor="middle" class="svg-value-big">$ 75,000</text>
-<text x="505" y="240" text-anchor="middle" class="svg-value-big">$ 82,500</text>
-</svg>
 
 <div class="figure-caption"><strong>Same alias, two contexts, two distinct values.</strong> Each evaluation is an independent DBI fetch under whichever context is active at that point in the code.</div>
 </div>

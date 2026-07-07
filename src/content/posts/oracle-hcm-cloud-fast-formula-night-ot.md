@@ -64,95 +64,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor"]
 
 <div style="padding: 24px 20px 20px 20px; background: #faf8f5;">
 
-<svg viewBox="0 0 620 380" width="100%" style="display: block; overflow: visible;">
-<defs>
-<marker id="arrChar7" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-<path d="M 0 0 L 10 5 L 0 10 Z" fill="#2d2926" />
-</marker>
-<marker id="arrMar7" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-<path d="M 0 0 L 10 5 L 0 10 Z" fill="#8b2e2a" />
-</marker>
-<linearGradient id="path6Grad" x1="0" y1="0" x2="0" y2="1">
-<stop offset="0" stop-color="#3d3936" />
-<stop offset="1" stop-color="#2d2926" />
-</linearGradient>
-<linearGradient id="path7Grad" x1="0" y1="0" x2="0" y2="1">
-<stop offset="0" stop-color="#a83833" />
-<stop offset="1" stop-color="#8b2e2a" />
-</linearGradient>
-</defs>
 
-      
-<rect x="210" y="18" width="200" height="60" rx="3" fill="#fff" stroke="#2d2926" stroke-width="2" />
-<rect x="210" y="18" width="200" height="4" fill="#2d2926" />
-<text x="310" y="42" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5" fill="#8a847d" font-weight="700">DETAIL ENTRY (worked path)</text>
-<text x="310" y="63" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#2d2926" font-weight="700">measure · StartTime · StopTime · PTT</text>
+<img src="/diagrams/oracle-hcm-cloud-fast-formula-night-ot-fig1.png" alt="Figure 1" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
 
-      
-<line x1="310" y1="78" x2="310" y2="100" stroke="#5a5550" stroke-width="2" />
-<circle cx="310" cy="100" r="4" fill="#2d2926" />
-
-      
-<path d="M 310 100 L 150 100 L 150 130" stroke="#2d2926" stroke-width="2.5" fill="none" marker-end="url(#arrChar7)" />
-      
-<path d="M 310 100 L 470 100 L 470 130" stroke="#8b2e2a" stroke-width="2.5" fill="none" marker-end="url(#arrMar7)" />
-
-      
-<rect x="40" y="135" width="220" height="90" rx="4" fill="url(#path6Grad)" />
-<text x="150" y="157" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5" fill="#d4a574" font-weight="700">PATH A · PART 6</text>
-<text x="150" y="180" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="14" fill="#fff" font-weight="700">Tag Match</text>
-<text x="150" y="200" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#c4bdb5">PayrollTimeType = 'Night'</text>
-<text x="150" y="215" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#a49b91" font-style="italic">catches tagged entries only</text>
-
-      
-<rect x="380" y="135" width="220" height="90" rx="4" fill="url(#path7Grad)" />
-<text x="490" y="157" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5" fill="#f5ede0" font-weight="700">PATH B · PART 7</text>
-<text x="490" y="180" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="14" fill="#fff" font-weight="700">Clock-Time Overlap</text>
-<text x="490" y="200" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#f0d6d4">IS_DATE_BETWEEN(clock)</text>
-<text x="490" y="215" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#e8bab5" font-style="italic">catches untagged entries</text>
-
-      
-<line x1="260" y1="180" x2="380" y2="180" stroke="#d4a574" stroke-width="2" stroke-dasharray="4,3" />
-<rect x="270" y="163" width="100" height="34" rx="17" fill="#fff5dc" stroke="#d4a574" stroke-width="1.5" />
-<text x="320" y="177" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="1" fill="#8a7038" font-weight="700">DEDUP GUARD</text>
-<text x="320" y="190" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a7038">Path A skip → Path B</text>
-
-      
-<path d="M 150 225 L 150 250 L 310 250 L 310 275" stroke="#2d2926" stroke-width="2.5" fill="none" marker-end="url(#arrChar7)" />
-<path d="M 490 225 L 490 250 L 310 250" stroke="#8b2e2a" stroke-width="2.5" fill="none" />
-
-      
-<rect x="80" y="280" width="460" height="80" rx="4" fill="#fff" stroke="#2d2926" stroke-width="2" />
-<rect x="80" y="280" width="460" height="4" fill="#d4a574" />
-<text x="310" y="304" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5" fill="#8a7038" font-weight="700">CONVERGES AT · FIVE NIGHT BUCKETS</text>
-
-      
-<g font-family="JetBrains Mono, monospace" font-size="9" fill="#2d2926">
-<rect x="100" y="316" width="88" height="30" rx="2" fill="#faf6f0" stroke="#2d6b3f" stroke-width="1.5" />
-<text x="144" y="329" text-anchor="middle" font-weight="700" fill="#2d6b3f">Reg_Night</text>
-<text x="144" y="341" text-anchor="middle" font-size="8" fill="#8a847d">base rate + night</text>
-
-<rect x="198" y="316" width="88" height="30" rx="2" fill="#faf6f0" stroke="#d4a574" stroke-width="1.5" />
-<text x="242" y="329" text-anchor="middle" font-weight="700" fill="#8a7038">OT_150_Night</text>
-<text x="242" y="341" text-anchor="middle" font-size="8" fill="#8a847d">first-tier OT + night</text>
-
-<rect x="296" y="316" width="88" height="30" rx="2" fill="#faf6f0" stroke="#8b2e2a" stroke-width="1.5" />
-<text x="340" y="329" text-anchor="middle" font-weight="700" fill="#8b2e2a">OT_200_Night</text>
-<text x="340" y="341" text-anchor="middle" font-size="8" fill="#8a847d">second-tier OT + night</text>
-
-<rect x="394" y="316" width="88" height="30" rx="2" fill="#faf6f0" stroke="#2d2926" stroke-width="1.5" />
-<text x="438" y="329" text-anchor="middle" font-weight="700" fill="#2d2926">Weekend_Night</text>
-<text x="438" y="341" text-anchor="middle" font-size="8" fill="#8a847d">weekend + night</text>
-
-<rect x="492" y="316" width="38" height="30" rx="2" fill="#3d3936" stroke="#2d2926" stroke-width="1.5" />
-<text x="511" y="329" text-anchor="middle" font-weight="700" fill="#d4a574" font-size="8">Night</text>
-<text x="511" y="341" text-anchor="middle" font-size="7" fill="#c4bdb5">aggregate</text>
-</g>
-
-      
-<rect x="536" y="275" width="42" height="14" rx="7" fill="#d4a574" />
-<text x="557" y="285" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#fff" font-weight="700" letter-spacing="0.5">4 NEW</text>
-</svg>
 
     
 <div style="background: #faf6f0; border-left: 4px solid #d4a574; padding: 12px 16px; margin-top: 16px;">
@@ -217,73 +131,9 @@ l_night_end   <span style="color: #8b2e2a; font-weight: 700;">=</span> <span s
 
 <div style="padding: 28px 24px 22px 24px; background: #faf8f5;">
 
-<svg viewBox="0 0 620 260" width="100%" style="display: block; overflow: visible;">
-      
-<text x="10" y="30" font-family="JetBrains Mono, monospace" font-size="10" fill="#8b2e2a" font-weight="700" letter-spacing="1">✗ WITHOUT UNWRAP</text>
-<text x="10" y="46" font-family="Source Sans 3, sans-serif" font-size="13" fill="#2d2926">StopTime − StartTime = 6 − 22 = <tspan fill="#8b2e2a" font-weight="700">−16 hrs</tspan> · nonsense</text>
 
-      
-<line x1="30" y1="90" x2="590" y2="90" stroke="#5a5550" stroke-width="1.5" />
-<text x="30" y="112" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d">00</text>
-<text x="123" y="112" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d">06</text>
-<text x="217" y="112" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d">12</text>
-<text x="310" y="112" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d">18</text>
-<text x="403" y="112" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d">22</text>
-<text x="497" y="112" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d">24 / 0</text>
-<text x="590" y="112" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d">?</text>
+<img src="/diagrams/oracle-hcm-cloud-fast-formula-night-ot-fig2.png" alt="Figure 2" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
 
-      
-<line x1="30" y1="85" x2="30" y2="95" stroke="#5a5550" stroke-width="1.5" />
-<line x1="123" y1="85" x2="123" y2="95" stroke="#5a5550" stroke-width="1.5" />
-<line x1="217" y1="85" x2="217" y2="95" stroke="#5a5550" stroke-width="1.5" />
-<line x1="310" y1="85" x2="310" y2="95" stroke="#5a5550" stroke-width="1.5" />
-<line x1="403" y1="85" x2="403" y2="95" stroke="#5a5550" stroke-width="1.5" />
-<line x1="497" y1="85" x2="497" y2="95" stroke="#5a5550" stroke-width="2.5" />
-
-      
-<path d="M 403 76 Q 260 55 123 76" stroke="#8b2e2a" stroke-width="2" fill="none" stroke-dasharray="4,3" />
-<polygon points="123,76 130,72 130,80" fill="#8b2e2a" />
-<text x="263" y="52" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#8b2e2a" font-weight="700">← runs backward on a bounded 24-hr clock</text>
-
-      
-<text x="497" y="76" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8b2e2a" font-weight="700">MIDNIGHT</text>
-
-      
-<text x="10" y="160" font-family="JetBrains Mono, monospace" font-size="10" fill="#2d6b3f" font-weight="700" letter-spacing="1">✓ WITH UNWRAP · StopTime + 24 = 30</text>
-<text x="10" y="176" font-family="Source Sans 3, sans-serif" font-size="13" fill="#2d2926">Adjusted duration = 30 − 22 = <tspan fill="#2d6b3f" font-weight="700">8 hrs</tspan> · correct</text>
-
-      
-<line x1="30" y1="220" x2="590" y2="220" stroke="#5a5550" stroke-width="1.5" />
-      
-<text x="30" y="242" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d">00</text>
-<text x="123" y="242" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d">06</text>
-<text x="217" y="242" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d">12</text>
-<text x="310" y="242" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d">18</text>
-<text x="373" y="242" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d">22</text>
-<text x="466" y="242" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d">24</text>
-<text x="527" y="242" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#d4a574" font-weight="700">30</text>
-
-      
-<line x1="30" y1="215" x2="30" y2="225" stroke="#5a5550" stroke-width="1.5" />
-<line x1="123" y1="215" x2="123" y2="225" stroke="#5a5550" stroke-width="1.5" />
-<line x1="217" y1="215" x2="217" y2="225" stroke="#5a5550" stroke-width="1.5" />
-<line x1="310" y1="215" x2="310" y2="225" stroke="#5a5550" stroke-width="1.5" />
-<line x1="373" y1="215" x2="373" y2="225" stroke="#5a5550" stroke-width="1.5" />
-<line x1="466" y1="215" x2="466" y2="225" stroke="#5a5550" stroke-width="2.5" stroke-dasharray="4,3" />
-<line x1="527" y1="215" x2="527" y2="225" stroke="#d4a574" stroke-width="2.5" />
-
-      
-<rect x="373" y="200" width="154" height="14" fill="url(#path7Grad)" rx="2" />
-<text x="450" y="211" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#fff" font-weight="700">8 hr night shift</text>
-
-      
-<rect x="466" y="215" width="61" height="20" fill="#d4a574" opacity="0.15" />
-<text x="497" y="255" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#8a7038" font-weight="700" letter-spacing="0.5">EXTENDED CLOCK ZONE</text>
-
-      
-<text x="466" y="210" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#8a847d" font-weight="700">midnight</text>
-
-</svg>
 
     
 <div style="background: #f5ede0; border: 1px solid #d9c9b0; padding: 14px 18px; margin-top: 22px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.7; color: #2d2926;">
@@ -694,86 +544,9 @@ l_night_hours <span style="color: #8b2e2a; font-weight: 700;">=</span> <span sty
 
         
 <div>
-<svg viewBox="0 0 620 240" width="100%" height="240" preserveAspectRatio="none" style="display: block; overflow: visible;">
 
-<defs>
-<linearGradient id="p7reg" x1="0" y1="0" x2="0" y2="1">
-<stop offset="0" stop-color="#4f8c5e" />
-<stop offset="1" stop-color="#2d6b3f" />
-</linearGradient>
-<linearGradient id="p7gold" x1="0" y1="0" x2="0" y2="1">
-<stop offset="0" stop-color="#e0b683" />
-<stop offset="1" stop-color="#d4a574" />
-</linearGradient>
-<linearGradient id="p7maroon" x1="0" y1="0" x2="0" y2="1">
-<stop offset="0" stop-color="#a83833" />
-<stop offset="1" stop-color="#8b2e2a" />
-</linearGradient>
-<linearGradient id="p7dark" x1="0" y1="0" x2="0" y2="1">
-<stop offset="0" stop-color="#3d3936" />
-<stop offset="1" stop-color="#2d2926" />
-</linearGradient>
-<pattern id="p7ghost" patternUnits="userSpaceOnUse" width="6" height="6">
-<path d="M 0 6 L 6 0" stroke="#d4a574" stroke-width="1" opacity="0.5" />
-</pattern>
-</defs>
+<img src="/diagrams/oracle-hcm-cloud-fast-formula-night-ot-fig3.png" alt="Figure 3" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
 
-            
-<line x1="0" y1="0" x2="620" y2="0" stroke="#e0d5be" stroke-dasharray="3,4" stroke-width="1" />
-<line x1="0" y1="40" x2="620" y2="40" stroke="#e0d5be" stroke-dasharray="3,4" stroke-width="1" />
-<line x1="0" y1="80" x2="620" y2="80" stroke="#e0d5be" stroke-dasharray="3,4" stroke-width="1" />
-<line x1="0" y1="120" x2="620" y2="120" stroke="#e0d5be" stroke-dasharray="3,4" stroke-width="1" />
-<line x1="0" y1="160" x2="620" y2="160" stroke="#e0d5be" stroke-dasharray="3,4" stroke-width="1" />
-<line x1="0" y1="200" x2="620" y2="200" stroke="#8a847d" stroke-width="1.5" />
-
-            
-<line x1="365" y1="0" x2="365" y2="205" stroke="#d4a574" stroke-width="1.5" stroke-dasharray="4,4" />
-<text x="378" y="15" font-family="JetBrains Mono, monospace" font-size="8" fill="#8a7038" font-weight="700" letter-spacing="0.5">→ NEW · PART 7</text>
-
-            
-            
-
-            
-<rect x="11" y="192" width="40" height="8" fill="url(#p7ghost)" stroke="#d4a574" stroke-width="1" stroke-dasharray="2,2" />
-<text x="31" y="188" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d" font-weight="600">0</text>
-
-            
-<rect x="73" y="192" width="40" height="8" fill="url(#p7ghost)" stroke="#d4a574" stroke-width="1" stroke-dasharray="2,2" />
-<text x="93" y="188" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d" font-weight="600">0</text>
-
-            
-<rect x="135" y="67" width="40" height="133" fill="url(#p7reg)" />
-<text x="155" y="62" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#2d6b3f" font-weight="700">8</text>
-
-            
-<rect x="197" y="167" width="40" height="33" fill="url(#p7gold)" />
-<text x="217" y="162" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#8a7038" font-weight="700">2</text>
-
-            
-<rect x="259" y="167" width="40" height="33" fill="url(#p7maroon)" />
-<text x="279" y="162" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#8b2e2a" font-weight="700">2</text>
-
-            
-<rect x="321" y="192" width="40" height="8" fill="url(#p7ghost)" stroke="#2d2926" stroke-width="1" stroke-dasharray="2,2" />
-<text x="341" y="188" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d" font-weight="600">0</text>
-
-            
-<rect x="383" y="100" width="40" height="100" fill="url(#p7reg)" stroke="#d4a574" stroke-width="2" />
-<text x="403" y="95" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#2d6b3f" font-weight="700">6</text>
-
-            
-<rect x="445" y="167" width="40" height="33" fill="url(#p7gold)" stroke="#d4a574" stroke-width="2" />
-<text x="465" y="162" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#8a7038" font-weight="700">2</text>
-
-            
-<rect x="507" y="192" width="40" height="8" fill="url(#p7ghost)" stroke="#d4a574" stroke-width="1" stroke-dasharray="2,2" />
-<text x="527" y="188" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d" font-weight="600">0</text>
-
-            
-<rect x="569" y="192" width="40" height="8" fill="url(#p7ghost)" stroke="#d4a574" stroke-width="1" stroke-dasharray="2,2" />
-<text x="589" y="188" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a847d" font-weight="600">0</text>
-
-</svg>
 
           
 <div style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; margin-top: 10px;">
