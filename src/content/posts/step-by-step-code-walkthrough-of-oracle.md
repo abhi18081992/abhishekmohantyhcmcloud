@@ -305,8 +305,8 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 <h3 style="font-size:17px;font-weight:700;color:var(--dark);margin:28px 0 14px;font-family:inherit;">GET_VALUE_SET Call 1 — Resolving Person Number to Assignment Number</h3>
 
 <pre style="background:var(--code-bg);color:#C8C8C8;padding:20px 24px;border-radius:8px;border-left:4px solid var(--accent);font-family:'JetBrains Mono',monospace;font-weight:500;font-size:14px;line-height:1.8;overflow-x:auto;margin:18px 0;white-space:pre-wrap;"><span style="color:#B5CEA8;">l_AssignmentNumber</span> = <span style="color:#DCDCAA;">GET_VALUE_SET</span>(
-    <span style="color:#CE9178;">'XXTAV_GET_LATEST_ASSIGNMENT_NUMBER'</span>,
-    <span style="color:#CE9178;">'|=P_PERSON_NUMBER='''</span> || <span style="color:#B5CEA8;">POSITION4</span> || <span style="color:#CE9178;">''''</span>
+<span style="color:#CE9178;">'XXTAV_GET_LATEST_ASSIGNMENT_NUMBER'</span>,
+<span style="color:#CE9178;">'|=P_PERSON_NUMBER='''</span> || <span style="color:#B5CEA8;">POSITION4</span> || <span style="color:#CE9178;">''''</span>
  || <span style="color:#CE9178;">'|P_EFFECTIVE_START_DATE='''</span>
  || <span style="color:#DCDCAA;">TO_CHAR</span>(<span style="color:#DCDCAA;">TO_DATE</span>(<span style="color:#B5CEA8;">POSITION3</span>,<span style="color:#CE9178;">'YYYY-MM-DD'</span>),<span style="color:#CE9178;">'YYYY-MM-DD'</span>)
  || <span style="color:#CE9178;">''''</span>)</pre>
@@ -353,8 +353,8 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 <h3 style="font-size:17px;font-weight:700;color:var(--dark);margin:28px 0 14px;font-family:inherit;">GET_VALUE_SET Call 2 — Mapping Vendor Code to Oracle Element Name</h3>
 
 <pre style="background:var(--code-bg);color:#C8C8C8;padding:20px 24px;border-radius:8px;border-left:4px solid #555;font-family:'JetBrains Mono',monospace;font-weight:500;font-size:14px;line-height:1.8;overflow-x:auto;margin:18px 0;white-space:pre-wrap;"><span style="color:#B5CEA8;">l_ElementName</span> = <span style="color:#DCDCAA;">GET_VALUE_SET</span>(
-    <span style="color:#CE9178;">'XXTAV_ACCRUAL_ELEMENTS TEST'</span>,
-    <span style="color:#CE9178;">'|=P_PAY_CODE='''</span> || <span style="color:#DCDCAA;">TRIM</span>(<span style="color:#B5CEA8;">POSITION2</span>) || <span style="color:#CE9178;">''''</span>)</pre>
+<span style="color:#CE9178;">'XXTAV_ACCRUAL_ELEMENTS TEST'</span>,
+<span style="color:#CE9178;">'|=P_PAY_CODE='''</span> || <span style="color:#DCDCAA;">TRIM</span>(<span style="color:#B5CEA8;">POSITION2</span>) || <span style="color:#CE9178;">''''</span>)</pre>
 
 <div class="ipe">
 <p><strong>Simplest call — one parameter.</strong> Takes the vendor code from POSITION2, strips whitespace with TRIM(), and asks: "What Oracle Element Name does this map to?" If the vendor sends <code style="background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:3px;">' DENTAL01 '</code> with spaces, TRIM cleans it first.</p>
@@ -364,7 +364,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 
 <pre style="background:var(--code-bg);color:#C8C8C8;padding:20px 24px;border-radius:8px;border-left:4px solid var(--red);font-family:'JetBrains Mono',monospace;font-weight:500;font-size:14px;line-height:1.8;overflow-x:auto;margin:18px 0;white-space:pre-wrap;"><span style="color:#569CD6;font-weight:700;">IF</span> <span style="color:#DCDCAA;">ISNULL</span>(<span style="color:#B5CEA8;">l_MultipleEntryCount</span>) = <span style="color:#CE9178;">'N'</span> <span style="color:#569CD6;font-weight:700;">THEN</span>
 (
-    <span style="color:#B5CEA8;">l_MultipleEntryCount</span> = <span style="color:#CE9178;">'1'</span>     <span style="color:#57A64A;font-style:italic;">/* default to 1 */</span>
+<span style="color:#B5CEA8;">l_MultipleEntryCount</span> = <span style="color:#CE9178;">'1'</span>     <span style="color:#57A64A;font-style:italic;">/* default to 1 */</span>
 )</pre>
 
 
@@ -531,15 +531,15 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 
 <pre style="background:var(--code-bg);color:#C8C8C8;padding:20px 24px;border-radius:8px;border-left:4px solid var(--accent);font-family:'JetBrains Mono',monospace;font-weight:500;font-size:14px;line-height:1.8;overflow-x:auto;margin:18px 0;white-space:pre-wrap;"><span style="color:#57A64A;font-style:italic;">/* Step 1: Try cloud lookup */</span>
 <span style="color:#B5CEA8;">l_SourceSystemId</span> = <span style="color:#DCDCAA;">GET_VALUE_SET</span>(
-    <span style="color:#CE9178;">'XXTAV_GET_ELEMENT_ENTRY_SOURCE_SYSTEM_ID'</span>,
-    <span style="color:#CE9178;">'|=P_PERSON_NUMBER='''</span> || <span style="color:#B5CEA8;">POSITION4</span> || <span style="color:#CE9178;">''''</span>
+<span style="color:#CE9178;">'XXTAV_GET_ELEMENT_ENTRY_SOURCE_SYSTEM_ID'</span>,
+<span style="color:#CE9178;">'|=P_PERSON_NUMBER='''</span> || <span style="color:#B5CEA8;">POSITION4</span> || <span style="color:#CE9178;">''''</span>
  || <span style="color:#CE9178;">'|P_EFFECTIVE_START_DATE='''</span> || <span style="color:#B5CEA8;">...</span> || <span style="color:#CE9178;">''''</span>
  || <span style="color:#CE9178;">'|P_ELEMENT_NAME='''</span> || <span style="color:#B5CEA8;">l_ElementName</span> || <span style="color:#CE9178;">''''</span>)
 
 <span style="color:#57A64A;font-style:italic;">/* Step 2: If null → build new */</span>
 <span style="color:#569CD6;font-weight:700;">IF</span> <span style="color:#DCDCAA;">ISNULL</span>(<span style="color:#B5CEA8;">l_SourceSystemId</span>) = <span style="color:#CE9178;">'N'</span> <span style="color:#569CD6;font-weight:700;">THEN</span>
 (
-    <span style="color:#B5CEA8;">l_SourceSystemId</span> = <span style="color:#CE9178;">'XXTAV_HDL'</span> || <span style="color:#B5CEA8;">l_AssignmentNumber</span>
+<span style="color:#B5CEA8;">l_SourceSystemId</span> = <span style="color:#CE9178;">'XXTAV_HDL'</span> || <span style="color:#B5CEA8;">l_AssignmentNumber</span>
         || <span style="color:#CE9178;">'_EE_'</span> || <span style="color:#B5CEA8;">POSITION4</span>
         || <span style="color:#CE9178;">'_'</span>    || <span style="color:#B5CEA8;">POSITION2</span>
         || <span style="color:#CE9178;">'_'</span>    || <span style="color:#B5CEA8;">POSITION3</span>

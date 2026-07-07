@@ -9,30 +9,30 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
 
 <div style="border-left: 4px solid #8b2e2a; padding-left: 20px; margin: 32px 0 40px 0;">
-  <div style="font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; color: #8b2e2a; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 500;">ORACLE HCM CLOUD · TCR DEEP DIVE · PART 1 OF 12</div>
+<div style="font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; color: #8b2e2a; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 500;">ORACLE HCM CLOUD · TCR DEEP DIVE · PART 1 OF 12</div>
 
-  <h1 style="font-family: 'Source Sans 3', sans-serif; font-size: 30px; font-weight: 700; margin: 0 0 12px 0; line-height: 1.25; color: #2d2926;">Oracle HCM Cloud Fast Formula: Deriving Daily Working Hours from PER_ASG_WORK_SCH_WORKDAY_PATTERN in TCR Calculations</h1>
-  <div style="font-size: 18px; color: #5a5550; font-weight: 400; line-height: 1.5;">A breakdown of how Time Calculation Rule formulas parse the workday pattern DBI with INSTR + SUBSTR, guard null schedules with <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">WAS NOT DEFAULTED</code>, and compute the monthly norm via <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">GET_PAY_AVAILABILITY</code>.</div>
+<h1 style="font-family: 'Source Sans 3', sans-serif; font-size: 30px; font-weight: 700; margin: 0 0 12px 0; line-height: 1.25; color: #2d2926;">Oracle HCM Cloud Fast Formula: Deriving Daily Working Hours from PER_ASG_WORK_SCH_WORKDAY_PATTERN in TCR Calculations</h1>
+<div style="font-size: 18px; color: #5a5550; font-weight: 400; line-height: 1.5;">A breakdown of how Time Calculation Rule formulas parse the workday pattern DBI with INSTR + SUBSTR, guard null schedules with <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">WAS NOT DEFAULTED</code>, and compute the monthly norm via <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">GET_PAY_AVAILABILITY</code>.</div>
 </div>
 
 
 <div style="margin-bottom: 32px;">
-  <span style="display: inline-block; background: #2d2926; color: #fff; padding: 4px 12px; font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; margin-right: 6px; margin-bottom: 6px; font-weight: 500;">FAST FORMULA</span>
-  <span style="display: inline-block; background: #2d2926; color: #fff; padding: 4px 12px; font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; margin-right: 6px; margin-bottom: 6px; font-weight: 500;">OTL</span>
-  <span style="display: inline-block; background: #2d2926; color: #fff; padding: 4px 12px; font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; margin-right: 6px; margin-bottom: 6px; font-weight: 500;">TIME CALCULATION RULE</span>
-  <span style="display: inline-block; background: #8b2e2a; color: #fff; padding: 4px 12px; font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; margin-right: 6px; margin-bottom: 6px; font-weight: 500;">DBI</span>
+<span style="display: inline-block; background: #2d2926; color: #fff; padding: 4px 12px; font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; margin-right: 6px; margin-bottom: 6px; font-weight: 500;">FAST FORMULA</span>
+<span style="display: inline-block; background: #2d2926; color: #fff; padding: 4px 12px; font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; margin-right: 6px; margin-bottom: 6px; font-weight: 500;">OTL</span>
+<span style="display: inline-block; background: #2d2926; color: #fff; padding: 4px 12px; font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; margin-right: 6px; margin-bottom: 6px; font-weight: 500;">TIME CALCULATION RULE</span>
+<span style="display: inline-block; background: #8b2e2a; color: #fff; padding: 4px 12px; font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; margin-right: 6px; margin-bottom: 6px; font-weight: 500;">DBI</span>
 </div>
 
 
 <div style="display: flex; align-items: center; background: #faf6f0; border: 1px solid #e8ddc9; margin: 24px 0 32px 0;">
-  <div style="background: #8b2e2a; color: #fff; width: 64px; min-width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; font-family: 'Source Sans 3', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1px;">AM</div>
+<div style="background: #8b2e2a; color: #fff; width: 64px; min-width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; font-family: 'Source Sans 3', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1px;">AM</div>
 
-  <div style="padding: 12px 20px;">
-    <div style="font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 700; color: #2d2926; margin-bottom: 2px;">Abhishek Mohanty</div>
+<div style="padding: 12px 20px;">
+<div style="font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 700; color: #2d2926; margin-bottom: 2px;">Abhishek Mohanty</div>
 
-    <div style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #8b2e2a; line-height: 1.4;">Oracle ACE Associate  |  AIOUG Member  |  Oracle HCM Cloud Consultant</div>
+<div style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #8b2e2a; line-height: 1.4;">Oracle ACE Associate  |  AIOUG Member  |  Oracle HCM Cloud Consultant</div>
 
-  </div>
+</div>
 </div>
 
 
@@ -49,63 +49,63 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
 
 <div style="background: #faf8f5; border: 1px solid #e8e3dd; padding: 24px; margin: 24px 0; font-family: 'JetBrains Mono', monospace;">
-  <div style="font-size: 12px; color: #8a847d; margin-bottom: 12px; letter-spacing: 1px; font-weight: 500;">RAW DBI VALUE</div>
+<div style="font-size: 12px; color: #8a847d; margin-bottom: 12px; letter-spacing: 1px; font-weight: 500;">RAW DBI VALUE</div>
 
-  <div style="font-size: 20px; color: #2d2926; margin-bottom: 20px; letter-spacing: 2px; font-weight: 500;">0 - 8 - 8 - 8 - 8 - 8 - 0</div>
+<div style="font-size: 20px; color: #2d2926; margin-bottom: 20px; letter-spacing: 2px; font-weight: 500;">0 - 8 - 8 - 8 - 8 - 8 - 0</div>
 
-  <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;">
-    <div style="text-align: center; padding: 8px 4px; background: #e8e3dd; border-radius: 3px;">
-      <div style="font-size: 10px; color: #8a847d; letter-spacing: 1px; font-weight: 500;">SUN</div>
+<div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;">
+<div style="text-align: center; padding: 8px 4px; background: #e8e3dd; border-radius: 3px;">
+<div style="font-size: 10px; color: #8a847d; letter-spacing: 1px; font-weight: 500;">SUN</div>
 
-      <div style="font-size: 18px; color: #8a847d; font-weight: 700;">0</div>
+<div style="font-size: 18px; color: #8a847d; font-weight: 700;">0</div>
 
-    </div>
+</div>
 
-    <div style="text-align: center; padding: 8px 4px; background: #8b2e2a; border-radius: 3px;">
-      <div style="font-size: 10px; color: #fff; letter-spacing: 1px; font-weight: 500;">MON</div>
+<div style="text-align: center; padding: 8px 4px; background: #8b2e2a; border-radius: 3px;">
+<div style="font-size: 10px; color: #fff; letter-spacing: 1px; font-weight: 500;">MON</div>
 
-      <div style="font-size: 18px; color: #fff; font-weight: 700;">8</div>
+<div style="font-size: 18px; color: #fff; font-weight: 700;">8</div>
 
-    </div>
+</div>
 
-    <div style="text-align: center; padding: 8px 4px; background: #8b2e2a; border-radius: 3px;">
-      <div style="font-size: 10px; color: #fff; letter-spacing: 1px; font-weight: 500;">TUE</div>
+<div style="text-align: center; padding: 8px 4px; background: #8b2e2a; border-radius: 3px;">
+<div style="font-size: 10px; color: #fff; letter-spacing: 1px; font-weight: 500;">TUE</div>
 
-      <div style="font-size: 18px; color: #fff; font-weight: 700;">8</div>
+<div style="font-size: 18px; color: #fff; font-weight: 700;">8</div>
 
-    </div>
+</div>
 
-    <div style="text-align: center; padding: 8px 4px; background: #8b2e2a; border-radius: 3px;">
-      <div style="font-size: 10px; color: #fff; letter-spacing: 1px; font-weight: 500;">WED</div>
+<div style="text-align: center; padding: 8px 4px; background: #8b2e2a; border-radius: 3px;">
+<div style="font-size: 10px; color: #fff; letter-spacing: 1px; font-weight: 500;">WED</div>
 
-      <div style="font-size: 18px; color: #fff; font-weight: 700;">8</div>
+<div style="font-size: 18px; color: #fff; font-weight: 700;">8</div>
 
-    </div>
+</div>
 
-    <div style="text-align: center; padding: 8px 4px; background: #8b2e2a; border-radius: 3px;">
-      <div style="font-size: 10px; color: #fff; letter-spacing: 1px; font-weight: 500;">THU</div>
+<div style="text-align: center; padding: 8px 4px; background: #8b2e2a; border-radius: 3px;">
+<div style="font-size: 10px; color: #fff; letter-spacing: 1px; font-weight: 500;">THU</div>
 
-      <div style="font-size: 18px; color: #fff; font-weight: 700;">8</div>
+<div style="font-size: 18px; color: #fff; font-weight: 700;">8</div>
 
-    </div>
+</div>
 
-    <div style="text-align: center; padding: 8px 4px; background: #8b2e2a; border-radius: 3px;">
-      <div style="font-size: 10px; color: #fff; letter-spacing: 1px; font-weight: 500;">FRI</div>
+<div style="text-align: center; padding: 8px 4px; background: #8b2e2a; border-radius: 3px;">
+<div style="font-size: 10px; color: #fff; letter-spacing: 1px; font-weight: 500;">FRI</div>
 
-      <div style="font-size: 18px; color: #fff; font-weight: 700;">8</div>
+<div style="font-size: 18px; color: #fff; font-weight: 700;">8</div>
 
-    </div>
+</div>
 
-    <div style="text-align: center; padding: 8px 4px; background: #e8e3dd; border-radius: 3px;">
-      <div style="font-size: 10px; color: #8a847d; letter-spacing: 1px; font-weight: 500;">SAT</div>
+<div style="text-align: center; padding: 8px 4px; background: #e8e3dd; border-radius: 3px;">
+<div style="font-size: 10px; color: #8a847d; letter-spacing: 1px; font-weight: 500;">SAT</div>
 
-      <div style="font-size: 18px; color: #8a847d; font-weight: 700;">0</div>
+<div style="font-size: 18px; color: #8a847d; font-weight: 700;">0</div>
 
-    </div>
+</div>
 
-  </div>
+</div>
 
-  <div style="font-size: 12px; color: #8a847d; margin-top: 14px; letter-spacing: 1px; font-weight: 500;">5 WORKING DAYS · 40 WEEKLY HOURS · 8 HRS/DAY</div>
+<div style="font-size: 12px; color: #8a847d; margin-top: 14px; letter-spacing: 1px; font-weight: 500;">5 WORKING DAYS · 40 WEEKLY HOURS · 8 HRS/DAY</div>
 </div>
 
 <p style="font-family: 'Source Sans 3', sans-serif;">For a compressed-week worker (Mon–Thu, 10 hours each), the same DBI holds <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">0-10-10-10-10-0-0</code>. Four working days, 40 weekly hours, but <strong>10 hours/day</strong> is the threshold for overtime — not 8.</p>
@@ -118,9 +118,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 <p style="font-family: 'Source Sans 3', sans-serif;">The implementation is brute-force elegant. Three local variables hold the state:</p>
 
 <ul style="font-family: 'Source Sans 3', sans-serif; padding-left: 24px; margin: 16px 0;">
-  <li style="margin-bottom: 8px;"><code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_wrk_pattern</code> — the remaining string, shrinking left-to-right with each pass</li>
-  <li style="margin-bottom: 8px;"><code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_count</code> — count of working days seen so far (slots where value ≠ '0')</li>
-  <li style="margin-bottom: 8px;"><code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_normal_hours</code> — running sum of hours from those working days</li>
+<li style="margin-bottom: 8px;"><code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_wrk_pattern</code> — the remaining string, shrinking left-to-right with each pass</li>
+<li style="margin-bottom: 8px;"><code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_count</code> — count of working days seen so far (slots where value ≠ '0')</li>
+<li style="margin-bottom: 8px;"><code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_normal_hours</code> — running sum of hours from those working days</li>
 </ul>
 
 <p style="font-family: 'Source Sans 3', sans-serif;">Each iteration finds the next hyphen, extracts the slot before it, decides whether to count it, then trims the slot off the front of the string. Seven iterations cover all seven days. The seventh uses <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">length(l_wrk_pattern)</code> instead of <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_indicate-1</code> because the final slot has no trailing hyphen.</p>
@@ -153,74 +153,74 @@ l_working_hours <span style="color: #8b2e2a; font-weight: 700;">=</span> <span s
 
 
 <div style="margin: 24px 0; overflow-x: auto;">
-  <table style="width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
-    <thead>
-      <tr style="background: #2d2926; color: #fff;">
-        <th style="padding: 10px 12px; text-align: left; font-weight: 600; letter-spacing: 1px; font-size: 11px;">ITER</th>
-        <th style="padding: 10px 12px; text-align: left; font-weight: 600; letter-spacing: 1px; font-size: 11px;">l_wrk_pattern</th>
-        <th style="padding: 10px 12px; text-align: left; font-weight: 600; letter-spacing: 1px; font-size: 11px;">l_wrk_day</th>
-        <th style="padding: 10px 12px; text-align: right; font-weight: 600; letter-spacing: 1px; font-size: 11px;">l_count</th>
-        <th style="padding: 10px 12px; text-align: right; font-weight: 600; letter-spacing: 1px; font-size: 11px;">l_normal_hours</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr style="background: #faf8f5; border-bottom: 1px solid #e8e3dd;">
-        <td style="padding: 10px 12px; color: #8b2e2a; font-weight: 700;">1</td>
-        <td style="padding: 10px 12px;">0-8-8-8-8-8-0</td>
-        <td style="padding: 10px 12px; color: #8a847d;">'0' (skip)</td>
-        <td style="padding: 10px 12px; text-align: right;">0</td>
-        <td style="padding: 10px 12px; text-align: right;">0</td>
-      </tr>
-      <tr style="background: #fff; border-bottom: 1px solid #e8e3dd;">
-        <td style="padding: 10px 12px; color: #8b2e2a; font-weight: 700;">2</td>
-        <td style="padding: 10px 12px;">8-8-8-8-8-0</td>
-        <td style="padding: 10px 12px;">'8'</td>
-        <td style="padding: 10px 12px; text-align: right;">1</td>
-        <td style="padding: 10px 12px; text-align: right;">8</td>
-      </tr>
-      <tr style="background: #faf8f5; border-bottom: 1px solid #e8e3dd;">
-        <td style="padding: 10px 12px; color: #8b2e2a; font-weight: 700;">3</td>
-        <td style="padding: 10px 12px;">8-8-8-8-0</td>
-        <td style="padding: 10px 12px;">'8'</td>
-        <td style="padding: 10px 12px; text-align: right;">2</td>
-        <td style="padding: 10px 12px; text-align: right;">16</td>
-      </tr>
-      <tr style="background: #fff; border-bottom: 1px solid #e8e3dd;">
-        <td style="padding: 10px 12px; color: #8b2e2a; font-weight: 700;">4</td>
-        <td style="padding: 10px 12px;">8-8-8-0</td>
-        <td style="padding: 10px 12px;">'8'</td>
-        <td style="padding: 10px 12px; text-align: right;">3</td>
-        <td style="padding: 10px 12px; text-align: right;">24</td>
-      </tr>
-      <tr style="background: #faf8f5; border-bottom: 1px solid #e8e3dd;">
-        <td style="padding: 10px 12px; color: #8b2e2a; font-weight: 700;">5</td>
-        <td style="padding: 10px 12px;">8-8-0</td>
-        <td style="padding: 10px 12px;">'8'</td>
-        <td style="padding: 10px 12px; text-align: right;">4</td>
-        <td style="padding: 10px 12px; text-align: right;">32</td>
-      </tr>
-      <tr style="background: #fff; border-bottom: 1px solid #e8e3dd;">
-        <td style="padding: 10px 12px; color: #8b2e2a; font-weight: 700;">6</td>
-        <td style="padding: 10px 12px;">8-0</td>
-        <td style="padding: 10px 12px;">'8'</td>
-        <td style="padding: 10px 12px; text-align: right;">5</td>
-        <td style="padding: 10px 12px; text-align: right;">40</td>
-      </tr>
-      <tr style="background: #faf8f5;">
-        <td style="padding: 10px 12px; color: #8b2e2a; font-weight: 700;">7</td>
-        <td style="padding: 10px 12px;">0</td>
-        <td style="padding: 10px 12px; color: #8a847d;">'0' (skip)</td>
-        <td style="padding: 10px 12px; text-align: right;">5</td>
-        <td style="padding: 10px 12px; text-align: right;">40</td>
-      </tr>
-    </tbody>
-  </table>
+<table style="width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+<thead>
+<tr style="background: #2d2926; color: #fff;">
+<th style="padding: 10px 12px; text-align: left; font-weight: 600; letter-spacing: 1px; font-size: 11px;">ITER</th>
+<th style="padding: 10px 12px; text-align: left; font-weight: 600; letter-spacing: 1px; font-size: 11px;">l_wrk_pattern</th>
+<th style="padding: 10px 12px; text-align: left; font-weight: 600; letter-spacing: 1px; font-size: 11px;">l_wrk_day</th>
+<th style="padding: 10px 12px; text-align: right; font-weight: 600; letter-spacing: 1px; font-size: 11px;">l_count</th>
+<th style="padding: 10px 12px; text-align: right; font-weight: 600; letter-spacing: 1px; font-size: 11px;">l_normal_hours</th>
+</tr>
+</thead>
+<tbody>
+<tr style="background: #faf8f5; border-bottom: 1px solid #e8e3dd;">
+<td style="padding: 10px 12px; color: #8b2e2a; font-weight: 700;">1</td>
+<td style="padding: 10px 12px;">0-8-8-8-8-8-0</td>
+<td style="padding: 10px 12px; color: #8a847d;">'0' (skip)</td>
+<td style="padding: 10px 12px; text-align: right;">0</td>
+<td style="padding: 10px 12px; text-align: right;">0</td>
+</tr>
+<tr style="background: #fff; border-bottom: 1px solid #e8e3dd;">
+<td style="padding: 10px 12px; color: #8b2e2a; font-weight: 700;">2</td>
+<td style="padding: 10px 12px;">8-8-8-8-8-0</td>
+<td style="padding: 10px 12px;">'8'</td>
+<td style="padding: 10px 12px; text-align: right;">1</td>
+<td style="padding: 10px 12px; text-align: right;">8</td>
+</tr>
+<tr style="background: #faf8f5; border-bottom: 1px solid #e8e3dd;">
+<td style="padding: 10px 12px; color: #8b2e2a; font-weight: 700;">3</td>
+<td style="padding: 10px 12px;">8-8-8-8-0</td>
+<td style="padding: 10px 12px;">'8'</td>
+<td style="padding: 10px 12px; text-align: right;">2</td>
+<td style="padding: 10px 12px; text-align: right;">16</td>
+</tr>
+<tr style="background: #fff; border-bottom: 1px solid #e8e3dd;">
+<td style="padding: 10px 12px; color: #8b2e2a; font-weight: 700;">4</td>
+<td style="padding: 10px 12px;">8-8-8-0</td>
+<td style="padding: 10px 12px;">'8'</td>
+<td style="padding: 10px 12px; text-align: right;">3</td>
+<td style="padding: 10px 12px; text-align: right;">24</td>
+</tr>
+<tr style="background: #faf8f5; border-bottom: 1px solid #e8e3dd;">
+<td style="padding: 10px 12px; color: #8b2e2a; font-weight: 700;">5</td>
+<td style="padding: 10px 12px;">8-8-0</td>
+<td style="padding: 10px 12px;">'8'</td>
+<td style="padding: 10px 12px; text-align: right;">4</td>
+<td style="padding: 10px 12px; text-align: right;">32</td>
+</tr>
+<tr style="background: #fff; border-bottom: 1px solid #e8e3dd;">
+<td style="padding: 10px 12px; color: #8b2e2a; font-weight: 700;">6</td>
+<td style="padding: 10px 12px;">8-0</td>
+<td style="padding: 10px 12px;">'8'</td>
+<td style="padding: 10px 12px; text-align: right;">5</td>
+<td style="padding: 10px 12px; text-align: right;">40</td>
+</tr>
+<tr style="background: #faf8f5;">
+<td style="padding: 10px 12px; color: #8b2e2a; font-weight: 700;">7</td>
+<td style="padding: 10px 12px;">0</td>
+<td style="padding: 10px 12px; color: #8a847d;">'0' (skip)</td>
+<td style="padding: 10px 12px; text-align: right;">5</td>
+<td style="padding: 10px 12px; text-align: right;">40</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 <div style="background: #2d2926; color: #fff; padding: 16px 20px; margin: 24px 0; font-family: 'JetBrains Mono', monospace;">
-  <div style="font-size: 11px; color: #d4a574; letter-spacing: 2px; margin-bottom: 6px; font-weight: 500;">RESULT</div>
+<div style="font-size: 11px; color: #d4a574; letter-spacing: 2px; margin-bottom: 6px; font-weight: 500;">RESULT</div>
 
-  <div style="font-size: 15px;">l_working_hours = ROUNDUP(40 / 5, 2) = <span style="color: #d4a574; font-weight: 700;">8.00</span></div>
+<div style="font-size: 15px;">l_working_hours = ROUNDUP(40 / 5, 2) = <span style="color: #d4a574; font-weight: 700;">8.00</span></div>
 </div>
 
 <p style="font-family: 'Source Sans 3', sans-serif;">Switch the same worker to four 10-hour days (<code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">0-10-10-10-10-0-0</code>) and the same parser yields <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">40 / 4 = 10.00</code>. The downstream OT threshold logic shifts automatically — no rule parameter change, no recompile.</p>
@@ -234,7 +234,7 @@ l_working_hours <span style="color: #8b2e2a; font-weight: 700;">=</span> <span s
 <div style="background: #f5ede0; border: 1px solid #d9c9b0; padding: 20px 24px; margin: 24px 0; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 13px; line-height: 1.75; color: #2d2926;">
 <span style="color: #8b2e2a; font-weight: 700;">IF</span> (PER_ASG_WORK_SCH_WORKDAY_PATTERN <span style="color: #8b2e2a; font-weight: 700;">WAS NOT DEFAULTED</span>)<br>
 <span style="color: #8b2e2a; font-weight: 700;">THEN</span> (<br>
-  <span style="color: #8a7560; font-style: italic;">/* ...7-iteration parser... */</span><br>
+<span style="color: #8a7560; font-style: italic;">/* ...7-iteration parser... */</span><br>
 )<br>
 <span style="color: #8b2e2a; font-weight: 700;">ELSE</span><br>
   l_working_hours <span style="color: #8b2e2a; font-weight: 700;">=</span> 8
@@ -255,7 +255,7 @@ l_month_start_date <span style="color: #8b2e2a; font-weight: 700;">=</span> peri
 l_month_end_date   <span style="color: #8b2e2a; font-weight: 700;">=</span> periodEndDate<br>
 l_working_days <span style="color: #8b2e2a; font-weight: 700;">=</span> <span style="color: #8b2e2a; font-weight: 700;">GET_PAY_AVAILABILITY</span>(<span style="color: #2d6b3f;">'ASSIGN'</span>,<br>
                l_month_start_date, l_month_end_date,<br>
-               <span style="color: #2d6b3f;">'Y'</span>,<span style="color: #2d6b3f;">'Y'</span>,<span style="color: #2d6b3f;">'Y'</span>,<span style="color: #2d6b3f;">'Y'</span>,<span style="color: #2d6b3f;">'D'</span>)<br>
+<span style="color: #2d6b3f;">'Y'</span>,<span style="color: #2d6b3f;">'Y'</span>,<span style="color: #2d6b3f;">'Y'</span>,<span style="color: #2d6b3f;">'Y'</span>,<span style="color: #2d6b3f;">'D'</span>)<br>
 l_monthly_hours <span style="color: #8b2e2a; font-weight: 700;">=</span> l_working_hours * l_working_days
 </div>
 
@@ -265,9 +265,9 @@ l_monthly_hours <span style="color: #8b2e2a; font-weight: 700;">=</span> l_worki
 
 
 <div style="background: #faf6f0; border-left: 4px solid #8b2e2a; padding: 20px 24px; margin: 32px 0;">
-  <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8b2e2a; letter-spacing: 2px; margin-bottom: 8px; font-weight: 500;">A NOTE ON ROUNDUP</div>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8b2e2a; letter-spacing: 2px; margin-bottom: 8px; font-weight: 500;">A NOTE ON ROUNDUP</div>
 
-  <p style="font-family: 'Source Sans 3', sans-serif; margin: 0; line-height: 1.65;">Fast Formula doesn't ship with a native <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">ROUNDUP</code>. The line <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">l_working_hours = ROUNDUP((l_normal_hours/l_count),2)</code> only compiles if a custom function with that name has been registered at the instance level (via Setup & Maintenance → <em>Manage Formula Functions</em>). If you lift this parser into your own formula, swap <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">ROUNDUP</code> for <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">ROUND(...)</code> or build a CEIL-based equivalent — otherwise the compile will fail with a function-not-found error and the rule will refuse to validate.</p>
+<p style="font-family: 'Source Sans 3', sans-serif; margin: 0; line-height: 1.65;">Fast Formula doesn't ship with a native <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">ROUNDUP</code>. The line <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">l_working_hours = ROUNDUP((l_normal_hours/l_count),2)</code> only compiles if a custom function with that name has been registered at the instance level (via Setup & Maintenance → <em>Manage Formula Functions</em>). If you lift this parser into your own formula, swap <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">ROUNDUP</code> for <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">ROUND(...)</code> or build a CEIL-based equivalent — otherwise the compile will fail with a function-not-found error and the rule will refuse to validate.</p>
 </div>
 
 
@@ -279,30 +279,30 @@ l_monthly_hours <span style="color: #8b2e2a; font-weight: 700;">=</span> l_worki
 
 
 <div style="background: #2d2926; color: #fff; padding: 32px; margin: 48px 0 24px 0;">
-  <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #d4a574; letter-spacing: 2px; margin-bottom: 8px; font-weight: 500;">NEXT IN THE SERIES</div>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #d4a574; letter-spacing: 2px; margin-bottom: 8px; font-weight: 500;">NEXT IN THE SERIES</div>
 
-  <h3 style="font-family: 'Source Sans 3', sans-serif; margin: 0 0 8px 0; font-size: 22px; color: #fff; font-weight: 700;">Part 2 — Day-Type Branching with GET_DATE_DAY_OF_WEEK, Public Holiday Override, and the FULL_TIME Fork</h3>
-  <p style="font-family: 'Source Sans 3', sans-serif; margin: 0; color: #c4bdb5; line-height: 1.5; font-size: 15px;">Why <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">GET_DATE_DAY_OF_WEEK</code> alone isn't enough to fork OT logic — the formula needs a FRI-anchored weekly compare, a <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">pOvrdPubCat</code> rule parameter for public holiday overrides, and a <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">PER_ASG_FULL_PART_TIME</code> DBI check before threshold logic activates.</p>
+<h3 style="font-family: 'Source Sans 3', sans-serif; margin: 0 0 8px 0; font-size: 22px; color: #fff; font-weight: 700;">Part 2 — Day-Type Branching with GET_DATE_DAY_OF_WEEK, Public Holiday Override, and the FULL_TIME Fork</h3>
+<p style="font-family: 'Source Sans 3', sans-serif; margin: 0; color: #c4bdb5; line-height: 1.5; font-size: 15px;">Why <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">GET_DATE_DAY_OF_WEEK</code> alone isn't enough to fork OT logic — the formula needs a FRI-anchored weekly compare, a <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">pOvrdPubCat</code> rule parameter for public holiday overrides, and a <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">PER_ASG_FULL_PART_TIME</code> DBI check before threshold logic activates.</p>
 </div>
 
 
 
 <div style="display: flex; align-items: stretch; background: #faf6f0; border: 1px solid #e8ddc9; margin: 32px 0 24px 0;">
-  <div style="background: #8b2e2a; color: #fff; width: 64px; min-width: 64px; display: flex; align-items: center; justify-content: center; font-family: 'Source Sans 3', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1px;">AM</div>
+<div style="background: #8b2e2a; color: #fff; width: 64px; min-width: 64px; display: flex; align-items: center; justify-content: center; font-family: 'Source Sans 3', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1px;">AM</div>
 
-  <div style="padding: 14px 20px;">
-    <div style="font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 700; color: #2d2926; margin-bottom: 4px;">Abhishek Mohanty</div>
+<div style="padding: 14px 20px;">
+<div style="font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 700; color: #2d2926; margin-bottom: 4px;">Abhishek Mohanty</div>
 
-    <div style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #5a5550; line-height: 1.5;"><span style="color: #8b2e2a; font-weight: 600;">Oracle ACE Associate  |  AIOUG Member  |  Oracle HCM Cloud Consultant & Technical Lead</span> — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div>
+<div style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #5a5550; line-height: 1.5;"><span style="color: #8b2e2a; font-weight: 600;">Oracle ACE Associate  |  AIOUG Member  |  Oracle HCM Cloud Consultant & Technical Lead</span> — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div>
 
-  </div>
+</div>
 </div>
 
 
 <div style="border-top: 2px solid #f0e9dd; padding-top: 24px; margin-top: 48px; font-size: 13px; color: #8a847d; font-family: 'JetBrains Mono', monospace; line-height: 1.6;">
-  <div style="margin-bottom: 6px; font-weight: 500;">TCR DEEP DIVE · PART 1 / 5</div>
+<div style="margin-bottom: 6px; font-weight: 500;">TCR DEEP DIVE · PART 1 / 5</div>
 
-  <div>Series tag: <span style="color: #8b2e2a; font-weight: 500;">#TCRDeepDive</span></div>
+<div>Series tag: <span style="color: #8b2e2a; font-weight: 500;">#TCRDeepDive</span></div>
 </div>
 
 </div>

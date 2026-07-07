@@ -10,10 +10,10 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Recruiting"]
 <div style="font-family:'Open Sans',sans-serif;max-width:800px;margin:0 auto;padding:24px 16px;line-height:1.8;color:#000;">
 
 <div style="margin-bottom:8px;font-family:'Open Sans',sans-serif;">
-  <span style="display:inline-block;background:#c0392b;color:#fff;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;margin-bottom:6px;margin-right:6px;font-family:'Open Sans',sans-serif;">Fast Formula</span>
-  <span style="display:inline-block;background:#2c3e50;color:#fff;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;margin-bottom:6px;margin-right:6px;font-family:'Open Sans',sans-serif;">Recruiting</span>
-  <span style="display:inline-block;background:#2c3e50;color:#fff;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;margin-bottom:6px;margin-right:6px;font-family:'Open Sans',sans-serif;">CSP</span>
-  <span style="display:inline-block;background:#2c3e50;color:#fff;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;margin-bottom:6px;margin-right:6px;font-family:'Open Sans',sans-serif;">DBIs</span>
+<span style="display:inline-block;background:#c0392b;color:#fff;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;margin-bottom:6px;margin-right:6px;font-family:'Open Sans',sans-serif;">Fast Formula</span>
+<span style="display:inline-block;background:#2c3e50;color:#fff;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;margin-bottom:6px;margin-right:6px;font-family:'Open Sans',sans-serif;">Recruiting</span>
+<span style="display:inline-block;background:#2c3e50;color:#fff;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;margin-bottom:6px;margin-right:6px;font-family:'Open Sans',sans-serif;">CSP</span>
+<span style="display:inline-block;background:#2c3e50;color:#fff;padding:4px 14px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:2px;margin-bottom:6px;margin-right:6px;font-family:'Open Sans',sans-serif;">DBIs</span>
 </div>
 
 <div style="font-size:13px;color:#888;margin-bottom:20px;letter-spacing:0.5px;font-family:'Open Sans',sans-serif;">April 2026 · 15 min read · Oracle HCM Cloud</div>
@@ -23,9 +23,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Recruiting"]
 <div style="font-size:16px;color:#444;line-height:1.5;margin-bottom:28px;font-family:'Open Sans',sans-serif;">DBIs, Contexts, Value Sets, Array Indexing, Debugging Patterns, and Production-Ready Code</div>
 
 <div style="display:flex;align-items:center;gap:14px;padding:18px 0;border-top:2px solid #2D3436;border-bottom:2px solid #2D3436;margin-bottom:30px;font-family:'Open Sans',sans-serif;">
-  <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;font-family:'Open Sans',sans-serif;">AM</div>
+<div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;font-family:'Open Sans',sans-serif;">AM</div>
 
-  <div><div style="font-weight:700;font-size:15px;font-family:'Open Sans',sans-serif;">Abhishek Mohanty</div><div style="font-size:13px;color:#888;font-family:'Open Sans',sans-serif;">Oracle HCM Cloud Consultant — Fast Formulas, Absence, Recruiting, Core HR, Redwood, HDL, OTBI</div></div>
+<div><div style="font-weight:700;font-size:15px;font-family:'Open Sans',sans-serif;">Abhishek Mohanty</div><div style="font-size:13px;color:#888;font-family:'Open Sans',sans-serif;">Oracle HCM Cloud Consultant — Fast Formulas, Absence, Recruiting, Core HR, Redwood, HDL, OTBI</div></div>
 </div>
 
 <div style="font-size:16px;color:#444;line-height:1.7;margin-bottom:30px;font-style:italic;font-family:'Open Sans',sans-serif;">Recruiting CSP formulas are powerful — but the documentation is scattered. This post is the reference I wished I had. Every DBI, every context, every code pattern — in one place.</div>
@@ -36,9 +36,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Recruiting"]
 
 <table style="width:100%;border-collapse:collapse;font-size:13px;margin:20px 0;font-family:'Open Sans',sans-serif;">
 <thead><tr>
-  <th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;font-size:12px;letter-spacing:0.5px;text-transform:uppercase;font-family:'Open Sans',sans-serif;">Capability</th>
-  <th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;font-size:12px;letter-spacing:0.5px;text-transform:uppercase;font-family:'Open Sans',sans-serif;">What It Does</th>
-  <th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;font-size:12px;letter-spacing:0.5px;text-transform:uppercase;font-family:'Open Sans',sans-serif;">Key DBI / Function</th>
+<th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;font-size:12px;letter-spacing:0.5px;text-transform:uppercase;font-family:'Open Sans',sans-serif;">Capability</th>
+<th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;font-size:12px;letter-spacing:0.5px;text-transform:uppercase;font-family:'Open Sans',sans-serif;">What It Does</th>
+<th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;font-size:12px;letter-spacing:0.5px;text-transform:uppercase;font-family:'Open Sans',sans-serif;">Key DBI / Function</th>
 </tr></thead>
 <tbody>
 <tr><td style="padding:10px 14px;border-bottom:1px solid #e0dcd6;font-weight:700;vertical-align:top;font-family:'Open Sans',sans-serif;">Auto-Move Candidates</td><td style="padding:10px 14px;border-bottom:1px solid #e0dcd6;font-family:'Open Sans',sans-serif;">Automatically advance or route candidates between phases and states when formula returns Y. No recruiter action needed.</td><td style="padding:10px 14px;border-bottom:1px solid #e0dcd6;font-family:'Open Sans',sans-serif;font-size:15px;color:#c0392b;font-weight:700;">Action Condition on CSP state</td></tr>
@@ -80,7 +80,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Recruiting"]
 </table>
 
 <div style="font-size:28px;font-weight:900;color:#000;margin:45px 0 18px;line-height:1.3;font-family:'Open Sans',sans-serif;">DBI + Context — How the Formula Gets Its Data</div><p style="font-size:16px;margin-bottom:18px;color:#000;font-family:'Open Sans',sans-serif;"><strong>DBI</strong> = a named variable that reads from Oracle's database. <strong>Context</strong> = tells the engine <em>which record</em> to fetch. You never write SQL in the formula.</p><div style="background:#fdf6f0;border-radius:12px;padding:24px;margin:20px 0;font-family:'Open Sans',sans-serif;">
-  <table style="width:100%;border-collapse:collapse;font-size:15px;margin:24px 0;font-family:'Open Sans',sans-serif;">
+<table style="width:100%;border-collapse:collapse;font-size:15px;margin:24px 0;font-family:'Open Sans',sans-serif;">
 <tr><td style="padding:12px 16px;border-bottom:1px solid #e0dcd6;color:#c0392b;font-weight:700;width:100px;vertical-align:top;font-family:'Open Sans',sans-serif;">Trigger</td><td style="padding:12px 16px;border-bottom:1px solid #e0dcd6;font-family:'Open Sans',sans-serif;">Candidate applies → Job Application <strong style="color:#c0392b;font-family:'Open Sans',sans-serif;">45678</strong> created</td></tr>
 <tr><td style="padding:12px 16px;border-bottom:1px solid #e0dcd6;color:#c0392b;font-weight:700;vertical-align:top;font-family:'Open Sans',sans-serif;">Context</td><td style="padding:12px 16px;border-bottom:1px solid #e0dcd6;font-family:'Open Sans',sans-serif;">Oracle auto-sets <strong>SUBMISSION_ID = 45678</strong>. Every DBI resolves from this value.</td></tr>
 <tr><td style="padding:12px 16px;border-bottom:1px solid #e0dcd6;color:#c0392b;font-weight:700;vertical-align:top;font-family:'Open Sans',sans-serif;">DBIs Load</td><td style="padding:12px 16px;border-bottom:1px solid #e0dcd6;font-family:'Open Sans',sans-serif;">All DBIs populate — business unit, internal flag, assessments, prescreening answers, requisition details.</td></tr>
@@ -391,10 +391,10 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Recruiting"]
 
 <div style="font-size:9px;color:#888;padding:2px 6px;font-style:italic;background:#FAFAF8;border:1px solid #e0dcd6;border-top:none;border-radius:0 0 4px 4px;font-family:'Open Sans',sans-serif;">+ 38 more DBIs. See MOS 2723251.1 for full list.</div><div style="font-size:28px;font-weight:900;color:#000;margin:45px 0 18px;line-height:1.3;font-family:'Open Sans',sans-serif;">Array Indexing</div><table style="width:100%;border-collapse:collapse;font-size:15px;margin:16px 0;font-family:'Open Sans',sans-serif;">
 <thead><tr>
-  <th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:center;font-weight:600;">Index</th>
-  <th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;">QSTN_CODE</th>
-  <th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;">ANSWER_CODE</th>
-  <th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:center;font-weight:600;">.EXISTS</th>
+<th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:center;font-weight:600;">Index</th>
+<th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;">QSTN_CODE</th>
+<th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;">ANSWER_CODE</th>
+<th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:center;font-weight:600;">.EXISTS</th>
 </tr></thead>
 <tbody>
 <tr><td style="padding:12px 14px;border-bottom:1px solid #e0dcd6;text-align:center;font-weight:700;color:#c0392b;">[1]</td><td style="padding:12px 14px;border-bottom:1px solid #e0dcd6;">JAVA_SKILL_LEVEL</td><td style="padding:12px 14px;border-bottom:1px solid #e0dcd6;font-weight:700;color:#27ae60;">EXPERT</td><td style="padding:12px 14px;border-bottom:1px solid #e0dcd6;text-align:center;color:#27ae60;font-weight:700;">TRUE</td></tr>
@@ -403,27 +403,27 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Recruiting"]
 <tr style="background:#fdf6f0;"><td style="padding:12px 14px;border-bottom:1px solid #e0dcd6;text-align:center;font-weight:700;color:#888;">[4]</td><td style="padding:12px 14px;border-bottom:1px solid #e0dcd6;color:#888;" colspan="2"><em>end of data — loop stops here</em></td><td style="padding:12px 14px;border-bottom:1px solid #e0dcd6;text-align:center;color:#c0392b;font-weight:700;">FALSE</td></tr>
 </tbody>
 </table><div style="background:#fff;border-left:4px solid #c0392b;border-radius:0;padding:16px 18px;margin:20px 0;font-family:'Open Sans',sans-serif;">
-  <div style="color:#c0392b;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:6px;font-family:'Open Sans',sans-serif;">SCENARIO</div>
+<div style="color:#c0392b;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:6px;font-family:'Open Sans',sans-serif;">SCENARIO</div>
 
-  <div style="color:#000;font-size:16px;font-weight:700;margin-bottom:4px;font-family:'Open Sans',sans-serif;">Prescreening Answer Check</div>
+<div style="color:#000;font-size:16px;font-weight:700;margin-bottom:4px;font-family:'Open Sans',sans-serif;">Prescreening Answer Check</div>
 
-  <div style="color:#333;font-size:14px;line-height:1.5;font-family:'Open Sans',sans-serif;">Check if the candidate answered 'EXPERT' to the JAVA_SKILL_LEVEL question. The trap: ISNULL() won't work because DEFAULT sets a space character.</div>
+<div style="color:#333;font-size:14px;line-height:1.5;font-family:'Open Sans',sans-serif;">Check if the candidate answered 'EXPERT' to the JAVA_SKILL_LEVEL question. The trap: ISNULL() won't work because DEFAULT sets a space character.</div>
 </div><div style="display:flex;align-items:flex-start;gap:12px;margin:20px 0 8px;font-family:'Open Sans',sans-serif;">
-  <div style="width:32px;height:32px;border-radius:50%;background:#c0392b;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;font-family:'Open Sans',sans-serif;">1</div>
+<div style="width:32px;height:32px;border-radius:50%;background:#c0392b;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;font-family:'Open Sans',sans-serif;">1</div>
 
-  <div><div style="font-weight:700;font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Default the array DBIs</div><div style="font-size:14px;color:#333;margin-top:2px;font-family:'Open Sans',sans-serif;">Array DBIs need DEFAULT_DATA_VALUE. The default is a space — this is why ISNULL() fails.</div></div>
+<div><div style="font-weight:700;font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Default the array DBIs</div><div style="font-size:14px;color:#333;margin-top:2px;font-family:'Open Sans',sans-serif;">Array DBIs need DEFAULT_DATA_VALUE. The default is a space — this is why ISNULL() fails.</div></div>
 </div><div style="background:#0A0A0A;border-radius:8px;padding:12px 0;margin:10px 0 16px;font-family:Consolas,'Courier New',monospace;font-size:14px;font-weight:700;color:#D4D4D4;line-height:1.7;overflow-x:auto;border-left:3px solid #FF9D00;"><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">1</span><span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">DEFAULT_DATA_VALUE FOR</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">2</span>  IRC_CSP_JOBAPP_PRESCREEN_RESPONSE_ANSWER_CODE <span style="color:#80FCFF;font-family:'Open Sans',sans-serif;">IS</span> <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">' '</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">3</span><span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">DEFAULT_DATA_VALUE FOR</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">4</span>  IRC_CSP_JOBAPP_PRESCREEN_RESPONSE_QSTN_CODE <span style="color:#80FCFF;font-family:'Open Sans',sans-serif;">IS</span> <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">' '</span></div></div><div style="display:flex;align-items:flex-start;gap:12px;margin:20px 0 8px;font-family:'Open Sans',sans-serif;">
-  <div style="width:32px;height:32px;border-radius:50%;background:#c0392b;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;font-family:'Open Sans',sans-serif;">2</div>
+<div style="width:32px;height:32px;border-radius:50%;background:#c0392b;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;font-family:'Open Sans',sans-serif;">2</div>
 
-  <div><div style="font-weight:700;font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Loop with .EXISTS(i)</div><div style="font-size:14px;color:#333;margin-top:2px;font-family:'Open Sans',sans-serif;">Returns TRUE while index i has data. FALSE = loop ends.</div></div>
+<div><div style="font-weight:700;font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Loop with .EXISTS(i)</div><div style="font-size:14px;color:#333;margin-top:2px;font-family:'Open Sans',sans-serif;">Returns TRUE while index i has data. FALSE = loop ends.</div></div>
 </div><div style="background:#0A0A0A;border-radius:8px;padding:12px 0;margin:10px 0 16px;font-family:Consolas,'Courier New',monospace;font-size:14px;font-weight:700;color:#D4D4D4;line-height:1.7;overflow-x:auto;border-left:3px solid #FF9D00;"><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">1</span>i = <span style="color:#FF628C;font-family:'Open Sans',sans-serif;">1</span></div><div style="padding:6px 14px;background:rgba(255,157,0,0.1);border-left:3px solid #FF9D00;margin:1px 0;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">2</span><span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">WHILE</span> ...QSTN_CODE.<span style="color:#FFEE80;font-family:'Open Sans',sans-serif;">EXISTS</span>(i) <span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">LOOP</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">3</span>(</div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">4</span>    l_q = ...QSTN_CODE[i]</div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">5</span>    l_a = ...ANSWER_CODE[i]</div></div><div style="display:flex;align-items:flex-start;gap:12px;margin:20px 0 8px;font-family:'Open Sans',sans-serif;">
-  <div style="width:32px;height:32px;border-radius:50%;background:#c0392b;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;font-family:'Open Sans',sans-serif;">3</div>
+<div style="width:32px;height:32px;border-radius:50%;background:#c0392b;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;font-family:'Open Sans',sans-serif;">3</div>
 
-  <div><div style="font-weight:700;font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Use WAS_DEFAULTED, not ISNULL</div><div style="font-size:14px;color:#333;margin-top:2px;font-family:'Open Sans',sans-serif;">WAS_DEFAULTED returns 'N' when real data exists. This is the correct check when DEFAULT set a space.</div></div>
+<div><div style="font-weight:700;font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Use WAS_DEFAULTED, not ISNULL</div><div style="font-size:14px;color:#333;margin-top:2px;font-family:'Open Sans',sans-serif;">WAS_DEFAULTED returns 'N' when real data exists. This is the correct check when DEFAULT set a space.</div></div>
 </div><div style="background:#0A0A0A;border-radius:8px;padding:12px 0;margin:10px 0 16px;font-family:Consolas,'Courier New',monospace;font-size:14px;font-weight:700;color:#D4D4D4;line-height:1.7;overflow-x:auto;border-left:3px solid #FF9D00;"><div style="padding:6px 14px;background:rgba(255,157,0,0.1);border-left:3px solid #FF9D00;margin:1px 0;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">1</span>    <span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">IF</span> (<span style="color:#FFEE80;font-family:'Open Sans',sans-serif;">WAS_DEFAULTED</span>(...ANSWER_CODE[i]) = <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'N'</span>) <span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">THEN</span> <span style="background:#c0392b;color:#fff;padding:1px 7px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:0.5px;margin-left:8px;white-space:nowrap;font-family:'Open Sans',sans-serif;">KEY CHECK</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">2</span>    (</div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">3</span>        <span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">IF</span> (l_q = <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'JAVA_SKILL_LEVEL'</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">4</span>            <span style="color:#80FCFF;font-family:'Open Sans',sans-serif;">AND</span> l_a = <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'EXPERT'</span>) <span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">THEN</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">5</span>            l_found = <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'Y'</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">6</span>    )</div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">7</span>    i = i + <span style="color:#FF628C;font-family:'Open Sans',sans-serif;">1</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">8</span>)</div></div><div style="display:flex;align-items:flex-start;gap:12px;margin:20px 0 8px;font-family:'Open Sans',sans-serif;">
-  <div style="width:32px;height:32px;border-radius:50%;background:#c0392b;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;font-family:'Open Sans',sans-serif;">4</div>
+<div style="width:32px;height:32px;border-radius:50%;background:#c0392b;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;font-family:'Open Sans',sans-serif;">4</div>
 
-  <div><div style="font-weight:700;font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Return with debug trail</div></div>
+<div><div style="font-weight:700;font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Return with debug trail</div></div>
 </div><div style="background:#0A0A0A;border-radius:8px;padding:12px 0;margin:10px 0 16px;font-family:Consolas,'Courier New',monospace;font-size:14px;font-weight:700;color:#D4D4D4;line-height:1.7;overflow-x:auto;border-left:3px solid #FF9D00;"><div style="padding:6px 14px;background:rgba(255,157,0,0.1);border-left:3px solid #FF9D00;margin:1px 0;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">1</span><span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">IF</span> (l_found = <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'Y'</span>) <span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">THEN</span> CONDITION_RESULT = <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'Y'</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">2</span>CONDITION_MESSAGE = <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'java='</span>||l_found <span style="background:#c0392b;color:#fff;padding:1px 7px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:0.5px;margin-left:8px;white-space:nowrap;font-family:'Open Sans',sans-serif;">DEBUG</span></div><div style="padding:6px 14px;background:rgba(255,157,0,0.1);border-left:3px solid #FF9D00;margin:1px 0;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">3</span><span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">RETURN</span> CONDITION_RESULT, CONDITION_MESSAGE <span style="background:#c0392b;color:#fff;padding:1px 7px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:0.5px;margin-left:8px;white-space:nowrap;font-family:'Open Sans',sans-serif;">RETURN</span></div></div><div style="font-size:28px;font-weight:900;color:#000;margin:45px 0 18px;line-height:1.3;font-family:'Open Sans',sans-serif;">Interview Contexts</div>
 
 <p style="font-size:16px;margin-bottom:18px;color:#000;font-family:'Open Sans',sans-serif;">When you configure a CSP action to fire on <strong>Interview Updated</strong>, Oracle doesn't just tell you "something changed." It passes a specific operation value into the formula's context, telling you exactly what happened to the interview. This is not a DBI — you can't reference it like a database item. You read it using GET_CONTEXT.</p>
@@ -434,9 +434,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Recruiting"]
 
 <table style="width:100%;border-collapse:collapse;font-size:15px;margin:16px 0;font-family:'Open Sans',sans-serif;">
 <thead><tr>
-  <th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;">Operation Value</th>
-  <th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;">What Triggered It</th>
-  <th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;">Typical Use in Formula</th>
+<th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;">Operation Value</th>
+<th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;">What Triggered It</th>
+<th style="background:#1a1a1a;color:#fff;padding:12px 14px;text-align:left;font-weight:600;">Typical Use in Formula</th>
 </tr></thead>
 <tbody>
 <tr><td style="padding:10px 14px;border-bottom:1px solid #e0dcd6;color:#c0392b;font-weight:700;">REQUEST_SENT</td><td style="padding:10px 14px;border-bottom:1px solid #e0dcd6;">Recruiter sent an interview invite to the candidate</td><td style="padding:10px 14px;border-bottom:1px solid #e0dcd6;">Trigger a notification or update a tracking field</td></tr>
@@ -461,121 +461,121 @@ l_operation = <span style="color:#6cacec;">GET_CONTEXT</span>(IRC_INTRVW_OPERATI
 <p style="font-size:16px;margin-bottom:18px;color:#000;font-family:'Open Sans',sans-serif;">One important detail — these context values are only available when the CSP action is triggered by an <strong>Interview Updated</strong> event. If your formula is attached to a different trigger (like a manual move or assessment completion), GET_CONTEXT will return the default value you specified.</p>
 
 <div style="font-size:28px;font-weight:900;color:#000;margin:45px 0 18px;line-height:1.3;font-family:'Open Sans',sans-serif;">The GET_VALUE_SET Pattern</div><p style="font-size:16px;margin-bottom:18px;color:#000;font-family:'Open Sans',sans-serif;">When no seeded DBI exists, build a <strong>Table-type Value Set</strong> (Module: Recruiting). Specify FROM, Value Column, and WHERE with bind params like <code style="background:#f0ece6;padding:1px 5px;border-radius:3px;font-family:Consolas,monospace;font-size:15px;color:#c0392b;font-weight:700;">{PARAMETER.SUBMISSION_ID}</code>.</p><div style="background:#fdf6f0;border-radius:12px;padding:18px;margin:20px 0;font-family:'Open Sans',sans-serif;">
-  <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:'Open Sans',sans-serif;">
-    <div style="background:#fdf6f0;border:1px solid #334155;border-radius:6px;padding:10px;text-align:center;min-width:90px;font-family:'Open Sans',sans-serif;"><div style="color:#888;font-size:13px;font-family:'Open Sans',sans-serif;">FORMULA</div><div style="color:#e67e22;font-size:11px;font-weight:700;font-family:'Open Sans',sans-serif;">GET_CONTEXT</div></div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:'Open Sans',sans-serif;">
+<div style="background:#fdf6f0;border:1px solid #334155;border-radius:6px;padding:10px;text-align:center;min-width:90px;font-family:'Open Sans',sans-serif;"><div style="color:#888;font-size:13px;font-family:'Open Sans',sans-serif;">FORMULA</div><div style="color:#e67e22;font-size:11px;font-weight:700;font-family:'Open Sans',sans-serif;">GET_CONTEXT</div></div>
 
-    <div style="color:#c0392b;font-size:16px;font-weight:700;font-family:'Open Sans',sans-serif;">→</div>
+<div style="color:#c0392b;font-size:16px;font-weight:700;font-family:'Open Sans',sans-serif;">→</div>
 
-    <div style="background:linear-gradient(135deg,#c0392b,#e67e22);border-radius:6px;padding:10px;text-align:center;min-width:110px;font-family:'Open Sans',sans-serif;"><div style="color:#888;font-size:13px;font-family:'Open Sans',sans-serif;">CALL</div><div style="color:#fff;font-size:11px;font-weight:700;font-family:'Open Sans',sans-serif;">GET_VALUE_SET</div></div>
+<div style="background:linear-gradient(135deg,#c0392b,#e67e22);border-radius:6px;padding:10px;text-align:center;min-width:110px;font-family:'Open Sans',sans-serif;"><div style="color:#888;font-size:13px;font-family:'Open Sans',sans-serif;">CALL</div><div style="color:#fff;font-size:11px;font-weight:700;font-family:'Open Sans',sans-serif;">GET_VALUE_SET</div></div>
 
-    <div style="color:#c0392b;font-size:16px;font-weight:700;font-family:'Open Sans',sans-serif;">→</div>
+<div style="color:#c0392b;font-size:16px;font-weight:700;font-family:'Open Sans',sans-serif;">→</div>
 
-    <div style="background:#fdf6f0;border:1px solid #334155;border-radius:6px;padding:10px;text-align:center;min-width:100px;font-family:'Open Sans',sans-serif;"><div style="color:#888;font-size:13px;font-family:'Open Sans',sans-serif;">SQL</div><div style="color:#000;font-size:12px;font-family:'Open Sans',sans-serif;">FROM → WHERE</div></div>
+<div style="background:#fdf6f0;border:1px solid #334155;border-radius:6px;padding:10px;text-align:center;min-width:100px;font-family:'Open Sans',sans-serif;"><div style="color:#888;font-size:13px;font-family:'Open Sans',sans-serif;">SQL</div><div style="color:#000;font-size:12px;font-family:'Open Sans',sans-serif;">FROM → WHERE</div></div>
 
-    <div style="color:#c0392b;font-size:16px;font-weight:700;font-family:'Open Sans',sans-serif;">→</div>
+<div style="color:#c0392b;font-size:16px;font-weight:700;font-family:'Open Sans',sans-serif;">→</div>
 
-    <div style="background:#27ae60;border-radius:6px;padding:10px;text-align:center;min-width:60px;font-family:'Open Sans',sans-serif;"><div style="color:#fff;font-size:13px;font-weight:700;font-family:'Open Sans',sans-serif;">value</div></div>
+<div style="background:#27ae60;border-radius:6px;padding:10px;text-align:center;min-width:60px;font-family:'Open Sans',sans-serif;"><div style="color:#fff;font-size:13px;font-weight:700;font-family:'Open Sans',sans-serif;">value</div></div>
 
-  </div>
+</div>
 </div><div style="background:#fff;border-left:4px solid #c0392b;border-radius:0;padding:16px 18px;margin:20px 0;font-family:'Open Sans',sans-serif;">
-  <div style="color:#c0392b;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:6px;font-family:'Open Sans',sans-serif;">SCENARIO</div>
+<div style="color:#c0392b;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:6px;font-family:'Open Sans',sans-serif;">SCENARIO</div>
 
-  <div style="color:#000;font-size:16px;font-weight:700;margin-bottom:4px;font-family:'Open Sans',sans-serif;">Ex-Employee Routing</div>
+<div style="color:#000;font-size:16px;font-weight:700;margin-bottom:4px;font-family:'Open Sans',sans-serif;">Ex-Employee Routing</div>
 
-  <div style="color:#333;font-size:14px;line-height:1.5;font-family:'Open Sans',sans-serif;">Route former employees differently. Value Set queries IRC_SUBMISSIONS for SYSTEM_PERSON_TYPE.</div>
+<div style="color:#333;font-size:14px;line-height:1.5;font-family:'Open Sans',sans-serif;">Route former employees differently. Value Set queries IRC_SUBMISSIONS for SYSTEM_PERSON_TYPE.</div>
 </div><div style="display:flex;align-items:flex-start;gap:12px;margin:20px 0 8px;font-family:'Open Sans',sans-serif;">
-  <div style="width:32px;height:32px;border-radius:50%;background:#c0392b;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;font-family:'Open Sans',sans-serif;">1</div>
+<div style="width:32px;height:32px;border-radius:50%;background:#c0392b;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;font-family:'Open Sans',sans-serif;">1</div>
 
-  <div><div style="font-weight:700;font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Get context + call Value Set</div><div style="font-size:14px;color:#333;margin-top:2px;font-family:'Open Sans',sans-serif;">Pipe-equals syntax passes the bind parameter.</div></div>
+<div><div style="font-weight:700;font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Get context + call Value Set</div><div style="font-size:14px;color:#333;margin-top:2px;font-family:'Open Sans',sans-serif;">Pipe-equals syntax passes the bind parameter.</div></div>
 </div><div style="background:#0A0A0A;border-radius:8px;padding:12px 0;margin:10px 0 16px;font-family:Consolas,'Courier New',monospace;font-size:14px;font-weight:700;color:#D4D4D4;line-height:1.7;overflow-x:auto;border-left:3px solid #FF9D00;"><div style="padding:6px 14px;background:rgba(255,157,0,0.1);border-left:3px solid #FF9D00;margin:1px 0;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">1</span>l_sub_id = <span style="color:#FFEE80;font-family:'Open Sans',sans-serif;">GET_CONTEXT</span>(SUBMISSION_ID, -<span style="color:#FF628C;font-family:'Open Sans',sans-serif;">1</span>) <span style="background:#c0392b;color:#fff;padding:1px 7px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:0.5px;margin-left:8px;white-space:nowrap;font-family:'Open Sans',sans-serif;">CONTEXT</span></div><div style="height:10px;"></div><div style="padding:6px 14px;background:rgba(255,157,0,0.1);border-left:3px solid #FF9D00;margin:1px 0;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">2</span>l_person_type = <span style="color:#FFEE80;font-family:'Open Sans',sans-serif;">GET_VALUE_SET</span>( <span style="background:#c0392b;color:#fff;padding:1px 7px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:0.5px;margin-left:8px;white-space:nowrap;font-family:'Open Sans',sans-serif;">VALUE SET</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">3</span>    <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'XX_GET_PERSON_TYPE_VS'</span>,</div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">4</span>    <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'|=SUBMISSION_ID='</span> || <span style="color:#FFEE80;font-family:'Open Sans',sans-serif;">TO_CHAR</span>(l_sub_id))</div></div><div style="display:flex;align-items:flex-start;gap:12px;margin:20px 0 8px;font-family:'Open Sans',sans-serif;">
-  <div style="width:32px;height:32px;border-radius:50%;background:#c0392b;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;font-family:'Open Sans',sans-serif;">2</div>
+<div style="width:32px;height:32px;border-radius:50%;background:#c0392b;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;font-family:'Open Sans',sans-serif;">2</div>
 
-  <div><div style="font-weight:700;font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Check and return</div><div style="font-size:14px;color:#333;margin-top:2px;font-family:'Open Sans',sans-serif;">EX_EMP = ex-employee in Oracle's system person type codes.</div></div>
+<div><div style="font-weight:700;font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Check and return</div><div style="font-size:14px;color:#333;margin-top:2px;font-family:'Open Sans',sans-serif;">EX_EMP = ex-employee in Oracle's system person type codes.</div></div>
 </div><div style="background:#0A0A0A;border-radius:8px;padding:12px 0;margin:10px 0 16px;font-family:Consolas,'Courier New',monospace;font-size:14px;font-weight:700;color:#D4D4D4;line-height:1.7;overflow-x:auto;border-left:3px solid #FF9D00;"><div style="padding:6px 14px;background:rgba(255,157,0,0.1);border-left:3px solid #FF9D00;margin:1px 0;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">1</span><span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">IF</span> (l_person_type = <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'EX_EMP'</span>) <span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">THEN</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">2</span>    CONDITION_RESULT = <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'Y'</span></div><div style="height:10px;"></div><div style="padding:6px 14px;background:rgba(255,157,0,0.1);border-left:3px solid #FF9D00;margin:1px 0;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">3</span><span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">RETURN</span> CONDITION_RESULT, CONDITION_MESSAGE <span style="background:#c0392b;color:#fff;padding:1px 7px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:0.5px;margin-left:8px;white-space:nowrap;font-family:'Open Sans',sans-serif;">RETURN</span></div></div><div style="font-size:28px;font-weight:900;color:#000;margin:45px 0 18px;line-height:1.3;font-family:'Open Sans',sans-serif;">Debugging — Two Approaches</div><div style="display:flex;flex-wrap:wrap;gap:12px;margin:20px 0;font-family:'Open Sans',sans-serif;">
-  <div style="flex:1;min-width:260px;background:#fff;border:1px solid #e0dcd6;border-radius:6px;padding:16px;border-top:3px solid #c0392b;font-family:'Open Sans',sans-serif;">
-    <div style="color:#c0392b;font-weight:700;font-size:16px;font-family:Consolas,monospace;margin-bottom:4px;">CONDITION_MESSAGE</div>
+<div style="flex:1;min-width:260px;background:#fff;border:1px solid #e0dcd6;border-radius:6px;padding:16px;border-top:3px solid #c0392b;font-family:'Open Sans',sans-serif;">
+<div style="color:#c0392b;font-weight:700;font-size:16px;font-family:Consolas,monospace;margin-bottom:4px;">CONDITION_MESSAGE</div>
 
-    <div style="color:#333;font-size:13px;margin-bottom:12px;font-family:'Open Sans',sans-serif;">255 char limit · stored in CSP tables</div>
+<div style="color:#333;font-size:13px;margin-bottom:12px;font-family:'Open Sans',sans-serif;">255 char limit · stored in CSP tables</div>
 
-    <div style="font-family:Consolas,monospace;font-size:14px;color:#000;line-height:1.8;">CONDITION_MESSAGE =
+<div style="font-family:Consolas,monospace;font-size:14px;color:#000;line-height:1.8;">CONDITION_MESSAGE =
   'sub=' || TO_CHAR(l_id)
   || ' result=' || CONDITION_RESULT</div>
 
-  </div>
+</div>
 
-  <div style="flex:1;min-width:260px;background:#fff;border:1px solid #e0dcd6;border-radius:6px;padding:16px;border-top:3px solid #2980b9;font-family:'Open Sans',sans-serif;">
-    <div style="color:#2980b9;font-weight:700;font-size:16px;font-family:Consolas,monospace;margin-bottom:4px;">add_rlog</div>
+<div style="flex:1;min-width:260px;background:#fff;border:1px solid #e0dcd6;border-radius:6px;padding:16px;border-top:3px solid #2980b9;font-family:'Open Sans',sans-serif;">
+<div style="color:#2980b9;font-weight:700;font-size:16px;font-family:Consolas,monospace;margin-bottom:4px;">add_rlog</div>
 
-    <div style="color:#333;font-size:13px;margin-bottom:12px;font-family:'Open Sans',sans-serif;">Unlimited · writes to HWM_RULE_FF_WORK_LOG</div>
+<div style="color:#333;font-size:13px;margin-bottom:12px;font-family:'Open Sans',sans-serif;">Unlimited · writes to HWM_RULE_FF_WORK_LOG</div>
 
-    <div style="font-family:Consolas,monospace;font-size:14px;color:#000;line-height:1.8;">l_msg = add_rlog(1001, 1,
+<div style="font-family:Consolas,monospace;font-size:14px;color:#000;line-height:1.8;">l_msg = add_rlog(1001, 1,
   'Sub=' || TO_CHAR(l_id))
 
 /* SELECT * FROM HWM_RULE_FF_WORK_LOG
    ORDER BY CREATION_DATE DESC */</div>
 
-  </div>
+</div>
 </div><div style="font-size:28px;font-weight:900;color:#000;margin:45px 0 18px;line-height:1.3;font-family:'Open Sans',sans-serif;">More Formulas</div><div style="background:#fff;border-left:4px solid #c0392b;border-radius:0;padding:16px 18px;margin:20px 0;font-family:'Open Sans',sans-serif;">
-  <div style="color:#c0392b;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:6px;font-family:'Open Sans',sans-serif;">SCENARIO</div>
+<div style="color:#c0392b;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:6px;font-family:'Open Sans',sans-serif;">SCENARIO</div>
 
-  <div style="color:#000;font-size:16px;font-weight:700;margin-bottom:4px;font-family:'Open Sans',sans-serif;">All Assessments Passed</div>
+<div style="color:#000;font-size:16px;font-weight:700;margin-bottom:4px;font-family:'Open Sans',sans-serif;">All Assessments Passed</div>
 
-  <div style="color:#333;font-size:14px;line-height:1.5;font-family:'Open Sans',sans-serif;">Auto-advance only if every assessment returned ORA_COMPLETED_PASS. Any non-PASS blocks the move.</div>
+<div style="color:#333;font-size:14px;line-height:1.5;font-family:'Open Sans',sans-serif;">Auto-advance only if every assessment returned ORA_COMPLETED_PASS. Any non-PASS blocks the move.</div>
 </div><div style="background:#0A0A0A;border-radius:8px;padding:12px 0;margin:10px 0 16px;font-family:Consolas,'Courier New',monospace;font-size:14px;font-weight:700;color:#D4D4D4;line-height:1.7;overflow-x:auto;border-left:3px solid #FF9D00;"><div style="padding:6px 14px;background:rgba(255,157,0,0.1);border-left:3px solid #FF9D00;margin:1px 0;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">1</span>CONDITION_RESULT = <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'Y'</span> <span style="background:#c0392b;color:#fff;padding:1px 7px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:0.5px;margin-left:8px;white-space:nowrap;font-family:'Open Sans',sans-serif;">OPTIMISTIC</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">2</span>i = <span style="color:#FF628C;font-family:'Open Sans',sans-serif;">1</span></div><div style="height:10px;"></div><div style="padding:6px 14px;background:rgba(255,157,0,0.1);border-left:3px solid #FF9D00;margin:1px 0;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">3</span><span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">WHILE</span> IRC_CSP_ASSMNT_PARTNER_NAME.<span style="color:#FFEE80;font-family:'Open Sans',sans-serif;">EXISTS</span>(i) <span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">LOOP</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">4</span>(</div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">5</span>    <span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">IF</span> (IRC_CSP_ASSMNT_PACKAGE_CODE[i]</div><div style="padding:6px 14px;background:rgba(255,157,0,0.1);border-left:3px solid #FF9D00;margin:1px 0;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">6</span>        != <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'ORA_COMPLETED_PASS'</span>) <span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">THEN</span> <span style="background:#c0392b;color:#fff;padding:1px 7px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:0.5px;margin-left:8px;white-space:nowrap;font-family:'Open Sans',sans-serif;">FAIL CHECK</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">7</span>        CONDITION_RESULT = <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'N'</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">8</span>    i = i + <span style="color:#FF628C;font-family:'Open Sans',sans-serif;">1</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">9</span>)</div><div style="padding:6px 14px;background:rgba(255,157,0,0.1);border-left:3px solid #FF9D00;margin:1px 0;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">10</span><span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">RETURN</span> CONDITION_RESULT <span style="background:#c0392b;color:#fff;padding:1px 7px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:0.5px;margin-left:8px;white-space:nowrap;font-family:'Open Sans',sans-serif;">RETURN</span></div></div><div style="background:#fff;border-left:4px solid #c0392b;border-radius:0;padding:16px 18px;margin:20px 0;font-family:'Open Sans',sans-serif;">
-  <div style="color:#c0392b;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:6px;font-family:'Open Sans',sans-serif;">SCENARIO</div>
+<div style="color:#c0392b;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:6px;font-family:'Open Sans',sans-serif;">SCENARIO</div>
 
-  <div style="color:#000;font-size:16px;font-weight:700;margin-bottom:4px;font-family:'Open Sans',sans-serif;">Request Info Complete</div>
+<div style="color:#000;font-size:16px;font-weight:700;margin-bottom:4px;font-family:'Open Sans',sans-serif;">Request Info Complete</div>
 
-  <div style="color:#333;font-size:14px;line-height:1.5;font-family:'Open Sans',sans-serif;">Block progression until Request Info is done.</div>
+<div style="color:#333;font-size:14px;line-height:1.5;font-family:'Open Sans',sans-serif;">Block progression until Request Info is done.</div>
 </div><div style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0;font-family:'Open Sans',sans-serif;">
-  <div style="background:#922b21;color:#f5b7b1;padding:5px 10px;border-radius:5px;font-size:11px;font-weight:600;font-family:'Open Sans',sans-serif;">ORA_TRIGGERED — waiting</div>
+<div style="background:#922b21;color:#f5b7b1;padding:5px 10px;border-radius:5px;font-size:11px;font-weight:600;font-family:'Open Sans',sans-serif;">ORA_TRIGGERED — waiting</div>
 
-  <div style="background:#27ae60;color:#d5f5e3;padding:5px 10px;border-radius:5px;font-size:11px;font-weight:600;font-family:'Open Sans',sans-serif;">ORA_SUBMITTED — done</div>
+<div style="background:#27ae60;color:#d5f5e3;padding:5px 10px;border-radius:5px;font-size:11px;font-weight:600;font-family:'Open Sans',sans-serif;">ORA_SUBMITTED — done</div>
 
-  <div style="background:#27ae60;color:#d5f5e3;padding:5px 10px;border-radius:5px;font-size:11px;font-weight:600;font-family:'Open Sans',sans-serif;">ORA_NOT_REQUIRED — on file</div>
+<div style="background:#27ae60;color:#d5f5e3;padding:5px 10px;border-radius:5px;font-size:11px;font-weight:600;font-family:'Open Sans',sans-serif;">ORA_NOT_REQUIRED — on file</div>
 </div><div style="background:#0A0A0A;border-radius:8px;padding:12px 0;margin:10px 0 16px;font-family:Consolas,'Courier New',monospace;font-size:14px;font-weight:700;color:#D4D4D4;line-height:1.7;overflow-x:auto;border-left:3px solid #FF9D00;"><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">1</span>l_status = IRC_CSP_REQUEST_INFO_STATUS_CODE</div><div style="height:10px;"></div><div style="padding:6px 14px;background:rgba(255,157,0,0.1);border-left:3px solid #FF9D00;margin:1px 0;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">2</span><span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">IF</span> (l_status = <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'ORA_SUBMITTED'</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">3</span>    <span style="color:#80FCFF;font-family:'Open Sans',sans-serif;">OR</span> l_status = <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'ORA_NOT_REQUIRED'</span>) <span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">THEN</span></div><div style="padding:4px 14px;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">4</span>    CONDITION_RESULT = <span style="color:#3AD900;font-family:'Open Sans',sans-serif;">'Y'</span></div><div style="height:10px;"></div><div style="padding:6px 14px;background:rgba(255,157,0,0.1);border-left:3px solid #FF9D00;margin:1px 0;font-family:'Open Sans',sans-serif;"><span style="color:#444;font-size:11px;min-width:22px;display:inline-block;text-align:right;margin-right:14px;user-select:none;font-family:'Open Sans',sans-serif;">5</span><span style="color:#FF9D00;font-family:'Open Sans',sans-serif;">RETURN</span> CONDITION_RESULT <span style="background:#c0392b;color:#fff;padding:1px 7px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:0.5px;margin-left:8px;white-space:nowrap;font-family:'Open Sans',sans-serif;">RETURN</span></div></div><div style="font-size:28px;font-weight:900;color:#000;margin:45px 0 18px;line-height:1.3;font-family:'Open Sans',sans-serif;">Things to Know</div><div style="display:flex;flex-wrap:wrap;gap:10px;margin:20px 0;font-family:'Open Sans',sans-serif;">
-  <div style="flex:1;min-width:200px;background:#fdf6f0;border-radius:8px;padding:14px;border-left:3px solid #c0392b;font-family:'Open Sans',sans-serif;">
-    <div style="font-size:13px;font-weight:700;color:#000;margin-bottom:4px;font-family:'Open Sans',sans-serif;">Works on first phase/state</div>
+<div style="flex:1;min-width:200px;background:#fdf6f0;border-radius:8px;padding:14px;border-left:3px solid #c0392b;font-family:'Open Sans',sans-serif;">
+<div style="font-size:13px;font-weight:700;color:#000;margin-bottom:4px;font-family:'Open Sans',sans-serif;">Works on first phase/state</div>
 
-    <div style="font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">All DBIs including prescreening and EFF values are available at the very beginning of the CSP.</div>
+<div style="font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">All DBIs including prescreening and EFF values are available at the very beginning of the CSP.</div>
 
-  </div>
+</div>
 
-  <div style="flex:1;min-width:200px;background:#fdf6f0;border-radius:8px;padding:14px;border-left:3px solid #c0392b;font-family:'Open Sans',sans-serif;">
-    <div style="font-size:13px;font-weight:700;color:#000;margin-bottom:4px;font-family:'Open Sans',sans-serif;">DBIs are read-only</div>
+<div style="flex:1;min-width:200px;background:#fdf6f0;border-radius:8px;padding:14px;border-left:3px solid #c0392b;font-family:'Open Sans',sans-serif;">
+<div style="font-size:13px;font-weight:700;color:#000;margin-bottom:4px;font-family:'Open Sans',sans-serif;">DBIs are read-only</div>
 
-    <div style="font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Writing to a DBI causes a compilation error. Output is always CONDITION_RESULT + CONDITION_MESSAGE.</div>
+<div style="font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Writing to a DBI causes a compilation error. Output is always CONDITION_RESULT + CONDITION_MESSAGE.</div>
 
-  </div>
+</div>
 
-  <div style="flex:1;min-width:200px;background:#fdf6f0;border-radius:8px;padding:14px;border-left:3px solid #c0392b;font-family:'Open Sans',sans-serif;">
-    <div style="font-size:13px;font-weight:700;color:#000;margin-bottom:4px;font-family:'Open Sans',sans-serif;">Destination runs first</div>
+<div style="flex:1;min-width:200px;background:#fdf6f0;border-radius:8px;padding:14px;border-left:3px solid #c0392b;font-family:'Open Sans',sans-serif;">
+<div style="font-size:13px;font-weight:700;color:#000;margin-bottom:4px;font-family:'Open Sans',sans-serif;">Destination runs first</div>
 
-    <div style="font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Actions on the destination phase/state execute <em>before</em> the status updates.</div>
+<div style="font-size:15px;color:#000;font-family:'Open Sans',sans-serif;">Actions on the destination phase/state execute <em>before</em> the status updates.</div>
 
-  </div>
+</div>
 </div><div style="font-size:28px;font-weight:900;color:#000;margin:45px 0 18px;line-height:1.3;font-family:'Open Sans',sans-serif;">Two ESS Jobs Must Be Running</div><div style="display:flex;flex-wrap:wrap;gap:10px;margin:20px 0;font-family:'Open Sans',sans-serif;">
-  <div style="flex:1;min-width:260px;background:#fff;border:1px solid #e0dcd6;border-radius:6px;padding:16px;border-top:3px solid #c0392b;font-family:'Open Sans',sans-serif;">
-    <div style="color:#c0392b;font-size:11px;font-weight:700;letter-spacing:1px;font-family:'Open Sans',sans-serif;">ESS JOB 1</div>
+<div style="flex:1;min-width:260px;background:#fff;border:1px solid #e0dcd6;border-radius:6px;padding:16px;border-top:3px solid #c0392b;font-family:'Open Sans',sans-serif;">
+<div style="color:#c0392b;font-size:11px;font-weight:700;letter-spacing:1px;font-family:'Open Sans',sans-serif;">ESS JOB 1</div>
 
-    <div style="color:#000;font-size:15px;font-weight:700;margin:4px 0;font-family:'Open Sans',sans-serif;">Perform Recruiting CSP Actions</div>
+<div style="color:#000;font-size:15px;font-weight:700;margin:4px 0;font-family:'Open Sans',sans-serif;">Perform Recruiting CSP Actions</div>
 
-    <div style="color:#888;font-size:15px;font-family:'Open Sans',sans-serif;">Evaluates conditions, processes moves.</div>
+<div style="color:#888;font-size:15px;font-family:'Open Sans',sans-serif;">Evaluates conditions, processes moves.</div>
 
-    <div style="color:#c0392b;font-size:13px;margin-top:6px;font-weight:600;font-family:'Open Sans',sans-serif;">Every 5-10 min</div>
+<div style="color:#c0392b;font-size:13px;margin-top:6px;font-weight:600;font-family:'Open Sans',sans-serif;">Every 5-10 min</div>
 
-  </div>
+</div>
 
-  <div style="flex:1;min-width:260px;background:#fdf6f0;border-radius:10px;padding:16px;border-top:3px solid #89DCEB;font-family:'Open Sans',sans-serif;">
-    <div style="color:#2980b9;font-size:11px;font-weight:700;letter-spacing:1px;font-family:'Open Sans',sans-serif;">ESS JOB 2</div>
+<div style="flex:1;min-width:260px;background:#fdf6f0;border-radius:10px;padding:16px;border-top:3px solid #89DCEB;font-family:'Open Sans',sans-serif;">
+<div style="color:#2980b9;font-size:11px;font-weight:700;letter-spacing:1px;font-family:'Open Sans',sans-serif;">ESS JOB 2</div>
 
-    <div style="color:#000;font-size:15px;font-weight:700;margin:4px 0;font-family:'Open Sans',sans-serif;">Send Job Application Notification</div>
+<div style="color:#000;font-size:15px;font-weight:700;margin:4px 0;font-family:'Open Sans',sans-serif;">Send Job Application Notification</div>
 
-    <div style="color:#888;font-size:15px;font-family:'Open Sans',sans-serif;">Notifications for first phase/state.</div>
+<div style="color:#888;font-size:15px;font-family:'Open Sans',sans-serif;">Notifications for first phase/state.</div>
 
-    <div style="color:#c0392b;font-size:13px;margin-top:6px;font-weight:600;font-family:'Open Sans',sans-serif;">Every 5 min</div>
+<div style="color:#c0392b;font-size:13px;margin-top:6px;font-weight:600;font-family:'Open Sans',sans-serif;">Every 5 min</div>
 
-  </div>
+</div>
 </div><p style="font-size:16px;margin-bottom:18px;color:#000;font-family:'Open Sans',sans-serif;"><strong style='color:#c0392b;'>If either job is not scheduled, formulas and notifications silently do nothing.</strong></p><p style="font-size:16px;margin-bottom:18px;color:#000;font-family:'Open Sans',sans-serif;">Other types: <strong>Recruiting Job Requisition</strong> (auto-unpost) and <strong>Recruiting Job Application Computed Field</strong> (grid values via CONDITION_MESSAGE + EFF).</p><div style="font-size:28px;font-weight:900;color:#000;margin:45px 0 18px;line-height:1.3;font-family:'Open Sans',sans-serif;">Real Formula Walkthrough — Prescreening Answer Validation</div>
 
 <p style="font-size:16px;margin-bottom:18px;color:#000;font-family:'Open Sans',sans-serif;">This formula loops through all prescreening answers for a job application. If the candidate actually answered at least one question (not just skipped it), the formula returns Y. This is used to auto-advance candidates who completed the prescreening questionnaire.</p>
@@ -595,11 +595,11 @@ CONDITION_MESSAGE = <span style="color:#8bc48b;">''</span>
 j = <span style="color:#d4a76a;">1</span>
 <span style="color:#e67e22;">WHILE</span> IRC_CSP_JOBAPP_PRESCREEN_RESPONSE_QSTN_CODE.<span style="color:#6cacec;">EXISTS</span>(j) <span style="color:#e67e22;">LOOP</span>
 (
-  <span style="color:#e67e22;">IF</span> (<span style="color:#6cacec;">WAS_DEFAULTED</span>(IRC_CSP_JOBAPP_PRESCREEN_RESPONSE_ANSWER_CODE[j]) = <span style="color:#8bc48b;">'N'</span>) <span style="color:#e67e22;">THEN</span>
+<span style="color:#e67e22;">IF</span> (<span style="color:#6cacec;">WAS_DEFAULTED</span>(IRC_CSP_JOBAPP_PRESCREEN_RESPONSE_ANSWER_CODE[j]) = <span style="color:#8bc48b;">'N'</span>) <span style="color:#e67e22;">THEN</span>
   (
     CONDITION_RESULT = <span style="color:#8bc48b;">'Y'</span>
     CONDITION_MESSAGE = <span style="color:#8bc48b;">'Prescreen answered at question '</span> || <span style="color:#6cacec;">TO_CHAR</span>(j)
-    <span style="color:#e67e22;">RETURN</span> CONDITION_RESULT, CONDITION_MESSAGE
+<span style="color:#e67e22;">RETURN</span> CONDITION_RESULT, CONDITION_MESSAGE
   )
 
   j = j + <span style="color:#d4a76a;">1</span>
@@ -623,8 +623,8 @@ CONDITION_MESSAGE = <span style="color:#8bc48b;">'No prescreen response found af
 <hr style="border:none;border-top:1px solid #e0dcd6;margin:35px 0;font-family:'Open Sans',sans-serif;"/>
 
 <div style="display:flex;align-items:center;gap:16px;padding-top:25px;border-top:2px solid #2D3436;margin-top:40px;font-family:'Open Sans',sans-serif;">
-  <div style="width:65px;height:65px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;flex-shrink:0;font-family:'Open Sans',sans-serif;">AM</div>
+<div style="width:65px;height:65px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;flex-shrink:0;font-family:'Open Sans',sans-serif;">AM</div>
 
-  <div><div style="font-size:18px;font-weight:700;font-family:'Open Sans',sans-serif;">Abhishek Mohanty</div><div style="font-size:14px;color:#333;line-height:1.6;font-family:'Open Sans',sans-serif;">Oracle HCM Cloud Consultant | Oracle ACE Apprentice | AIOUG Member — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div></div>
+<div><div style="font-size:18px;font-weight:700;font-family:'Open Sans',sans-serif;">Abhishek Mohanty</div><div style="font-size:14px;color:#333;line-height:1.6;font-family:'Open Sans',sans-serif;">Oracle HCM Cloud Consultant | Oracle ACE Apprentice | AIOUG Member — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div></div>
 </div>
 </div>

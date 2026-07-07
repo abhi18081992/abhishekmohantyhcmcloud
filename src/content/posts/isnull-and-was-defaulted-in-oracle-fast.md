@@ -30,14 +30,14 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 </div>
 
 <div style="display:flex;align-items:center;gap:14px;padding:20px 0;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;margin-bottom:35px;">
-  <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;">AM</div>
+<div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;">AM</div>
 
-  <div>
-    <div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
+<div>
+<div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
 
-    <div style="font-size:13px;color:#888;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant</div>
+<div style="font-size:13px;color:#888;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant</div>
 
-  </div>
+</div>
 </div>
 
 
@@ -300,11 +300,11 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 
 <pre style="background:#282C34;color:#ABB2BF;padding:20px 24px;border-radius:8px;font-family:'Cascadia Code','Fira Code',Consolas,monospace;font-size:14.5px;line-height:1.8;overflow-x:auto;margin:18px 0;white-space:pre-wrap;"><span style="color:#7C9C5A;">/* Form 1: DBI used the default */</span>
 <span style="color:#C678DD;">IF</span> (<span style="color:#56B6C2;">DBI_NAME</span> <span style="color:#61AFEF;">WAS DEFAULTED</span>) <span style="color:#C678DD;">THEN</span>
-   <span style="color:#7C9C5A;">/* engine fell back — no real data */</span>
+<span style="color:#7C9C5A;">/* engine fell back — no real data */</span>
 
 <span style="color:#7C9C5A;">/* Form 2: DBI had real data */</span>
 <span style="color:#C678DD;">IF</span> (<span style="color:#56B6C2;">DBI_NAME</span> <span style="color:#61AFEF;">WAS NOT DEFAULTED</span>) <span style="color:#C678DD;">THEN</span>
-   <span style="color:#7C9C5A;">/* fetched from the database */</span></pre>
+<span style="color:#7C9C5A;">/* fetched from the database */</span></pre>
 
 <div style="font-size:18px;font-weight:700;color:#1a1a1a;margin:28px 0 14px;">Real Example — Absence Accrual Matrix</div>
 
@@ -362,13 +362,13 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 
 <pre style="background:#282C34;color:#ABB2BF;padding:20px 24px;border-radius:8px;font-family:'Cascadia Code','Fira Code',Consolas,monospace;font-size:14.5px;line-height:1.8;overflow-x:auto;margin:18px 0;white-space:pre-wrap;"><span style="color:#7C9C5A;">/* Value set returns go into a local variable */</span>
 <span style="color:#E06C75;">L_PersonNumber</span> = <span style="color:#61AFEF;">GET_VALUE_SET</span>(<span style="color:#E5C07B;">'AON_GET_PERSON_NUMBER'</span>,
-                  <span style="color:#E5C07B;">'|=P_SSN='''</span> || <span style="color:#61AFEF;">TRIM</span>(<span style="color:#56B6C2;">POSITION1</span>) || <span style="color:#E5C07B;">''''</span>)
+<span style="color:#E5C07B;">'|=P_SSN='''</span> || <span style="color:#61AFEF;">TRIM</span>(<span style="color:#56B6C2;">POSITION1</span>) || <span style="color:#E5C07B;">''''</span>)
 
 <span style="color:#7C9C5A;">/* Verify the Y/N convention in your pod before shipping */</span>
 <span style="color:#C678DD;">IF</span> <span style="color:#61AFEF;">ISNULL</span>(<span style="color:#E06C75;">L_PersonNumber</span>) = <span style="color:#E5C07B;">'Y'</span> <span style="color:#C678DD;">THEN</span>
 (
-   <span style="color:#61AFEF;">ESS_LOG_WRITE</span>(<span style="color:#E5C07B;">'WARNING: No person for SSN '</span> || <span style="color:#61AFEF;">TRIM</span>(<span style="color:#56B6C2;">POSITION1</span>))
-   <span style="color:#C678DD;">RETURN</span>
+<span style="color:#61AFEF;">ESS_LOG_WRITE</span>(<span style="color:#E5C07B;">'WARNING: No person for SSN '</span> || <span style="color:#61AFEF;">TRIM</span>(<span style="color:#56B6C2;">POSITION1</span>))
+<span style="color:#C678DD;">RETURN</span>
 )
 
 <span style="color:#61AFEF;">ESS_LOG_WRITE</span>(<span style="color:#E5C07B;">'Person Number: '</span> || <span style="color:#E06C75;">L_PersonNumber</span>)</pre>
@@ -395,9 +395,9 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 
 <span style="color:#7C9C5A;">/* CORRECT — reads the engine's flag on the DBI itself */</span>
 <span style="color:#C678DD;">IF</span> (<span style="color:#56B6C2;">PER_PERSON_NUMBER</span> <span style="color:#61AFEF;">WAS DEFAULTED</span>) <span style="color:#C678DD;">THEN</span>
-   <span style="color:#7C9C5A;">/* no person data — handle gracefully */</span>
+<span style="color:#7C9C5A;">/* no person data — handle gracefully */</span>
 <span style="color:#C678DD;">ELSE</span>
-   <span style="color:#E06C75;">l_person</span> = <span style="color:#56B6C2;">PER_PERSON_NUMBER</span></pre>
+<span style="color:#E06C75;">l_person</span> = <span style="color:#56B6C2;">PER_PERSON_NUMBER</span></pre>
 
 <p style="font-size:16px;margin-bottom:14px;color:#2a2a2a;">Notice that the CORRECT version uses <code style="background:#e8e8e8;padding:2px 6px;border-radius:3px;font-size:13px;">'UNKNOWN'</code> as the default rather than a blank — and it doesn't matter. <code style="background:#e8e8e8;padding:2px 6px;border-radius:3px;font-size:13px;">WAS DEFAULTED</code> reads the engine's flag, not the value, so the actual default text is irrelevant. You could use <code style="background:#e8e8e8;padding:2px 6px;border-radius:3px;font-size:13px;">'X'</code>, <code style="background:#e8e8e8;padding:2px 6px;border-radius:3px;font-size:13px;">'NO_DATA'</code>, or <code style="background:#e8e8e8;padding:2px 6px;border-radius:3px;font-size:13px;">'12345'</code> — the check still works.</p>
 
@@ -408,14 +408,14 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 
 
 <div style="display:flex;align-items:center;gap:14px;padding:20px 0;border-top:2px solid #1a1a1a;">
-  <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;">AM</div>
+<div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;">AM</div>
 
-  <div>
-    <div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
+<div>
+<div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
 
-    <div style="font-size:13px;color:#888;line-height:1.5;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div>
+<div style="font-size:13px;color:#888;line-height:1.5;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div>
 
-  </div>
+</div>
 </div>
 
 </div>

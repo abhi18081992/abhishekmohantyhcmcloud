@@ -427,28 +427,28 @@ l_comp_date  = <span class="fn">TRUNC</span>(l_start_date, <span class="str">'MM
 
 <span class="kw">WHILE</span> ((l_comp_date <= l_year_end) <span class="kw">AND</span> (l_count < <span class="num">13</span>)) <span class="kw">LOOP</span>
 (
-  <span class="kw">CHANGE_CONTEXTS</span>(EFFECTIVE_DATE = l_comp_date,
+<span class="kw">CHANGE_CONTEXTS</span>(EFFECTIVE_DATE = l_comp_date,
                   ACTY_BASE_RT_ID = l_acty_id)
   (
-    <span class="kw">IF</span> XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE > <span class="num">0</span> <span class="kw">THEN</span>
+<span class="kw">IF</span> XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE > <span class="num">0</span> <span class="kw">THEN</span>
     (
       l_total_er = l_total_er
                  + XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE
 
-      <span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
+<span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
       (
         l_log = <span class="fn">ESS_LOG_WRITE</span>(
-          <span class="str">'Found ER on '</span> || <span class="fn">TO_CHAR</span>(l_comp_date)
+<span class="str">'Found ER on '</span> || <span class="fn">TO_CHAR</span>(l_comp_date)
           || <span class="str">' | running total = '</span>
           || <span class="fn">TO_CHAR</span>(l_total_er))
       )
     )
   )
 
-  <span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
+<span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
   (
     l_log = <span class="fn">ESS_LOG_WRITE</span>(
-      <span class="str">'ER total = '</span> || <span class="fn">TO_CHAR</span>(l_total_er)
+<span class="str">'ER total = '</span> || <span class="fn">TO_CHAR</span>(l_total_er)
       || <span class="str">' : comp date = '</span> || <span class="fn">TO_CHAR</span>(l_comp_date))
   )
 
@@ -471,10 +471,10 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
   DFND_VAL = <span class="num">0</span>
   CMCD_VAL = <span class="num">0</span>
 
-  <span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
+<span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
   (
     l_log = <span class="fn">ESS_LOG_WRITE</span>(
-      <span class="str">'CAP: entitlement ('</span>
+<span class="str">'CAP: entitlement ('</span>
       || <span class="fn">TO_CHAR</span>(l_prorated_entitlement)
       || <span class="str">') <= YTD ('</span>
       || <span class="fn">TO_CHAR</span>(l_total_er)
@@ -745,10 +745,10 @@ l_comp_date  = <span class="fn">TRUNC</span>(l_start_date, <span class="str">'MM
 
 <div class="cd"><span class="kw">WHILE</span> ((l_comp_date <= l_year_end) <span class="kw">AND</span> (l_count < <span class="num">13</span>)) <span class="kw">LOOP</span>
 (
-  <span class="kw">CHANGE_CONTEXTS</span>(EFFECTIVE_DATE = l_comp_date,
+<span class="kw">CHANGE_CONTEXTS</span>(EFFECTIVE_DATE = l_comp_date,
                   ACTY_BASE_RT_ID = l_acty_id)
   (
-    <span class="kw">IF</span> XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE > <span class="num">0</span> <span class="kw">THEN</span>
+<span class="kw">IF</span> XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE > <span class="num">0</span> <span class="kw">THEN</span>
     (
       l_total_er = l_total_er
                  + XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE
