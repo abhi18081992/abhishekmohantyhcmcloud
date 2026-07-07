@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET, re, os, html as hl
+
 XML = "blogpost.xml"
 OUT = "src/content/posts"
 tree = ET.parse(XML)
@@ -20,17 +21,20 @@ posts.sort(key=lambda x:x["date"])
 os.makedirs(OUT, exist_ok=True)
 for f in os.listdir(OUT):
     if f.endswith((".md",".mdx")): os.remove(os.path.join(OUT,f))
+
 REMAP = {
     "oracle-fast-formula-time-entry-rule":"oracle-fast-formula-time-entry-rule-part-1",
     "oracle-fast-formula-time-entry-rule_01813668993":"oracle-fast-formula-time-entry-rule-part-2",
     "oracle-fast-formula-time-entry-rule_01788502086":"oracle-fast-formula-time-entry-rule-part-3",
     "oracle-fast-formula-time-entry-rule_01764150804":"oracle-fast-formula-time-entry-rule-part-4",
 }
+
 def slug(title,url):
     m=re.search(r"/([^/]+)\.html$",url or "")
     if m:
         s=m.group(1); s=re.sub(r"_\d{8,}$","",s); return REMAP.get(s,s)
     s=re.sub(r"[^\w\s-]","",title.lower()); s=re.sub(r"[\s_]+","-",s); return s[:70]
+
 def get_tags(t):
     t=t.lower(); out=["Fast Formula","Oracle HCM Cloud"]
     if "hdl" in t or "wsa" in t: out+=["HDL"]
@@ -45,18 +49,28 @@ def get_tags(t):
     for x in out:
         if x not in seen: seen.add(x);r.append(x)
     return r[:8]
+
 def clean(raw):
     if not raw: return ""
     t=hl.unescape(raw)
-    t=re.sub(r"<style[^>]*>.*?</style>","",t,flags=re.DOTALL|re.I)
-    t=re.sub(r"<script[^>]*>.*?</script>","",t,flags=re.DOTALL|re.I)
-    t=re.sub(r"<!--.*?-->","",t,flags=re.DOTALL)
+    # Remove ALL style blocks including :root variables and @import
+    t=re.sub(r"<style[^>]*>[\s\S]*?</style>","",t,flags=re.I)
+    # Remove script blocks
+    t=re.sub(r"<script[^>]*>[\s\S]*?</script>","",t,flags=re.I)
+    # Remove HTML comments
+    t=re.sub(r"<!--[\s\S]*?-->","",t)
+    # Remove @import lines that may have escaped the style block
+    t=re.sub(r"@import\s+url\([^)]*\)[^;]*;?","",t)
+    # Remove :root blocks
+    t=re.sub(r":root\s*\{[^}]*\}","",t)
     return t.strip()
+
 def get_desc(title,content):
     t=re.sub(r"<[^>]+>"," ",content); t=hl.unescape(t); t=re.sub(r"\s+"," ",t).strip()
     s=[x.strip() for x in t.split(".") if len(x.strip())>30]
     d=s[0] if s else title
     return re.sub(r'["\'{}[\]\\]',"",d)[:200]
+
 seen_slugs=set(); n=0
 for p in posts:
     sl=slug(p["title"],p["url"])
