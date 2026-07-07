@@ -34,7 +34,7 @@
   --purple: #8e44ad;
 
   /* Code */
-  --code-bg: #282c34;
+  --code-bg: #f6f8fa;
   --code-border: #3e4451;
   --inline-code-bg: #f3efe7;
   --inline-code-ink: #c0392b;
@@ -127,7 +127,7 @@ code { font-family: var(--font-mono); font-size: 0.88em; }
   font-weight: 500;
 }
 pre {
-  background: var(--code-bg) !important;
+  background: var(--code-bg);
   border: 1px solid var(--code-border);
   border-left: 3px solid var(--red);
   border-radius: 8px;
