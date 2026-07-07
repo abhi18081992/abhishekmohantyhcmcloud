@@ -30,23 +30,17 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 </div>
 
 <div style="display:flex;align-items:center;gap:14px;padding:20px 0;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;margin-bottom:35px;">
-<div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;">AM</div>
-
-<div>
-<div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
-
-<div style="font-size:13px;color:#888;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant</div>
-
-</div>
+  <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;">AM</div>
+  <div>
+    <div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
+    <div style="font-size:13px;color:#888;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant</div>
+  </div>
 </div>
 
 
 <div style="background:linear-gradient(135deg,#c0392b,#922a1f);color:#fff;padding:30px 24px;margin:25px 0;border-radius:10px;text-align:center;box-shadow:0 4px 14px rgba(192,57,43,0.18);">
-
 <div style="font-size:64px;font-weight:800;line-height:1;letter-spacing:-2px;margin-bottom:8px;">3</div>
-
 <div style="font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:700;opacity:0.95;">Distinct Missing-Data States</div>
-
 <div style="font-size:14px;margin-top:10px;font-style:italic;opacity:0.95;">Each one needs its own detection mechanism</div>
 </div>
 
@@ -92,7 +86,6 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 
 
 <div style="flex:1;min-width:220px;background:#f5eaea;border:1px solid #d6c0c0;border-top:4px solid #a05050;border-radius:10px;padding:18px;">
-
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
 <span style="display:inline-block;width:30px;height:30px;background:#a05050;color:#fff;border-radius:50%;text-align:center;line-height:30px;font-weight:800;font-size:14px;">1</span>
 <span style="font-weight:800;font-size:15px;color:#7a2e38;">Uninitialized</span>
@@ -103,7 +96,6 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 
 
 <div style="flex:1;min-width:220px;background:#e8f2e8;border:1px solid #b8d4b8;border-top:4px solid #3d7a52;border-radius:10px;padding:18px;">
-
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
 <span style="display:inline-block;width:30px;height:30px;background:#3d7a52;color:#fff;border-radius:50%;text-align:center;line-height:30px;font-weight:800;font-size:14px;">2</span>
 <span style="font-weight:800;font-size:15px;color:#1e5035;">Holds a value</span>
@@ -114,7 +106,6 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 
 
 <div style="flex:1;min-width:220px;background:#f5f0e8;border:1px solid #d6c8a8;border-top:4px solid #b08d57;border-radius:10px;padding:18px;">
-
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
 <span style="display:inline-block;width:30px;height:30px;background:#b08d57;color:#fff;border-radius:50%;text-align:center;line-height:30px;font-weight:800;font-size:14px;">3</span>
 <span style="font-weight:800;font-size:15px;color:#7a5a25;">Holds NULL</span>
@@ -137,49 +128,33 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 <div style="font-size:22px;font-weight:700;color:#1a1a1a;margin:30px 0 16px;">Decision Tree — Which Detection to Use</div>
 
 <div style="background:#fafafa;border:1px solid #ececec;border-radius:10px;padding:20px;margin:18px 0;">
-
 <div style="text-align:center;font-size:15px;color:#1a1a1a;font-weight:700;margin-bottom:16px;">→ Where did the value come from?</div>
 
 <div style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap;">
-
 <div style="flex:1;min-width:200px;background:#fff;border-left:4px solid #c0392b;padding:12px 14px;border-radius:0 6px 6px 0;">
-
 <div style="font-size:13px;font-weight:800;color:#c0392b;margin-bottom:4px;">From a DBI</div>
-
 <div style="font-size:13px;color:#555;">Use <code style="background:#f4f4f4;padding:1px 5px;border-radius:3px;font-size:12px;color:#c0392b;">WAS DEFAULTED</code> on the DBI itself. Always declare <code style="background:#f4f4f4;padding:1px 5px;border-radius:3px;font-size:12px;color:#c0392b;">DEFAULT FOR</code>.</div>
 </div>
-
 <div style="flex:1;min-width:200px;background:#fff;border-left:4px solid #c0392b;padding:12px 14px;border-radius:0 6px 6px 0;">
-
 <div style="font-size:13px;font-weight:800;color:#c0392b;margin-bottom:4px;">From an input value</div>
-
 <div style="font-size:13px;color:#555;">Use <code style="background:#f4f4f4;padding:1px 5px;border-radius:3px;font-size:12px;color:#c0392b;">WAS DEFAULTED</code> on the input. Same mechanism as DBIs.</div>
 </div>
 </div>
 
 <div style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap;">
-
 <div style="flex:1;min-width:200px;background:#fff;border-left:4px solid #c0392b;padding:12px 14px;border-radius:0 6px 6px 0;">
-
 <div style="font-size:13px;font-weight:800;color:#c0392b;margin-bottom:4px;">From a function / value set</div>
-
 <div style="font-size:13px;color:#555;">Use <code style="background:#f4f4f4;padding:1px 5px;border-radius:3px;font-size:12px;color:#c0392b;">ISNULL()</code>. Only place a real NULL can land in your variable.</div>
 </div>
-
 <div style="flex:1;min-width:200px;background:#fff;border-left:4px solid #c0392b;padding:12px 14px;border-radius:0 6px 6px 0;">
-
 <div style="font-size:13px;font-weight:800;color:#c0392b;margin-bottom:4px;">You assigned it yourself</div>
-
 <div style="font-size:13px;color:#555;">Neither is needed — you know what you put in it.</div>
 </div>
 </div>
 
 <div style="display:flex;gap:10px;flex-wrap:wrap;">
-
 <div style="flex:1;min-width:200px;background:#fff;border-left:4px solid #c0392b;padding:12px 14px;border-radius:0 6px 6px 0;">
-
 <div style="font-size:13px;font-weight:800;color:#c0392b;margin-bottom:4px;">You forgot to assign it</div>
-
 <div style="font-size:13px;color:#555;">Nothing helps. Engine throws <em>Uninitialized Variable</em>.</div>
 </div>
 </div>
@@ -196,46 +171,28 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 
 
 <div style="flex:1;min-width:300px;border-radius:10px;overflow:hidden;border:1px solid #d6c3c3;border-left:4px solid #a05050;">
-
 <div style="background:#a05050;padding:14px 20px;text-align:center;">
-
 <div style="font-weight:800;font-size:16px;color:#fff;letter-spacing:1px;">WAS DEFAULTED</div>
 </div>
-
 <div style="padding:18px;background:#fdfafa;font-size:13.5px;">
-
 <div style="padding:8px 0;border-bottom:1px dashed #e0d0d0;">
-
 <div style="font-size:11px;color:#a05050;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:3px;">Works on</div>
-
 <div style="color:#3a3a3a;">DBIs and input values</div>
 </div>
-
 <div style="padding:8px 0;border-bottom:1px dashed #e0d0d0;">
-
 <div style="font-size:11px;color:#a05050;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:3px;">What it checks</div>
-
 <div style="color:#3a3a3a;">Did the engine substitute the <code style="background:#f5eaea;padding:1px 5px;border-radius:3px;font-size:12px;color:#7a2e38;">DEFAULT FOR</code> value because no data was found?</div>
 </div>
-
 <div style="padding:8px 0;border-bottom:1px dashed #e0d0d0;">
-
 <div style="font-size:11px;color:#a05050;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:3px;">Returns</div>
-
 <div style="color:#3a3a3a;">Boolean (TRUE / FALSE)</div>
 </div>
-
 <div style="padding:8px 0;border-bottom:1px dashed #e0d0d0;">
-
 <div style="font-size:11px;color:#a05050;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:3px;">Requires</div>
-
 <div style="color:#3a3a3a;">A <code style="background:#f5eaea;padding:1px 5px;border-radius:3px;font-size:12px;color:#7a2e38;">DEFAULT FOR</code> declaration</div>
 </div>
-
 <div style="padding:8px 0;">
-
 <div style="font-size:11px;color:#a05050;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:3px;">On wrong target</div>
-
 <div style="color:#3a3a3a;">Compiles silently, always returns FALSE on a local variable</div>
 </div>
 </div>
@@ -243,46 +200,28 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 
 
 <div style="flex:1;min-width:300px;border-radius:10px;overflow:hidden;border:1px solid #b8d4b8;border-left:4px solid #3d7a52;">
-
 <div style="background:#3d7a52;padding:14px 20px;text-align:center;">
-
 <div style="font-weight:800;font-size:16px;color:#fff;letter-spacing:1px;">ISNULL()</div>
 </div>
-
 <div style="padding:18px;background:#fafdf9;font-size:13.5px;">
-
 <div style="padding:8px 0;border-bottom:1px dashed #d0e0d0;">
-
 <div style="font-size:11px;color:#3d7a52;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:3px;">Works on</div>
-
 <div style="color:#3a3a3a;">Local variables holding function or value-set returns</div>
 </div>
-
 <div style="padding:8px 0;border-bottom:1px dashed #d0e0d0;">
-
 <div style="font-size:11px;color:#3d7a52;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:3px;">What it checks</div>
-
 <div style="color:#3a3a3a;">Whether the variable currently carries the engine's internal NULL flag</div>
 </div>
-
 <div style="padding:8px 0;border-bottom:1px dashed #d0e0d0;">
-
 <div style="font-size:11px;color:#3d7a52;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:3px;">Returns</div>
-
 <div style="color:#3a3a3a;">TEXT — <code style="background:#e8f2e8;padding:1px 5px;border-radius:3px;font-size:12px;color:#1e5035;">'Y'</code> or <code style="background:#e8f2e8;padding:1px 5px;border-radius:3px;font-size:12px;color:#1e5035;">'N'</code> (verify locally; see warning below)</div>
 </div>
-
 <div style="padding:8px 0;border-bottom:1px dashed #d0e0d0;">
-
 <div style="font-size:11px;color:#3d7a52;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:3px;">Requires</div>
-
 <div style="color:#3a3a3a;">Nothing</div>
 </div>
-
 <div style="padding:8px 0;">
-
 <div style="font-size:11px;color:#3d7a52;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:3px;">On wrong target</div>
-
 <div style="color:#3a3a3a;">Will not detect <code style="background:#e8f2e8;padding:1px 5px;border-radius:3px;font-size:12px;color:#1e5035;">WAS DEFAULTED</code> substitutions; only catches real NULLs</div>
 </div>
 </div>
@@ -300,11 +239,11 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 
 <pre style="background:#282C34;color:#ABB2BF;padding:20px 24px;border-radius:8px;font-family:'Cascadia Code','Fira Code',Consolas,monospace;font-size:14.5px;line-height:1.8;overflow-x:auto;margin:18px 0;white-space:pre-wrap;"><span style="color:#7C9C5A;">/* Form 1: DBI used the default */</span>
 <span style="color:#C678DD;">IF</span> (<span style="color:#56B6C2;">DBI_NAME</span> <span style="color:#61AFEF;">WAS DEFAULTED</span>) <span style="color:#C678DD;">THEN</span>
-<span style="color:#7C9C5A;">/* engine fell back — no real data */</span>
+   <span style="color:#7C9C5A;">/* engine fell back — no real data */</span>
 
 <span style="color:#7C9C5A;">/* Form 2: DBI had real data */</span>
 <span style="color:#C678DD;">IF</span> (<span style="color:#56B6C2;">DBI_NAME</span> <span style="color:#61AFEF;">WAS NOT DEFAULTED</span>) <span style="color:#C678DD;">THEN</span>
-<span style="color:#7C9C5A;">/* fetched from the database */</span></pre>
+   <span style="color:#7C9C5A;">/* fetched from the database */</span></pre>
 
 <div style="font-size:18px;font-weight:700;color:#1a1a1a;margin:28px 0 14px;">Real Example — Absence Accrual Matrix</div>
 
@@ -331,7 +270,6 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 
 
 <div style="background:#f7f4f9;border-left:4px solid #6b3fa0;padding:20px 24px;margin:20px 0;border-radius:0 8px 8px 0;position:relative;">
-
 <div style="position:absolute;top:-4px;left:18px;font-family:Georgia,serif;font-size:50px;color:#6b3fa0;line-height:1;opacity:0.3;">“</div>
 <p style="margin:0 0 10px 26px;font-size:14.5px;color:#3a2a4d;font-style:italic;line-height:1.7;">From what I can tell, uninitialized variables are not null — they have some special flag that marks them as uninitialized. My understanding is that null is similar; it isn't a value as such, the variable is flagged as holding a null. There is no direct way to set a fast formula variable as null, but it can happen if it is a return value from a function. Where a function or value set doesn't return a value at all, that doesn't result in a null — it is uninitialized, and should give you the default value specified in the function call. If there is no default specified, I'd expect that to error out, not generate a null.</p>
 <p style="margin:0 0 0 26px;font-size:11px;color:#6b3fa0;font-weight:700;letter-spacing:1px;text-transform:uppercase;">— Bryan, reader feedback</p>
@@ -362,13 +300,13 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 
 <pre style="background:#282C34;color:#ABB2BF;padding:20px 24px;border-radius:8px;font-family:'Cascadia Code','Fira Code',Consolas,monospace;font-size:14.5px;line-height:1.8;overflow-x:auto;margin:18px 0;white-space:pre-wrap;"><span style="color:#7C9C5A;">/* Value set returns go into a local variable */</span>
 <span style="color:#E06C75;">L_PersonNumber</span> = <span style="color:#61AFEF;">GET_VALUE_SET</span>(<span style="color:#E5C07B;">'AON_GET_PERSON_NUMBER'</span>,
-<span style="color:#E5C07B;">'|=P_SSN='''</span> || <span style="color:#61AFEF;">TRIM</span>(<span style="color:#56B6C2;">POSITION1</span>) || <span style="color:#E5C07B;">''''</span>)
+                  <span style="color:#E5C07B;">'|=P_SSN='''</span> || <span style="color:#61AFEF;">TRIM</span>(<span style="color:#56B6C2;">POSITION1</span>) || <span style="color:#E5C07B;">''''</span>)
 
 <span style="color:#7C9C5A;">/* Verify the Y/N convention in your pod before shipping */</span>
 <span style="color:#C678DD;">IF</span> <span style="color:#61AFEF;">ISNULL</span>(<span style="color:#E06C75;">L_PersonNumber</span>) = <span style="color:#E5C07B;">'Y'</span> <span style="color:#C678DD;">THEN</span>
 (
-<span style="color:#61AFEF;">ESS_LOG_WRITE</span>(<span style="color:#E5C07B;">'WARNING: No person for SSN '</span> || <span style="color:#61AFEF;">TRIM</span>(<span style="color:#56B6C2;">POSITION1</span>))
-<span style="color:#C678DD;">RETURN</span>
+   <span style="color:#61AFEF;">ESS_LOG_WRITE</span>(<span style="color:#E5C07B;">'WARNING: No person for SSN '</span> || <span style="color:#61AFEF;">TRIM</span>(<span style="color:#56B6C2;">POSITION1</span>))
+   <span style="color:#C678DD;">RETURN</span>
 )
 
 <span style="color:#61AFEF;">ESS_LOG_WRITE</span>(<span style="color:#E5C07B;">'Person Number: '</span> || <span style="color:#E06C75;">L_PersonNumber</span>)</pre>
@@ -395,9 +333,9 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 
 <span style="color:#7C9C5A;">/* CORRECT — reads the engine's flag on the DBI itself */</span>
 <span style="color:#C678DD;">IF</span> (<span style="color:#56B6C2;">PER_PERSON_NUMBER</span> <span style="color:#61AFEF;">WAS DEFAULTED</span>) <span style="color:#C678DD;">THEN</span>
-<span style="color:#7C9C5A;">/* no person data — handle gracefully */</span>
+   <span style="color:#7C9C5A;">/* no person data — handle gracefully */</span>
 <span style="color:#C678DD;">ELSE</span>
-<span style="color:#E06C75;">l_person</span> = <span style="color:#56B6C2;">PER_PERSON_NUMBER</span></pre>
+   <span style="color:#E06C75;">l_person</span> = <span style="color:#56B6C2;">PER_PERSON_NUMBER</span></pre>
 
 <p style="font-size:16px;margin-bottom:14px;color:#2a2a2a;">Notice that the CORRECT version uses <code style="background:#e8e8e8;padding:2px 6px;border-radius:3px;font-size:13px;">'UNKNOWN'</code> as the default rather than a blank — and it doesn't matter. <code style="background:#e8e8e8;padding:2px 6px;border-radius:3px;font-size:13px;">WAS DEFAULTED</code> reads the engine's flag, not the value, so the actual default text is irrelevant. You could use <code style="background:#e8e8e8;padding:2px 6px;border-radius:3px;font-size:13px;">'X'</code>, <code style="background:#e8e8e8;padding:2px 6px;border-radius:3px;font-size:13px;">'NO_DATA'</code>, or <code style="background:#e8e8e8;padding:2px 6px;border-radius:3px;font-size:13px;">'12345'</code> — the check still works.</p>
 
@@ -408,14 +346,11 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 
 
 <div style="display:flex;align-items:center;gap:14px;padding:20px 0;border-top:2px solid #1a1a1a;">
-<div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;">AM</div>
-
-<div>
-<div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
-
-<div style="font-size:13px;color:#888;line-height:1.5;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div>
-
-</div>
+  <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;">AM</div>
+  <div>
+    <div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
+    <div style="font-size:13px;color:#888;line-height:1.5;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div>
+  </div>
 </div>
 
 </div>

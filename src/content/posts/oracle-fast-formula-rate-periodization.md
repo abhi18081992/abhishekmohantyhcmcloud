@@ -13,9 +13,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 
 
 <div class="bl-header">
-
 <div class="bl-header-title">Oracle Fast Formula: Rate Periodization — When the Standard Rate Engine Isn't Enough</div>
-
 <div class="bl-header-sub">Prorated Employer Contribution with YTD Cap, CHANGE_CONTEXTS Accumulation Loop, and ESS_LOG_WRITE Debug Tracing</div>
 </div>
 
@@ -30,13 +28,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 <div class="bl-meta">March 2026 · 20 min read · Oracle HCM Cloud</div>
 
 <div class="bl-author">
-
 <div class="bl-av">AM</div>
-
 <div>
-
 <div class="bl-aname">Abhishek Mohanty</div>
-
 <div class="bl-arole">Oracle ACE Apprentice · AIOUG Member · HCM Cloud Consultant</div>
 </div>
 </div>
@@ -69,11 +63,8 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 <p>Our formula does something the standard engine can't: it applies <strong>three business rules</strong>.</p>
 
 <div class="fl">
-
 <div class="fl-node hl"><div class="fl-lbl">Rule 1</div><div class="fl-val">PRORATE</div><div class="fl-sub">Coverage start month</div></div>
-
 <div class="fl-node hl"><div class="fl-lbl">Rule 2</div><div class="fl-val">SUBTRACT YTD</div><div class="fl-sub">WHILE + CHANGE_CONTEXTS</div></div>
-
 <div class="fl-node hl"><div class="fl-lbl">Rule 3</div><div class="fl-val">CAP & SPLIT</div><div class="fl-sub">Zero or remaining balance</div></div>
 </div>
 
@@ -95,10 +86,8 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 <p>Before looking at the formula, let's trace through a concrete scenario.</p>
 
 <div style="background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:24px 0;">
-
 <div style="font-size:9.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--faint);margin-bottom:6px;">Setup</div>
 <p style="margin:0;">An employer contributes <strong>$1,500/year</strong> to each employee's HSA. Payroll is <strong>semi-monthly</strong> (24 pay periods). The formula is attached to the ER standard rate.</p>
-
 <div style="font-size:9.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--faint);margin:14px 0 6px;">Employee</div>
 <p style="margin:0;"><strong>Sarah.</strong> Hired January 15, 2025.</p>
 </div>
@@ -106,29 +95,18 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 <p>Here's what happened to Sarah's enrollment:</p>
 
 <div class="tl-step">
-
 <div class="tl-dot" style="background:var(--ink);">1</div>
-
 <div><div class="tl-title">Jan 2025 — Open Enrollment</div>
-
 <div class="tl-text">Sarah enrolls in the HDHP medical plan. Because she's on a qualified HDHP, she's automatically eligible for the HSA. The ER seed contribution is set up. Payroll begins depositing the employer's share.</div></div>
 </div>
-
 <div class="tl-step">
-
 <div class="tl-dot" style="background:var(--red);">2</div>
-
 <div><div class="tl-title" style="color:var(--red);">Mar 2025 — Life Event (Marriage)</div>
-
 <div class="tl-text">Sarah gets married. Her spouse has a PPO with better coverage. She drops the HDHP and moves to her spouse's PPO. Her HSA enrollment is <strong>cancelled</strong>. But payroll had already deposited <strong>$200</strong> in ER contributions across Jan–Mar. That money is in her HSA — it can't be clawed back.</div></div>
 </div>
-
 <div class="tl-step">
-
 <div class="tl-dot" style="background:var(--green);">3</div>
-
 <div><div class="tl-title" style="color:var(--green);">Jul 2025 — Life Event (Loss of Spouse Coverage)</div>
-
 <div class="tl-text">Sarah loses coverage under her spouse's PPO. She re-enrolls in the HDHP and becomes HSA eligible again. Coverage starts <strong>July 1, 2025</strong>. The formula must prorate for the remaining 6 months AND account for the $200 already in her HSA.</div></div>
 </div>
 
@@ -139,11 +117,8 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 <p>Coverage starts in July = month 7. The proration formula is <code>(13 - month) / 12</code>. That gives <code>(13 - 7) / 12 = 0.50</code>. Sarah gets half: <strong>$1,500 × 0.50 = $750 prorated entitlement</strong>.</p>
 
 <div class="fl">
-
 <div class="fl-node"><div class="fl-lbl">Annual Rate</div><div class="fl-val">$1,500</div></div>
-
 <div class="fl-node hl"><div class="fl-lbl">Proration</div><div class="fl-val">× 0.50</div><div class="fl-sub">(13 − 7) / 12</div></div>
-
 <div class="fl-node"><div class="fl-lbl">Prorated</div><div class="fl-val" style="color:var(--red);">$750</div></div>
 </div>
 
@@ -163,29 +138,18 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 <div style="font-size:9.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--faint);margin-bottom:10px;">How Oracle builds this DBI name</div>
 
 <div class="dbi-strip">
-
 <div class="dbi-block" style="background:var(--blue-bg);border:1.5px solid var(--blue-line);">
-
 <div class="dbi-block-lbl" style="color:var(--blue);">Element Name</div>
-
 <div style="font-family:var(--mono);font-size:14px;font-weight:600;color:var(--blue);">XX_HSA_ER_CONTRIBUTION</div>
 </div>
-
 <div class="dbi-sep">_</div>
-
 <div class="dbi-block" style="background:var(--amber-bg);border:1.5px solid var(--amber-line);">
-
 <div class="dbi-block-lbl" style="color:var(--amber);">Input Value</div>
-
 <div style="font-family:var(--mono);font-size:14px;font-weight:600;color:var(--amber);">AMT</div>
 </div>
-
 <div class="dbi-sep">_</div>
-
 <div class="dbi-block" style="background:var(--green-bg);border:1.5px solid var(--green-line);">
-
 <div class="dbi-block-lbl" style="color:var(--green);">DBI Suffix</div>
-
 <div style="font-family:var(--mono);font-size:14px;font-weight:600;color:var(--green);">REL_ENTRY_VALUE</div>
 </div>
 </div>
@@ -210,29 +174,17 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 <div style="font-size:9.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--faint);margin-bottom:10px;">Loop walks through 12 months</div>
 
 <div class="mo">
-
 <div class="mo-cell"><div class="mo-lbl">Jan</div><div class="mo-val">$0</div></div>
-
 <div class="mo-cell"><div class="mo-lbl">Feb</div><div class="mo-val">$0</div></div>
-
 <div class="mo-cell hit"><div class="mo-lbl">Mar</div><div class="mo-val">$200</div></div>
-
 <div class="mo-cell"><div class="mo-lbl">Apr</div><div class="mo-val">$0</div></div>
-
 <div class="mo-cell"><div class="mo-lbl">May</div><div class="mo-val">$0</div></div>
-
 <div class="mo-cell"><div class="mo-lbl">Jun</div><div class="mo-val">$0</div></div>
-
 <div class="mo-cell"><div class="mo-lbl">Jul</div><div class="mo-val">$0</div></div>
-
 <div class="mo-cell"><div class="mo-lbl">Aug</div><div class="mo-val">$0</div></div>
-
 <div class="mo-cell"><div class="mo-lbl">Sep</div><div class="mo-val">$0</div></div>
-
 <div class="mo-cell"><div class="mo-lbl">Oct</div><div class="mo-val">$0</div></div>
-
 <div class="mo-cell"><div class="mo-lbl">Nov</div><div class="mo-val">$0</div></div>
-
 <div class="mo-cell"><div class="mo-lbl">Dec</div><div class="mo-val">$0</div></div>
 </div>
 
@@ -247,15 +199,10 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 </div>
 
 <div class="xr">
-
 <div class="xr-label">Code X-Ray — CHANGE_CONTEXTS inside the loop</div>
-
 <div class="xr-row"><div class="xr-code"><span style="color:var(--kw);">CHANGE_CONTEXTS</span>(</div><div class="xr-note">Shift two contexts simultaneously</div></div>
-
 <div class="xr-row"><div class="xr-code">  <span style="color:var(--fn);">EFFECTIVE_DATE</span> = l_comp_date,</div><div class="xr-note">Move the clock to this month's 1st</div></div>
-
 <div class="xr-row"><div class="xr-code">  <span style="color:var(--fn);">ACTY_BASE_RT_ID</span> = l_acty_id</div><div class="xr-note">Lock onto this specific rate's element</div></div>
-
 <div class="xr-row"><div class="xr-code">)</div><div class="xr-note">DBI now reads entry value at this date + rate</div></div>
 </div>
 
@@ -264,11 +211,8 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 <p>Prorated entitlement = $750. YTD already paid = $200. Since $750 > $200, remaining balance: <strong>$750 − $200 = $550</strong>.</p>
 
 <div class="fl">
-
 <div class="fl-node"><div class="fl-lbl">Prorated</div><div class="fl-val">$750</div></div>
-
 <div class="fl-node hl"><div class="fl-lbl">Minus YTD</div><div class="fl-val">− $200</div></div>
-
 <div class="fl-node"><div class="fl-lbl">Balance</div><div class="fl-val" style="color:var(--red);">$550</div></div>
 </div>
 
@@ -284,9 +228,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 <p>Flip the scenario: YTD = $800 instead of $200. The cap fires. $750 ≤ $800. All three return values = <strong>zero</strong>.</p>
 
 <div class="vs">
-
 <div class="vs-card pass"><h4>Balance Remaining</h4><p>Prorated ($750) > YTD ($200)<br/>ANN = $550 | DFND = $45.83 | CMCD = $22.92</p></div>
-
 <div class="vs-card fail"><h4>Cap Fires</h4><p>Prorated ($750) ≤ YTD ($800)<br/>ANN = 0 | DFND = 0 | CMCD = 0</p></div>
 </div>
 
@@ -297,25 +239,19 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 <p>This is the log trace from <em>Benefits Administration → Process and Reports → Process Results</em>.</p>
 
 <div class="lg">
-
 <div class="lg-hd">Step 1 — Proration</div>
-
 <div class="lg-body">Proration month = <strong style="color:var(--red);">07</strong><br/>Proration factor = <strong style="color:var(--red);">.5</strong></div>
 </div>
 
 <div class="lg">
-
 <div class="lg-hd">Step 2 — YTD Loop</div>
-
 <div class="lg-body" style="border-bottom:1px solid var(--line);">Hire Date = 2025/01/15<br/>Plan Year Start = 2025/01/01<br/>First comp date = 2025/01/01</div>
-
 <div class="lg-chips">
 <span class="lg-chip">Jan: $0</span>
 <span class="lg-chip">Feb: $0</span>
 <span class="lg-chip hit">Mar: $200</span>
 <span class="lg-chip">Apr–Dec: $0</span>
 </div>
-
 <div style="border-top:1px solid var(--line);padding:10px 18px;display:flex;align-items:center;gap:8px;">
 <span style="font-size:11px;color:var(--faint);">Total:</span>
 <span style="background:var(--code-bg);color:var(--code-text);padding:4px 12px;border-radius:8px;font-family:var(--mono);font-size:12px;font-weight:600;">YTD = 200</span>
@@ -323,17 +259,11 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 </div>
 
 <div class="lg">
-
 <div class="lg-hd">Step 3 — Cap + Split</div>
-
 <div class="lg-body" style="border-bottom:1px solid var(--line);">Prorated = 1500 × 0.5 = <strong>750</strong> — 750 > 200 → balance remaining</div>
-
 <div class="lg-result">
-
 <div class="lg-val"><div class="lg-val-lbl">ANN_VAL</div><div class="lg-val-num">550</div><div class="lg-val-sub">750 − 200</div></div>
-
 <div class="lg-val"><div class="lg-val-lbl">DFND_VAL</div><div class="lg-val-num">45.83</div><div class="lg-val-sub">550 / 12</div></div>
-
 <div class="lg-val"><div class="lg-val-lbl">CMCD_VAL</div><div class="lg-val-num">22.92</div><div class="lg-val-sub">550 / 24</div></div>
 </div>
 </div>
@@ -427,28 +357,28 @@ l_comp_date  = <span class="fn">TRUNC</span>(l_start_date, <span class="str">'MM
 
 <span class="kw">WHILE</span> ((l_comp_date <= l_year_end) <span class="kw">AND</span> (l_count < <span class="num">13</span>)) <span class="kw">LOOP</span>
 (
-<span class="kw">CHANGE_CONTEXTS</span>(EFFECTIVE_DATE = l_comp_date,
+  <span class="kw">CHANGE_CONTEXTS</span>(EFFECTIVE_DATE = l_comp_date,
                   ACTY_BASE_RT_ID = l_acty_id)
   (
-<span class="kw">IF</span> XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE > <span class="num">0</span> <span class="kw">THEN</span>
+    <span class="kw">IF</span> XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE > <span class="num">0</span> <span class="kw">THEN</span>
     (
       l_total_er = l_total_er
                  + XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE
 
-<span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
+      <span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
       (
         l_log = <span class="fn">ESS_LOG_WRITE</span>(
-<span class="str">'Found ER on '</span> || <span class="fn">TO_CHAR</span>(l_comp_date)
+          <span class="str">'Found ER on '</span> || <span class="fn">TO_CHAR</span>(l_comp_date)
           || <span class="str">' | running total = '</span>
           || <span class="fn">TO_CHAR</span>(l_total_er))
       )
     )
   )
 
-<span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
+  <span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
   (
     l_log = <span class="fn">ESS_LOG_WRITE</span>(
-<span class="str">'ER total = '</span> || <span class="fn">TO_CHAR</span>(l_total_er)
+      <span class="str">'ER total = '</span> || <span class="fn">TO_CHAR</span>(l_total_er)
       || <span class="str">' : comp date = '</span> || <span class="fn">TO_CHAR</span>(l_comp_date))
   )
 
@@ -471,10 +401,10 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
   DFND_VAL = <span class="num">0</span>
   CMCD_VAL = <span class="num">0</span>
 
-<span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
+  <span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
   (
     l_log = <span class="fn">ESS_LOG_WRITE</span>(
-<span class="str">'CAP: entitlement ('</span>
+      <span class="str">'CAP: entitlement ('</span>
       || <span class="fn">TO_CHAR</span>(l_prorated_entitlement)
       || <span class="str">') <= YTD ('</span>
       || <span class="fn">TO_CHAR</span>(l_total_er)
@@ -522,30 +452,20 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 <p>The Benefits engine passes four inputs into the formula. The first two are standard for every Rate Periodization formula — the rate amount and which value type Oracle is sending. The other two are specific to this formula — they carry the IDs needed for <code>CHANGE_CONTEXTS</code> later.</p>
 
 <div class="xr">
-
 <div class="xr-label">What each input does</div>
-
 <div class="xr-row"><div class="xr-code"><span style="color:var(--fn);">BEN_IV_CONVERT_FROM_VAL</span></div><div class="xr-note">The raw rate amount ($1,500)</div></div>
-
 <div class="xr-row"><div class="xr-code"><span style="color:var(--fn);">BEN_IV_CONVERT_FROM</span> (TEXT)</div><div class="xr-note">Which value type: ANNUAL, DEFINED, or CMCD</div></div>
-
 <div class="xr-row"><div class="xr-code"><span style="color:var(--fn);">BEN_EPE_IV_ELIG_PER_ELCTBL_CHC_ID</span></div><div class="xr-note">Election choice ID — needed to read coverage start date</div></div>
-
 <div class="xr-row"><div class="xr-code"><span style="color:var(--fn);">BEN_ABR_IV_ACTY_BASE_RT_ID</span></div><div class="xr-note">Rate activity ID — needed to read the correct element entry</div></div>
 </div>
 
 <p>Now the defaults. In Fast Formula, if a DBI resolves to null and there's no default, the formula crashes. Every DBI you reference needs a safety net. But not all defaults work the same way:</p>
 
 <div class="xr">
-
 <div class="xr-label">Default safety net — why each value was chosen</div>
-
 <div class="xr-row"><div class="xr-code"><span style="color:var(--kw);">DEFAULT FOR</span> BEN_EPE_ENRT_CVG_STRT_DT <span style="color:var(--kw);">IS</span> <span style="color:var(--str);">'1951/01/01'</span></div><div class="xr-note">Month = 01 → factor = (13−1)/12 = 1.0 → full year</div></div>
-
 <div class="xr-row"><div class="xr-code"><span style="color:var(--kw);">DEFAULT FOR</span> ..._REL_ENTRY_VALUE <span style="color:var(--kw);">IS</span> <span style="color:var(--num);">0</span></div><div class="xr-note">If no entry exists, the loop adds 0. Total unchanged.</div></div>
-
 <div class="xr-row"><div class="xr-code"><span style="color:var(--kw);">DEFAULT FOR</span> ACP_HIRE_DATE <span style="color:var(--kw);">IS</span> <span style="color:var(--str);">'1900/01/01'</span></div><div class="xr-note">Extreme past date → GREATEST picks l_year_start.</div></div>
-
 <div class="xr-row"><div class="xr-code"><span style="color:var(--kw);">DEFAULT_DATA_VALUE FOR</span> ..._ENTRY_VALUE <span style="color:var(--kw);">IS</span> <span style="color:var(--num);">0</span></div><div class="xr-note">Array DBI — needs DEFAULT_DATA_VALUE, not DEFAULT FOR.</div></div>
 </div>
 
@@ -575,7 +495,6 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 <div style="margin:24px 0;">
 
 <div style="background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:10px;">
-
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
 <code style="font-size:15px;font-weight:700;">EFFECTIVE_DATE</code>
 <span style="font-size:11px;font-weight:600;color:var(--faint);background:var(--white);padding:3px 10px;border-radius:100px;border:1px solid var(--line);">Engine (auto)</span>
@@ -584,7 +503,6 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 </div>
 
 <div style="background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:10px;">
-
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
 <code style="font-size:15px;font-weight:700;">PERSON_ID</code>
 <span style="font-size:11px;font-weight:600;color:var(--faint);background:var(--white);padding:3px 10px;border-radius:100px;border:1px solid var(--line);">Engine (auto)</span>
@@ -593,7 +511,6 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 </div>
 
 <div style="background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:10px;">
-
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
 <code style="font-size:15px;font-weight:700;">HR_ASSIGNMENT_ID</code>
 <span style="font-size:11px;font-weight:600;color:var(--faint);background:var(--white);padding:3px 10px;border-radius:100px;border:1px solid var(--line);">Engine (auto)</span>
@@ -602,7 +519,6 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 </div>
 
 <div style="background:var(--red-bg);border:1.5px solid var(--red-line);border-radius:12px;padding:18px 20px;margin-bottom:10px;">
-
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
 <code style="font-size:14px;font-weight:700;">ELIG_PER_ELCTBL_CHC_ID</code>
 <span style="font-size:11px;font-weight:600;color:var(--red);background:var(--white);padding:3px 10px;border-radius:100px;border:1px solid var(--red-line);">Formula sets</span>
@@ -611,7 +527,6 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 </div>
 
 <div style="background:var(--red-bg);border:1.5px solid var(--red-line);border-radius:12px;padding:18px 20px;margin-bottom:10px;">
-
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
 <code style="font-size:15px;font-weight:700;">ACTY_BASE_RT_ID</code>
 <span style="font-size:11px;font-weight:600;color:var(--red);background:var(--white);padding:3px 10px;border-radius:100px;border:1px solid var(--red-line);">Formula sets</span>
@@ -620,7 +535,6 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 </div>
 
 <div style="background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;">
-
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
 <code style="font-size:14px;font-weight:700;">PGM_ID, PL_ID, PL_TYP_ID, LER_ID</code>
 <span style="font-size:11px;font-weight:600;color:var(--faint);background:var(--white);padding:3px 10px;border-radius:100px;border:1px solid var(--line);">Engine (auto)</span>
@@ -663,34 +577,22 @@ l_proration_factor = (l_proration_numerator
 <p><code>GET_CONTEXT</code> is a function specific to Benefits formulas. It takes the current context value and the input variable value, and returns whichever one is populated. The input variable (<code>BEN_EPE_IV_...</code>) is what the engine passes in. The context (<code>ELIG_PER_ELCTBL_CHC_ID</code>) is what's already set in the formula's execution environment. <code>GET_CONTEXT</code> gives you the right one regardless of which path Oracle used to invoke the formula.</p>
 
 <div class="xr">
-
 <div class="xr-label">Two GET_CONTEXT calls — two different purposes</div>
-
 <div class="xr-row"><div class="xr-code">l_elig_id = <span style="color:var(--fn);">GET_CONTEXT</span>(ELIG_PER_ELCTBL_CHC_ID, ...)</div><div class="xr-note">Used in Step 1 to read coverage start date</div></div>
-
 <div class="xr-row"><div class="xr-code">l_acty_id = <span style="color:var(--fn);">GET_CONTEXT</span>(ACTY_BASE_RT_ID, ...)</div><div class="xr-note">Used in Step 2 inside the WHILE loop</div></div>
 </div>
 
 <p>The <code>CHANGE_CONTEXTS</code> block shifts the context to the specific election choice. Inside this block, the DBI <code>BEN_EPE_ENRT_CVG_STRT_DT</code> can resolve — it knows which election to pull the coverage date from. Outside this block, that DBI would hit its default (1951) because the formula doesn't know which election you mean.</p>
 
 <div class="dk">
-
 <div class="dk-title">Proration Flow — What Happens at Each Step</div>
-
 <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-
 <div class="dk-item"><span style="color:var(--fn);">GET_CONTEXT</span><br/><span style="font-size:10px;color:var(--faint);">Capture election ID</span></div>
-
 <div class="dk-arrow">→</div>
-
 <div class="dk-item"><span style="color:var(--kw);">CHANGE_CONTEXTS</span><br/><span style="font-size:10px;color:var(--faint);">Shift to that election</span></div>
-
 <div class="dk-arrow">→</div>
-
 <div class="dk-item"><span style="color:var(--str);">TO_CHAR(CVG_STRT_DT, 'MM')</span><br/><span style="font-size:10px;color:var(--faint);">Extract month number</span></div>
-
 <div class="dk-arrow">→</div>
-
 <div class="dk-item" style="border-color:var(--kw);"><span style="color:var(--kw);">(13 − month) / 12</span><br/><span style="font-size:10px;color:var(--faint);">Proration factor</span></div>
 </div>
 </div>
@@ -720,19 +622,12 @@ l_comp_date  = <span class="fn">TRUNC</span>(l_start_date, <span class="str">'MM
 <p>Six lines of setup. Each one matters:</p>
 
 <div class="xr">
-
 <div class="xr-label">Loop setup — line by line</div>
-
 <div class="xr-row"><div class="xr-code">l_year_start = <span style="color:var(--fn);">TRUNC</span>(l_cvg_start, <span style="color:var(--str);">'YYYY'</span>)</div><div class="xr-note">Jan 1 of the coverage start year. Uses the date already captured in Step 1.</div></div>
-
 <div class="xr-row"><div class="xr-code">l_year_end = <span style="color:var(--fn);">ADD_DAYS</span>(<span style="color:var(--fn);">ADD_YEARS</span>(l_year_start, <span style="color:var(--num);">1</span>), <span style="color:var(--num);">-1</span>)</div><div class="xr-note">Dec 31 of the same year. Add 1 year, subtract 1 day.</div></div>
-
 <div class="xr-row"><div class="xr-code">l_start_date = <span style="color:var(--fn);">GREATEST</span>(ACP_HIRE_DATE, l_year_start)</div><div class="xr-note">Don't loop before the hire date. GREATEST picks the later one.</div></div>
-
 <div class="xr-row"><div class="xr-code">l_count = <span style="color:var(--num);">1</span></div><div class="xr-note">Safety counter. Prevents infinite loop. Stops at 13.</div></div>
-
 <div class="xr-row"><div class="xr-code">l_total_er = <span style="color:var(--num);">0</span></div><div class="xr-note">The accumulator. Starts at zero, grows with each found value.</div></div>
-
 <div class="xr-row"><div class="xr-code">l_comp_date = <span style="color:var(--fn);">TRUNC</span>(l_start_date, <span style="color:var(--str);">'MM'</span>)</div><div class="xr-note">Round to the 1st. Hired Jan 15 → starts Jan 1.</div></div>
 </div>
 
@@ -745,10 +640,10 @@ l_comp_date  = <span class="fn">TRUNC</span>(l_start_date, <span class="str">'MM
 
 <div class="cd"><span class="kw">WHILE</span> ((l_comp_date <= l_year_end) <span class="kw">AND</span> (l_count < <span class="num">13</span>)) <span class="kw">LOOP</span>
 (
-<span class="kw">CHANGE_CONTEXTS</span>(EFFECTIVE_DATE = l_comp_date,
+  <span class="kw">CHANGE_CONTEXTS</span>(EFFECTIVE_DATE = l_comp_date,
                   ACTY_BASE_RT_ID = l_acty_id)
   (
-<span class="kw">IF</span> XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE > <span class="num">0</span> <span class="kw">THEN</span>
+    <span class="kw">IF</span> XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE > <span class="num">0</span> <span class="kw">THEN</span>
     (
       l_total_er = l_total_er
                  + XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE
@@ -777,11 +672,8 @@ l_comp_date  = <span class="fn">TRUNC</span>(l_start_date, <span class="str">'MM
 <p>Inside the loop, <code>CHANGE_CONTEXTS</code> shifts <strong>two contexts simultaneously</strong>. This is the most critical line in the entire formula. Think of it this way: you're in Oracle looking at Sarah's record. You have 12 browser tabs open, one for each month. On each tab, you navigate to the specific ER rate's element entry and write down the amount. That's exactly what the loop does programmatically — <code>EFFECTIVE_DATE</code> is which tab you're on, <code>ACTY_BASE_RT_ID</code> is which rate's entry you're looking at.</p>
 
 <div class="xr">
-
 <div class="xr-label">CHANGE_CONTEXTS — both shifts are mandatory</div>
-
 <div class="xr-row"><div class="xr-code"><span style="color:var(--fn);">EFFECTIVE_DATE</span> = l_comp_date</div><div class="xr-note">Tells the DBI: "read the entry as of this month"</div></div>
-
 <div class="xr-row"><div class="xr-code"><span style="color:var(--fn);">ACTY_BASE_RT_ID</span> = l_acty_id</div><div class="xr-note">Tells the DBI: "read the entry for this specific rate"</div></div>
 </div>
 
@@ -798,11 +690,8 @@ l_comp_date  = <span class="fn">TRUNC</span>(l_start_date, <span class="str">'MM
 <p>If you only shift one context, you get wrong data:</p>
 
 <div class="vs">
-
 <div class="vs-card fail"><h4>Only shift EFFECTIVE_DATE</h4><p>The DBI reads the correct month but doesn't know which rate's element entry to look at. If the employee has entries from both an ER rate and an EE rate, it might return the employee's own contribution. Or it might return an unpredictable entry. Either way, the total is wrong.</p></div>
-
 <div class="vs-card fail"><h4>Only shift ACTY_BASE_RT_ID</h4><p>The DBI knows which rate to read, but the date stays at the original <code>EFFECTIVE_DATE</code> from the participation process. Every iteration reads the same month. You get 12 copies of the same value instead of 12 different months.</p></div>
-
 <div class="vs-card pass"><h4>Shift both</h4><p>The DBI reads the correct rate's element entry at the correct month. Each iteration returns that month's actual value. The accumulation works exactly as designed.</p></div>
 </div>
 
@@ -841,35 +730,25 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 <p>Then the single decision: has the employer already paid more than this?</p>
 
 <div class="dk">
-
 <div class="dk-title">Cap + Split Decision</div>
-
 <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;">
-
 <div style="flex:1;min-width:200px;">
-
 <div style="font-size:10.5px;color:var(--ret);font-weight:600;margin-bottom:6px;">IF entitlement ($750) ≤ YTD ($800)</div>
-
 <div style="background:rgba(248,113,113,0.08);border-radius:10px;padding:12px;font-family:var(--mono);font-size:12px;color:var(--code-text);">
 ANN_VAL  = <span style="color:var(--ret);">0</span><br/>
 DFND_VAL = <span style="color:var(--ret);">0</span><br/>
 CMCD_VAL = <span style="color:var(--ret);">0</span>
 </div>
-
 <div style="font-size:10.5px;color:var(--faint);margin-top:6px;">Already overpaid. Zero everything. No further deposits.</div>
 </div>
-
 <div style="flex:1;min-width:200px;">
-
 <div style="font-size:10.5px;color:var(--str);font-weight:600;margin-bottom:6px;">ELSE entitlement ($750) > YTD ($200)</div>
-
 <div style="background:rgba(74,222,128,0.06);border-radius:10px;padding:12px;font-family:var(--mono);font-size:12px;color:var(--code-text);">
 l_balance = <span style="color:var(--num);">750</span> − <span style="color:var(--num);">200</span> = <span style="color:var(--str);">550</span><br/>
 ANN_VAL  = <span style="color:var(--str);">550</span><br/>
 DFND_VAL = <span style="color:var(--str);">550</span> / 12 = <span style="color:var(--str);">45.83</span><br/>
 CMCD_VAL = <span style="color:var(--str);">550</span> / 24 = <span style="color:var(--str);">22.92</span>
 </div>
-
 <div style="font-size:10.5px;color:var(--faint);margin-top:6px;">Balance remaining. Split three ways.</div>
 </div>
 </div>
@@ -909,11 +788,8 @@ CMCD_VAL = <span style="color:var(--str);">550</span> / 24 = <span style="color:
 </table>
 
 <div class="xr">
-
 <div class="xr-label">The fix</div>
-
 <div class="xr-row"><div class="xr-code" style="text-decoration:line-through;color:var(--faint);">l_year_start = TRUNC(ACP_HIRE_DATE, 'YYYY')</div><div class="xr-note" style="color:var(--red);">Uses the hire year</div></div>
-
 <div class="xr-row"><div class="xr-code">l_year_start = <span style="color:var(--fn);">TRUNC</span>(l_cvg_start, <span style="color:var(--str);">'YYYY'</span>)</div><div class="xr-note" style="color:var(--green);">Uses the coverage start year — already resolved in Step 1</div></div>
 </div>
 
@@ -1003,13 +879,9 @@ l_proration_numerator = <span class="num">13</span>  <span class="cm">/* now the
 <p><strong>The scenario:</strong> A new joiner starts in August. During their first month, Oracle auto-enrolls them into the default FBP allocation (before they've made their own elections). Payroll runs and deposits ₹15,000 based on the default. Two weeks later, the employee submits their actual FBP elections — different allocation, different amounts. The Benefits engine recalculates. The formula needs to prorate the annual ₹1,80,000 for the remaining 5 months AND subtract the ₹15,000 already deposited under the default enrollment.</p>
 
 <div class="xr">
-
 <div class="xr-label">What changes in the formula</div>
-
 <div class="xr-row"><div class="xr-code">l_pays = <span style="color:var(--num);">12</span></div><div class="xr-note">India payroll is monthly, not semi-monthly</div></div>
-
 <div class="xr-row"><div class="xr-code">XX_FBP_ER_ALLOCATION_AMT_REL_ENTRY_VALUE</div><div class="xr-note">Your FBP element's DBI name</div></div>
-
 <div class="xr-row"><div class="xr-code"><span style="color:var(--cm);">/* everything else stays the same */</span></div><div class="xr-note">WHILE loop, CHANGE_CONTEXTS, cap logic — identical</div></div>
 </div>
 
@@ -1054,29 +926,18 @@ l_proration_numerator = <span class="num">13</span>  <span class="cm">/* now the
 <h2>Recap</h2>
 
 <div class="dk">
-
 <div class="dk-title">When to use what</div>
-
 <div style="margin-top:10px;">
-
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-
 <div style="background:var(--green);color:#fff;border-radius:8px;padding:5px 14px;font-size:10px;font-weight:700;min-width:120px;text-align:center;letter-spacing:0.5px;">STANDARD</div>
-
 <div style="font-size:13px;color:var(--code-text);">Divides and multiplies. Fixed ratio between all three values.</div>
 </div>
-
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-
 <div style="background:var(--blue);color:#fff;border-radius:8px;padding:5px 14px;font-size:10px;font-weight:700;min-width:120px;text-align:center;letter-spacing:0.5px;">PARTIAL MONTH</div>
-
 <div style="font-size:13px;color:var(--code-text);">Oracle's built-in options. Check these first.</div>
 </div>
-
 <div style="display:flex;align-items:center;gap:12px;">
-
 <div style="background:var(--red);color:#fff;border-radius:8px;padding:5px 14px;font-size:10px;font-weight:700;min-width:120px;text-align:center;letter-spacing:0.5px;">RATE PERIOD.</div>
-
 <div style="font-size:13px;color:var(--code-text);">Full control. Date proration, YTD accumulation, conditional logic.</div>
 </div>
 </div>
@@ -1107,13 +968,9 @@ l_proration_numerator = <span class="num">13</span>  <span class="cm">/* now the
 </div>
 
 <div class="bl-footer">
-
 <div class="bl-av">AM</div>
-
 <div>
-
 <div class="bl-footer-name">Abhishek Mohanty</div>
-
 <div class="bl-footer-bio">Oracle ACE Apprentice · AIOUG Member · HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div>
 </div>
 </div>

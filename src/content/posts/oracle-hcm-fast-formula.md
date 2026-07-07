@@ -8,7 +8,6 @@ tags: ["Fast Formula", "Oracle HCM Cloud"]
 <div style="margin:12px 0 18px;line-height:2.4"><span style="display:inline-block;color:#fff;padding:10px 22px;font-size:13px;font-weight:700;margin:0 8px 8px 0;border-radius:0;text-transform:uppercase;letter-spacing:0.12em;background:#b8372a">Fast Formula</span><span style="display:inline-block;color:#fff;padding:10px 22px;font-size:13px;font-weight:700;margin:0 8px 8px 0;border-radius:0;text-transform:uppercase;letter-spacing:0.12em;background:#d87f1a">Context Handling</span><span style="display:inline-block;color:#fff;padding:10px 22px;font-size:13px;font-weight:700;margin:0 8px 8px 0;border-radius:0;text-transform:uppercase;letter-spacing:0.12em;background:#8e44ad">Intermediate</span><span style="display:inline-block;color:#fff;padding:10px 22px;font-size:13px;font-weight:700;margin:0 8px 8px 0;border-radius:0;text-transform:uppercase;letter-spacing:0.12em;background:#1f2a36">Verified</span></div>
 
 <h1 style="font-size:24px;font-weight:700;margin:16px 0 8px;line-height:1.3;color:#1a1a1a;word-wrap:break-word">Oracle Fast Formula: GET_CONTEXT and CHANGE_CONTEXTS — The Two Context Statements You Actually Need</h1>
-
 <div style="color:#888;font-size:13px;margin:6px 0 18px">April 2026 · 10 min read · Oracle HCM Cloud</div>
 
 <p>Oracle Fast Formula has two context-handling statements that every developer eventually needs to master: one reads the engine's current context values, the other temporarily overrides them. They look similar but do opposite things — and confusing them is one of the most common sources of silent bugs in production formulas. This post walks through both as diagrams first, code second, with a production-grade example at the end.</p>
@@ -20,9 +19,39 @@ tags: ["Fast Formula", "Oracle HCM Cloud"]
 <h2 style="font-size:22px;font-weight:700;margin:40px 0 14px;color:#1a1a1a">How a DBI Reference Becomes a SQL Query</h2>
 <p>Every time you write <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">l_name = PER_PER_FULL_NAME</code>, five things happen in sequence. The calling application populates the context layer. Your DBI reference triggers a route lookup. The route builds SQL. The contexts bind into that SQL as <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">:PID</code> and <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">:EFF</code>. The database returns a value.</p>
 
-<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center">
-<img src="/diagrams/oracle-hcm-fast-formula-fig1.png" alt="Figure 1" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-<div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 1 — Contexts act as SQL bind variables between your formula and the database</div></div>
+<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center"><svg viewBox="0 0 620 360" xmlns="http://www.w3.org/2000/svg" font-family="'Open Sans',sans-serif" font-size="12">
+<defs><marker id="a1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#555"/></marker></defs>
+<rect x="20" y="20" width="170" height="60" fill="#fff" stroke="#c0392b" stroke-width="2" rx="4"/>
+<text x="105" y="40" text-anchor="middle" font-weight="700" fill="#c0392b">Calling Application</text>
+<text x="105" y="58" text-anchor="middle" fill="#555">Absence · OTL · Comp</text>
+<text x="105" y="72" text-anchor="middle" fill="#555" font-size="11">injects context values</text>
+<line x1="190" y1="50" x2="240" y2="50" stroke="#555" stroke-width="1.5" marker-end="url(#a1)"/>
+<rect x="240" y="20" width="170" height="60" fill="#fff" stroke="#2c5282" stroke-width="2" rx="4"/>
+<text x="325" y="40" text-anchor="middle" font-weight="700" fill="#2c5282">Context Layer</text>
+<text x="325" y="58" text-anchor="middle" fill="#555" font-family="Consolas" font-size="11">PERSON_ID = 4001</text>
+<text x="325" y="72" text-anchor="middle" fill="#555" font-family="Consolas" font-size="11">EFF_DATE = 15-Mar-26</text>
+<line x1="410" y1="50" x2="460" y2="50" stroke="#555" stroke-width="1.5" marker-end="url(#a1)"/>
+<rect x="460" y="20" width="140" height="60" fill="#fff" stroke="#2e7d32" stroke-width="2" rx="4"/>
+<text x="530" y="40" text-anchor="middle" font-weight="700" fill="#2e7d32">Your Formula</text>
+<text x="530" y="60" text-anchor="middle" font-family="Consolas" font-size="10" fill="#555">l_name =</text>
+<text x="530" y="74" text-anchor="middle" font-family="Consolas" font-size="10" fill="#555">PER_PER_FULL_NAME</text>
+<line x1="530" y1="80" x2="530" y2="125" stroke="#555" stroke-width="1.5" marker-end="url(#a1)"/>
+<text x="545" y="108" fill="#555" font-size="11" font-style="italic">triggers DBI</text>
+<rect x="240" y="130" width="290" height="100" fill="#0d1117" stroke="#0d1117" rx="4"/>
+<text x="385" y="150" text-anchor="middle" fill="#79c0ff" font-weight="700" font-size="11">HIDDEN SQL ROUTE</text>
+<text x="250" y="168" fill="#e6edf3" font-family="Consolas" font-size="10">SELECT full_name</text>
+<text x="250" y="181" fill="#e6edf3" font-family="Consolas" font-size="10">FROM   per_person_names_f</text>
+<text x="250" y="194" fill="#e6edf3" font-family="Consolas" font-size="10">WHERE  person_id = :PID</text>
+<text x="250" y="207" fill="#e6edf3" font-family="Consolas" font-size="10">AND    name_type = 'GLOBAL'</text>
+<text x="250" y="220" fill="#e6edf3" font-family="Consolas" font-size="10">AND    :EFF BETWEEN eff_start_date AND eff_end_date</text>
+<line x1="325" y1="80" x2="325" y2="125" stroke="#555" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#a1)"/>
+<text x="175" y="108" fill="#555" font-size="11" font-style="italic">contexts bind as :PID, :EFF</text>
+<line x1="385" y1="230" x2="385" y2="255" stroke="#555" stroke-width="1.5" marker-end="url(#a1)"/>
+<rect x="240" y="260" width="290" height="60" fill="#fff" stroke="#c0392b" stroke-width="2" rx="4"/>
+<text x="385" y="282" text-anchor="middle" font-weight="700" fill="#c0392b">Database</text>
+<text x="385" y="302" text-anchor="middle" fill="#555">returns "Priya Patel"</text>
+<text x="385" y="316" text-anchor="middle" fill="#555" font-size="11">back into l_name</text>
+</svg><div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 1 — Contexts act as SQL bind variables between your formula and the database</div></div>
 
 <p>This happens thousands of times per formula run, invisible to you — and it's why context statements matter. They're the only way to inspect or manipulate the bind-variable layer. Two statements do the real work: GET_CONTEXT reads, CHANGE_CONTEXTS writes.</p>
 
@@ -32,9 +61,38 @@ tags: ["Fast Formula", "Oracle HCM Cloud"]
 
 <p>The first question developers ask: if GET_CONTEXT reads the current value and CHANGE_CONTEXTS overrides it, why not use just one of them? Because they solve opposite problems. One captures the state the engine injected. The other temporarily substitutes different state so your DBIs can resolve data from a different viewpoint.</p>
 
-<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center">
-<img src="/diagrams/oracle-hcm-fast-formula-fig2.png" alt="Figure 2" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-<div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 2 — GET_CONTEXT pulls the current value out. CHANGE_CONTEXTS pushes a new value in (scoped).</div></div>
+<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center"><svg viewBox="0 0 620 340" xmlns="http://www.w3.org/2000/svg" font-family="'Open Sans',sans-serif" font-size="12">
+<text x="310" y="22" text-anchor="middle" font-weight="700" font-size="13" fill="#1a1a1a">Same context, opposite operations</text>
+
+
+<rect x="180" y="45" width="260" height="60" fill="#fff" stroke="#2c5282" stroke-width="2" rx="4"/>
+<text x="310" y="65" text-anchor="middle" font-weight="700" fill="#2c5282" font-size="12">Context Layer (engine-managed)</text>
+<text x="310" y="84" text-anchor="middle" font-family="Consolas" font-size="11" fill="#555">EFFECTIVE_DATE = 15-Mar-2026</text>
+<text x="310" y="97" text-anchor="middle" fill="#888" font-size="10" font-style="italic">injected by the calling application</text>
+
+
+<defs><marker id="rd" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#c0392b"/></marker><marker id="wr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#6a1b9a"/></marker></defs>
+<line x1="220" y1="105" x2="150" y2="175" stroke="#c0392b" stroke-width="2" marker-end="url(#rd)"/>
+<line x1="400" y1="105" x2="470" y2="175" stroke="#6a1b9a" stroke-width="2" marker-end="url(#wr)"/>
+
+
+<rect x="20" y="180" width="260" height="140" fill="#fff5f2" stroke="#c0392b" stroke-width="2" rx="4"/>
+<text x="150" y="203" text-anchor="middle" font-weight="700" fill="#c0392b" font-size="14">GET_CONTEXT — READ</text>
+<text x="150" y="222" text-anchor="middle" fill="#555" font-size="11">copies current value into</text>
+<text x="150" y="236" text-anchor="middle" fill="#555" font-size="11">a local variable</text>
+<rect x="40" y="250" width="220" height="32" fill="#fff" stroke="#c0392b" rx="3"/>
+<text x="150" y="270" text-anchor="middle" font-family="Consolas" font-size="11" fill="#c0392b">l_eff = GET_CONTEXT(EFFECTIVE_DATE, d)</text>
+<text x="150" y="300" text-anchor="middle" fill="#888" font-size="10" font-style="italic">context layer unchanged</text>
+
+
+<rect x="340" y="180" width="260" height="140" fill="#f8f0fa" stroke="#6a1b9a" stroke-width="2" rx="4"/>
+<text x="470" y="203" text-anchor="middle" font-weight="700" fill="#6a1b9a" font-size="14">CHANGE_CONTEXTS — WRITE</text>
+<text x="470" y="222" text-anchor="middle" fill="#555" font-size="11">temporarily overrides value</text>
+<text x="470" y="236" text-anchor="middle" fill="#555" font-size="11">inside a scoped block</text>
+<rect x="360" y="250" width="220" height="32" fill="#fff" stroke="#6a1b9a" rx="3"/>
+<text x="470" y="270" text-anchor="middle" font-family="Consolas" font-size="10" fill="#6a1b9a">CHANGE_CONTEXTS(EFFECTIVE_DATE=d2)(...)</text>
+<text x="470" y="300" text-anchor="middle" fill="#888" font-size="10" font-style="italic">auto-reverts on block exit</text>
+</svg><div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 2 — GET_CONTEXT pulls the current value out. CHANGE_CONTEXTS pushes a new value in (scoped).</div></div>
 
 <p>The rest of this post walks through each statement in depth, then puts them together in an end-to-end example from absence management.</p>
 
@@ -181,15 +239,108 @@ RETURN VALID, ERROR_MESSAGE</pre>
 
 <p><strong>Why the EFFECTIVE_DATE override matters.</strong> The engine-injected EFFECTIVE_DATE is the date the user hit Submit, but the business rule cares about the absence start date — passed in as <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">IV_START_DATE</code>. Switching EFFECTIVE_DATE to IV_START_DATE inside the CHANGE_CONTEXTS block ensures the manager's hire-date DBI resolves as of the leave start date — exactly the moment we care about for the 90-day rule. Both overrides happen in a single CHANGE_CONTEXTS call, following the combine-don't-nest best practice.</p>
 
-<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center">
-<img src="/diagrams/oracle-hcm-fast-formula-fig3.png" alt="Figure 3" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-<div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 3 — Manager hired Nov 2, 2025. As of the submission date the tenure is 64 days; as of the absence start date it's 100 days. The business rule cares about the latter.</div></div>
+<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center"><svg viewBox="0 0 620 380" xmlns="http://www.w3.org/2000/svg" font-family="'Open Sans',sans-serif" font-size="12">
+<defs><marker id="a7" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#555"/></marker></defs>
+<text x="310" y="20" text-anchor="middle" font-weight="700" font-size="13" fill="#1a1a1a">Same employee, same manager, different EFFECTIVE_DATE = different tenure</text>
+
+
+<line x1="50" y1="80" x2="570" y2="80" stroke="#888" stroke-width="2"/>
+
+
+<circle cx="90" cy="80" r="6" fill="#2e7d32"/>
+<text x="90" y="62" text-anchor="middle" font-weight="700" fill="#2e7d32" font-size="11">Nov 2, 2025</text>
+<text x="90" y="102" text-anchor="middle" fill="#555" font-size="10">manager hired</text>
+
+
+<circle cx="320" cy="80" r="6" fill="#2c5282"/>
+<text x="320" y="62" text-anchor="middle" font-weight="700" fill="#2c5282" font-size="11">Jan 5, 2026</text>
+<text x="320" y="102" text-anchor="middle" fill="#555" font-size="10">user submits leave request</text>
+<text x="320" y="115" text-anchor="middle" fill="#555" font-size="10" font-style="italic">(EFFECTIVE_DATE)</text>
+
+
+<circle cx="500" cy="80" r="6" fill="#c0392b"/>
+<text x="500" y="62" text-anchor="middle" font-weight="700" fill="#c0392b" font-size="11">Feb 10, 2026</text>
+<text x="500" y="102" text-anchor="middle" fill="#555" font-size="10">absence starts</text>
+<text x="500" y="115" text-anchor="middle" fill="#555" font-size="10" font-style="italic">(IV_START_DATE)</text>
+
+
+
+<line x1="90" y1="140" x2="320" y2="140" stroke="#c0392b" stroke-width="2"/>
+<line x1="90" y1="135" x2="90" y2="145" stroke="#c0392b" stroke-width="2"/>
+<line x1="320" y1="135" x2="320" y2="145" stroke="#c0392b" stroke-width="2"/>
+<text x="205" y="133" text-anchor="middle" fill="#c0392b" font-weight="700" font-size="11">64 days</text>
+
+
+<line x1="90" y1="165" x2="500" y2="165" stroke="#2e7d32" stroke-width="2"/>
+<line x1="90" y1="160" x2="90" y2="170" stroke="#2e7d32" stroke-width="2"/>
+<line x1="500" y1="160" x2="500" y2="170" stroke="#2e7d32" stroke-width="2"/>
+<text x="295" y="180" text-anchor="middle" fill="#2e7d32" font-weight="700" font-size="11">100 days</text>
+
+
+<line x1="50" y1="200" x2="570" y2="200" stroke="#d4a017" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="565" y="197" text-anchor="end" fill="#d4a017" font-size="10" font-style="italic">— 90 day policy threshold —</text>
+
+
+<rect x="30" y="215" width="270" height="150" fill="#fff5f2" stroke="#c0392b" stroke-width="2" rx="4"/>
+<text x="165" y="238" text-anchor="middle" font-weight="700" fill="#c0392b" font-size="13">✗ Without override</text>
+<text x="165" y="258" text-anchor="middle" fill="#555" font-size="11">EFFECTIVE_DATE = Jan 5, 2026</text>
+<text x="165" y="278" text-anchor="middle" fill="#555" font-size="11">Manager tenure =</text>
+<text x="165" y="300" text-anchor="middle" fill="#c0392b" font-weight="800" font-size="22">64 days</text>
+<line x1="80" y1="318" x2="250" y2="318" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+<text x="165" y="338" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="700">Below 90 → VALID = 'N'</text>
+<text x="165" y="354" text-anchor="middle" fill="#555" font-size="10" font-style="italic">but this isn't the right answer</text>
+
+
+<rect x="320" y="215" width="270" height="150" fill="#f0f9f0" stroke="#2e7d32" stroke-width="2" rx="4"/>
+<text x="455" y="238" text-anchor="middle" font-weight="700" fill="#2e7d32" font-size="13">✓ With CHANGE_CONTEXTS override</text>
+<text x="455" y="258" text-anchor="middle" fill="#555" font-size="11">EFFECTIVE_DATE = Feb 10, 2026</text>
+<text x="455" y="278" text-anchor="middle" fill="#555" font-size="11">Manager tenure =</text>
+<text x="455" y="300" text-anchor="middle" fill="#2e7d32" font-weight="800" font-size="22">100 days</text>
+<line x1="370" y1="318" x2="540" y2="318" stroke="#2e7d32" stroke-width="1" stroke-dasharray="3,2"/>
+<text x="455" y="338" text-anchor="middle" fill="#2e7d32" font-size="11" font-weight="700">Above 90 → VALID = 'Y'</text>
+<text x="455" y="354" text-anchor="middle" fill="#555" font-size="10" font-style="italic">which is the correct answer</text>
+</svg><div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 3 — Manager hired Nov 2, 2025. As of the submission date the tenure is 64 days; as of the absence start date it's 100 days. The business rule cares about the latter.</div></div>
 
 <p><strong>Why the formula rejects instead of routing.</strong> Global Absence Entry Validation has a strict binary contract: <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">VALID = 'Y'</code> lets the submission proceed, <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">VALID = 'N'</code> blocks it and shows <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">ERROR_MESSAGE</code> to the user. The formula cannot re-route the request on its own — that's what BPM approval rules are for. The correct pattern is: reject with a clear message, and configure the BPM approval rule to recognise the rejection and trigger the skip-level routing. Trying to route from inside the formula itself is a category error that breaks the formula-type contract.</p>
 
-<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center">
-<img src="/diagrams/oracle-hcm-fast-formula-fig4.png" alt="Figure 4" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-<div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 4 — Formula returns VALID / ERROR_MESSAGE. BPM reads the rejection and handles routing separately.</div></div>
+<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center"><svg viewBox="0 0 620 340" xmlns="http://www.w3.org/2000/svg" font-family="'Open Sans',sans-serif" font-size="12">
+<defs><marker id="a8" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#555"/></marker></defs>
+<text x="310" y="22" text-anchor="middle" font-weight="700" font-size="13" fill="#1a1a1a">Two layers, two responsibilities — don't mix them</text>
+<rect x="20" y="45" width="580" height="125" fill="#fff5f2" stroke="#c0392b" stroke-width="2" rx="4"/>
+<text x="40" y="68" font-weight="700" fill="#c0392b" font-size="13">Layer 1 — Formula (what your Fast Formula does)</text>
+<rect x="40" y="80" width="140" height="70" fill="#fff" stroke="#c0392b" rx="3"/>
+<text x="110" y="100" text-anchor="middle" font-weight="700" fill="#c0392b" font-size="11">Entry Validation</text>
+<text x="110" y="118" text-anchor="middle" fill="#555" font-size="10">checks tenure</text>
+<text x="110" y="132" text-anchor="middle" fill="#555" font-size="10">sets VALID + MESSAGE</text>
+<line x1="180" y1="115" x2="230" y2="115" stroke="#555" stroke-width="1.5" marker-end="url(#a8)"/>
+<rect x="230" y="80" width="160" height="70" fill="#fff" stroke="#c0392b" rx="3"/>
+<text x="310" y="100" text-anchor="middle" font-weight="700" fill="#c0392b" font-size="11">Absence engine</text>
+<text x="310" y="118" text-anchor="middle" fill="#555" font-size="10">reads VALID = 'N'</text>
+<text x="310" y="132" text-anchor="middle" fill="#555" font-size="10">surfaces ERROR_MESSAGE</text>
+<line x1="390" y1="115" x2="440" y2="115" stroke="#555" stroke-width="1.5" marker-end="url(#a8)"/>
+<rect x="440" y="80" width="140" height="70" fill="#fff" stroke="#c0392b" rx="3"/>
+<text x="510" y="100" text-anchor="middle" font-weight="700" fill="#c0392b" font-size="11">User sees message</text>
+<text x="510" y="118" text-anchor="middle" fill="#555" font-size="10">"Manager tenure</text>
+<text x="510" y="132" text-anchor="middle" fill="#555" font-size="10">below 90 days..."</text>
+<line x1="20" y1="185" x2="600" y2="185" stroke="#888" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="310" y="200" text-anchor="middle" fill="#888" font-size="11" font-style="italic">Formula finishes here. BPM starts here.</text>
+<rect x="20" y="210" width="580" height="120" fill="#f0f5fa" stroke="#2c5282" stroke-width="2" rx="4"/>
+<text x="40" y="232" font-weight="700" fill="#2c5282" font-size="13">Layer 2 — BPM (what the approval rule does)</text>
+<rect x="40" y="246" width="160" height="70" fill="#fff" stroke="#2c5282" rx="3"/>
+<text x="120" y="266" text-anchor="middle" font-weight="700" fill="#2c5282" font-size="11">Approval rule</text>
+<text x="120" y="284" text-anchor="middle" fill="#555" font-size="10">detects rejection pattern</text>
+<text x="120" y="298" text-anchor="middle" fill="#555" font-size="10">in ERROR_MESSAGE text</text>
+<line x1="200" y1="281" x2="250" y2="281" stroke="#555" stroke-width="1.5" marker-end="url(#a8)"/>
+<rect x="250" y="246" width="160" height="70" fill="#fff" stroke="#2c5282" rx="3"/>
+<text x="330" y="266" text-anchor="middle" font-weight="700" fill="#2c5282" font-size="11">Skip-level routing</text>
+<text x="330" y="284" text-anchor="middle" fill="#555" font-size="10">bypasses direct manager</text>
+<text x="330" y="298" text-anchor="middle" fill="#555" font-size="10">sends to grandmanager</text>
+<line x1="410" y1="281" x2="460" y2="281" stroke="#555" stroke-width="1.5" marker-end="url(#a8)"/>
+<rect x="460" y="246" width="120" height="70" fill="#fff" stroke="#2c5282" rx="3"/>
+<text x="520" y="266" text-anchor="middle" font-weight="700" fill="#2c5282" font-size="11">Approved</text>
+<text x="520" y="284" text-anchor="middle" fill="#555" font-size="10">by skip-level</text>
+<text x="520" y="298" text-anchor="middle" fill="#555" font-size="10">manager</text>
+</svg><div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 4 — Formula returns VALID / ERROR_MESSAGE. BPM reads the rejection and handles routing separately.</div></div>
 
 <hr style="border:none;border-top:1px solid #e5e5e5;margin:34px 0">
 
