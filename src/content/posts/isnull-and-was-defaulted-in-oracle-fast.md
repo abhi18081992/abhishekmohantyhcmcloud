@@ -5,7 +5,7 @@ pubDate: 2026-04-08
 tags: ["Fast Formula", "Oracle HCM Cloud", "Null Handling"]
 ---
 
-<p> </p>
+<p> </p><!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">

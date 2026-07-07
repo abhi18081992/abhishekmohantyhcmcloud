@@ -5,10 +5,7 @@ pubDate: 2026-07-07
 tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor"]
 ---
 
-<style>
-</style>
-
-<div class="post-html">
+<div style="font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif; max-width: 820px; margin: 0 auto; color: #2d2926; line-height: 1.65; font-size: 17px;">
 
 
 <div style="border-left: 4px solid #8b2e2a; padding-left: 20px; margin: 32px 0 40px 0;">

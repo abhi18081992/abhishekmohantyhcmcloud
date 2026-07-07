@@ -1,11 +1,11 @@
 ---
 title: "Step-by-step WSA implementation and complete code of Oracle HCM Cloud HDL Transformation Fast Formula — WSA_EXISTS, WSA_GET, WSA_SET for Person caching and MultipleEntryCount tracking, full formula with INPUTS ARE, OPERATION routing, METADATA, GET_VALUE_SET, SourceSystemId, LINEREPEATNO, and ElementEntry .dat output. Part 3 of 3."
-description: "Oracle HCM Cloud HDL Transformation Fast Formula — WSA Implementation and Complete Formula Code (Part 3 of 3) :root { --accent: #D4622B; --dark: #1A1A2E; --text: #3D3D5C; --muted: #8B8FA8; --bg-subtle"
+description: "Oracle HCM Cloud HDL Transformation Fast Formula — WSA Implementation and Complete Formula Code (Part 3 of 3) :root  --accent: #D4622B; --dark: #1A1A2E; --text: #3D3D5C; --muted: #8B8FA8; --bg-subtle:"
 pubDate: 2026-03-27
 tags: ["Fast Formula", "Oracle HCM Cloud", "HDL"]
 ---
 
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -18,50 +18,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL"]
 <meta name="author" content="Abhishek Mohanty">
 <title>Oracle HCM Cloud HDL Transformation Fast Formula — WSA Implementation and Complete Formula Code (Part 3 of 3)</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root { --accent: #D4622B; --dark: #1A1A2E; --text: #3D3D5C; --muted: #8B8FA8; --bg-subtle: #F8F7F4; --border: #E8E4DE; --green: #2D8B6F; --red: #B8423A; --blue: #4A6FA5; --code-bg: #1B1D2E; }
-.diag { background: var(--bg-subtle); border-radius: 14px; padding: 28px 24px; margin: 24px 0; position: relative; }
-.diag-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
-.timeline { position: relative; padding-left: 36px; }
-.timeline::before { content: ''; position: absolute; left: 13px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--border)); border-radius: 1px; }
-.tl-step { position: relative; margin-bottom: 18px; }
-.tl-step:last-child { margin-bottom: 0; }
-.tl-dot { position: absolute; left: -29px; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--accent); background: var(--bg-subtle); }
-.tl-dot.active { background: var(--accent); }
-.tl-label { font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
-.tl-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
-.tl-result { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; background: rgba(212,98,43,0.08); color: var(--accent); padding: 2px 8px; border-radius: 4px; margin-top: 4px; }
-.decision-pair { display: flex; gap: 16px; flex-wrap: wrap; }
-.decision-card { flex: 1; min-width: 220px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-.decision-card-head { padding: 10px 16px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; }
-.decision-card-body { background: #fff; padding: 16px; font-size: 13px; line-height: 1.7; }
-.code-pro { border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin: 20px 0; }
-.code-pro-header { background: #151726; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); }
-.code-pro-header .dots { display: flex; gap: 6px; }
-.code-pro-header .dots span { width: 10px; height: 10px; border-radius: 50%; }
-.code-pro-header .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6B6F88; letter-spacing: 0.3px; }
-.code-pro pre { background: var(--code-bg); color: #C8C9D4; padding: 20px 24px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13.5px; line-height: 1.85; overflow-x: auto; margin: 0; white-space: pre-wrap; }
-.code-pro .ln { color: #3D4058; font-size: 12px; display: inline-block; width: 32px; text-align: right; margin-right: 16px; user-select: none; }
-.ipe { background: #fff; border-left: 3px solid var(--green); border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 18px 0 28px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
-.ipe p { margin: 0 0 6px; font-size: 14px; color: var(--text); line-height: 1.65; }
-.ipe p:last-child { margin-bottom: 0; }
-.ipe strong { color: var(--dark); }
-@media (prefers-color-scheme: dark) {
-.hdl-blog { background: #12131A !important; color: #C8C9D4 !important; }
-.hdl-blog p, .hdl-blog li { color: #C8C9D4 !important; }
-.hdl-blog strong { color: #EAEBF0 !important; }
-.hdl-blog code { background: #1E1F2B !important; color: #D4D5DE !important; }
-.hdl-blog hr { border-color: #2A2B38 !important; }
-.hdl-blog pre { background: #0D0E14 !important; }
-.hdl-blog .diag { background: #16171F !important; }
-.hdl-blog .ipe, .hdl-blog .decision-card-body { background: #1A1B26 !important; }
-.hdl-blog td, .hdl-blog th { border-color: #2A2B38 !important; }
-.hdl-blog td { color: #C8C9D4 !important; }
-.hdl-blog th { color: #fff !important; }
-.hdl-blog .tl-dot { background: #16171F !important; }
-.hdl-blog .tl-dot.active { background: var(--accent) !important; }
-}
-</style>
+
 </head>
 <body>
 <div class="hdl-blog" style="font-family:'Plus Jakarta Sans',sans-serif;max-width:820px;margin:0 auto;padding:32px 24px;line-height:1.75;color:var(--dark);">

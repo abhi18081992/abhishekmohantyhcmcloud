@@ -1,11 +1,11 @@
 ---
 title: "Step-by-step code walkthrough of Oracle HCM Cloud HDL Transformation Fast Formula — INPUTS ARE declaration, GET_VALUE_SET parameter construction, ISNULL checking, SourceSystemId resolution, ESS_LOG_WRITE tracing, LINEREPEATNO pass logic for ElementEntry and ElementEntryValue, and Cancel end-dating with ReplaceLastEffectiveEndDate. Part 2 of 3."
-description: "Oracle HCM Cloud HDL Transformation Fast Formula — Line-by-Line Code Walkthrough (Part 2 of 3) :root { --accent: #D4622B; --dark: #1A1A2E; --text: #3D3D5C; --muted: #8B8FA8; --bg-subtle: #F8F7F4; --bo"
+description: "Oracle HCM Cloud HDL Transformation Fast Formula — Line-by-Line Code Walkthrough (Part 2 of 3) :root  --accent: #D4622B; --dark: #1A1A2E; --text: #3D3D5C; --muted: #8B8FA8; --bg-subtle: #F8F7F4; --bor"
 pubDate: 2026-03-26
 tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL", "Null Handling", "Debugging"]
 ---
 
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -18,84 +18,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 <meta name="author" content="Abhishek Mohanty">
 <title>Oracle HCM Cloud HDL Transformation Fast Formula — Line-by-Line Code Walkthrough (Part 2 of 3)</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root { --accent: #D4622B; --dark: #1A1A2E; --text: #3D3D5C; --muted: #8B8FA8; --bg-subtle: #F8F7F4; --border: #E8E4DE; --green: #2D8B6F; --red: #B8423A; --blue: #4A6FA5; --code-bg: #1B1D2E; }
 
-/* ── Diagram system ── */
-.diag { background: var(--bg-subtle); border-radius: 14px; padding: 28px 24px; margin: 24px 0; position: relative; }
-.diag-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
-
-/* Timeline / vertical flow */
-.timeline { position: relative; padding-left: 36px; }
-.timeline::before { content: ''; position: absolute; left: 13px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--border)); border-radius: 1px; }
-.tl-step { position: relative; margin-bottom: 18px; }
-.tl-step:last-child { margin-bottom: 0; }
-.tl-dot { position: absolute; left: -29px; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--accent); background: var(--bg-subtle); }
-.tl-dot.active { background: var(--accent); }
-.tl-label { font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
-.tl-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
-.tl-result { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; background: rgba(212,98,43,0.08); color: var(--accent); padding: 2px 8px; border-radius: 4px; margin-top: 4px; }
-
-/* Horizontal pipeline */
-.pipeline { display: flex; align-items: center; gap: 0; flex-wrap: wrap; justify-content: center; }
-.pipe-node { background: #fff; border-radius: 10px; padding: 12px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04); text-align: center; min-width: 100px; position: relative; }
-.pipe-node.accent { box-shadow: 0 1px 4px rgba(212,98,43,0.12), 0 4px 16px rgba(212,98,43,0.08); }
-.pipe-connector { width: 32px; height: 2px; background: linear-gradient(to right, var(--border), var(--accent)); position: relative; flex-shrink: 0; }
-.pipe-connector::after { content: ''; position: absolute; right: -3px; top: -3px; border: solid var(--accent); border-width: 0 2px 2px 0; padding: 3px; transform: rotate(-45deg); }
-.pipe-label { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
-.pipe-value { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--dark); }
-.pipe-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
-
-/* Code annotation strips */
-.code-annot { display: flex; gap: 0; margin: 4px 0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
-.code-annot-line { background: var(--code-bg); padding: 10px 16px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #C8C9D4; flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; border-right: 1px solid rgba(255,255,255,0.05); }
-.code-annot-note { background: #fff; padding: 10px 16px; font-size: 12px; color: var(--text); min-width: 180px; max-width: 220px; display: flex; align-items: center; line-height: 1.4; }
-.code-annot-note::before { content: '←'; color: var(--accent); font-weight: 700; margin-right: 8px; flex-shrink: 0; }
-
-/* Professional code block with header */
-.code-pro { border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin: 20px 0; }
-.code-pro-header { background: #151726; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); }
-.code-pro-header .dots { display: flex; gap: 6px; }
-.code-pro-header .dots span { width: 10px; height: 10px; border-radius: 50%; }
-.code-pro-header .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6B6F88; letter-spacing: 0.3px; }
-.code-pro pre { background: var(--code-bg); color: #C8C9D4; padding: 20px 24px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13.5px; line-height: 1.85; overflow-x: auto; margin: 0; white-space: pre-wrap; counter-reset: codeline; }
-.code-pro .ln { color: #3D4058; font-size: 12px; display: inline-block; width: 28px; text-align: right; margin-right: 16px; user-select: none; }
-
-/* Decision cards */
-.decision-pair { display: flex; gap: 16px; flex-wrap: wrap; }
-.decision-card { flex: 1; min-width: 220px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-.decision-card-head { padding: 10px 16px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; }
-.decision-card-body { background: #fff; padding: 16px; font-size: 13px; line-height: 1.7; }
-
-/* Segment bar (for SSID assembly) */
-.seg-bar { display: flex; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin: 16px 0; }
-.seg-bar > div { padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; text-align: center; }
-.seg-bar .seg-label { font-size: 9px; font-weight: 400; opacity: 0.7; display: block; margin-top: 2px; }
-
-/* Plain english */
-.ipe { background: #fff; border-left: 3px solid var(--green); border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 18px 0 28px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
-.ipe p { margin: 0 0 6px; font-size: 14px; color: var(--text); line-height: 1.65; }
-.ipe p:last-child { margin-bottom: 0; }
-.ipe strong { color: var(--dark); }
-
-@media (prefers-color-scheme: dark) {
-.hdl-blog { background: #12131A !important; color: #C8C9D4 !important; }
-.hdl-blog p, .hdl-blog li { color: #C8C9D4 !important; }
-.hdl-blog strong { color: #EAEBF0 !important; }
-.hdl-blog code { background: #1E1F2B !important; color: #D4D5DE !important; }
-.hdl-blog hr { border-color: #2A2B38 !important; }
-.hdl-blog pre { background: #0D0E14 !important; }
-.hdl-blog .diag { background: #16171F !important; }
-.hdl-blog .pipe-node, .hdl-blog .ipe, .hdl-blog .code-annot-note, .hdl-blog .decision-card-body { background: #1A1B26 !important; }
-.hdl-blog .pipe-node { box-shadow: 0 1px 4px rgba(0,0,0,0.3) !important; }
-.hdl-blog td, .hdl-blog th { border-color: #2A2B38 !important; }
-.hdl-blog td { color: #C8C9D4 !important; }
-.hdl-blog th { color: #fff !important; }
-.hdl-blog .tl-dot { background: #16171F !important; }
-.hdl-blog .tl-dot.active { background: var(--accent) !important; }
-.hdl-blog .timeline::before { background: linear-gradient(to bottom, var(--accent), #2A2B38) !important; }
-}
-</style>
 </head>
 <body>
 <div class="hdl-blog" style="font-family:'Plus Jakarta Sans',sans-serif;max-width:820px;margin:0 auto;padding:32px 24px;line-height:1.75;color:var(--dark);">

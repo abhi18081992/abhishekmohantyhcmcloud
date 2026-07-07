@@ -5,7 +5,6 @@ pubDate: 2026-04-19
 tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
 ---
 
-
 <span style="display:inline-block;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#fff;margin:2px;text-transform:uppercase;background:#c0392b;font-family:'Open Sans',sans-serif">Fast Formula</span>
 <span style="display:inline-block;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#fff;margin:2px;text-transform:uppercase;background:#2e6b9e;font-family:'Open Sans',sans-serif">Time and Labor</span>
 <span style="display:inline-block;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#fff;margin:2px;text-transform:uppercase;background:#27795a;font-family:'Open Sans',sans-serif">Logging</span>

@@ -1,114 +1,18 @@
 ---
 title: "Oracle Fast Formula: Post Election Edit — How to Validate Cross-Plan Dependencies Using CHANGE_CONTEXTS and BEN_PEN Array DBIs"
-description: "Oracle Fast Formula — Post Election Edit :root { --bg-primary: #ffffff; --bg-secondary: #f7f7f8; --bg-card: #f2f2f3; --bg-code: #1a1a1a; --text-primary: #000000; --text-secondary: #666666; --text-head"
+description: "Oracle Fast Formula — Post Election Edit :root  --bg-primary: #ffffff; --bg-secondary: #f7f7f8; --bg-card: #f2f2f3; --bg-code: #1a1a1a; --text-primary: #000000; --text-secondary: #666666; --text-headi"
 pubDate: 2026-04-06
-tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits", "DBI", "CHANGE_CONTEXTS"]
+tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 ---
 
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oracle Fast Formula — Post Election Edit</title>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg-primary: #ffffff; --bg-secondary: #f7f7f8; --bg-card: #f2f2f3; --bg-code: #1a1a1a;
-    --text-primary: #000000; --text-secondary: #666666; --text-heading: #111111;
-    --accent-red: #d63031; --accent-blue: #0984e3; --accent-green: #00b894;
-    --accent-yellow: #d4a017; --accent-purple: #6c5ce7; --accent-cyan: #00838f;
-    --accent-orange: #e17055; --border-red: #c0392b; --border-subtle: #e0e0e0;
-    --tag-bg: #f0f0f0; --tag-text: #555555;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Open Sans', sans-serif; background: var(--bg-primary); color: #000; line-height: 1.8; font-size: 15px; }
-  .container { max-width: 780px; margin: 0 auto; padding: 40px 20px; }
 
-  /* ── Tags ── */
-  .tags-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-  .tag { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 5px 12px; border-radius: 0; background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--border-subtle); }
-  .tag.hl { background: rgba(192,57,43,0.08); color: var(--border-red); border-color: rgba(192,57,43,0.25); }
-
-  /* ── Title block ── */
-  h1 { font-size: 24px; font-weight: 700; color: var(--text-heading); line-height: 1.35; margin-bottom: 10px; }
-  .subtitle { font-size: 14px; color: #000; margin-bottom: 10px; line-height: 1.5; }
-  .meta { font-size: 13px; color: #000; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid var(--border-subtle); }
-
-  /* ── Author card ── */
-  .author-card { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; padding: 14px 16px; background: var(--bg-secondary); border-radius: 6px; border-left: 3px solid var(--border-red); }
-  .av { width: 42px; height: 42px; border-radius: 50%; background: var(--border-red); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; color: #fff; flex-shrink: 0; }
-  .author-card .name { font-weight: 700; color: var(--text-heading); font-size: 14px; }
-  .author-card .role { font-size: 12px; color: #000; line-height: 1.5; }
-
-  /* ── Headings ── */
-  h2 { font-size: 19px; font-weight: 700; color: var(--text-heading); margin-top: 40px; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 2px solid var(--border-red); }
-  h3 { font-size: 15px; font-weight: 700; color: var(--text-heading); margin-top: 26px; margin-bottom: 10px; }
-
-  /* ── Body text ── */
-  p { margin-bottom: 13px; }
-  strong { color: var(--text-heading); }
-  em { color: var(--accent-orange); font-style: normal; }
-  code { font-family: 'Source Code Pro', monospace; font-size: 12.5px; background: #f0ece6; padding: 2px 6px; border-radius: 3px; color: #c0392b; }
-  hr { border: none; border-top: 1px solid var(--border-subtle); margin: 32px 0; }
-  a { color: var(--accent-blue); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  /* ── Tables ── */
-  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13.5px; }
-  th { background: #1a1a1a; color: #ffffff; padding: 10px 14px; text-align: left; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; border-bottom: 2px solid var(--border-red); }
-  td { padding: 9px 14px; border-bottom: 1px solid var(--border-subtle); vertical-align: top; line-height: 1.6; color: #000; }
-  tr:hover td { background: rgba(0,0,0,0.02); }
-
-  /* ── Callout boxes ── */
-  .cb { padding: 14px 18px; border-radius: 4px; margin: 18px 0; border-left: 4px solid; font-size: 14px; }
-  .cb.red { background: #fef2f2; border-color: var(--border-red); }
-  .cb.blue { background: #eff6ff; border-color: var(--accent-blue); }
-  .cb.yellow { background: #fefce8; border-color: var(--accent-yellow); }
-  .cb .cb-t { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
-  .cb.red .cb-t { color: var(--border-red); }
-  .cb.blue .cb-t { color: var(--accent-blue); }
-  .cb.yellow .cb-t { color: #92700c; }
-
-  /* ── Code blocks — CSP style ── */
-  .cbl { background: #0A0A0A; border-radius: 6px; margin: 16px 0; overflow-x: hidden; border: none; border-left: 3px solid #FF9D00; }
-  .cbl .ch { padding: 7px 12px; background: #1A1A1A; border-bottom: none; font-size: 10px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px; }
-  .cbl pre { padding: 6px 0; color: #D4D4D4; font-family: Consolas, 'Courier New', monospace; font-size: 12.5px; font-weight: 700; line-height: 1.35; overflow-x: hidden; counter-reset: ln; white-space: pre-wrap; word-wrap: break-word; }
-  .cbl .l { display: block; padding: 0px 10px 0px 2.4em; position: relative; min-height: 1.1em; }
-  .cbl .l::before { counter-increment: ln; content: counter(ln); position: absolute; left: 0; width: 1.8em; text-align: right; color: #444; font-size: 10px; line-height: inherit; }
-  .cbl .l:hover { background: rgba(255,255,255,0.03); }
-  .cbl .l.hl { padding: 1px 10px 1px 2.4em; background: rgba(255,157,0,0.1); border-left: 3px solid #FF9D00; margin: 0; }
-
-  /* Syntax colors — CSP palette */
-  .kw { color: #FF9D00; }
-  .fn { color: #FFEE80; }
-  .s { color: #3AD900; }
-  .c { color: #FFD700; font-style: italic; }
-  .n { color: #FF628C; }
-  .v { color: #D4D4D4; }
-  .d { color: #D4D4D4; }
-
-  /* ── Code annotation labels ── */
-  .lbl { float: right; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; padding: 2px 8px; border-radius: 3px; margin-left: 12px; font-family: 'Open Sans', sans-serif; font-style: normal; }
-  .lbl-req { background: rgba(192,57,43,0.1); color: #c0392b; }
-  .lbl-opt { background: rgba(0,184,148,0.1); color: #00896a; }
-  .lbl-ret { background: rgba(108,92,231,0.1); color: #6c5ce7; }
-  .lbl-ctx { background: rgba(9,132,227,0.1); color: #0984e3; }
-  .lbl-dbi { background: rgba(212,160,23,0.1); color: #92700c; }
-  .lbl-log { background: rgba(0,131,143,0.1); color: #00838f; }
-
-  /* ── Labels inside code blocks — CSP style ── */
-  .cbl .lbl { font-style: normal; font-size: 8px; padding: 1px 5px; border-radius: 2px; font-weight: 700; letter-spacing: 0.3px; margin-left: 6px; white-space: nowrap; font-family: 'Open Sans', sans-serif; vertical-align: middle; }
-  .cbl .lbl-req { background: #c0392b; color: #fff; }
-  .cbl .lbl-opt { background: #c0392b; color: #fff; }
-  .cbl .lbl-ret { background: #c0392b; color: #fff; }
-  .cbl .lbl-ctx { background: #c0392b; color: #fff; }
-  .cbl .lbl-dbi { background: #c0392b; color: #fff; }
-  .cbl .lbl-log { background: #c0392b; color: #fff; }
-
-  /* ── Footer ── */
-  .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border-subtle); font-size: 12px; color: var(--text-secondary); text-align: center; }
-</style>
 </head>
 <body>
 <div class="container">
@@ -134,6 +38,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits", "DBI", "CHANGE_CONTEXTS"]
     <div class="role">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant</div>
   </div>
 </div>
+
 
 
 <div style="margin:28px 0;border:2px solid var(--border-red);border-radius:8px;overflow:hidden;">
@@ -224,6 +129,7 @@ That's the critical distinction. <code>BEN_PEN</code> returns enrollment results
 </table>
 
 
+
 <div style="margin:24px 0;overflow:hidden;border-radius:8px;border:2px solid var(--border-subtle);">
   <table style="margin:0;">
     <tr>
@@ -299,6 +205,7 @@ The formula needs to know this exact coverage start date because that's the date
 <p>
 <strong>Sarah's</strong> Open Enrollment event date is <strong>January 1</strong>. She's on the 1st of the month — no extended wait needed. Coverage starts on the <strong>1st of February</strong>, the very next month.
 </p>
+
 
 
 
@@ -852,6 +759,8 @@ The formula logs at every key stage: the life event date, the calculated effecti
   <div class="cb-t">Edge Case — Zero Amounts</div>
   <p>If <code>BEN_PEN_BNFT_AMT_NN</code> returns the default value <code>0</code> for both plans (missing data, configuration issue, or non-monetary plan), the comparison <code>0 > 0</code> evaluates to FALSE — so the formula passes the employee through. This is intentional: <strong>don't block elections when you can't determine amounts.</strong> If your business requires blocking on zero amounts, add an explicit check: <code>IF (l_child_amt = 0 OR l_emp_amt = 0) THEN</code> with a separate error message.</p>
 </div>
+
+
 
 <div class="cb blue">
   <div class="cb-t">About the Code Labels</div>

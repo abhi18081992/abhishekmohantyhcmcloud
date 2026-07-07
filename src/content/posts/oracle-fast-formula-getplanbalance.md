@@ -1,68 +1,13 @@
 ---
 title: "Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, and the Two Traps That Quietly Ship the Wrong Number"
-description: "am-post { font-family: Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif; color: #1c1c1a; line-height: 1"
+description: "am-post  font-family: Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif; color: #1c1c1a; line-height: 1"
 pubDate: 2026-04-28
 tags: ["Fast Formula", "Oracle HCM Cloud", "Absence Management"]
 ---
 
 <p> </p>
 
-<style>
-  .am-post { font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1c1c1a; line-height: 1.65; max-width: 940px; margin: 0 auto; padding: 28px 22px; font-size: 16px; -webkit-font-smoothing: antialiased; }
-  .am-post h1 { font-size: 30px; line-height: 1.25; color: #1a1a1a; margin: 22px 0 14px; font-weight: 700; letter-spacing: -0.3px; }
-  .am-post h2 { font-size: 22px; color: #1c1c1a; margin: 30px 0 12px; font-weight: 700; letter-spacing: -0.2px; }
-  .am-post h3 { font-size: 17px; color: #2d2926; margin: 22px 0 8px; font-weight: 600; }
-  .am-post p { margin: 10px 0 12px; color: #2d2926; }
-  .am-post hr { border: none; border-top: 1px solid #e0d8d4; margin: 32px 0 24px; }
 
-  .am-meta { color: #6b6b6b; font-size: 13.5px; margin: 4px 0 14px; letter-spacing: 0.1px; }
-  .am-meta strong { color: #2d2926; font-weight: 600; }
-
-  .am-tags { margin: 6px 0 18px; }
-  .am-tag { display: inline-block; font-size: 11px; letter-spacing: 0.6px; text-transform: uppercase; color: #c0392b; border: 1px solid #e6c8c4; padding: 3px 10px; margin: 0 6px 6px 0; border-radius: 3px; background: #faf6f5; font-weight: 600; }
-
-  .am-bio { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: #faf6f3; border: 1px solid #ede4e0; border-radius: 8px; margin: 14px 0 22px; }
-  .am-bio-avatar { flex: 0 0 46px; width: 46px; height: 46px; border-radius: 50%; background: #c0392b; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; letter-spacing: 0.5px; }
-  .am-bio-name { font-weight: 700; font-size: 14.5px; color: #1c1c1a; margin: 0 0 2px; }
-  .am-bio-role { font-size: 13px; color: #5a5856; line-height: 1.45; }
-
-  .am-post code { font-family: 'Fira Code', 'SFMono-Regular', Consolas, monospace; font-size: 13px; background: #f4eeec; color: #7a2418; padding: 2px 6px; border-radius: 3px; }
-  .am-post pre { background: #1f1d1c; color: #f0ebe6; font-family: 'Fira Code', 'SFMono-Regular', Consolas, monospace; font-size: 12.5px; line-height: 1.55; padding: 18px 20px; border-radius: 6px; overflow-x: auto; margin: 14px 0 18px; border: 1px solid #2d2926; }
-  .am-post pre code { background: transparent; color: inherit; padding: 0; }
-
-  .am-where { font-style: italic; color: #5a5856; margin: 4px 0 12px; font-size: 14.5px; }
-  .am-where strong { font-style: normal; color: #2d2926; font-weight: 600; }
-
-  .am-post table { width: 100%; border-collapse: collapse; margin: 14px 0 18px; font-size: 13.5px; background: #fff; border: 1px solid #e8e2dd; border-radius: 6px; overflow: hidden; }
-  .am-post th, .am-post td { text-align: left; padding: 10px 14px; border-bottom: 1px solid #ede4e0; vertical-align: top; }
-  .am-post tr:last-child td { border-bottom: none; }
-  .am-post th { background: #faf6f3; font-weight: 700; font-size: 12.5px; letter-spacing: 0.3px; text-transform: uppercase; color: #2d2926; }
-
-  .am-post ul, .am-post ol { margin: 8px 0 14px; padding-left: 24px; }
-  .am-post li { margin: 4px 0; }
-
-  .am-fig { background: #fbfaf8; border: 1px solid #ede4e0; border-radius: 8px; padding: 18px 20px 14px; margin: 16px 0 20px; }
-  .am-fig-title { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #8e8b87; margin: 0 0 14px; font-weight: 600; }
-  .am-fig-caption { font-size: 13px; color: #6b6b6b; line-height: 1.5; margin-top: 12px; padding-top: 10px; border-top: 1px solid #ede4e0; }
-  .am-fig-caption strong { color: #2d2926; font-weight: 600; }
-  .am-fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
-
-  .am-call { margin: 14px 0; padding: 12px 16px; border-radius: 0 4px 4px 0; font-size: 14px; line-height: 1.55; }
-  .am-call.note { background: #f0f3fa; border-left: 3px solid #4a5d8f; }
-  .am-call.note .am-call-tag { color: #2f3e63; }
-  .am-call.warn { background: #fdf2f0; border-left: 3px solid #c0392b; }
-  .am-call.warn .am-call-tag { color: #7a2418; }
-  .am-call.tip { background: #fdf6e3; border-left: 3px solid #b8860b; }
-  .am-call.tip .am-call-tag { color: #7a5800; }
-  .am-call.success { background: #ecf6f1; border-left: 3px solid #0d7377; }
-  .am-call.success .am-call-tag { color: #0a5a5d; }
-  .am-call-tag { font-weight: 700; display: block; margin-bottom: 4px; font-size: 13.5px; }
-
-  .am-pill { display: inline-block; padding: 2px 9px; border-radius: 11px; font-size: 11px; font-weight: 700; letter-spacing: 0.4px; }
-  .am-pill-green { background: #ecf6f1; color: #0a5a5d; border: 1px solid #b6dccd; }
-  .am-pill-yellow { background: #fdf6e3; color: #7a5800; border: 1px solid #e6cf94; }
-  .am-pill-red { background: #fdf2f0; color: #7a2418; border: 1px solid #e6c8c4; }
-</style>
 
 <div class="am-post">
 

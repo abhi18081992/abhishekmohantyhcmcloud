@@ -2,7 +2,7 @@
 title: "Oracle HCM Fast Formula Series:GET_CONTEXT and CHANGE_CONTEXTS: The Two Context Statements You Actually Need"
 description: "Fast Formula Context Handling Intermediate Verified Oracle Fast Formula: GET_CONTEXT and CHANGE_CONTEXTS — The Two Context Statements You Actually Need April 2026 · 10 min read · Oracle HCM Cloud Orac"
 pubDate: 2026-04-12
-tags: ["Fast Formula", "Oracle HCM Cloud", "DBI", "CHANGE_CONTEXTS"]
+tags: ["Fast Formula", "Oracle HCM Cloud"]
 ---
 
 <div style="margin:12px 0 18px;line-height:2.4"><span style="display:inline-block;color:#fff;padding:10px 22px;font-size:13px;font-weight:700;margin:0 8px 8px 0;border-radius:0;text-transform:uppercase;letter-spacing:0.12em;background:#b8372a">Fast Formula</span><span style="display:inline-block;color:#fff;padding:10px 22px;font-size:13px;font-weight:700;margin:0 8px 8px 0;border-radius:0;text-transform:uppercase;letter-spacing:0.12em;background:#d87f1a">Context Handling</span><span style="display:inline-block;color:#fff;padding:10px 22px;font-size:13px;font-weight:700;margin:0 8px 8px 0;border-radius:0;text-transform:uppercase;letter-spacing:0.12em;background:#8e44ad">Intermediate</span><span style="display:inline-block;color:#fff;padding:10px 22px;font-size:13px;font-weight:700;margin:0 8px 8px 0;border-radius:0;text-transform:uppercase;letter-spacing:0.12em;background:#1f2a36">Verified</span></div>

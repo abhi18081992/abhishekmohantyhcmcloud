@@ -2,13 +2,10 @@
 title: "Oracle HCM Cloud Fast Formula: Absence Integration in a TCR — The AbsenceType Array, the GET_VALUE_SET Claim Lookup, and the Back-Fill WHILE Loop"
 description: "com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap); ORACLE HCM CLOUD · TCR DEEP DIVE · PART 4 OF 12 Oracle HCM "
 pubDate: 2026-06-25
-tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "Absence Management", "DBI", "CHANGE_CONTEXTS"]
+tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "Absence Management"]
 ---
 
-<style>
-</style>
-
-<div class="post-html">
+<div style="font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif; max-width: 820px; margin: 0 auto; color: #2d2926; line-height: 1.65; font-size: 17px;">
 
 
 <div style="border-left: 4px solid #8b2e2a; padding-left: 20px; margin: 32px 0 40px 0;">
