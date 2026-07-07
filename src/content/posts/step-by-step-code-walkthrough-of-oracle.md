@@ -1,8 +1,10 @@
 ---
 title: "Step-by-step code walkthrough of Oracle HCM Cloud HDL Transformation Fast Formula — INPUTS ARE declaration, GET_VALUE_SET parameter construction, ISNULL checking, SourceSystemId resolution, ESS_LOG_WRITE tracing, LINEREPEATNO pass logic for ElementEntry and ElementEntryValue, and Cancel end-dating with ReplaceLastEffectiveEndDate. Part 2 of 3."
-description: "Oracle HCM Cloud HDL Transformation Fast Formula — Line-by-Line Code Walkthrough (Part 2 of 3) :root  --accent: #D4622B; --dark: #1A1A2E; --text: #3D3D5C; --muted: #8B8FA8; --bg-subtle: #F8F7F4; --bor"
 pubDate: 2026-03-26
-tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL", "Null Handling", "Debugging"]
+description: "Step-by-step code walkthrough of Oracle HCM Cloud HDL Transformation Fast Formula — INPUTS ARE declaration, GET_VALUE_SET parameter construction,..."
+tags: ["Fast Formula", "HDL", "Null Handling", "Oracle HCM Cloud"]
+author: "Abhishek Mohanty"
+draft: false
 ---
 
 <!DOCTYPE html>
@@ -17,13 +19,89 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 <meta property="og:type" content="article">
 <meta name="author" content="Abhishek Mohanty">
 <title>Oracle HCM Cloud HDL Transformation Fast Formula — Line-by-Line Code Walkthrough (Part 2 of 3)</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root { --accent: #D4622B; --dark: #1A1A2E; --text: #3D3D5C; --muted: #8B8FA8; --bg-subtle: #F8F7F4; --border: #E8E4DE; --green: #2D8B6F; --red: #B8423A; --blue: #4A6FA5; --code-bg: #1B1D2E; }
 
+/* ── Diagram system ── */
+.diag { background: var(--bg-subtle); border-radius: 14px; padding: 28px 24px; margin: 24px 0; position: relative; }
+.diag-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
+
+/* Timeline / vertical flow */
+.timeline { position: relative; padding-left: 36px; }
+.timeline::before { content: ''; position: absolute; left: 13px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--border)); border-radius: 1px; }
+.tl-step { position: relative; margin-bottom: 18px; }
+.tl-step:last-child { margin-bottom: 0; }
+.tl-dot { position: absolute; left: -29px; top: 4px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--accent); background: var(--bg-subtle); }
+.tl-dot.active { background: var(--accent); }
+.tl-label { font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+.tl-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.tl-result { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; background: rgba(212,98,43,0.08); color: var(--accent); padding: 2px 8px; border-radius: 4px; margin-top: 4px; }
+
+/* Horizontal pipeline */
+.pipeline { display: flex; align-items: center; gap: 0; flex-wrap: wrap; justify-content: center; }
+.pipe-node { background: #fff; border-radius: 10px; padding: 12px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04); text-align: center; min-width: 100px; position: relative; }
+.pipe-node.accent { box-shadow: 0 1px 4px rgba(212,98,43,0.12), 0 4px 16px rgba(212,98,43,0.08); }
+.pipe-connector { width: 32px; height: 2px; background: linear-gradient(to right, var(--border), var(--accent)); position: relative; flex-shrink: 0; }
+.pipe-connector::after { content: ''; position: absolute; right: -3px; top: -3px; border: solid var(--accent); border-width: 0 2px 2px 0; padding: 3px; transform: rotate(-45deg); }
+.pipe-label { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.pipe-value { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: var(--dark); }
+.pipe-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+/* Code annotation strips */
+.code-annot { display: flex; gap: 0; margin: 4px 0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
+.code-annot-line { background: var(--code-bg); padding: 10px 16px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #C8C9D4; flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; border-right: 1px solid rgba(255,255,255,0.05); }
+.code-annot-note { background: #fff; padding: 10px 16px; font-size: 12px; color: var(--text); min-width: 180px; max-width: 220px; display: flex; align-items: center; line-height: 1.4; }
+.code-annot-note::before { content: '←'; color: var(--accent); font-weight: 700; margin-right: 8px; flex-shrink: 0; }
+
+/* Professional code block with header */
+.code-pro { border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin: 20px 0; }
+.code-pro-header { background: #151726; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.code-pro-header .dots { display: flex; gap: 6px; }
+.code-pro-header .dots span { width: 10px; height: 10px; border-radius: 50%; }
+.code-pro-header .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6B6F88; letter-spacing: 0.3px; }
+.code-pro pre { background: var(--code-bg); color: #C8C9D4; padding: 20px 24px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13.5px; line-height: 1.85; overflow-x: auto; margin: 0; white-space: pre-wrap; counter-reset: codeline; }
+.code-pro .ln { color: #3D4058; font-size: 12px; display: inline-block; width: 28px; text-align: right; margin-right: 16px; user-select: none; }
+
+/* Decision cards */
+.decision-pair { display: flex; gap: 16px; flex-wrap: wrap; }
+.decision-card { flex: 1; min-width: 220px; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.decision-card-head { padding: 10px 16px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; }
+.decision-card-body { background: #fff; padding: 16px; font-size: 13px; line-height: 1.7; }
+
+/* Segment bar (for SSID assembly) */
+.seg-bar { display: flex; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin: 16px 0; }
+.seg-bar > div { padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; text-align: center; }
+.seg-bar .seg-label { font-size: 9px; font-weight: 400; opacity: 0.7; display: block; margin-top: 2px; }
+
+/* Plain english */
+.ipe { background: #fff; border-left: 3px solid var(--green); border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 18px 0 28px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.ipe p { margin: 0 0 6px; font-size: 14px; color: var(--text); line-height: 1.65; }
+.ipe p:last-child { margin-bottom: 0; }
+.ipe strong { color: var(--dark); }
+
+@media (prefers-color-scheme: dark) {
+.hdl-blog { background: #12131A !important; color: #C8C9D4 !important; }
+.hdl-blog p, .hdl-blog li { color: #C8C9D4 !important; }
+.hdl-blog strong { color: #EAEBF0 !important; }
+.hdl-blog code { background: #1E1F2B !important; color: #D4D5DE !important; }
+.hdl-blog hr { border-color: #2A2B38 !important; }
+.hdl-blog pre { background: #0D0E14 !important; }
+.hdl-blog .diag { background: #16171F !important; }
+.hdl-blog .pipe-node, .hdl-blog .ipe, .hdl-blog .code-annot-note, .hdl-blog .decision-card-body { background: #1A1B26 !important; }
+.hdl-blog .pipe-node { box-shadow: 0 1px 4px rgba(0,0,0,0.3) !important; }
+.hdl-blog td, .hdl-blog th { border-color: #2A2B38 !important; }
+.hdl-blog td { color: #C8C9D4 !important; }
+.hdl-blog th { color: #fff !important; }
+.hdl-blog .tl-dot { background: #16171F !important; }
+.hdl-blog .tl-dot.active { background: var(--accent) !important; }
+.hdl-blog .timeline::before { background: linear-gradient(to bottom, var(--accent), #2A2B38) !important; }
+}
+</style>
 </head>
 <body>
 <div class="hdl-blog" style="font-family:'Plus Jakarta Sans',sans-serif;max-width:820px;margin:0 auto;padding:32px 24px;line-height:1.75;color:var(--dark);">
 
-
+<!-- ══════ TAGS ══════ -->
 <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
 <span style="background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:10px;letter-spacing:0.8px;">Fast Formula</span>
 <span style="background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:10px;letter-spacing:0.8px;">HCM Data Loader</span>
@@ -32,17 +110,17 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 <span style="background:var(--dark);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:10px;letter-spacing:0.8px;">Series Part 2 of 3</span>
 </div>
 
-
+<!-- ══════ TITLE ══════ -->
 <h1 style="font-size:30px;font-weight:800;color:var(--dark);line-height:1.25;margin:0 0 6px;font-family:inherit;">Oracle HCM Cloud HDL Transformation Fast Formula — Line-by-Line Code Walkthrough</h1>
 <div style="font-size:16px;color:var(--text);margin-bottom:4px;">Vendor Deduction Interface | ElementEntry + ElementEntryValue</div>
 <div style="font-size:13px;color:var(--muted);margin-bottom:24px;">March 2026 · 30 min read · Oracle HCM Cloud</div>
 
-
+<!-- ══════ INTRO ══════ -->
 <div style="background:#FDF5ED;border:1px solid #E8DDD0;border-radius:8px;padding:18px 22px;margin-bottom:28px;">
 <p style="margin:0;font-size:15px;color:var(--text);">This is <strong>Part 2</strong> of a 3-part series on HDL Transformation Formulas. Part 1 covered the concepts — what each section does and why. This post opens the actual code. Every line is explained in simple English with visuals showing what the Fast Formula engine does at each step.</p>
 </div>
 
-
+<!-- ══════ SERIES ROADMAP ══════ -->
 <h3 style="font-size:17px;font-weight:700;color:var(--dark);margin:28px 0 16px;font-family:inherit;">HDL Transformation Formula Series</h3>
 <div style="display:flex;gap:16px;margin-bottom:32px;flex-wrap:wrap;">
 <div style="flex:1;min-width:200px;background:var(--bg-subtle);border-radius:8px;padding:16px 18px;border-left:4px solid var(--muted);">
@@ -62,15 +140,15 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 <p style="margin:0;font-size:12px;color:#bbb;">WSA code, HDL config, test loads, production debugging.</p></div>
 </div>
 
-
+<!-- ══════ AUTHOR ══════ -->
 <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
 <div style="background:linear-gradient(135deg,var(--accent),#B8501F);color:#fff;font-size:15px;font-weight:800;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;">AM</div>
 <div><div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div><div style="font-size:13px;color:#888;line-height:1.5;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant</div></div>
 </div>
 
-
-
-
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- BEFORE WE START: ENGINE FLOW                               -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <h2 style="font-size:22px;font-weight:700;color:var(--dark);margin:30px 0 16px;font-family:inherit;">OPERATION Routing in HDL Transformation Formula — FILETYPE, DELIMITER, METADATA</h2>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">The HDL engine calls your formula many times. The OPERATION variable tells the formula <em>why</em> it's being called. Here's the routing code that handles each call:</p>
@@ -80,7 +158,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
 <div class="label">OPERATION Routing — Setup Handshake</div>
 </div>
-<pre>
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px">
 <span class="ln"> 1</span><span style="color:#569CD6;font-weight:700;">IF</span> <span style="color:#B5CEA8;">OPERATION</span> = <span style="color:#CE9178;">'FILETYPE'</span> <span style="color:#569CD6;font-weight:700;">THEN</span>
 <span class="ln"> 2</span>   <span style="color:#B5CEA8;">OUTPUTVALUE</span> = <span style="color:#CE9178;">'DELIMITED'</span>
 <span class="ln"> 3</span><span style="color:#569CD6;font-weight:700;">ELSE IF</span> <span style="color:#B5CEA8;">OPERATION</span> = <span style="color:#CE9178;">'DELIMITER'</span> <span style="color:#569CD6;font-weight:700;">THEN</span>
@@ -99,7 +177,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
 <div class="label">OPERATION Routing — METADATA Header Definitions</div>
 </div>
-<pre>
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px">
 <span class="ln">12</span><span style="color:#569CD6;font-weight:700;">ELSE IF</span> <span style="color:#B5CEA8;">OPERATION</span> = <span style="color:#CE9178;">'METADATALINEINFORMATION'</span> <span style="color:#569CD6;font-weight:700;">THEN</span>
 <span class="ln">13</span>(
 <span class="ln">14</span>    <span style="color:#57A64A;font-style:italic;">/* Object 1: ElementEntry columns */</span>
@@ -139,7 +217,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 <p><strong>Lines 14–25:</strong> METADATA1 defines the .dat columns for ElementEntry. Lines 28–40: METADATA2 defines columns for ElementEntryValue. The column names here must exactly match the variable names in the RETURN statement later.</p>
 </div>
 
-
+<!-- ══════ WHAT THIS POST COVERS ══════ -->
 <h3 style="font-size:17px;font-weight:700;color:var(--dark);margin:28px 0 14px;font-family:inherit;">What This Post Covers</h3>
 <div style="background:var(--bg-subtle);border-radius:8px;padding:18px 22px;margin-bottom:28px;">
 <table style="width:100%;border-collapse:collapse;font-size:14px;">
@@ -154,14 +232,14 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
 
-
-
-
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 1: INPUTS ARE                                      -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <h2 style="font-size:22px;font-weight:700;color:var(--dark);margin:30px 0 16px;font-family:inherit;">INPUTS ARE and DEFAULT FOR — Declaring POSITION Variables in Fast Formula</h2>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">Every formula starts by declaring what data it expects. The HDL engine reads your CSV file and puts each column into a POSITION variable — column 1 → POSITION1, column 2 → POSITION2, and so on.</p>
 
-
+<!-- ── CSV → POSITION pipeline ── -->
 <div class="diag">
 <div class="diag-title">How the Engine Maps CSV Columns to POSITION Variables</div>
 <div style="font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--code-bg);color:#C8C9D4;padding:12px 16px;border-radius:8px;margin-bottom:16px;overflow-x:auto;">
@@ -190,7 +268,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
 <div class="label">XXTAV_HDL_ACCRUAL_INBOUND — Input Declaration</div>
 </div>
-<pre>
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px">
 <span class="ln"> 1</span><span style="color:#569CD6;font-weight:700;">INPUTS ARE</span> <span style="color:#B5CEA8;">OPERATION</span> (<span style="color:#4EC9B0;">TEXT</span>),          <span style="color:#57A64A;font-style:italic;">/* Engine control signal                          */</span>
 <span class="ln"> 2</span><span style="color:#B5CEA8;">LINEREPEATNO</span> (<span style="color:#4EC9B0;">NUMBER</span>),                   <span style="color:#57A64A;font-style:italic;">/* Which pass: 1 = header, 2 = value row          */</span>
 <span class="ln"> 3</span><span style="color:#B5CEA8;">LINENO</span> (<span style="color:#4EC9B0;">NUMBER</span>),                         <span style="color:#57A64A;font-style:italic;">/* Source file line number                         */</span>
@@ -211,7 +289,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 
 <h3 style="font-size:17px;font-weight:700;color:var(--dark);margin:28px 0 14px;font-family:inherit;">DEFAULT FOR — Why Every POSITION Variable Needs a Default</h3>
 
-<pre style="background:var(--code-bg);color:#C8C8C8;padding:20px 24px;border-radius:8px;border-left:4px solid #555;font-family:'JetBrains Mono',monospace;font-weight:500;font-size:14px;line-height:1.8;overflow-x:auto;margin:18px 0;white-space:pre-wrap;"><span style="color:#569CD6;font-weight:700;">DEFAULT FOR</span> <span style="color:#B5CEA8;">LINENO</span> <span style="color:#569CD6;">IS</span> <span style="color:#DCDCAA;">1</span>
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px"><span style="color:#569CD6;font-weight:700;">DEFAULT FOR</span> <span style="color:#B5CEA8;">LINENO</span> <span style="color:#569CD6;">IS</span> <span style="color:#DCDCAA;">1</span>
 <span style="color:#569CD6;font-weight:700;">DEFAULT FOR</span> <span style="color:#B5CEA8;">LINEREPEATNO</span> <span style="color:#569CD6;">IS</span> <span style="color:#DCDCAA;">1</span>
 <span style="color:#569CD6;font-weight:700;">DEFAULT FOR</span> <span style="color:#B5CEA8;">POSITION1</span> <span style="color:#569CD6;">IS</span> <span style="color:#CE9178;">'NO DATA'</span>
 <span style="color:#57A64A;font-style:italic;">/* ... same for POSITION2 through POSITION11 ... */</span>
@@ -223,14 +301,14 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
 
-
-
-
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 2: GET_VALUE_SET                                   -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <h2 style="font-size:22px;font-weight:700;color:var(--dark);margin:30px 0 16px;font-family:inherit;">GET_VALUE_SET in Fast Formula — Parameter String Syntax, Pipe Delimiters, ISNULL Checks</h2>
 
-<p style="font-size:15px;color:var(--text);margin-bottom:14px;">The vendor gives us a code like <code style="background:#e8e8e8;padding:2px 6px;border-radius:3px;font-size:13px;">DENTAL01</code>. Oracle doesn't know it. We need to ask the database: "What Element Name does DENTAL01 map to?" GET_VALUE_SET runs a SQL query and brings the answer back.</p>
+<p style="font-size:15px;color:var(--text);margin-bottom:14px;">The vendor gives us a code like <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">DENTAL01</code>. Oracle doesn't know it. We need to ask the database: "What Element Name does DENTAL01 map to?" GET_VALUE_SET runs a SQL query and brings the answer back.</p>
 
-
+<!-- ── GET_VALUE_SET pipeline ── -->
 <div class="diag">
 <div class="diag-title">How GET_VALUE_SET Works</div>
 <div class="pipeline">
@@ -253,14 +331,14 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 
 <h3 style="font-size:17px;font-weight:700;color:var(--dark);margin:28px 0 14px;font-family:inherit;">GET_VALUE_SET Call 1 — Resolving Person Number to Assignment Number</h3>
 
-<pre style="background:var(--code-bg);color:#C8C8C8;padding:20px 24px;border-radius:8px;border-left:4px solid var(--accent);font-family:'JetBrains Mono',monospace;font-weight:500;font-size:14px;line-height:1.8;overflow-x:auto;margin:18px 0;white-space:pre-wrap;"><span style="color:#B5CEA8;">l_AssignmentNumber</span> = <span style="color:#DCDCAA;">GET_VALUE_SET</span>(
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px"><span style="color:#B5CEA8;">l_AssignmentNumber</span> = <span style="color:#DCDCAA;">GET_VALUE_SET</span>(
     <span style="color:#CE9178;">'XXTAV_GET_LATEST_ASSIGNMENT_NUMBER'</span>,
     <span style="color:#CE9178;">'|=P_PERSON_NUMBER='''</span> || <span style="color:#B5CEA8;">POSITION4</span> || <span style="color:#CE9178;">''''</span>
  || <span style="color:#CE9178;">'|P_EFFECTIVE_START_DATE='''</span>
  || <span style="color:#DCDCAA;">TO_CHAR</span>(<span style="color:#DCDCAA;">TO_DATE</span>(<span style="color:#B5CEA8;">POSITION3</span>,<span style="color:#CE9178;">'YYYY-MM-DD'</span>),<span style="color:#CE9178;">'YYYY-MM-DD'</span>)
  || <span style="color:#CE9178;">''''</span>)</pre>
 
-
+<!-- ── Code annotation strips ── -->
 <div style="margin:20px 0;">
 <div class="code-annot"><div class="code-annot-line"><span style="color:#B5CEA8;">l_AssignmentNumber</span> = <span style="color:#DCDCAA;">GET_VALUE_SET</span>(</div><div class="code-annot-note">Store the answer here</div></div>
 <div class="code-annot"><div class="code-annot-line">  <span style="color:#CE9178;">'XXTAV_GET_LATEST_ASSIGNMENT_NUMBER'</span>,</div><div class="code-annot-note">Which value set to call</div></div>
@@ -268,7 +346,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 <div class="code-annot"><div class="code-annot-line"> || <span style="color:#DCDCAA;">TO_CHAR</span>(<span style="color:#DCDCAA;">TO_DATE</span>(<span style="color:#B5CEA8;text-decoration:underline;">POSITION3</span>,...),<span style="color:#CE9178;">'YYYY-MM-DD'</span>)</div><div class="code-annot-note">Param 2: Date (normalized)</div></div>
 </div>
 
-
+<!-- ── Date normalization pipeline ── -->
 <div class="diag" style="padding:20px;">
 <div class="diag-title">TO_DATE → TO_CHAR: Date Normalization Pipeline</div>
 <div class="pipeline">
@@ -288,22 +366,22 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 
 <h3 style="font-size:17px;font-weight:700;color:var(--dark);margin:28px 0 14px;font-family:inherit;">GET_VALUE_SET Call 2 — Mapping Vendor Code to Oracle Element Name</h3>
 
-<pre style="background:var(--code-bg);color:#C8C8C8;padding:20px 24px;border-radius:8px;border-left:4px solid #555;font-family:'JetBrains Mono',monospace;font-weight:500;font-size:14px;line-height:1.8;overflow-x:auto;margin:18px 0;white-space:pre-wrap;"><span style="color:#B5CEA8;">l_ElementName</span> = <span style="color:#DCDCAA;">GET_VALUE_SET</span>(
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px"><span style="color:#B5CEA8;">l_ElementName</span> = <span style="color:#DCDCAA;">GET_VALUE_SET</span>(
     <span style="color:#CE9178;">'XXTAV_ACCRUAL_ELEMENTS TEST'</span>,
     <span style="color:#CE9178;">'|=P_PAY_CODE='''</span> || <span style="color:#DCDCAA;">TRIM</span>(<span style="color:#B5CEA8;">POSITION2</span>) || <span style="color:#CE9178;">''''</span>)</pre>
 
 <div class="ipe">
-<p><strong>Simplest call — one parameter.</strong> Takes the vendor code from POSITION2, strips whitespace with TRIM(), and asks: "What Oracle Element Name does this map to?" If the vendor sends <code style="background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:3px;">' DENTAL01 '</code> with spaces, TRIM cleans it first.</p>
+<p><strong>Simplest call — one parameter.</strong> Takes the vendor code from POSITION2, strips whitespace with TRIM(), and asks: "What Oracle Element Name does this map to?" If the vendor sends <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">' DENTAL01 '</code> with spaces, TRIM cleans it first.</p>
 </div>
 
 <h3 style="font-size:17px;font-weight:700;color:var(--dark);margin:28px 0 14px;font-family:inherit;">ISNULL in Fast Formula — Why 'N' Means Null (Not What You Expect)</h3>
 
-<pre style="background:var(--code-bg);color:#C8C8C8;padding:20px 24px;border-radius:8px;border-left:4px solid var(--red);font-family:'JetBrains Mono',monospace;font-weight:500;font-size:14px;line-height:1.8;overflow-x:auto;margin:18px 0;white-space:pre-wrap;"><span style="color:#569CD6;font-weight:700;">IF</span> <span style="color:#DCDCAA;">ISNULL</span>(<span style="color:#B5CEA8;">l_MultipleEntryCount</span>) = <span style="color:#CE9178;">'N'</span> <span style="color:#569CD6;font-weight:700;">THEN</span>
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px"><span style="color:#569CD6;font-weight:700;">IF</span> <span style="color:#DCDCAA;">ISNULL</span>(<span style="color:#B5CEA8;">l_MultipleEntryCount</span>) = <span style="color:#CE9178;">'N'</span> <span style="color:#569CD6;font-weight:700;">THEN</span>
 (
     <span style="color:#B5CEA8;">l_MultipleEntryCount</span> = <span style="color:#CE9178;">'1'</span>     <span style="color:#57A64A;font-style:italic;">/* default to 1 */</span>
 )</pre>
 
-
+<!-- ── ISNULL decision cards ── -->
 <div class="decision-pair" style="margin:18px 0;">
 <div class="decision-card">
 <div class="decision-card-head" style="background:var(--green);color:#fff;">ISNULL(x) = 'Y' → value exists ✓</div>
@@ -330,14 +408,14 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 </div>
 
 <div class="ipe">
-<p><strong>Memory trick:</strong> Think of ISNULL as asking "Does this have data? Yes/No." — <code style="background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:3px;">'Y'</code> = Yes, it has data. <code style="background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:3px;">'N'</code> = No data. So <code style="background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:3px;">= 'N'</code> means "nothing found."</p>
+<p><strong>Memory trick:</strong> Think of ISNULL as asking "Does this have data? Yes/No." — <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">'Y'</code> = Yes, it has data. <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">'N'</code> = No data. So <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">= 'N'</code> means "nothing found."</p>
 </div>
 
 <h3 style="font-size:17px;font-weight:700;color:var(--dark);margin:28px 0 14px;font-family:inherit;">Value Set Dependency Chain — Why Call Order Matters in the MAP Block</h3>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">These GET_VALUE_SET calls are not independent. Each one depends on the result of a previous one. The formula resolves values in a specific order because later calls need the output of earlier ones as input:</p>
 
-
+<!-- Value set dependency chain -->
 <div class="diag">
 <div class="diag-title">Value Set Resolution Chain — Each Step Feeds the Next</div>
 <div class="timeline">
@@ -378,20 +456,20 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 </div>
 
 <div class="ipe">
-<p><strong>The key insight:</strong> Call 1 (Element Name) and Call 2 (Assignment Number) can run in any order — they only use raw POSITION values from the CSV. But Calls 3 and 4 <strong>must</strong> come after Call 1 because they pass <code style="background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:3px;">l_ElementName</code> as a parameter. If you rearrange the formula and move Call 3 above Call 1, the element name variable will be empty and the value set will return the wrong result — or nothing at all.</p>
+<p><strong>The key insight:</strong> Call 1 (Element Name) and Call 2 (Assignment Number) can run in any order — they only use raw POSITION values from the CSV. But Calls 3 and 4 <strong>must</strong> come after Call 1 because they pass <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">l_ElementName</code> as a parameter. If you rearrange the formula and move Call 3 above Call 1, the element name variable will be empty and the value set will return the wrong result — or nothing at all.</p>
 <p>This is a common mistake when modifying someone else's formula. The calls look independent, but they chain.</p>
 </div>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
 
-
-
-
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 3: SOURCESYSTEMID                                  -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <h2 style="font-size:22px;font-weight:700;color:var(--dark);margin:30px 0 16px;font-family:inherit;">SourceSystemId in HDL — Lookup-or-Construct Pattern for MERGE</h2>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">Every element entry has a SourceSystemId — a unique name tag. During MERGE, Oracle checks: "Do I already have an entry with this tag?" If yes → update. If no → create. The formula follows a two-step pattern:</p>
 
-
+<!-- ── Decision flow ── -->
 <div class="diag">
 <div class="diag-title">SourceSystemId Resolution Flow</div>
 <div class="timeline">
@@ -418,7 +496,7 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 </div>
 </div>
 
-<pre style="background:var(--code-bg);color:#C8C8C8;padding:20px 24px;border-radius:8px;border-left:4px solid var(--accent);font-family:'JetBrains Mono',monospace;font-weight:500;font-size:14px;line-height:1.8;overflow-x:auto;margin:18px 0;white-space:pre-wrap;"><span style="color:#57A64A;font-style:italic;">/* Step 1: Try cloud lookup */</span>
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px"><span style="color:#57A64A;font-style:italic;">/* Step 1: Try cloud lookup */</span>
 <span style="color:#B5CEA8;">l_SourceSystemId</span> = <span style="color:#DCDCAA;">GET_VALUE_SET</span>(
     <span style="color:#CE9178;">'XXTAV_GET_ELEMENT_ENTRY_SOURCE_SYSTEM_ID'</span>,
     <span style="color:#CE9178;">'|=P_PERSON_NUMBER='''</span> || <span style="color:#B5CEA8;">POSITION4</span> || <span style="color:#CE9178;">''''</span>
@@ -434,7 +512,7 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
         || <span style="color:#CE9178;">'_'</span>    || <span style="color:#B5CEA8;">POSITION3</span>
 )</pre>
 
-
+<!-- ── Segment bar: SSID assembly ── -->
 <div class="diag" style="padding:20px;">
 <div class="diag-title">SourceSystemId — Assembled from parts</div>
 <div class="seg-bar">
@@ -458,22 +536,22 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
 
-
-
-
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 4: ESS_LOG_WRITE                                   -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <h2 style="font-size:22px;font-weight:700;color:var(--dark);margin:30px 0 16px;font-family:inherit;">ESS_LOG_WRITE in HDL Fast Formula — Adding Debug Trace Logs to the MAP Block</h2>
 
-<p style="font-size:15px;color:var(--text);margin-bottom:14px;">You can't step through a Fast Formula with a debugger. The only way to see what's happening inside is to write trace messages to the ESS job log. <code style="background:#e8e8e8;padding:2px 6px;border-radius:3px;font-size:13px;">ESS_LOG_WRITE</code> prints a message each time the formula passes through it — so you know exactly which step ran, what value it produced, and where it stopped if something fails.</p>
+<p style="font-size:15px;color:var(--text);margin-bottom:14px;">You can't step through a Fast Formula with a debugger. The only way to see what's happening inside is to write trace messages to the ESS job log. <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">ESS_LOG_WRITE</code> prints a message each time the formula passes through it — so you know exactly which step ran, what value it produced, and where it stopped if something fails.</p>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">Place one after every major step in the MAP block. Here's how that looks:</p>
 
-
+<!-- Professional code block -->
 <div class="code-pro">
 <div class="code-pro-header">
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
 <div class="label">XXTAV_HDL_ACCRUAL_INBOUND — Debug Trace Logs</div>
 </div>
-<pre>
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px">
 <span class="ln"> 1</span><span style="color:#57A64A;font-style:italic;">/* ─────────────────────────────────────────────── */</span>
 <span class="ln"> 2</span><span style="color:#57A64A;font-style:italic;">/*  STEP 1: Log the raw input from the CSV row    */</span>
 <span class="ln"> 3</span><span style="color:#57A64A;font-style:italic;">/* ─────────────────────────────────────────────── */</span>
@@ -495,13 +573,13 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:8px;margin-top:22px;">After running <strong>Load Data from File</strong>, open the ESS job log: <strong>Scheduled Processes → your job → Log tab</strong>. You will see output like this:</p>
 
-
+<!-- ESS Log output block -->
 <div class="code-pro">
 <div class="code-pro-header">
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
 <div class="label">ESS Job Log — Output for Row 1</div>
 </div>
-<pre style="color:#88C999;">
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px">
 <span class="ln">›</span> XXTAV > START | Line=1 | Code=DENTAL01 | Person=100045
 <span class="ln">›</span> XXTAV > ELEMENT = Dental EE Deduction
 <span class="ln">›</span> XXTAV > ASSIGNMENT = E12345
@@ -509,20 +587,20 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 </div>
 
 <div class="ipe">
-<p><strong>How to read it:</strong> Each line is one trace log from a step in your formula. If the formula fails at the assignment lookup, you'll see Steps 1 and 2 in the log but not Step 3 — so you know exactly where it broke. The <code style="background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:3px;">XXTAV ></code> prefix makes it easy to search for your formula's output in a log that might contain messages from other formulas running in the same batch.</p>
+<p><strong>How to read it:</strong> Each line is one trace log from a step in your formula. If the formula fails at the assignment lookup, you'll see Steps 1 and 2 in the log but not Step 3 — so you know exactly where it broke. The <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">XXTAV ></code> prefix makes it easy to search for your formula's output in a log that might contain messages from other formulas running in the same batch.</p>
 <p><strong>Before production:</strong> Remove or comment out all ESS_LOG_WRITE calls. With 10,000 rows and 4 log calls per row, that's 40,000 extra write operations slowing down your load.</p>
 </div>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
 
-
-
-
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- SECTION 5: CANCEL vs ACTIVE                                -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <h2 style="font-size:22px;font-weight:700;color:var(--dark);margin:30px 0 16px;font-family:inherit;">LINEREPEATNO — How the Formula Generates ElementEntry and ElementEntryValue Output Rows</h2>
 
-<p style="font-size:15px;color:var(--text);margin-bottom:14px;">The vendor uses a status field: blank = Active (create/update), <code style="background:#e8e8e8;padding:2px 6px;border-radius:3px;font-size:13px;">'C'</code> = Cancel (end-date). The formula handles these two paths completely differently.</p>
+<p style="font-size:15px;color:var(--text);margin-bottom:14px;">The vendor uses a status field: blank = Active (create/update), <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">'C'</code> = Cancel (end-date). The formula handles these two paths completely differently.</p>
 
-
+<!-- ── Decision cards ── -->
 <div class="decision-pair" style="margin:20px 0;">
 <div class="decision-card">
 <div class="decision-card-head" style="background:var(--green);color:#fff;">Active (POSITION11 = blank)</div>
@@ -557,7 +635,7 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
 <div class="label">Active Path — LINEREPEATNO = 1 — Create ElementEntry</div>
 </div>
-<pre>
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px">
 <span class="ln"> 1</span><span style="color:#569CD6;font-weight:700;">IF</span> <span style="color:#B5CEA8;">LINEREPEATNO</span> = <span style="color:#DCDCAA;">1</span> <span style="color:#569CD6;font-weight:700;">THEN</span>
 <span class="ln"> 2</span>(
 <span class="ln"> 3</span>    <span style="color:#B5CEA8;">FileName</span>                 = <span style="color:#CE9178;">'ElementEntry'</span>
@@ -579,8 +657,8 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 </div>
 
 <div class="ipe">
-<p><strong>Line 5:</strong> <code style="background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:3px;">FileDiscriminator = 'ElementEntry'</code> tells the engine to use the METADATA1 column layout for this row. In Pass 2, this switches to <code style="background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:3px;">'ElementEntryValue'</code> — which uses METADATA2 instead.</p>
-<p><strong>Lines 16–18:</strong> This is the entire LINEREPEAT mechanism. Setting <code style="background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:3px;">LINEREPEAT = 'Y'</code> tells the engine: "I have more output rows for this same CSV row. Call me again." The engine re-invokes the formula with LINEREPEATNO incremented to 2.</p>
+<p><strong>Line 5:</strong> <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">FileDiscriminator = 'ElementEntry'</code> tells the engine to use the METADATA1 column layout for this row. In Pass 2, this switches to <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">'ElementEntryValue'</code> — which uses METADATA2 instead.</p>
+<p><strong>Lines 16–18:</strong> This is the entire LINEREPEAT mechanism. Setting <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">LINEREPEAT = 'Y'</code> tells the engine: "I have more output rows for this same CSV row. Call me again." The engine re-invokes the formula with LINEREPEATNO incremented to 2.</p>
 </div>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">After setting the variables, the formula decides what to RETURN. This is the guard logic — if the element lookup failed, skip the row:</p>
@@ -590,7 +668,7 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
 <div class="label">The ISNULL Guard — Two Different RETURN Paths</div>
 </div>
-<pre>
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px">
 <span class="ln">19</span>    <span style="color:#57A64A;font-style:italic;">/* ─── GUARD: Did the element lookup return a valid name? ─── */</span>
 <span class="ln">20</span>
 <span class="ln">21</span>    <span style="color:#569CD6;font-weight:700;">IF</span> <span style="color:#DCDCAA;">ISNULL</span>(<span style="color:#B5CEA8;">l_ElementName</span>) = <span style="color:#CE9178;">'N'</span> <span style="color:#569CD6;font-weight:700;">THEN</span>
@@ -614,10 +692,10 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 </div>
 
 <div class="ipe">
-<p><strong>Line 26 vs Lines 32–36 — the key difference:</strong> When the element is null (line 26), the formula returns <em>only</em> LINEREPEAT and LINEREPEATNO — no data variables at all. The engine writes nothing to the .dat file and moves on. When the element exists (lines 32–36), the formula returns all the output variables. The engine matches each variable name to the METADATA1 column name and writes a full <code style="background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:3px;">MERGE|ElementEntry|...</code> row.</p>
+<p><strong>Line 26 vs Lines 32–36 — the key difference:</strong> When the element is null (line 26), the formula returns <em>only</em> LINEREPEAT and LINEREPEATNO — no data variables at all. The engine writes nothing to the .dat file and moves on. When the element exists (lines 32–36), the formula returns all the output variables. The engine matches each variable name to the METADATA1 column name and writes a full <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">MERGE|ElementEntry|...</code> row.</p>
 </div>
 
-
+<!-- ── Full journey: one row through both passes ── -->
 <div class="diag">
 <div class="diag-title">One Vendor Row → Two .dat Rows (Full Journey)</div>
 <div class="timeline">
@@ -650,7 +728,7 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
 <div class="label">Cancel Path — POSITION11 = 'C' — End-Date Entry</div>
 </div>
-<pre>
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px">
 <span class="ln"> 1</span><span style="color:#569CD6;font-weight:700;">IF</span> (<span style="color:#DCDCAA;">TRIM</span>(<span style="color:#B5CEA8;">POSITION11</span>) = <span style="color:#CE9178;">'C'</span>) <span style="color:#569CD6;font-weight:700;">THEN</span>
 <span class="ln"> 2</span>(
 <span class="ln"> 3</span>    <span style="color:#57A64A;font-style:italic;">/* Fetch original start date from cloud */</span>
@@ -672,7 +750,7 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 <span class="ln">19</span>)</pre>
 </div>
 
-
+<!-- ── Cancel date sources ── -->
 <div class="diag">
 <div class="diag-title">Cancel Path — Where Each Date Comes From</div>
 <div style="display:flex;gap:16px;flex-wrap:wrap;">
@@ -708,7 +786,7 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
 <div class="label">Pass 2 — Clean the Dollar Amount</div>
 </div>
-<pre>
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px">
 <span class="ln">1</span><span style="color:#569CD6;font-weight:700;">ELSE IF</span> (<span style="color:#B5CEA8;">LINEREPEATNO</span> = <span style="color:#DCDCAA;">2</span>) <span style="color:#569CD6;font-weight:700;">THEN</span>
 <span class="ln">2</span>(
 <span class="ln">3</span>    <span style="color:#B5CEA8;">l_ScreenEntryValue</span> = <span style="color:#DCDCAA;">RTRIM</span>(<span style="color:#DCDCAA;">RTRIM</span>(<span style="color:#DCDCAA;">TRIM</span>(<span style="color:#B5CEA8;">POSITION6</span>),<span style="color:#CE9178;">'0'</span>),<span style="color:#CE9178;">'.'</span>)
@@ -735,7 +813,7 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
 <div class="label">Pass 2 — The Three Things That Change</div>
 </div>
-<pre>
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px">
 <span class="ln"> 7</span>    <span style="color:#57A64A;font-style:italic;">/* Change 1: Switch to ElementEntryValue layout */</span>
 <span class="ln"> 8</span>    <span style="color:#B5CEA8;">FileDiscriminator</span>     = <span style="color:#CE9178;">'ElementEntryValue'</span>
 <span class="ln"> 9</span>
@@ -759,7 +837,7 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
 <div class="label">Pass 2 — RETURN</div>
 </div>
-<pre>
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px">
 <span class="ln">21</span>    <span style="color:#569CD6;font-weight:700;">RETURN</span> <span style="color:#B5CEA8;">BusinessOperation</span>, <span style="color:#B5CEA8;">FileName</span>, <span style="color:#B5CEA8;">FileDiscriminator</span>,
 <span class="ln">22</span>           <span style="color:#B5CEA8;">AssignmentNumber</span>, <span style="color:#B5CEA8;">EffectiveStartDate</span>,
 <span class="ln">23</span>           <span style="color:#B5CEA8;">ElementName</span>, <span style="color:#B5CEA8;">EntryType</span>,
@@ -779,28 +857,28 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 <p><strong>That's it for one row.</strong> Pass 1 creates the header. Pass 2 creates the value. Now the engine moves to the next CSV row and the whole cycle repeats.</p>
 </div>
 
-
-
-
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ENGINE CALL SEQUENCE — FULL PICTURE                        -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <h3 style="font-size:17px;font-weight:700;color:var(--dark);margin:28px 0 14px;font-family:inherit;">Putting It All Together — How the Engine Processes a 3-Row File</h3>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:20px;">Here's a vendor file with 3 rows. Two active deductions and one cancellation. Watch how the engine and formula talk to each other for each row:</p>
 
-
+<!-- ═══ THE SOURCE FILE ═══ -->
 <div style="border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.06);margin:0 0 24px;">
 <div style="background:var(--code-bg);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;">
 <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6B6F88;">vendor_accrual_file.csv</span>
 <div style="display:flex;gap:5px;"><span style="width:9px;height:9px;border-radius:50%;background:#FF5F56;"></span><span style="width:9px;height:9px;border-radius:50%;background:#FFBD2E;"></span><span style="width:9px;height:9px;border-radius:50%;background:#27C93F;"></span></div>
 </div>
-<pre style="background:#1F2133;color:#C8C9D4;padding:14px 20px;margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.8;overflow-x:auto;"><span style="color:#6B6F88;">Row 1:</span>  1,<span style="color:var(--green);">DENTAL01</span>,2024-01-15,100045,E12345,<span style="color:var(--green);font-weight:600;">150.00</span>,...
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px"><span style="color:#6B6F88;">Row 1:</span>  1,<span style="color:var(--green);">DENTAL01</span>,2024-01-15,100045,E12345,<span style="color:var(--green);font-weight:600;">150.00</span>,...
 <span style="color:#6B6F88;">Row 2:</span>  2,<span style="color:var(--accent);">MEDICAL01</span>,2024-01-15,100045,E12345,<span style="color:var(--accent);font-weight:600;">200.00</span>,...
 <span style="color:#6B6F88;">Row 3:</span>  3,<span style="color:var(--red);">VISION01</span>,2024-03-15,100045,E12345,,<span style="color:var(--red);font-weight:600;">C</span></pre>
 </div>
 
-
+<!-- ═══ ROW 1: DENTAL — ACTIVE ═══ -->
 <div style="border-radius:12px;border:1px solid var(--border);overflow:hidden;margin-bottom:16px;box-shadow:0 1px 6px rgba(0,0,0,0.04);">
 
-
+<!-- Row header -->
 <div style="background:var(--bg-subtle);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;">
 <div style="display:flex;align-items:center;gap:10px;">
 <span style="background:var(--green);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;">ROW 1</span>
@@ -809,7 +887,7 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 <span style="font-size:11px;font-weight:600;color:var(--green);letter-spacing:0.5px;">ACTIVE</span>
 </div>
 
-
+<!-- Pass 1 -->
 <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
 <div style="min-width:60px;">
 <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:4px;">PASS 1</div>
@@ -828,7 +906,7 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 </div>
 </div>
 
-
+<!-- Pass 2 -->
 <div style="padding:16px 20px;display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;background:rgba(212,98,43,0.02);">
 <div style="min-width:60px;">
 <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:4px;">PASS 2</div>
@@ -849,7 +927,7 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 
 </div>
 
-
+<!-- ═══ ROW 2: MEDICAL — ACTIVE ═══ -->
 <div style="border-radius:12px;border:1px solid var(--border);overflow:hidden;margin-bottom:16px;box-shadow:0 1px 6px rgba(0,0,0,0.04);">
 
 <div style="background:var(--bg-subtle);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;">
@@ -898,7 +976,7 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 
 </div>
 
-
+<!-- ═══ ROW 3: VISION — CANCEL ═══ -->
 <div style="border-radius:12px;border:1px solid rgba(184,66,58,0.25);overflow:hidden;margin-bottom:16px;box-shadow:0 1px 6px rgba(184,66,58,0.06);">
 
 <div style="background:rgba(184,66,58,0.04);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;">
@@ -909,7 +987,7 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 <span style="font-size:11px;font-weight:600;color:var(--red);letter-spacing:0.5px;">CANCEL</span>
 </div>
 
-
+<!-- Only Pass 1 -->
 <div style="padding:16px 20px;display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
 <div style="min-width:60px;">
 <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:4px;">PASS 1</div>
@@ -931,18 +1009,18 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 
 </div>
 
-
+<!-- Summary -->
 <div class="ipe">
-<p><strong>3 CSV rows → 5 engine calls.</strong> Active rows get 2 calls (header + value). Cancel rows get 1 call (header only). The formula controls this entirely through <code style="background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:3px;">LINEREPEAT</code>: return <code style="background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:3px;">'Y'</code> to say "call me again", return <code style="background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:3px;">'N'</code> to say "move on."</p>
+<p><strong>3 CSV rows → 5 engine calls.</strong> Active rows get 2 calls (header + value). Cancel rows get 1 call (header only). The formula controls this entirely through <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">LINEREPEAT</code>: return <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">'Y'</code> to say "call me again", return <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">'N'</code> to say "move on."</p>
 </div>
 
-
+<!-- ═══ FINAL .DAT OUTPUT ═══ -->
 <h4 style="font-size:15px;font-weight:700;color:var(--dark);margin:24px 0 10px;font-family:inherit;">The Final .dat Output</h4>
 <p style="font-size:14px;color:var(--text);margin-bottom:10px;">After all 5 calls, the engine writes this file:</p>
 
 <div style="border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.07);margin:14px 0 24px;">
 <div style="background:var(--code-bg);padding:10px 16px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#6B6F88;letter-spacing:0.3px;">ElementEntry.dat — Generated Output</div>
-<pre style="background:#1F2133;color:#C8C9D4;padding:16px 20px;margin:0;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2;overflow-x:auto;white-space:pre-wrap;"><span style="color:#6B6F88;">/* ElementEntry block */</span>
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px"><span style="color:#6B6F88;">/* ElementEntry block */</span>
 <span style="color:#888;">METADATA|</span>ElementEntry|LDG|EffStart|ElementName|Asg#|Creator|Entry|MEC
 <span style="color:var(--green);">MERGE</span>|ElementEntry|US LDG|2024/01/15|<span style="color:var(--green);">Dental EE Deduction</span>|E12345|H|E|1
 <span style="color:var(--green);">MERGE</span>|ElementEntry|US LDG|2024/01/15|<span style="color:var(--green);">Medical EE Deduction</span>|E12345|H|E|1
@@ -957,16 +1035,16 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
 
-
+<!-- ══════ WHAT YOU NOW UNDERSTAND ══════ -->
 <h2 style="font-size:22px;font-weight:700;color:var(--dark);margin:30px 0 16px;font-family:inherit;">What You Can Now Do After Part 1 and Part 2</h2>
 
-<p style="font-size:15px;color:var(--text);margin-bottom:14px;">After Part 1 and Part 2, you can open any HDL Transformation Formula and read it. You know the engine calls the formula many times — first for setup, then per row, then per pass. You can decode the triple-quote syntax in GET_VALUE_SET calls. You know <code style="background:#e8e8e8;padding:2px 6px;border-radius:3px;font-size:13px;">ISNULL(x) = 'N'</code> means the value IS null. You understand lookup-or-construct for SourceSystemId. You know where to put ESS_LOG_WRITE. And you can follow the Cancel vs Active branching.</p>
+<p style="font-size:15px;color:var(--text);margin-bottom:14px;">After Part 1 and Part 2, you can open any HDL Transformation Formula and read it. You know the engine calls the formula many times — first for setup, then per row, then per pass. You can decode the triple-quote syntax in GET_VALUE_SET calls. You know <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">ISNULL(x) = 'N'</code> means the value IS null. You understand lookup-or-construct for SourceSystemId. You know where to put ESS_LOG_WRITE. And you can follow the Cancel vs Active branching.</p>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;"><strong>Left for Part 3:</strong> WSA implementation (WSA_EXISTS / WSA_GET / WSA_SET code), the complete formula assembled end-to-end, and the step-by-step build-your-own guide.</p>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
 
-
+<!-- ══════ COMING NEXT ══════ -->
 <div style="background:linear-gradient(135deg,var(--accent),#B8501F);border-radius:10px;padding:22px 26px;margin:28px 0;box-shadow:0 4px 16px rgba(212,98,43,0.15);">
 <div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:12px;">Coming Next — Part 3: Build Your Own</div>
 <p style="font-size:14px;color:rgba(255,255,255,0.9);margin-bottom:16px;">Everything copy-paste ready.</p>
@@ -977,7 +1055,7 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 </table>
 </div>
 
-
+<!-- ══════ ROADMAP BOTTOM ══════ -->
 <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:32px 0;">
 <div style="background:var(--bg-subtle);border-radius:20px;padding:6px 16px;font-size:13px;color:var(--muted);font-weight:600;">Part 1: Pure Concepts</div>
 <span style="color:var(--border);">→</span>
@@ -986,7 +1064,7 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 <div style="background:var(--bg-subtle);border-radius:20px;padding:6px 16px;font-size:13px;color:#bbb;font-weight:600;">Part 3: Build Your Own <span style="font-size:10px;background:#eee;padding:1px 6px;border-radius:6px;color:#999;">Soon</span></div>
 </div>
 
-
+<!-- ══════ AUTHOR BOTTOM ══════ -->
 <div style="display:flex;align-items:center;gap:14px;padding:18px 0;border-top:1px solid var(--border);">
 <div style="background:linear-gradient(135deg,var(--accent),#B8501F);color:#fff;font-size:15px;font-weight:800;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;">AM</div>
 <div><div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div><div style="font-size:13px;color:#888;line-height:1.5;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div></div>

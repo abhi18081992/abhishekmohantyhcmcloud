@@ -1,8 +1,10 @@
 ---
 title: "How Oracle Fast Formula resolves ALIAS at compile time: statement order, reference-vs-snapshot semantics, CHANGE_CONTEXTS re-evaluation, and the three compiler errors."
-description: "The ALIAS Statement in Oracle Fast Formula — Compile-Time Reference, Statement Order, CHANGE_CONTEXTS Re-evaluation, and the Three Compiler Errors Every HCM Cloud Consultant Must Know :root --bg:#f5f3"
 pubDate: 2026-05-16
-tags: ["Fast Formula", "Oracle HCM Cloud", "Null Handling"]
+description: "How Oracle Fast Formula resolves ALIAS at compile time: statement order, reference-vs-snapshot semantics, CHANGE_CONTEXTS re-evaluation, and the three..."
+tags: ["Fast Formula", "Null Handling", "Oracle HCM Cloud"]
+author: "Abhishek Mohanty"
+draft: false
 ---
 
 <!DOCTYPE html>
@@ -11,18 +13,403 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Null Handling"]
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The ALIAS Statement in Oracle Fast Formula — Compile-Time Reference, Statement Order, CHANGE_CONTEXTS Re-evaluation, and the Three Compiler Errors Every HCM Cloud Consultant Must Know</title>
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#f5f3ef;
+--page:#ffffff;
+--text:#1f1d1b;
+--soft:#5a5651;
+--muted:#8a857f;
+--rule:#dcd6cc;
+--rule-soft:#e8e2d6;
+--accent:#b73a2c;
+--accent-soft:#f4ddd7;
+--code-bg:#f0ece4;
+--code-text:#3a3631;
+--tbl-head:#5a1810;
+--tbl-head-text:#f4ede0;
+--tbl-zebra:#faf7f0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+font-family:'Lato',Arial,Helvetica,sans-serif;
+background:var(--bg);
+color:var(--text);
+line-height:1.7;
+font-size:17px;
+-webkit-font-smoothing:antialiased;
+}
 
+/* page container */
+.post{
+max-width:760px;
+margin:0 auto;
+background:var(--page);
+padding:54px 52px 64px;
+border-left:1px solid var(--rule);
+border-right:1px solid var(--rule);
+min-height:100vh;
+}
+
+/* ── HERO BLOCK ── */
+.pill-tags{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-bottom:22px;
+}
+.pill{
+display:inline-block;
+padding:11px 18px;
+font-family:'Lato',Arial,Helvetica,sans-serif;
+font-size:12.5px;
+font-weight:700;
+color:#ffffff;
+text-transform:uppercase;
+letter-spacing:1.6px;
+border-radius:5px;
+line-height:1;
+white-space:nowrap;
+}
+.pill-red{background:#c2392b}
+.pill-navy{background:#1f2d3d}
+.pill-purple{background:#7e3da3}
+.pill-teal{background:#1a6b6b}
+.pill-amber{background:#a06814}
+h1.title{
+font-family:'Lato',Arial,Helvetica,sans-serif;
+font-size:36px;
+font-weight:800;
+line-height:1.2;
+letter-spacing:-0.5px;
+color:#2a0f0a;
+margin-bottom:14px;
+}
+.subtitle{
+font-family:'Lato',Arial,Helvetica,sans-serif;
+font-size:20px;
+font-weight:400;
+line-height:1.5;
+color:#5a4338;
+font-style:italic;
+margin-bottom:18px;
+}
+.meta{
+font-size:14px;
+color:var(--muted);
+margin-bottom:24px;
+letter-spacing:0.2px;
+}
+.meta .sep{margin:0 6px;color:var(--rule)}
+
+.lede{
+font-size:18px;
+line-height:1.65;
+color:var(--text);
+margin-bottom:28px;
+}
+
+/* ── BYLINE TABLE (the signature element) ── */
+table.byline{
+width:100%;
+border-collapse:collapse;
+margin:8px 0 36px;
+border:1px solid var(--rule);
+background:#fbf8f1;
+}
+table.byline td{
+padding:14px 18px;
+vertical-align:middle;
+}
+table.byline td.avatar{
+width:64px;
+text-align:center;
+background:var(--accent);
+color:#fff;
+font-weight:700;
+font-size:16px;
+letter-spacing:1.5px;
+border-right:1px solid var(--accent);
+font-family:'Lato',Arial,Helvetica,sans-serif;
+}
+table.byline td.name{font-size:14.5px;line-height:1.55}
+table.byline td.name strong{
+display:block;
+font-size:15.5px;
+color:#0e0c0a;
+margin-bottom:2px;
+font-weight:700;
+}
+table.byline td.name span{color:var(--soft);font-size:13.5px}
+
+/* ── BODY TYPOGRAPHY ── */
+h2{
+font-family:'Lato',Arial,Helvetica,sans-serif;
+font-size:25px;
+font-weight:700;
+line-height:1.3;
+letter-spacing:-0.3px;
+color:#9c2818;
+margin:42px 0 16px;
+padding-bottom:8px;
+border-bottom:2px solid #ead6c8;
+position:relative;
+}
+h2::after{
+content:'';
+position:absolute;
+left:0;
+bottom:-2px;
+width:54px;
+height:2px;
+background:#c2392b;
+}
+h3{
+font-family:'Lato',Arial,Helvetica,sans-serif;
+font-size:20px;
+font-weight:600;
+line-height:1.35;
+color:#1e3a5e;
+margin:32px 0 12px;
+}
+h4{
+font-family:'Lato',Arial,Helvetica,sans-serif;
+font-size:16px;
+font-weight:700;
+color:#b73a2c;
+margin:24px 0 10px;
+letter-spacing:0.1px;
+}
+p{margin-bottom:16px;line-height:1.7}
+strong{font-weight:700;color:#0e0c0a}
+em{font-style:italic}
+a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+
+ul,ol{margin:0 0 18px 22px}
+li{margin-bottom:7px;line-height:1.65}
+
+/* ── INLINE CODE ── */
+code{
+font-family:'JetBrains Mono',monospace;
+font-size:0.86em;
+background:var(--code-bg);
+color:#7a2618;
+padding:1.5px 6px;
+border-radius:2px;
+font-weight:500;
+letter-spacing:-0.3px;
+}
+h1 code,h2 code,h3 code,h4 code{font-size:0.78em;background:var(--accent-soft)}
+
+/* ── CODE BLOCKS — simple indented look ── */
+.codeblock{
+background:var(--code-bg);
+border-left:3px solid var(--rule);
+padding:16px 20px;
+margin:18px 0;
+font-family:'JetBrains Mono',monospace;
+font-size:13.5px;
+line-height:1.7;
+color:var(--code-text);
+overflow-x:auto;
+white-space:pre;
+border-radius:2px;
+}
+.codeblock .cm{color:#9a8a78;font-style:italic}
+.codeblock .kw{color:#7a2618;font-weight:600}
+.codeblock .st{color:#7a5a18}
+.codeblock .nm{color:#a04020}
+
+/* ── REFERENCE TABLES (signature element) ── */
+.tblwrap{margin:22px 0;overflow-x:auto}
+table.ref{
+width:100%;
+border-collapse:collapse;
+border:1px solid var(--rule);
+background:var(--page);
+font-size:14.5px;
+line-height:1.55;
+}
+table.ref th{
+background:var(--tbl-head);
+color:var(--tbl-head-text);
+text-align:left;
+padding:11px 16px;
+font-weight:600;
+font-size:13.5px;
+letter-spacing:0.2px;
+}
+table.ref td{
+padding:11px 16px;
+border-top:1px solid var(--rule);
+vertical-align:top;
+color:var(--text);
+}
+table.ref tr:nth-child(even) td{background:var(--tbl-zebra)}
+table.ref td code{font-size:0.92em}
+table.ref td strong{color:#0e0c0a}
+
+/* Single-column reference table with title row */
+table.ref.single th{font-style:italic;font-weight:600}
+table.ref.single td:only-child{padding:11px 16px}
+
+/* Step row — flex layout for reliable pill alignment */
+table.ref td .step-row{
+display:flex;
+align-items:flex-start;
+gap:14px;
+}
+table.ref td .step-row .step-num{
+flex-shrink:0;
+display:inline-block;
+font-family:'JetBrains Mono',monospace;
+font-size:11.5px;
+font-weight:700;
+color:#ffffff;
+background:#9c2818;
+padding:5px 11px;
+border-radius:3px;
+letter-spacing:0.8px;
+white-space:nowrap;
+line-height:1.3;
+min-width:74px;
+text-align:center;
+}
+table.ref td .step-row .step-body{
+flex:1;
+line-height:1.65;
+padding-top:1px;
+}
+table.ref td .step-row .step-body code{font-size:0.9em}
+
+/* ── HR DIVIDER ── */
+hr{
+border:none;
+border-top:1px solid var(--rule);
+margin:32px 0;
+position:relative;
+}
+
+/* ── INLINE NOTE / ITALIC PULL ── */
+.italic-note{
+font-style:italic;
+color:var(--soft);
+font-size:15.5px;
+margin:18px 0;
+padding-left:18px;
+border-left:2px solid var(--rule);
+line-height:1.65;
+}
+
+/* ── ERROR DISPLAY ── */
+.error-line{
+font-family:'JetBrains Mono',monospace;
+font-size:13px;
+background:#2c2925;
+color:#f4a8a0;
+padding:11px 16px;
+border-radius:2px;
+margin:10px 0 18px;
+font-style:italic;
+line-height:1.55;
+}
+.error-line::before{
+content:'FF Compile Error  ';
+font-style:normal;
+font-weight:700;
+color:#f4ede0;
+font-size:11px;
+letter-spacing:1px;
+text-transform:uppercase;
+}
+
+/* ── TAGS AT FOOTER ── */
+.tags{
+margin:34px 0 0;
+padding-top:20px;
+border-top:1px solid var(--rule);
+font-size:14px;
+}
+.tags a{
+color:var(--accent);
+text-decoration:none;
+margin-right:14px;
+letter-spacing:0.1px;
+}
+.tags a:hover{text-decoration:underline}
+
+/* mobile */
+@media(max-width:680px){
+.post{padding:32px 22px 48px;border-left:none;border-right:none}
+h1.title{font-size:27px}
+.subtitle{font-size:17px}
+h2{font-size:22px}
+h3{font-size:18px}
+body{font-size:16px}
+.codeblock{font-size:12.5px;padding:13px 16px}
+table.ref{font-size:13.5px}
+table.ref th,table.ref td{padding:10px 12px}
+table.byline td{padding:11px 14px}
+table.byline td.avatar{width:50px;font-size:14px}
+}
+
+/* ── DIAGRAMS ── */
+.figure{
+margin:28px 0;
+padding:22px 22px 16px;
+background:#fbf8f1;
+border:1px solid #e8dfd0;
+border-radius:6px;
+}
+.figure-title{
+font-family:'Lato',Arial,sans-serif;
+font-size:11.5px;
+font-weight:700;
+color:#5a4338;
+text-transform:uppercase;
+letter-spacing:1.6px;
+text-align:center;
+margin-bottom:14px;
+}
+.figure-caption{
+font-family:'Lato',Arial,sans-serif;
+font-size:13px;
+color:#5a5651;
+font-style:italic;
+text-align:center;
+margin-top:12px;
+line-height:1.55;
+padding:0 10px;
+}
+.figure-caption strong{color:#1f1d1b;font-style:normal;font-weight:600}
+.svg-figure{width:100%;height:auto;display:block}
+.svg-title{font:700 12px 'Lato',Arial,sans-serif;fill:#5a4338;letter-spacing:1.4px}
+.svg-label{font:600 10.5px 'Lato',Arial,sans-serif;fill:#5a4338;letter-spacing:1.1px}
+.svg-label-tag{font:italic 500 11px 'Lato',Arial,sans-serif;fill:#8a857f}
+.svg-label-context{font:700 10.5px 'Lato',Arial,sans-serif;fill:#1c3960;letter-spacing:0.8px}
+.svg-code{font:500 13px 'JetBrains Mono',monospace;fill:#1f1d1b}
+.svg-code-sm{font:500 11.5px 'JetBrains Mono',monospace;fill:#1f1d1b}
+.svg-text{font:400 12.5px 'Lato',Arial,sans-serif;fill:#1f1d1b}
+.svg-text-sm{font:400 11.5px 'Lato',Arial,sans-serif;fill:#5a5651}
+.svg-handle{font:700 11.5px 'Lato',Arial,sans-serif;fill:#ffffff;letter-spacing:1.2px}
+.svg-header{font:700 11.5px 'Lato',Arial,sans-serif;fill:#ffffff;letter-spacing:1.3px}
+.svg-value-good{font:600 12px 'JetBrains Mono',monospace;fill:#2e6b3a}
+.svg-value-bad{font:600 12px 'JetBrains Mono',monospace;fill:#b73a2c}
+.svg-value-big{font:700 17px 'JetBrains Mono',monospace;fill:#9c2818;letter-spacing:0.4px}
+.svg-result-good{font:700 13px 'JetBrains Mono',monospace;fill:#2e6b3a;letter-spacing:0.4px}
+.svg-result-bad{font:700 13px 'JetBrains Mono',monospace;fill:#b73a2c;letter-spacing:0.4px}
+</style>
 </head>
 <body>
 
 <article class="post">
 
-
+<!-- ── HERO ── -->
 <div class="pill-tags">
-  <span class="pill pill-red">FAST FORMULA</span>
-  <span class="pill pill-navy">ALIAS STATEMENT</span>
-  <span class="pill pill-purple">DEEP DIVE</span>
+<span class="pill pill-red">FAST FORMULA</span>
+<span class="pill pill-navy">ALIAS STATEMENT</span>
+<span class="pill pill-purple">DEEP DIVE</span>
 </div>
 
 <h1 class="title">Oracle Fast Formula ALIAS: How the Compiler Resolves Long DBI Names at Parse Time and Why It's Not Just a Typing Convenience</h1>
@@ -35,8 +422,8 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Null Handling"]
 
 <table class="byline">
 <tr>
-  <td class="avatar">AM</td>
-  <td class="name"><strong>Abhishek Mohanty</strong><span>Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant</span></td>
+<td class="avatar">AM</td>
+<td class="name"><strong>Abhishek Mohanty</strong><span>Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant</span></td>
 </tr>
 </table>
 
@@ -46,7 +433,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Null Handling"]
 
 <hr>
 
-
+<!-- ── NEW: 5-SECTION STRUCTURE ── -->
 <h2>ALIAS in the Five-Section Formula Structure</h2>
 
 <p>Before going deep into ALIAS semantics, it helps to see where ALIAS sits in the larger Fast Formula skeleton. Every formula you'll ever write follows the same five-section template, in exactly this order:</p>
@@ -84,7 +471,7 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
 
 <hr>
 
-
+<!-- ── SECTION 1 ── -->
 <h2>How the Compiler Resolves an Alias</h2>
 
 <p>The Oracle <em>Administering Fast Formulas</em> guide defines ALIAS as a statement that gives a Database Item a shorter, formula-local name. The guide explicitly recommends ALIAS over assigning a DBI to a local variable for the purpose of shortening — because the alias is a reference, not a copy.</p>
@@ -105,9 +492,7 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
 
 <div class="figure">
 <div class="figure-title">Figure 1 · Compile-Time Binding</div>
-
-<img src="/diagrams/how-oracle-fast-formula-resolves-alias-fig1.png" alt="Figure 1" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-
+<img src="/images/posts/how-oracle-fast-formula-resolves-alias/diagram-1.png" alt="Diagram 1: How Oracle Fast Formula resolves ALIAS at compile time: stat" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
 <div class="figure-caption"><strong>One handle, two labels.</strong> Reading either name at runtime triggers the same DBI fetch under whichever contexts are active.</div>
 </div>
 
@@ -128,7 +513,7 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
 
 <hr>
 
-
+<!-- ── SECTION 2 ── -->
 <h2>Syntax and the Reserved Identifier List</h2>
 
 <p>The form is fixed. One alias declaration per line:</p>
@@ -163,7 +548,7 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
 
 <hr>
 
-
+<!-- ── SECTION 3 ── -->
 <h2>Statement Order: Why ALIAS Comes First</h2>
 
 <p>Fast Formula enforces a strict ordering of declarative statement sections. The order is documented in the Oracle <em>Administering Fast Formulas</em> guide, and the compiler will reject your formula with <em>"Incorrect Statement Order"</em> if you break it.</p>
@@ -205,7 +590,7 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
 
 <hr>
 
-
+<!-- ── SECTION 4 ── -->
 <h2>What You Can & Cannot Alias</h2>
 
 <p>The Fusion 24D <em>Administering Fast Formulas</em> guide narrows ALIAS to one target type: database items. The compiler diagnostic for invalid targets is unambiguous: <em>"you can use an ALIAS statement only for a database item."</em> The practical test is the Database Items picker in the formula editor — if the identifier appears there for your current formula type, it's aliasable; if it doesn't, it isn't.</p>
@@ -290,7 +675,7 @@ L_AID = GET_CONTEXT(HR_ASSIGNMENT_ID, <span class="nm">-1</span>)</div>
 
 <hr>
 
-
+<!-- ── SECTION 5 ── -->
 <h2>The Reference vs Snapshot Distinction</h2>
 
 <p>ALIAS and <code>L_VAR = LONG_DBI_NAME</code> are not equivalent. They have different runtime behaviour, and one of them silently produces wrong answers under <code>CHANGE_CONTEXTS</code>.</p>
@@ -303,7 +688,7 @@ L_AID = GET_CONTEXT(HR_ASSIGNMENT_ID, <span class="nm">-1</span>)</div>
 L_ASG_LOS = PER_ASG_REL_LENGTH_OF_SERVICE
 
 <span class="kw">IF</span> L_ASG_LOS >= <span class="nm">5</span> <span class="kw">THEN</span>
-   L_FLAG = <span class="st">'Y'</span></div>
+L_FLAG = <span class="st">'Y'</span></div>
 
 <p>Two things happen on the assignment line that are not always evident from the source: the DBI is fetched eagerly at that point regardless of whether the value is later read, and the local variable holds a snapshot under whichever contexts were active at assignment — any later <code>CHANGE_CONTEXTS</code> block does not update it.</p>
 
@@ -314,7 +699,7 @@ L_ASG_LOS = PER_ASG_REL_LENGTH_OF_SERVICE
 <span class="kw">DEFAULT FOR</span> ASG_LOS <span class="kw">IS</span> <span class="nm">0</span>
 
 <span class="kw">IF</span> ASG_LOS >= <span class="nm">5</span> <span class="kw">THEN</span>
-   L_FLAG = <span class="st">'Y'</span></div>
+L_FLAG = <span class="st">'Y'</span></div>
 
 <p>Functionally similar in this isolated case. But four behavioural differences matter:</p>
 
@@ -332,9 +717,7 @@ L_ASG_LOS = PER_ASG_REL_LENGTH_OF_SERVICE
 
 <div class="figure">
 <div class="figure-title">Figure 2 · Reference vs Snapshot — Same Logic, Different Runtime Behaviour</div>
-
-<img src="/diagrams/how-oracle-fast-formula-resolves-alias-fig2.png" alt="Figure 2" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-
+<img src="/images/posts/how-oracle-fast-formula-resolves-alias/diagram-2.png" alt="Diagram 2: How Oracle Fast Formula resolves ALIAS at compile time: stat" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
 <div class="figure-caption"><strong>The same three references, two different runtime behaviours.</strong> Local-variable assignment captures the value once at the assignment line; ALIAS re-evaluates the underlying DBI at every reference, under whatever context is active.</div>
 </div>
 
@@ -342,7 +725,7 @@ L_ASG_LOS = PER_ASG_REL_LENGTH_OF_SERVICE
 
 <hr>
 
-
+<!-- ── SECTION 6 ── -->
 <h2>DEFAULT FOR and WAS DEFAULTED Against the Alias</h2>
 
 <p>Once an alias is declared, the rest of the formula — including <code>DEFAULT FOR</code> and <code>WAS DEFAULTED</code> — should reference the alias name. The compiler folds the alias and the underlying DBI into the same symbol, so writing the default against either resolves to the same metadata. Consistency is a maintenance discipline, not a compiler requirement:</p>
@@ -360,7 +743,7 @@ L_ASG_LOS = PER_ASG_REL_LENGTH_OF_SERVICE
 
 <span class="cm">/* WAS DEFAULTED check against the alias */</span>
 <span class="kw">IF</span> ASG_SAL <span class="kw">WAS DEFAULTED</span> <span class="kw">THEN</span>
-   L_MSG = <span class="st">'Salary DBI returned NULL — defaulted to 0'</span></div>
+L_MSG = <span class="st">'Salary DBI returned NULL — defaulted to 0'</span></div>
 
 <p>The <code>WAS DEFAULTED</code> check inspects whether the underlying DBI fetch returned NULL and triggered the <code>DEFAULT FOR</code> substitution. Because the alias and the DBI share a single metadata handle, asking <code>ASG_SAL WAS DEFAULTED</code> gives the same answer as asking the long name.</p>
 
@@ -368,7 +751,7 @@ L_ASG_LOS = PER_ASG_REL_LENGTH_OF_SERVICE
 
 <hr>
 
-
+<!-- ── SECTION 7 ── -->
 <h2>ALIAS Inside CHANGE_CONTEXTS</h2>
 
 <p>The reference-vs-snapshot distinction has its biggest payoff inside <code>CHANGE_CONTEXTS</code> blocks. Because the alias compiles to a DBI fetch operation, evaluating it under a different context produces a fresh fetch under that context — exactly as if you'd written the long DBI name explicitly:</p>
@@ -381,12 +764,12 @@ L_ASG_LOS = PER_ASG_REL_LENGTH_OF_SERVICE
 
 <span class="kw">CHANGE_CONTEXTS</span> (EFFECTIVE_DATE = PERIOD_START_DT)
 (
-   L_START_SAL = ASG_SAL          <span class="cm">/* fetch under PERIOD_START_DT */</span>
+L_START_SAL = ASG_SAL          <span class="cm">/* fetch under PERIOD_START_DT */</span>
 )
 
 <span class="kw">CHANGE_CONTEXTS</span> (EFFECTIVE_DATE = PERIOD_END_DT)
 (
-   L_END_SAL = ASG_SAL            <span class="cm">/* re-fetch under PERIOD_END_DT */</span>
+L_END_SAL = ASG_SAL            <span class="cm">/* re-fetch under PERIOD_END_DT */</span>
 )
 
 L_DELTA = L_END_SAL - L_START_SAL</div>
@@ -395,9 +778,7 @@ L_DELTA = L_END_SAL - L_START_SAL</div>
 
 <div class="figure">
 <div class="figure-title">Figure 3 · ALIAS Re-Evaluates Under Each Context</div>
-
-<img src="/diagrams/how-oracle-fast-formula-resolves-alias-fig3.png" alt="Figure 3" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-
+<img src="/images/posts/how-oracle-fast-formula-resolves-alias/diagram-3.png" alt="Diagram 3: How Oracle Fast Formula resolves ALIAS at compile time: stat" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
 <div class="figure-caption"><strong>Same alias, two contexts, two distinct values.</strong> Each evaluation is an independent DBI fetch under whichever context is active at that point in the code.</div>
 </div>
 
@@ -407,7 +788,7 @@ L_DELTA = L_END_SAL - L_START_SAL</div>
 
 <hr>
 
-
+<!-- ── SECTION 8 ── -->
 <h2>The Three Compiler Errors You'll Actually See</h2>
 
 <p>The Oracle <em>Administering Fast Formulas</em> compilation-errors table lists several diagnostics that mention ALIAS. In practice, you'll bump into three of them repeatedly.</p>
@@ -451,7 +832,7 @@ L_DELTA = L_END_SAL - L_START_SAL</div>
 
 <hr>
 
-
+<!-- ── SECTION 9 ── -->
 <h2>Production Conventions for ALIAS</h2>
 
 <div class="tblwrap">
@@ -471,7 +852,7 @@ L_DELTA = L_END_SAL - L_START_SAL</div>
 
 <hr>
 
-
+<!-- ── SECTION 10 ── -->
 <h2>Before vs After — The Readability Payoff</h2>
 
 <p>Same logic, written twice. Once without aliases, once with. Watch how the body changes character.</p>
@@ -479,10 +860,10 @@ L_DELTA = L_END_SAL - L_START_SAL</div>
 <h3>Without ALIAS</h3>
 
 <div class="codeblock"><span class="cm">/*========================================================================
-   FORMULA NAME : XX_OT_ELIG_WITHOUT_ALIAS
-   FORMULA TYPE : Element Iterative Calculator
-   PURPOSE      : OT eligibility flag & multiplier from qualifying LOS
-                  and assignment salary.
+FORMULA NAME : XX_OT_ELIG_WITHOUT_ALIAS
+FORMULA TYPE : Element Iterative Calculator
+PURPOSE      : OT eligibility flag & multiplier from qualifying LOS
+and assignment salary.
 ========================================================================*/</span>
 
 <span class="kw">DEFAULT FOR</span> PER_ASG_REL_LENGTH_OF_SERVICE <span class="kw">IS</span> <span class="nm">0</span>
@@ -496,15 +877,15 @@ L_MULTIPLIER = <span class="nm">1</span>
 
 <span class="kw">CHANGE_CONTEXTS</span> (EFFECTIVE_DATE = EFFECTIVE_PERIOD_END)
 (
-   <span class="kw">IF</span> PER_ASG_REL_LENGTH_OF_SERVICE >= <span class="nm">5</span>
-      <span class="kw">AND</span> CMP_ASSIGNMENT_SALARY_AMOUNT > <span class="nm">0</span>
-      <span class="kw">AND</span> PER_ASG_JOB_NAME <> <span class="st">' '</span>
-   <span class="kw">THEN</span>
-      ( L_FLAG       = <span class="st">'Y'</span>
-        L_MULTIPLIER = <span class="nm">1.5</span> )
+<span class="kw">IF</span> PER_ASG_REL_LENGTH_OF_SERVICE >= <span class="nm">5</span>
+<span class="kw">AND</span> CMP_ASSIGNMENT_SALARY_AMOUNT > <span class="nm">0</span>
+<span class="kw">AND</span> PER_ASG_JOB_NAME <> <span class="st">' '</span>
+<span class="kw">THEN</span>
+( L_FLAG       = <span class="st">'Y'</span>
+L_MULTIPLIER = <span class="nm">1.5</span> )
 
-   <span class="kw">IF</span> PER_ASG_REL_LENGTH_OF_SERVICE >= <span class="nm">10</span> <span class="kw">THEN</span>
-      L_MULTIPLIER = <span class="nm">2.0</span>
+<span class="kw">IF</span> PER_ASG_REL_LENGTH_OF_SERVICE >= <span class="nm">10</span> <span class="kw">THEN</span>
+L_MULTIPLIER = <span class="nm">2.0</span>
 )
 
 <span class="kw">RETURN</span> L_FLAG, L_MULTIPLIER</div>
@@ -512,11 +893,11 @@ L_MULTIPLIER = <span class="nm">1</span>
 <h3>With ALIAS</h3>
 
 <div class="codeblock"><span class="cm">/*========================================================================
-   FORMULA NAME : XX_OT_ELIG_WITH_ALIAS
-   FORMULA TYPE : Element Iterative Calculator
-   NOTES        : ALIAS block sits FIRST. Each alias is a reference to
-                  its underlying DBI; evaluation is lazy and re-fetches
-                  under any CHANGE_CONTEXTS block.
+FORMULA NAME : XX_OT_ELIG_WITH_ALIAS
+FORMULA TYPE : Element Iterative Calculator
+NOTES        : ALIAS block sits FIRST. Each alias is a reference to
+its underlying DBI; evaluation is lazy and re-fetches
+under any CHANGE_CONTEXTS block.
 ========================================================================*/</span>
 
 <span class="kw">ALIAS</span> PER_ASG_REL_LENGTH_OF_SERVICE <span class="kw">AS</span> ASG_LOS    <span class="cm">/* qualifying LOS, years */</span>
@@ -534,16 +915,16 @@ L_MULTIPLIER = <span class="nm">1</span>
 
 <span class="kw">CHANGE_CONTEXTS</span> (EFFECTIVE_DATE = EFFECTIVE_PERIOD_END)
 (
-   <span class="kw">IF</span> ASG_LOS >= <span class="nm">5</span> <span class="kw">AND</span> ASG_SAL > <span class="nm">0</span> <span class="kw">AND</span> ASG_JOB <> <span class="st">' '</span> <span class="kw">THEN</span>
-      ( L_FLAG       = <span class="st">'Y'</span>
-        L_MULTIPLIER = <span class="nm">1.5</span> )
+<span class="kw">IF</span> ASG_LOS >= <span class="nm">5</span> <span class="kw">AND</span> ASG_SAL > <span class="nm">0</span> <span class="kw">AND</span> ASG_JOB <> <span class="st">' '</span> <span class="kw">THEN</span>
+( L_FLAG       = <span class="st">'Y'</span>
+L_MULTIPLIER = <span class="nm">1.5</span> )
 
-   <span class="kw">IF</span> ASG_LOS >= <span class="nm">10</span> <span class="kw">THEN</span>
-      L_MULTIPLIER = <span class="nm">2.0</span>
+<span class="kw">IF</span> ASG_LOS >= <span class="nm">10</span> <span class="kw">THEN</span>
+L_MULTIPLIER = <span class="nm">2.0</span>
 )
 
 <span class="kw">IF</span> ASG_SAL <span class="kw">WAS DEFAULTED</span> <span class="kw">THEN</span>
-   L_MSG = <span class="st">'Salary DBI returned NULL — defaulted to 0'</span>
+L_MSG = <span class="st">'Salary DBI returned NULL — defaulted to 0'</span>
 
 <span class="kw">RETURN</span> L_FLAG, L_MULTIPLIER</div>
 
@@ -553,7 +934,7 @@ L_MULTIPLIER = <span class="nm">1</span>
 
 <hr>
 
-
+<!-- ── KEY TAKEAWAYS ── -->
 <h2>Key Takeaways</h2>
 
 <p><strong>ALIAS is a compile-time reference, not a runtime variable.</strong> The alias and the underlying DBI share a single metadata handle. No separate runtime allocation occurs.</p>
@@ -564,15 +945,15 @@ L_MULTIPLIER = <span class="nm">1</span>
 
 <p><strong>ALIAS targets are restricted to database items in current Fusion releases.</strong> Inputs, contexts, functions, and global values are not valid targets.</p>
 
-
+<!-- ── CLOSING BYLINE ── -->
 <table class="byline">
 <tr>
-  <td class="avatar">AM</td>
-  <td class="name"><strong>Abhishek Mohanty</strong><span>Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</span></td>
+<td class="avatar">AM</td>
+<td class="name"><strong>Abhishek Mohanty</strong><span>Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</span></td>
 </tr>
 </table>
 
-
+<!-- ── TAGS ── -->
 <div class="tags">
 <a href="#">Fast Formula</a>
 <a href="#">ALIAS</a>

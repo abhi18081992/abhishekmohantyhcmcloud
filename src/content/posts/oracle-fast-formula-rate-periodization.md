@@ -1,17 +1,158 @@
 ---
 title: "Oracle Benefits Rate Periodization Formula — Mid Year Proration with YTD Cap and CHANGE_CONTEXTS"
-description: "com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap); :root--font:Open Sans;--mono:Courier New,Consolas,monospace;--ink:#1a1a1a;--text:#2a2a2a;--sub:#666;--faint:#888;"
 pubDate: 2026-03-31
-tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
+description: "Oracle Benefits Rate Periodization Formula — Mid Year Proration with YTD Cap and CHANGE_CONTEXTS"
+tags: ["Benefits", "Fast Formula", "Oracle HCM Cloud"]
+author: "Abhishek Mohanty"
+draft: false
 ---
 
-<p> </p>
+<p> </p><!--
+BLOGGER PASTE-READY
+Title: Oracle Fast Formula: Rate Periodization
+Permalink: rate-periodization-fast-formula-benefits
+Labels: Fast Formula, Benefits, Rate Periodization, HSA, CHANGE_CONTEXTS, ESS_LOG_WRITE, Oracle HCM Cloud
+-->
 
+<style>
+:root{--font:'Open Sans';--mono:'Courier New',Consolas,monospace;--ink:#1a1a1a;--text:#2a2a2a;--sub:#666;--faint:#888;--whisper:#bbb;--line:#e0dcd6;--wash:#f0ece6;--paper:#faf8f5;--white:#ffffff;--red:#c0392b;--red-bg:#fdf6f0;--red-line:#e8cfc6;--blue:#2c3e50;--blue-bg:#f0f4f8;--blue-line:#c0cfdc;--green:#27ae60;--green-bg:#f0f9f4;--green-line:#b8dcc8;--amber:#e67e22;--amber-bg:#fef8f0;--amber-line:#f0dcc0;--code-bg:#2d2926;--code-surface:#3a3633;--code-text:#f5ebe0;--kw:#e67e22;--fn:#6cacec;--str:#8bc48b;--cm:#6b8e6b;--num:#d4a76a;--ret:#CC7832}
 
+/* Reset — Open Sans everywhere */
+.bl,.bl *{box-sizing:border-box;font-family:'Open Sans'}
+.bl code,.bl .cd,.bl .xr-code,.bl .dk-item,.bl .lg-chip,.bl .lg-num,.bl .mo-val{font-family:'Courier New',Consolas,monospace}
+
+.bl{color:var(--ink);line-height:1.78;max-width:740px;margin:0 auto;font-size:17px;background:var(--white)}
+.bl p{margin:0 0 20px;color:var(--text);font-family:'Open Sans'}
+
+/* ── Header ── */
+.bl-header{margin-bottom:28px}
+.bl-header-title{font-family:'Open Sans';font-size:32px;font-weight:800;color:var(--ink);line-height:1.25;margin:0 0 10px;letter-spacing:-0.3px}
+.bl-header-sub{font-family:'Open Sans';font-size:18px;color:var(--sub);line-height:1.6;margin:0;font-weight:400}
+
+/* ── Tags ── */
+.bl-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.bl-tag{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:2px;color:#fff;background:var(--red);border:none}
+.bl-tag.blue{background:#2c3e50}
+.bl-tag.green{background:#27ae60}
+
+/* ── Meta / Author ── */
+.bl-meta{font-size:14px;color:var(--faint);margin-bottom:24px;letter-spacing:0.3px}
+.bl-author{display:flex;align-items:center;gap:14px;padding:16px 0;margin-bottom:32px;border-bottom:1px solid var(--line)}
+.bl-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:17px;flex-shrink:0}
+.bl-aname{font-weight:700;font-size:16px;color:var(--ink)}
+.bl-arole{font-size:13px;color:var(--sub)}
+
+/* ── Headings ── */
+.bl h2{font-size:24px;font-weight:800;color:var(--ink);margin:52px 0 16px;letter-spacing:-0.3px}
+.bl h2::after{content:'';display:block;width:40px;height:3px;background:var(--red);border-radius:2px;margin-top:8px}
+.bl h3{font-size:19px;font-weight:700;color:var(--ink);margin:36px 0 12px}
+.bl-div{border:none;border-top:1px solid var(--line);margin:44px 0}
+
+/* ── Inline code ── */
+.bl code{font-size:14px;background:var(--wash);padding:2px 7px;border-radius:4px;color:var(--red);font-weight:500}
+
+/* ── Code block ── */
+.cd{position:relative;background:var(--code-bg);border-radius:14px;padding:28px 24px;margin:24px 0;font-size:14px;color:var(--code-text);line-height:1.85;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word}
+.cd-label{position:absolute;top:12px;right:16px;font-family:var(--font);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);opacity:0.5}
+.cd .kw{color:var(--kw)}.cd .fn{color:var(--fn)}.cd .str{color:var(--str)}.cd .cm{color:var(--cm);font-style:italic}.cd .num{color:var(--num)}.cd .ret{color:var(--ret);font-weight:600}
+
+/* ── Table ── */
+.tb{width:100%;border-collapse:separate;border-spacing:0;font-size:14.5px;margin:24px 0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.tb th{background:var(--code-bg);color:var(--code-text);padding:12px 16px;text-align:left;font-weight:600;font-size:12px;letter-spacing:0.8px;text-transform:uppercase}
+.tb td{padding:11px 16px;border-top:1px solid var(--line);color:var(--text);vertical-align:top}
+.tb tr:nth-child(even) td{background:var(--paper)}
+
+/* ── Note / Callout ── */
+.nt{padding:18px 20px;margin:24px 0;border-radius:14px;border-left:4px solid var(--line);background:var(--paper)}
+.nt.warn{border-left-color:var(--amber);background:var(--amber-bg)}
+.nt.tip{border-left-color:var(--green);background:var(--green-bg)}
+.nt.info{border-left-color:var(--blue);background:var(--blue-bg)}
+.nt.why{border-left-color:var(--red);background:var(--red-bg)}
+.nt b{font-size:14px;font-weight:700;display:block;margin-bottom:4px;color:var(--ink)}
+.nt p,.nt span{font-size:15px;color:var(--text);line-height:1.65;margin:0}
+
+/* ── Flow / Pipeline ── */
+.fl{display:flex;align-items:stretch;margin:28px auto;max-width:600px}
+.fl-node{flex:1;text-align:center;padding:18px 12px;background:var(--white);border:1px solid var(--line);position:relative}
+.fl-node:first-child{border-radius:14px 0 0 14px}
+.fl-node:last-child{border-radius:0 14px 14px 0}
+.fl-node:not(:last-child){border-right:none}
+.fl-node.hl{background:var(--red-bg);border-color:var(--red-line)}
+.fl-node:not(:first-child)::before{content:'';position:absolute;left:-1px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;border-left:8px solid var(--whisper);z-index:2}
+.fl-node.hl:not(:first-child)::before{border-left-color:var(--red-line)}
+.fl-lbl{font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+.fl-val{font-family:var(--mono);font-size:17px;font-weight:700;color:var(--ink)}
+.fl-node.hl .fl-val{color:var(--red)}
+.fl-sub{font-size:11.5px;color:var(--faint);margin-top:3px}
+
+/* ── Code X-Ray ── */
+.xr{margin:24px 0;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--white)}
+.xr-label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);padding:12px 18px;background:var(--paper);border-bottom:1px solid var(--line)}
+.xr-row{border-bottom:1px solid var(--line);padding:14px 18px}
+.xr-row:last-child{border-bottom:none}
+.xr-code{font-size:14px;color:var(--red);font-weight:600;margin-bottom:6px;overflow-x:auto;white-space:nowrap}
+.xr-note{font-size:14px;color:var(--sub);line-height:1.6;padding-left:12px;border-left:2px solid var(--line)}
+.xr-note::before{content:none}
+
+/* ── VS Cards ── */
+.vs{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0}
+.vs-card{flex:1;min-width:220px;border-radius:14px;padding:20px;border:1px solid var(--line);background:var(--white)}
+.vs-card.pass{border-color:var(--green-line);border-left:4px solid var(--green)}
+.vs-card.fail{border-color:var(--red-line);border-left:4px solid var(--red)}
+.vs-card h4{font-size:11px;font-weight:700;margin:0 0 8px;letter-spacing:0.8px;text-transform:uppercase;color:var(--sub)}
+.vs-card.pass h4{color:var(--green)}
+.vs-card.fail h4{color:var(--red)}
+.vs-card p{font-size:14px;margin:0;line-height:1.6;color:var(--text)}
+
+/* ── Dark Box ── */
+.dk{background:var(--code-bg);border-radius:14px;padding:24px;margin:24px 0;color:var(--code-text)}
+.dk-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--kw);margin-bottom:16px}
+.dk-item{background:var(--code-surface);border-radius:10px;padding:12px 16px;font-size:14px;text-align:center;border:1px solid rgba(255,255,255,0.04)}
+.dk-arrow{color:var(--kw);font-weight:700;font-size:14px;flex-shrink:0}
+
+/* ── Month Strip ── */
+.mo{display:flex;flex-wrap:wrap;gap:4px;margin:20px 0}
+.mo-cell{flex:1;min-width:44px;text-align:center;padding:8px 4px;background:var(--paper);border-radius:10px;border:1px solid var(--line)}
+.mo-cell.hit{background:var(--red-bg);border-color:var(--red);border-width:2px}
+.mo-lbl{font-size:11.5px;color:var(--faint);font-weight:600}
+.mo-val{font-size:13px;color:var(--faint)}
+.mo-cell.hit .mo-lbl,.mo-cell.hit .mo-val{color:var(--red);font-weight:700}
+
+/* ── Log Cards ── */
+.lg{border-radius:14px;margin:14px 0;overflow:hidden;border:1px solid var(--line);background:var(--white)}
+.lg-hd{padding:10px 18px;font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--white);background:var(--code-bg)}
+.lg-body{padding:14px 18px;font-size:15px;line-height:1.9;color:var(--text)}
+.lg-chips{display:flex;flex-wrap:wrap;gap:5px;padding:12px 18px;border-top:1px solid var(--line)}
+.lg-chip{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:13px;color:var(--faint)}
+.lg-chip.hit{background:var(--red-bg);border-color:var(--red);color:var(--red);font-weight:700}
+.lg-result{display:flex;flex-wrap:wrap;gap:8px;padding:14px 18px;border-top:1px solid var(--line)}
+.lg-val{flex:1;min-width:80px;text-align:center;padding:14px 12px;border-radius:12px;background:linear-gradient(135deg,var(--green-bg),#dcfce7)}
+.lg-val-lbl{font-size:10.5px;font-weight:700;letter-spacing:1.2px;color:var(--green);text-transform:uppercase}
+.lg-val-num{font-size:24px;font-weight:700;color:var(--green);margin:2px 0}
+.lg-val-sub{font-size:12px;color:var(--sub)}
+
+/* ── Timeline ── */
+.tl-step{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.tl-step:last-child{border-bottom:none}
+.tl-dot{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;flex-shrink:0}
+.tl-title{font-size:14px;font-weight:700;color:var(--faint);margin-bottom:4px;letter-spacing:0.3px}
+.tl-text{font-size:16px;color:var(--text);line-height:1.65}
+
+/* ── DBI Breakdown ── */
+.dbi-strip{display:flex;align-items:center;gap:3px;flex-wrap:wrap;margin:20px 0}
+.dbi-block{border-radius:10px;padding:10px 16px;text-align:center}
+.dbi-block-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px}
+.dbi-sep{font-size:18px;font-weight:800;color:var(--whisper)}
+
+/* ── Footer ── */
+.bl-footer{display:flex;align-items:center;gap:14px;padding:24px 0;border-top:1px solid var(--line);margin-top:48px}
+.bl-footer-name{font-weight:700;font-size:16px}
+.bl-footer-bio{font-size:13px;color:var(--sub);line-height:1.55}
+</style>
 
 <div class="bl">
 
-
+<!-- Header -->
 <div class="bl-header">
 <div class="bl-header-title">Oracle Fast Formula: Rate Periodization — When the Standard Rate Engine Isn't Enough</div>
 <div class="bl-header-sub">Prorated Employer Contribution with YTD Cap, CHANGE_CONTEXTS Accumulation Loop, and ESS_LOG_WRITE Debug Tracing</div>
@@ -298,14 +439,14 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 FORMULA NAME : XX_HSA_ER_RATE_PERIODIZATION
 FORMULA TYPE : Rate Periodization
 DESCRIPTION  : Prorate HSA ER contribution based on coverage
-               start date. Cap against YTD amounts paid.
+start date. Cap against YTD amounts paid.
 *************************************************************/</span>
 
 <span class="cm">/* -- Inputs -- */</span>
 <span class="kw">INPUTS ARE</span> BEN_IV_CONVERT_FROM_VAL,
-            BEN_IV_CONVERT_FROM (<span class="kw">TEXT</span>),
-            BEN_EPE_IV_ELIG_PER_ELCTBL_CHC_ID,
-            BEN_ABR_IV_ACTY_BASE_RT_ID
+BEN_IV_CONVERT_FROM (<span class="kw">TEXT</span>),
+BEN_EPE_IV_ELIG_PER_ELCTBL_CHC_ID,
+BEN_ABR_IV_ACTY_BASE_RT_ID
 
 <span class="cm">/* -- Defaults -- */</span>
 <span class="kw">DEFAULT FOR</span> BEN_EPE_ENRT_CVG_STRT_DT <span class="kw">IS</span> <span class="str">'1951/01/01 00:00:00'</span> (<span class="kw">DATE</span>)
@@ -321,23 +462,23 @@ l_proration_factor   = <span class="num">0</span>
 
 <span class="cm">/* -- Step 1: Proration Factor -- */</span>
 l_elig_id = <span class="fn">GET_CONTEXT</span>(ELIG_PER_ELCTBL_CHC_ID,
-            BEN_EPE_IV_ELIG_PER_ELCTBL_CHC_ID)
+BEN_EPE_IV_ELIG_PER_ELCTBL_CHC_ID)
 l_acty_id = <span class="fn">GET_CONTEXT</span>(ACTY_BASE_RT_ID,
-            BEN_ABR_IV_ACTY_BASE_RT_ID)
+BEN_ABR_IV_ACTY_BASE_RT_ID)
 
 <span class="kw">CHANGE_CONTEXTS</span>(ELIG_PER_ELCTBL_CHC_ID = l_elig_id)
 (
-  l_cvg_start = BEN_EPE_ENRT_CVG_STRT_DT
-  l_proration_month = <span class="fn">TO_CHAR</span>(l_cvg_start, <span class="str">'MM'</span>)
+l_cvg_start = BEN_EPE_ENRT_CVG_STRT_DT
+l_proration_month = <span class="fn">TO_CHAR</span>(l_cvg_start, <span class="str">'MM'</span>)
 )
 
 l_proration_factor = (l_proration_numerator
-                      - <span class="fn">TO_NUMBER</span>(l_proration_month)) / <span class="num">12</span>
+- <span class="fn">TO_NUMBER</span>(l_proration_month)) / <span class="num">12</span>
 
 <span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
 (
-  l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'Proration month = '</span> || l_proration_month)
-  l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'Proration factor = '</span> || <span class="fn">TO_CHAR</span>(l_proration_factor))
+l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'Proration month = '</span> || l_proration_month)
+l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'Proration factor = '</span> || <span class="fn">TO_CHAR</span>(l_proration_factor))
 )
 
 <span class="cm">/* -- Step 2: YTD Accumulation Loop -- */</span>
@@ -350,80 +491,80 @@ l_comp_date  = <span class="fn">TRUNC</span>(l_start_date, <span class="str">'MM
 
 <span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
 (
-  l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'Hire Date = '</span> || <span class="fn">TO_CHAR</span>(ACP_HIRE_DATE))
-  l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'Plan Year Start = '</span> || <span class="fn">TO_CHAR</span>(l_year_start))
-  l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'First comp date = '</span> || <span class="fn">TO_CHAR</span>(l_comp_date))
+l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'Hire Date = '</span> || <span class="fn">TO_CHAR</span>(ACP_HIRE_DATE))
+l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'Plan Year Start = '</span> || <span class="fn">TO_CHAR</span>(l_year_start))
+l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'First comp date = '</span> || <span class="fn">TO_CHAR</span>(l_comp_date))
 )
 
 <span class="kw">WHILE</span> ((l_comp_date <= l_year_end) <span class="kw">AND</span> (l_count < <span class="num">13</span>)) <span class="kw">LOOP</span>
 (
-  <span class="kw">CHANGE_CONTEXTS</span>(EFFECTIVE_DATE = l_comp_date,
-                  ACTY_BASE_RT_ID = l_acty_id)
-  (
-    <span class="kw">IF</span> XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE > <span class="num">0</span> <span class="kw">THEN</span>
-    (
-      l_total_er = l_total_er
-                 + XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE
+<span class="kw">CHANGE_CONTEXTS</span>(EFFECTIVE_DATE = l_comp_date,
+ACTY_BASE_RT_ID = l_acty_id)
+(
+<span class="kw">IF</span> XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE > <span class="num">0</span> <span class="kw">THEN</span>
+(
+l_total_er = l_total_er
++ XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE
 
-      <span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
-      (
-        l_log = <span class="fn">ESS_LOG_WRITE</span>(
-          <span class="str">'Found ER on '</span> || <span class="fn">TO_CHAR</span>(l_comp_date)
-          || <span class="str">' | running total = '</span>
-          || <span class="fn">TO_CHAR</span>(l_total_er))
-      )
-    )
-  )
-
-  <span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
-  (
-    l_log = <span class="fn">ESS_LOG_WRITE</span>(
-      <span class="str">'ER total = '</span> || <span class="fn">TO_CHAR</span>(l_total_er)
-      || <span class="str">' : comp date = '</span> || <span class="fn">TO_CHAR</span>(l_comp_date))
-  )
-
-  l_comp_date = <span class="fn">ADD_MONTHS</span>(l_comp_date, <span class="num">1</span>)
-  l_count = l_count + <span class="num">1</span>
+<span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
+(
+l_log = <span class="fn">ESS_LOG_WRITE</span>(
+<span class="str">'Found ER on '</span> || <span class="fn">TO_CHAR</span>(l_comp_date)
+|| <span class="str">' | running total = '</span>
+|| <span class="fn">TO_CHAR</span>(l_total_er))
+)
+)
 )
 
 <span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
 (
-  l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'Total HSA ER YTD = '</span> || <span class="fn">TO_CHAR</span>(l_total_er))
+l_log = <span class="fn">ESS_LOG_WRITE</span>(
+<span class="str">'ER total = '</span> || <span class="fn">TO_CHAR</span>(l_total_er)
+|| <span class="str">' : comp date = '</span> || <span class="fn">TO_CHAR</span>(l_comp_date))
+)
+
+l_comp_date = <span class="fn">ADD_MONTHS</span>(l_comp_date, <span class="num">1</span>)
+l_count = l_count + <span class="num">1</span>
+)
+
+<span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
+(
+l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'Total HSA ER YTD = '</span> || <span class="fn">TO_CHAR</span>(l_total_er))
 )
 
 <span class="cm">/* -- Step 3: Cap + Split -- */</span>
 l_prorated_entitlement = <span class="fn">ROUND</span>(
-  BEN_IV_CONVERT_FROM_VAL * l_proration_factor, <span class="num">2</span>)
+BEN_IV_CONVERT_FROM_VAL * l_proration_factor, <span class="num">2</span>)
 
 <span class="kw">IF</span> l_prorated_entitlement <= l_total_er <span class="kw">THEN</span>
 (
-  ANN_VAL  = <span class="num">0</span>
-  DFND_VAL = <span class="num">0</span>
-  CMCD_VAL = <span class="num">0</span>
+ANN_VAL  = <span class="num">0</span>
+DFND_VAL = <span class="num">0</span>
+CMCD_VAL = <span class="num">0</span>
 
-  <span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
-  (
-    l_log = <span class="fn">ESS_LOG_WRITE</span>(
-      <span class="str">'CAP: entitlement ('</span>
-      || <span class="fn">TO_CHAR</span>(l_prorated_entitlement)
-      || <span class="str">') <= YTD ('</span>
-      || <span class="fn">TO_CHAR</span>(l_total_er)
-      || <span class="str">'). Zeroed.'</span>)
-  )
+<span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
+(
+l_log = <span class="fn">ESS_LOG_WRITE</span>(
+<span class="str">'CAP: entitlement ('</span>
+|| <span class="fn">TO_CHAR</span>(l_prorated_entitlement)
+|| <span class="str">') <= YTD ('</span>
+|| <span class="fn">TO_CHAR</span>(l_total_er)
+|| <span class="str">'). Zeroed.'</span>)
+)
 )
 <span class="kw">ELSE</span>
 (
-  l_balance = l_prorated_entitlement - l_total_er
-  ANN_VAL   = l_balance
-  DFND_VAL  = <span class="fn">ROUND</span>(l_balance / <span class="num">12</span>, <span class="num">2</span>)
-  CMCD_VAL  = <span class="fn">ROUND</span>(l_balance / l_pays, <span class="num">2</span>)
+l_balance = l_prorated_entitlement - l_total_er
+ANN_VAL   = l_balance
+DFND_VAL  = <span class="fn">ROUND</span>(l_balance / <span class="num">12</span>, <span class="num">2</span>)
+CMCD_VAL  = <span class="fn">ROUND</span>(l_balance / l_pays, <span class="num">2</span>)
 )
 
 <span class="kw">IF</span> l_debug = <span class="str">'Y'</span> <span class="kw">THEN</span>
 (
-  l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'ANN_VAL  = '</span> || <span class="fn">TO_CHAR</span>(ANN_VAL))
-  l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'DFND_VAL = '</span> || <span class="fn">TO_CHAR</span>(DFND_VAL))
-  l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'CMCD_VAL = '</span> || <span class="fn">TO_CHAR</span>(CMCD_VAL))
+l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'ANN_VAL  = '</span> || <span class="fn">TO_CHAR</span>(ANN_VAL))
+l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'DFND_VAL = '</span> || <span class="fn">TO_CHAR</span>(DFND_VAL))
+l_log = <span class="fn">ESS_LOG_WRITE</span>(<span class="str">'CMCD_VAL = '</span> || <span class="fn">TO_CHAR</span>(CMCD_VAL))
 )
 
 <span class="ret">RETURN</span> DFND_VAL, ANN_VAL, CMCD_VAL</div>
@@ -434,14 +575,14 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 
 <p>Now let's go through each section of the formula in detail. This is where the technical decisions live.</p>
 
-
+<!-- ===== BLOCK 1 ===== -->
 <h3>Block 1 — Inputs and Defaults</h3>
 
 <div class="cd"><span class="cm">/* -- Inputs -- */</span>
 <span class="kw">INPUTS ARE</span> BEN_IV_CONVERT_FROM_VAL,
-            BEN_IV_CONVERT_FROM (<span class="kw">TEXT</span>),
-            BEN_EPE_IV_ELIG_PER_ELCTBL_CHC_ID,
-            BEN_ABR_IV_ACTY_BASE_RT_ID
+BEN_IV_CONVERT_FROM (<span class="kw">TEXT</span>),
+BEN_EPE_IV_ELIG_PER_ELCTBL_CHC_ID,
+BEN_ABR_IV_ACTY_BASE_RT_ID
 
 <span class="cm">/* -- Defaults -- */</span>
 <span class="kw">DEFAULT FOR</span> BEN_EPE_ENRT_CVG_STRT_DT <span class="kw">IS</span> <span class="str">'1951/01/01 00:00:00'</span> (<span class="kw">DATE</span>)
@@ -480,7 +621,7 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 <p>It's not random. If the context can't resolve the coverage start date (maybe the election was voided), the default kicks in. <code>TO_CHAR('1951/01/01', 'MM')</code> = <code>'01'</code>. The proration formula becomes <code>(13 - 1) / 12 = 1.0</code> — full annual amount. That's the safest fallback: give the employee the full entitlement rather than zero. You'd rather overpay and correct than underpay and have an angry employee. Any date in January of any year would work — 1951 is just obviously not a real date, so it's easy to spot in logs.</p>
 </div>
 
-
+<!-- ===== CONTEXT CONCEPT ===== -->
 <h3>Before Block 2 — Understanding Contexts</h3>
 
 <p>Block 2 uses <code>GET_CONTEXT</code> and <code>CHANGE_CONTEXTS</code>. If you're coming from a functional background or from Payroll/Absence formulas where you rarely touch contexts directly, this is the concept you need.</p>
@@ -491,12 +632,12 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 
 <p>Here are the contexts this formula uses and what each one means in plain English:</p>
 
-
+<!-- Context cards -->
 <div style="margin:24px 0;">
 
 <div style="background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:10px;">
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-<code style="font-size:15px;font-weight:700;">EFFECTIVE_DATE</code>
+<code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">EFFECTIVE_DATE</code>
 <span style="font-size:11px;font-weight:600;color:var(--faint);background:var(--white);padding:3px 10px;border-radius:100px;border:1px solid var(--line);">Engine (auto)</span>
 </div>
 <p style="margin:0;font-size:15px;color:var(--text);line-height:1.6;">The "as of" date. Every DBI reads data as of this date. Change it, and the same DBI returns a different value. <strong>In this formula:</strong> shifted inside the WHILE loop to move month by month.</p>
@@ -504,7 +645,7 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 
 <div style="background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:10px;">
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-<code style="font-size:15px;font-weight:700;">PERSON_ID</code>
+<code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">PERSON_ID</code>
 <span style="font-size:11px;font-weight:600;color:var(--faint);background:var(--white);padding:3px 10px;border-radius:100px;border:1px solid var(--line);">Engine (auto)</span>
 </div>
 <p style="margin:0;font-size:15px;color:var(--text);line-height:1.6;">Which employee. All person-level DBIs resolve against this. <strong>In this formula:</strong> used implicitly — the hire date DBI reads against this.</p>
@@ -512,7 +653,7 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 
 <div style="background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:10px;">
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-<code style="font-size:15px;font-weight:700;">HR_ASSIGNMENT_ID</code>
+<code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">HR_ASSIGNMENT_ID</code>
 <span style="font-size:11px;font-weight:600;color:var(--faint);background:var(--white);padding:3px 10px;border-radius:100px;border:1px solid var(--line);">Engine (auto)</span>
 </div>
 <p style="margin:0;font-size:15px;color:var(--text);line-height:1.6;">Which assignment. An employee can have multiple assignments (multiple jobs). This pins the formula to one. <strong>In this formula:</strong> element entry DBIs resolve against this.</p>
@@ -520,7 +661,7 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 
 <div style="background:var(--red-bg);border:1.5px solid var(--red-line);border-radius:12px;padding:18px 20px;margin-bottom:10px;">
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-<code style="font-size:14px;font-weight:700;">ELIG_PER_ELCTBL_CHC_ID</code>
+<code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">ELIG_PER_ELCTBL_CHC_ID</code>
 <span style="font-size:11px;font-weight:600;color:var(--red);background:var(--white);padding:3px 10px;border-radius:100px;border:1px solid var(--red-line);">Formula sets</span>
 </div>
 <p style="margin:0;font-size:15px;color:var(--text);line-height:1.6;">Which <strong>election choice</strong>. During enrollment, an employee can have multiple electable options (EE-only, EE+Spouse, EE+Family). Each has its own coverage start date and rate. This context tells the DBI which specific election to read from. <strong>In this formula:</strong> Step 1 — to read the coverage start date for proration.</p>
@@ -528,7 +669,7 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 
 <div style="background:var(--red-bg);border:1.5px solid var(--red-line);border-radius:12px;padding:18px 20px;margin-bottom:10px;">
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-<code style="font-size:15px;font-weight:700;">ACTY_BASE_RT_ID</code>
+<code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">ACTY_BASE_RT_ID</code>
 <span style="font-size:11px;font-weight:600;color:var(--red);background:var(--white);padding:3px 10px;border-radius:100px;border:1px solid var(--red-line);">Formula sets</span>
 </div>
 <p style="margin:0;font-size:15px;color:var(--text);line-height:1.6;">Which <strong>rate activity</strong>. A plan can have multiple rates — ER rate, EE rate, imputed income rate. Each creates its own element entry. This context tells the DBI which specific rate's element entry to read. <strong>In this formula:</strong> Step 2 — inside the WHILE loop to read the ER contribution entry, not the EE or any other rate's entry.</p>
@@ -536,7 +677,7 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 
 <div style="background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;">
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-<code style="font-size:14px;font-weight:700;">PGM_ID, PL_ID, PL_TYP_ID, LER_ID</code>
+<code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">PGM_ID, PL_ID, PL_TYP_ID, LER_ID</code>
 <span style="font-size:11px;font-weight:600;color:var(--faint);background:var(--white);padding:3px 10px;border-radius:100px;border:1px solid var(--line);">Engine (auto)</span>
 </div>
 <p style="margin:0;font-size:15px;color:var(--text);line-height:1.6;">Program, plan, plan type, life event reason. These narrow the Benefits scope. Available but not directly referenced in this formula.</p>
@@ -552,23 +693,23 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 
 <p>With that foundation, Block 2 should make sense. Two <code>GET_CONTEXT</code> calls capture the IDs. Then <code>CHANGE_CONTEXTS</code> uses them to shift into the right scope before reading data.</p>
 
-
+<!-- ===== BLOCK 2 ===== -->
 <h3>Block 2 — Proration (Step 1)</h3>
 
 <div class="cd"><span class="cm">/* -- Step 1: Proration Factor -- */</span>
 l_elig_id = <span class="fn">GET_CONTEXT</span>(ELIG_PER_ELCTBL_CHC_ID,
-            BEN_EPE_IV_ELIG_PER_ELCTBL_CHC_ID)
+BEN_EPE_IV_ELIG_PER_ELCTBL_CHC_ID)
 l_acty_id = <span class="fn">GET_CONTEXT</span>(ACTY_BASE_RT_ID,
-            BEN_ABR_IV_ACTY_BASE_RT_ID)
+BEN_ABR_IV_ACTY_BASE_RT_ID)
 
 <span class="kw">CHANGE_CONTEXTS</span>(ELIG_PER_ELCTBL_CHC_ID = l_elig_id)
 (
-  l_cvg_start = BEN_EPE_ENRT_CVG_STRT_DT
-  l_proration_month = <span class="fn">TO_CHAR</span>(l_cvg_start, <span class="str">'MM'</span>)
+l_cvg_start = BEN_EPE_ENRT_CVG_STRT_DT
+l_proration_month = <span class="fn">TO_CHAR</span>(l_cvg_start, <span class="str">'MM'</span>)
 )
 
 l_proration_factor = (l_proration_numerator
-                      - <span class="fn">TO_NUMBER</span>(l_proration_month)) / <span class="num">12</span></div>
+- <span class="fn">TO_NUMBER</span>(l_proration_month)) / <span class="num">12</span></div>
 
 <p>This block does three things: captures context IDs, reads the coverage start date, and computes the proration factor.</p>
 
@@ -606,7 +747,7 @@ l_proration_factor = (l_proration_numerator
 <p><code>BEN_EPE_ENRT_CVG_STRT_DT</code> hits its default: <code>'1951/01/01'</code>. Month = 01. Factor = (13−1)/12 = 1.0. Every employee gets the full annual amount with no proration. The formula runs without errors — it just gives wrong results. This is the worst kind of bug because it's silent. The only way to catch it is to check the ESS log and see <code>Proration month = 01</code> for someone who enrolled in July.</p>
 </div>
 
-
+<!-- ===== BLOCK 3 ===== -->
 <h3>Block 3 — YTD Accumulation Loop (Step 2)</h3>
 
 <p>This is the heart of the formula. It answers one question: <strong>how much has the employer already deposited into this employee's HSA this year?</strong></p>
@@ -640,17 +781,17 @@ l_comp_date  = <span class="fn">TRUNC</span>(l_start_date, <span class="str">'MM
 
 <div class="cd"><span class="kw">WHILE</span> ((l_comp_date <= l_year_end) <span class="kw">AND</span> (l_count < <span class="num">13</span>)) <span class="kw">LOOP</span>
 (
-  <span class="kw">CHANGE_CONTEXTS</span>(EFFECTIVE_DATE = l_comp_date,
-                  ACTY_BASE_RT_ID = l_acty_id)
-  (
-    <span class="kw">IF</span> XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE > <span class="num">0</span> <span class="kw">THEN</span>
-    (
-      l_total_er = l_total_er
-                 + XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE
-    )
-  )
-  l_comp_date = <span class="fn">ADD_MONTHS</span>(l_comp_date, <span class="num">1</span>)
-  l_count = l_count + <span class="num">1</span>
+<span class="kw">CHANGE_CONTEXTS</span>(EFFECTIVE_DATE = l_comp_date,
+ACTY_BASE_RT_ID = l_acty_id)
+(
+<span class="kw">IF</span> XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE > <span class="num">0</span> <span class="kw">THEN</span>
+(
+l_total_er = l_total_er
++ XX_HSA_ER_CONTRIBUTION_AMT_REL_ENTRY_VALUE
+)
+)
+l_comp_date = <span class="fn">ADD_MONTHS</span>(l_comp_date, <span class="num">1</span>)
+l_count = l_count + <span class="num">1</span>
 )</div>
 
 <p>Let's trace through what happens on each iteration for Sarah:</p>
@@ -702,25 +843,25 @@ l_comp_date  = <span class="fn">TRUNC</span>(l_start_date, <span class="str">'MM
 <p><code>CHANGE_CONTEXTS</code> only applies inside its parentheses block. Once the closing <code>)</code> is reached, the context reverts to whatever it was before. You don't need to manually reset it. This is why the <code>ADD_MONTHS</code> and <code>l_count</code> increments are safely placed after the block — they execute with the original context, not the shifted one.</p>
 </div>
 
-
+<!-- ===== BLOCK 4 ===== -->
 <h3>Block 4 — Cap and Split (Step 3)</h3>
 
 <div class="cd"><span class="cm">/* -- Step 3: Cap + Split -- */</span>
 l_prorated_entitlement = <span class="fn">ROUND</span>(
-  BEN_IV_CONVERT_FROM_VAL * l_proration_factor, <span class="num">2</span>)
+BEN_IV_CONVERT_FROM_VAL * l_proration_factor, <span class="num">2</span>)
 
 <span class="kw">IF</span> l_prorated_entitlement <= l_total_er <span class="kw">THEN</span>
 (
-  ANN_VAL  = <span class="num">0</span>
-  DFND_VAL = <span class="num">0</span>
-  CMCD_VAL = <span class="num">0</span>
+ANN_VAL  = <span class="num">0</span>
+DFND_VAL = <span class="num">0</span>
+CMCD_VAL = <span class="num">0</span>
 )
 <span class="kw">ELSE</span>
 (
-  l_balance = l_prorated_entitlement - l_total_er
-  ANN_VAL   = l_balance
-  DFND_VAL  = <span class="fn">ROUND</span>(l_balance / <span class="num">12</span>, <span class="num">2</span>)
-  CMCD_VAL  = <span class="fn">ROUND</span>(l_balance / l_pays, <span class="num">2</span>)
+l_balance = l_prorated_entitlement - l_total_er
+ANN_VAL   = l_balance
+DFND_VAL  = <span class="fn">ROUND</span>(l_balance / <span class="num">12</span>, <span class="num">2</span>)
+CMCD_VAL  = <span class="fn">ROUND</span>(l_balance / l_pays, <span class="num">2</span>)
 )
 
 <span class="ret">RETURN</span> DFND_VAL, ANN_VAL, CMCD_VAL</div>

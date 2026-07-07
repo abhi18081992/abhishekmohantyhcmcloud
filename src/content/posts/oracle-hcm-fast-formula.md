@@ -1,8 +1,10 @@
 ---
 title: "Oracle HCM Fast Formula Series:GET_CONTEXT and CHANGE_CONTEXTS: The Two Context Statements You Actually Need"
-description: "Fast Formula Context Handling Intermediate Verified Oracle Fast Formula: GET_CONTEXT and CHANGE_CONTEXTS — The Two Context Statements You Actually Need April 2026 · 10 min read · Oracle HCM Cloud Orac"
 pubDate: 2026-04-12
+description: "Oracle HCM Fast Formula Series:GET_CONTEXT and CHANGE_CONTEXTS: The Two Context Statements You Actually Need"
 tags: ["Fast Formula", "Oracle HCM Cloud"]
+author: "Abhishek Mohanty"
+draft: false
 ---
 
 <div style="margin:12px 0 18px;line-height:2.4"><span style="display:inline-block;color:#fff;padding:10px 22px;font-size:13px;font-weight:700;margin:0 8px 8px 0;border-radius:0;text-transform:uppercase;letter-spacing:0.12em;background:#b8372a">Fast Formula</span><span style="display:inline-block;color:#fff;padding:10px 22px;font-size:13px;font-weight:700;margin:0 8px 8px 0;border-radius:0;text-transform:uppercase;letter-spacing:0.12em;background:#d87f1a">Context Handling</span><span style="display:inline-block;color:#fff;padding:10px 22px;font-size:13px;font-weight:700;margin:0 8px 8px 0;border-radius:0;text-transform:uppercase;letter-spacing:0.12em;background:#8e44ad">Intermediate</span><span style="display:inline-block;color:#fff;padding:10px 22px;font-size:13px;font-weight:700;margin:0 8px 8px 0;border-radius:0;text-transform:uppercase;letter-spacing:0.12em;background:#1f2a36">Verified</span></div>
@@ -17,11 +19,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud"]
 <hr style="border:none;border-top:1px solid #e5e5e5;margin:34px 0">
 
 <h2 style="font-size:22px;font-weight:700;margin:40px 0 14px;color:#1a1a1a">How a DBI Reference Becomes a SQL Query</h2>
-<p>Every time you write <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">l_name = PER_PER_FULL_NAME</code>, five things happen in sequence. The calling application populates the context layer. Your DBI reference triggers a route lookup. The route builds SQL. The contexts bind into that SQL as <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">:PID</code> and <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">:EFF</code>. The database returns a value.</p>
+<p>Every time you write <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">l_name = PER_PER_FULL_NAME</code>, five things happen in sequence. The calling application populates the context layer. Your DBI reference triggers a route lookup. The route builds SQL. The contexts bind into that SQL as <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">:PID</code> and <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">:EFF</code>. The database returns a value.</p>
 
-<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center">
-<img src="/diagrams/oracle-hcm-fast-formula-fig1.png" alt="Figure 1" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-<div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 1 — Contexts act as SQL bind variables between your formula and the database</div></div>
+<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center"><img src="/images/posts/oracle-hcm-fast-formula/diagram-1.png" alt="Diagram 1: Oracle HCM Fast Formula Series:GET_CONTEXT and CHANGE_CONTEX" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" /><div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 1 — Contexts act as SQL bind variables between your formula and the database</div></div>
 
 <p>This happens thousands of times per formula run, invisible to you — and it's why context statements matter. They're the only way to inspect or manipulate the bind-variable layer. Two statements do the real work: GET_CONTEXT reads, CHANGE_CONTEXTS writes.</p>
 
@@ -31,9 +31,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud"]
 
 <p>The first question developers ask: if GET_CONTEXT reads the current value and CHANGE_CONTEXTS overrides it, why not use just one of them? Because they solve opposite problems. One captures the state the engine injected. The other temporarily substitutes different state so your DBIs can resolve data from a different viewpoint.</p>
 
-<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center">
-<img src="/diagrams/oracle-hcm-fast-formula-fig2.png" alt="Figure 2" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-<div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 2 — GET_CONTEXT pulls the current value out. CHANGE_CONTEXTS pushes a new value in (scoped).</div></div>
+<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center"><img src="/images/posts/oracle-hcm-fast-formula/diagram-2.png" alt="Diagram 2: Oracle HCM Fast Formula Series:GET_CONTEXT and CHANGE_CONTEX" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" /><div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 2 — GET_CONTEXT pulls the current value out. CHANGE_CONTEXTS pushes a new value in (scoped).</div></div>
 
 <p>The rest of this post walks through each statement in depth, then puts them together in an end-to-end example from absence management.</p>
 
@@ -41,13 +39,13 @@ tags: ["Fast Formula", "Oracle HCM Cloud"]
 
 <h2 style="font-size:22px;font-weight:700;margin:40px 0 14px;color:#1a1a1a">GET_CONTEXT — Reading the Engine's Current State</h2>
 
-<p>GET_CONTEXT takes two arguments: the context name (unquoted) and a typed default that matches the context's data type. Use <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">0</code> for numbers, <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">' '</code> for text, <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">'4712/12/31 00:00:00' (date)</code> for dates. Forget the default and the formula won't compile.</p>
+<p>GET_CONTEXT takes two arguments: the context name (unquoted) and a typed default that matches the context's data type. Use <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">0</code> for numbers, <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">' '</code> for text, <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">'4712/12/31 00:00:00' (date)</code> for dates. Forget the default and the formula won't compile.</p>
 
 <p>The returned value lives in your local variable from that point until you overwrite it. GET_CONTEXT is purely a reader — it never modifies the context layer, so it's safe to call repeatedly and in any order.</p>
 
 <h3 style="font-size:16px;font-weight:700;margin:22px 0 10px;color:#1a1a1a;font-style:italic">Real Example — Capturing contexts at the top of a formula</h3>
 
-<pre style="background:#f8f8f8;color:#222;padding:12px 16px;border:1px solid #ddd;border-left:3px solid #888;font-family:Consolas,monospace;font-size:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word;margin:14px 0;max-width:100%;box-sizing:border-box">l_person_id = GET_CONTEXT(PERSON_ID, 0)
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px">l_person_id = GET_CONTEXT(PERSON_ID, 0)
 l_asg_id    = GET_CONTEXT(HR_ASSIGNMENT_ID, 0)
 l_eff_dt    = GET_CONTEXT(EFFECTIVE_DATE, '4712/12/31 00:00:00' (date))</pre>
 
@@ -59,7 +57,7 @@ l_eff_dt    = GET_CONTEXT(EFFECTIVE_DATE, '4712/12/31 00:00:00' (date))</pre>
 
 <p>CHANGE_CONTEXTS temporarily overrides one or more context values inside a scoped block. Every DBI fetch and function call that runs inside the block uses the overridden values. The moment execution exits the closing parenthesis, the context layer reverts to whatever it was before. You never write restore code — the engine handles it.</p>
 
-<pre style="background:#f8f8f8;color:#222;padding:12px 16px;border:1px solid #ddd;border-left:3px solid #888;font-family:Consolas,monospace;font-size:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word;margin:14px 0;max-width:100%;box-sizing:border-box">CHANGE_CONTEXTS(PERSON_ID = l_mgr_pid, EFFECTIVE_DATE = l_target_date)
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px">CHANGE_CONTEXTS(PERSON_ID = l_mgr_pid, EFFECTIVE_DATE = l_target_date)
 (
   /* Inside this block, all DBIs resolve for the manager as of target date */
   l_mgr_name      = PER_PER_FULL_NAME
@@ -69,7 +67,7 @@ l_eff_dt    = GET_CONTEXT(EFFECTIVE_DATE, '4712/12/31 00:00:00' (date))</pre>
 
 <h3 style="font-size:16px;font-weight:700;margin:22px 0 10px;color:#1a1a1a;font-style:italic">About the brackets — read carefully</h3>
 
-<p>Without parentheses, CHANGE_CONTEXTS applies its override to exactly the next single statement. It does not silently fail. It just scopes very narrowly. The moment you have two or more statements that need the new context, you must enclose them in <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">( )</code>. In practice, always use brackets. Single-statement scoping is a trap that breaks the instant someone adds a second line.</p>
+<p>Without parentheses, CHANGE_CONTEXTS applies its override to exactly the next single statement. It does not silently fail. It just scopes very narrowly. The moment you have two or more statements that need the new context, you must enclose them in <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">( )</code>. In practice, always use brackets. Single-statement scoping is a trap that breaks the instant someone adds a second line.</p>
 
 <h3 style="font-size:16px;font-weight:700;margin:22px 0 10px;color:#1a1a1a;font-style:italic">Combine, don't nest</h3>
 
@@ -92,7 +90,7 @@ l_eff_dt    = GET_CONTEXT(EFFECTIVE_DATE, '4712/12/31 00:00:00' (date))</pre>
 
 <p>The client policy: when an employee applies for Compassionate Leave, verify that the line manager has been employed for at least 90 days as of the absence start date. If the manager is too new, reject the submission with an informative message so BPM approval routing can re-route the request through the skip-level chain.</p>
 
-<p>This is a <strong>Global Absence Entry Validation</strong> formula. The calling application sets PERSON_ID, HR_ASSIGNMENT_ID, and EFFECTIVE_DATE contexts automatically, plus a set of standard input values (IV_START_DATE, IV_END_DATE, IV_ABSENCE_TYPE_ID, and others) passed into the formula. The contract with the engine is strict: the formula must return exactly two predefined variables — <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">VALID</code> (<code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">'Y'</code> or <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">'N'</code>) and <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">ERROR_MESSAGE</code> (the text shown to the user on rejection). Everything else is your own logic.</p>
+<p>This is a <strong>Global Absence Entry Validation</strong> formula. The calling application sets PERSON_ID, HR_ASSIGNMENT_ID, and EFFECTIVE_DATE contexts automatically, plus a set of standard input values (IV_START_DATE, IV_END_DATE, IV_ABSENCE_TYPE_ID, and others) passed into the formula. The contract with the engine is strict: the formula must return exactly two predefined variables — <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">VALID</code> (<code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">'Y'</code> or <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">'N'</code>) and <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">ERROR_MESSAGE</code> (the text shown to the user on rejection). Everything else is your own logic.</p>
 
 <p>We need the manager's hire date — but the manager's data sits behind a different PERSON_ID than the one the engine injected. That's exactly what CHANGE_CONTEXTS exists for. We also need to read the hire date <em>as of the absence start date</em>, not as of today — which means overriding EFFECTIVE_DATE inside the same block.</p>
 
@@ -107,7 +105,7 @@ l_eff_dt    = GET_CONTEXT(EFFECTIVE_DATE, '4712/12/31 00:00:00' (date))</pre>
 
 <h3 style="font-size:16px;font-weight:700;margin:22px 0 10px;color:#1a1a1a;font-style:italic">Real Example — XX_COMPASSIONATE_LV_ENTRY_VAL</h3>
 
-<pre style="background:#f8f8f8;color:#222;padding:12px 16px;border:1px solid #ddd;border-left:3px solid #888;font-family:Consolas,monospace;font-size:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word;margin:14px 0;max-width:100%;box-sizing:border-box">/******************************************************
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px">/******************************************************
  * FORMULA : XX_COMPASSIONATE_LV_ENTRY_VAL
  * TYPE    : Global Absence Entry Validation
  * RETURNS : VALID ('Y'/'N') + ERROR_MESSAGE (text)
@@ -178,17 +176,13 @@ ELSE
 
 RETURN VALID, ERROR_MESSAGE</pre>
 
-<p><strong>Why the EFFECTIVE_DATE override matters.</strong> The engine-injected EFFECTIVE_DATE is the date the user hit Submit, but the business rule cares about the absence start date — passed in as <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">IV_START_DATE</code>. Switching EFFECTIVE_DATE to IV_START_DATE inside the CHANGE_CONTEXTS block ensures the manager's hire-date DBI resolves as of the leave start date — exactly the moment we care about for the 90-day rule. Both overrides happen in a single CHANGE_CONTEXTS call, following the combine-don't-nest best practice.</p>
+<p><strong>Why the EFFECTIVE_DATE override matters.</strong> The engine-injected EFFECTIVE_DATE is the date the user hit Submit, but the business rule cares about the absence start date — passed in as <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">IV_START_DATE</code>. Switching EFFECTIVE_DATE to IV_START_DATE inside the CHANGE_CONTEXTS block ensures the manager's hire-date DBI resolves as of the leave start date — exactly the moment we care about for the 90-day rule. Both overrides happen in a single CHANGE_CONTEXTS call, following the combine-don't-nest best practice.</p>
 
-<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center">
-<img src="/diagrams/oracle-hcm-fast-formula-fig3.png" alt="Figure 3" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-<div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 3 — Manager hired Nov 2, 2025. As of the submission date the tenure is 64 days; as of the absence start date it's 100 days. The business rule cares about the latter.</div></div>
+<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center"><img src="/images/posts/oracle-hcm-fast-formula/diagram-3.png" alt="Diagram 3: Oracle HCM Fast Formula Series:GET_CONTEXT and CHANGE_CONTEX" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" /><div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 3 — Manager hired Nov 2, 2025. As of the submission date the tenure is 64 days; as of the absence start date it's 100 days. The business rule cares about the latter.</div></div>
 
-<p><strong>Why the formula rejects instead of routing.</strong> Global Absence Entry Validation has a strict binary contract: <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">VALID = 'Y'</code> lets the submission proceed, <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">VALID = 'N'</code> blocks it and shows <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">ERROR_MESSAGE</code> to the user. The formula cannot re-route the request on its own — that's what BPM approval rules are for. The correct pattern is: reject with a clear message, and configure the BPM approval rule to recognise the rejection and trigger the skip-level routing. Trying to route from inside the formula itself is a category error that breaks the formula-type contract.</p>
+<p><strong>Why the formula rejects instead of routing.</strong> Global Absence Entry Validation has a strict binary contract: <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">VALID = 'Y'</code> lets the submission proceed, <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">VALID = 'N'</code> blocks it and shows <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">ERROR_MESSAGE</code> to the user. The formula cannot re-route the request on its own — that's what BPM approval rules are for. The correct pattern is: reject with a clear message, and configure the BPM approval rule to recognise the rejection and trigger the skip-level routing. Trying to route from inside the formula itself is a category error that breaks the formula-type contract.</p>
 
-<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center">
-<img src="/diagrams/oracle-hcm-fast-formula-fig4.png" alt="Figure 4" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-<div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 4 — Formula returns VALID / ERROR_MESSAGE. BPM reads the rejection and handles routing separately.</div></div>
+<div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center"><img src="/images/posts/oracle-hcm-fast-formula/diagram-4.png" alt="Diagram 4: Oracle HCM Fast Formula Series:GET_CONTEXT and CHANGE_CONTEX" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" /><div style="font-size:12px;color:#777;font-style:italic;margin-top:12px;text-align:center">Fig 4 — Formula returns VALID / ERROR_MESSAGE. BPM reads the rejection and handles routing separately.</div></div>
 
 <hr style="border:none;border-top:1px solid #e5e5e5;margin:34px 0">
 
@@ -206,7 +200,7 @@ RETURN VALID, ERROR_MESSAGE</pre>
 
 <h2 style="font-size:22px;font-weight:700;margin:40px 0 14px;color:#1a1a1a">A brief mention — CONTEXT_IS_SET</h2>
 
-<p>For completeness: Oracle Fast Formula also exposes a third context-handling statement called <code style="background:#f0f0f0;padding:2px 6px;border-radius:2px;font-family:Consolas,monospace;font-size:13px;color:#c0392b">CONTEXT_IS_SET(name)</code>. It takes a single argument and returns TRUE or FALSE depending on whether the calling application populated the context. It's narrower in scope than GET_CONTEXT and CHANGE_CONTEXTS — most production formulas never need it — but it's worth knowing the keyword exists so you recognise it in legacy code. The practical rule: if your formula type supports a given context, the calling application will set it; if it doesn't support that context, CHANGE_CONTEXTS is how you provide a value. CONTEXT_IS_SET fills the narrow gap where you need to distinguish "set to zero" from "never set at all" — a distinction that matters in a small number of edge cases, typically around optional plan or payroll contexts.</p>
+<p>For completeness: Oracle Fast Formula also exposes a third context-handling statement called <code style="background:#3a352f;color:#e8944f;padding:2px 7px;border-radius:3px;font-size:13px;font-family:Consolas,'JetBrains Mono',monospace">CONTEXT_IS_SET(name)</code>. It takes a single argument and returns TRUE or FALSE depending on whether the calling application populated the context. It's narrower in scope than GET_CONTEXT and CHANGE_CONTEXTS — most production formulas never need it — but it's worth knowing the keyword exists so you recognise it in legacy code. The practical rule: if your formula type supports a given context, the calling application will set it; if it doesn't support that context, CHANGE_CONTEXTS is how you provide a value. CONTEXT_IS_SET fills the narrow gap where you need to distinguish "set to zero" from "never set at all" — a distinction that matters in a small number of edge cases, typically around optional plan or payroll contexts.</p>
 
 <hr style="border:none;border-top:1px solid #e5e5e5;margin:34px 0">
 

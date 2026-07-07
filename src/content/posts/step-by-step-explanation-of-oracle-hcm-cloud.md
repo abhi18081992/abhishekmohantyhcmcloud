@@ -8,8 +8,6 @@ draft: false
 ---
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap");
-
 @media (prefers-color-scheme: dark) {
 .hdl-blog { background: #12131A !important; color: #C8C9D4 !important; }
 .hdl-blog p, .hdl-blog li { color: #C8C9D4 !important; }
@@ -2428,7 +2426,7 @@ MERGE     ElementEntry  222  22-09-2019  Dental EE Deduct   123141402554    H   
 <pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px"><span style="color:#D4622B;font-weight:700;">ELEMENT_ENTRY_ID  PERSON_ID  ELEMENT_TYPE_ID         EFFECTIVE_START_DATE  MULTIPLE_ENTRY_COUNT  ENTRY_TYPE</span>
 300000012345      100045     50001 (Dental EE Ded)   01-Oct-2024           <span style="color:#D4622B;font-weight:700;">1</span>                     E</pre>
 </div>
-</div>https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap");
+</div>
 
 @media (prefers-color-scheme: dark) {
 .hdl-blog { background: #12131A !important; color: #C8C9D4 !important; }

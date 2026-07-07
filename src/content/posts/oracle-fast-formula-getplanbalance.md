@@ -1,13 +1,75 @@
 ---
 title: "Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, and the Two Traps That Quietly Ship the Wrong Number"
-description: "am-post  font-family: Open Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif; color: #1c1c1a; line-height: 1"
 pubDate: 2026-04-28
-tags: ["Fast Formula", "Oracle HCM Cloud", "Absence Management"]
+description: "Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, and the Two Traps That Quietly Ship the Wrong Number"
+tags: ["Absence Management", "Fast Formula", "Oracle HCM Cloud"]
+author: "Abhishek Mohanty"
+draft: false
 ---
 
-<p> </p>
+<p> </p><!--
+Reading Absence Balance in Fast Formulas
+Look-and-feel matched to abhishekmohanty-hcm.blogspot.com
+with rich SVG visualizations inline.
+Author: Abhishek Mohanty (Oracle ACE Apprentice, AIOUG)
+-->
 
+<style>
+.am-post { font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1c1c1a; line-height: 1.65; max-width: 940px; margin: 0 auto; padding: 28px 22px; font-size: 16px; -webkit-font-smoothing: antialiased; }
+.am-post h1 { font-size: 30px; line-height: 1.25; color: #1a1a1a; margin: 22px 0 14px; font-weight: 700; letter-spacing: -0.3px; }
+.am-post h2 { font-size: 22px; color: #1c1c1a; margin: 30px 0 12px; font-weight: 700; letter-spacing: -0.2px; }
+.am-post h3 { font-size: 17px; color: #2d2926; margin: 22px 0 8px; font-weight: 600; }
+.am-post p { margin: 10px 0 12px; color: #2d2926; }
+.am-post hr { border: none; border-top: 1px solid #e0d8d4; margin: 32px 0 24px; }
 
+.am-meta { color: #6b6b6b; font-size: 13.5px; margin: 4px 0 14px; letter-spacing: 0.1px; }
+.am-meta strong { color: #2d2926; font-weight: 600; }
+
+.am-tags { margin: 6px 0 18px; }
+.am-tag { display: inline-block; font-size: 11px; letter-spacing: 0.6px; text-transform: uppercase; color: #c0392b; border: 1px solid #e6c8c4; padding: 3px 10px; margin: 0 6px 6px 0; border-radius: 3px; background: #faf6f5; font-weight: 600; }
+
+.am-bio { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: #faf6f3; border: 1px solid #ede4e0; border-radius: 8px; margin: 14px 0 22px; }
+.am-bio-avatar { flex: 0 0 46px; width: 46px; height: 46px; border-radius: 50%; background: #c0392b; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; letter-spacing: 0.5px; }
+.am-bio-name { font-weight: 700; font-size: 14.5px; color: #1c1c1a; margin: 0 0 2px; }
+.am-bio-role { font-size: 13px; color: #5a5856; line-height: 1.45; }
+
+.am-post code { font-family: 'Fira Code', 'SFMono-Regular', Consolas, monospace; font-size: 13px; background: #f4eeec; color: #7a2418; padding: 2px 6px; border-radius: 3px; }
+.am-post pre { background: #1f1d1c; color: #f0ebe6; font-family: 'Fira Code', 'SFMono-Regular', Consolas, monospace; font-size: 12.5px; line-height: 1.55; padding: 18px 20px; border-radius: 6px; overflow-x: auto; margin: 14px 0 18px; border: 1px solid #2d2926; }
+.am-post pre code { background: transparent; color: inherit; padding: 0; }
+
+.am-where { font-style: italic; color: #5a5856; margin: 4px 0 12px; font-size: 14.5px; }
+.am-where strong { font-style: normal; color: #2d2926; font-weight: 600; }
+
+.am-post table { width: 100%; border-collapse: collapse; margin: 14px 0 18px; font-size: 13.5px; background: #fff; border: 1px solid #e8e2dd; border-radius: 6px; overflow: hidden; }
+.am-post th, .am-post td { text-align: left; padding: 10px 14px; border-bottom: 1px solid #ede4e0; vertical-align: top; }
+.am-post tr:last-child td { border-bottom: none; }
+.am-post th { background: #faf6f3; font-weight: 700; font-size: 12.5px; letter-spacing: 0.3px; text-transform: uppercase; color: #2d2926; }
+
+.am-post ul, .am-post ol { margin: 8px 0 14px; padding-left: 24px; }
+.am-post li { margin: 4px 0; }
+
+.am-fig { background: #fbfaf8; border: 1px solid #ede4e0; border-radius: 8px; padding: 18px 20px 14px; margin: 16px 0 20px; }
+.am-fig-title { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #8e8b87; margin: 0 0 14px; font-weight: 600; }
+.am-fig-caption { font-size: 13px; color: #6b6b6b; line-height: 1.5; margin-top: 12px; padding-top: 10px; border-top: 1px solid #ede4e0; }
+.am-fig-caption strong { color: #2d2926; font-weight: 600; }
+.am-fig svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+
+.am-call { margin: 14px 0; padding: 12px 16px; border-radius: 0 4px 4px 0; font-size: 14px; line-height: 1.55; }
+.am-call.note { background: #f0f3fa; border-left: 3px solid #4a5d8f; }
+.am-call.note .am-call-tag { color: #2f3e63; }
+.am-call.warn { background: #fdf2f0; border-left: 3px solid #c0392b; }
+.am-call.warn .am-call-tag { color: #7a2418; }
+.am-call.tip { background: #fdf6e3; border-left: 3px solid #b8860b; }
+.am-call.tip .am-call-tag { color: #7a5800; }
+.am-call.success { background: #ecf6f1; border-left: 3px solid #0d7377; }
+.am-call.success .am-call-tag { color: #0a5a5d; }
+.am-call-tag { font-weight: 700; display: block; margin-bottom: 4px; font-size: 13.5px; }
+
+.am-pill { display: inline-block; padding: 2px 9px; border-radius: 11px; font-size: 11px; font-weight: 700; letter-spacing: 0.4px; }
+.am-pill-green { background: #ecf6f1; color: #0a5a5d; border: 1px solid #b6dccd; }
+.am-pill-yellow { background: #fdf6e3; color: #7a5800; border: 1px solid #e6cf94; }
+.am-pill-red { background: #fdf2f0; color: #7a2418; border: 1px solid #e6c8c4; }
+</style>
 
 <div class="am-post">
 
@@ -37,9 +99,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Absence Management"]
 <div class="am-fig">
 <p class="am-fig-title">FORMULA CONTEXT · THE QUESTION</p>
 <div style="text-align:center;">
-
-<img src="/diagrams/oracle-fast-formula-getplanbalance-fig1.png" alt="Figure 1" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-
+<img src="/images/posts/oracle-fast-formula-getplanbalance/diagram-1.png" alt="Diagram 1: Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, a" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
 </div>
 <p class="am-fig-caption"><strong>Fig 1 —</strong> Five formula contexts converge on the same sub-question. Four mechanisms can answer it, but the silent failure mode — wrong number, no compile error — is what makes the choice load-bearing.</p>
 </div>
@@ -63,9 +123,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Absence Management"]
 <div class="am-fig">
 <p class="am-fig-title">CAPABILITY MATRIX</p>
 <div style="text-align:center;">
-
-<img src="/diagrams/oracle-fast-formula-getplanbalance-fig2.png" alt="Figure 2" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-
+<img src="/images/posts/oracle-fast-formula-getplanbalance/diagram-2.png" alt="Diagram 2: Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, a" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
 </div>
 <p class="am-fig-caption"><strong>Fig 2 —</strong> Capability matrix across all four mechanisms. Mechanism 4 is the only path that earns a "yes" on every dimension — at the cost of around fifty lines of structural setup that the other three avoid.</p>
 </div>
@@ -90,9 +148,7 @@ The four functions all return a number related to absence consumption. They all 
 <div class="am-fig">
 <p class="am-fig-title">SEQUENCE DIAGRAM · A DAY IN THE LIFE OF A BALANCE</p>
 <div style="text-align:center;">
-
-<img src="/diagrams/oracle-fast-formula-getplanbalance-fig3.png" alt="Figure 3" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-
+<img src="/images/posts/oracle-fast-formula-getplanbalance/diagram-3.png" alt="Diagram 3: Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, a" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
 </div>
 <p class="am-fig-caption"><strong>Fig 3 —</strong> Sequence diagram of the lag mechanism. The 14:00 absence submission writes to the live table immediately, but the snapshot ledger is not updated until the next batch run at 02:00. Any formula calling <code>GET_PLAN_BALANCE</code> in the intervening 12-hour window reads stale data, and the absence engine provides no callback to invalidate it.</p>
 </div>
@@ -101,7 +157,7 @@ The four functions all return a number related to absence consumption. They all 
 
 <p>The function takes <strong>one explicit argument</strong> — the plan name. Person, assignment, plan ID, effective date, and LDG must already be in scope as <strong>contexts</strong>. The PL/SQL-style three-argument call is a common carry-over from data-warehouse SQL habits, and it is wrong.</p>
 
-<pre><code>/* Correct call */
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px"><code>/* Correct call */
 g_balance = GET_PLAN_BALANCE('Annual Leave Plan')
 
 /* These must be in scope as contexts — you do NOT pass them as arguments:
@@ -131,9 +187,7 @@ Carryover formulas (where you want the snapshot — that is precisely the point)
 <div class="am-fig">
 <p class="am-fig-title">DATA VIEW · GET_ABSENCE_COUNTS</p>
 <div style="text-align:center;">
-
-<img src="/diagrams/oracle-fast-formula-getplanbalance-fig4.png" alt="Figure 4" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-
+<img src="/images/posts/oracle-fast-formula-getplanbalance/diagram-4.png" alt="Diagram 4: Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, a" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
 </div>
 <p class="am-fig-caption"><strong>Fig 4 —</strong> Three live entries on <code>ANC_PER_ABS_ENTRIES</code>; <code>GET_ABSENCE_COUNTS</code> returns 3 regardless of how many should logically count. The withdrawn entry inflates every consumption-derived metric you build on top of this number.</p>
 </div>
@@ -166,9 +220,7 @@ Despite the name, the function returns <em>seven</em> values via OUT parameters 
 <div class="am-fig">
 <p class="am-fig-title">FILTER VISIBILITY · THE OPAQUE-FILTER PROBLEM</p>
 <div style="text-align:center;">
-
-<img src="/diagrams/oracle-fast-formula-getplanbalance-fig5.png" alt="Figure 5" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-
+<img src="/images/posts/oracle-fast-formula-getplanbalance/diagram-5.png" alt="Diagram 5: Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, a" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
 </div>
 <p class="am-fig-caption"><strong>Fig 5 —</strong> The function sums <code>DURATION</code> from <code>ANC_PER_ABS_ENTRIES</code>, but applies an internal filter that Oracle does not document. The same query against the same data could return a different number after a quarterly upgrade, with no compile error to surface the change.</p>
 </div>
@@ -200,9 +252,7 @@ Indicative day totals in management reports or debug logging. Do <strong>not</st
 <div class="am-fig">
 <p class="am-fig-title">DBI ARCHITECTURE · TWO-STEP MODEL</p>
 <div style="text-align:center;">
-
-<img src="/diagrams/oracle-fast-formula-getplanbalance-fig6.png" alt="Figure 6" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-
+<img src="/images/posts/oracle-fast-formula-getplanbalance/diagram-6.png" alt="Diagram 6: Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, a" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
 </div>
 <p class="am-fig-caption"><strong>Fig 6 —</strong> The documented Oracle DBI model for live absence entries. <strong>One</strong> array DBI (Tier 1), <strong>six</strong> scalar DBIs (Tier 2). The trap that catches most authors is reaching for parallel <code>_ARR</code> siblings — <code>ANC_PER_ABS_ENTRS_START_DATE_ARR</code>, <code>..._APPROVAL_STATUS_CD_ARR</code>, and so on — which do not exist in the dictionary. Code that references them looks plausible but does not compile.</p>
 </div>
@@ -214,9 +264,7 @@ Indicative day totals in management reports or debug logging. Do <strong>not</st
 <div class="am-fig">
 <p class="am-fig-title">FLOWCHART · LIVE-LOOP CONTROL FLOW</p>
 <div style="text-align:center;">
-
-<img src="/diagrams/oracle-fast-formula-getplanbalance-fig7.png" alt="Figure 7" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-
+<img src="/images/posts/oracle-fast-formula-getplanbalance/diagram-7.png" alt="Diagram 7: Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, a" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
 </div>
 <p class="am-fig-caption"><strong>Fig 7 —</strong> Loop control flow with proper UML/BPMN symbology. Five distinct guards shape the path: array existence (top diamond), entry-type match, self-exclusion (the entry being validated must not count itself), absence-status filter, and approval-status filter. Failure on any guard skips the entry without aborting the loop.</p>
 </div>
@@ -253,9 +301,7 @@ Any rule that needs an accurate live balance — real-time validation, audit-gra
 <div class="am-fig">
 <p class="am-fig-title">DATA TOPOLOGY · SNAPSHOT VS LIVE</p>
 <div style="text-align:center;">
-
-<img src="/diagrams/oracle-fast-formula-getplanbalance-fig8.png" alt="Figure 8" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-
+<img src="/images/posts/oracle-fast-formula-getplanbalance/diagram-8.png" alt="Diagram 8: Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, a" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
 </div>
 <p class="am-fig-caption"><strong>Fig 8 —</strong> The two data worlds. The accrual engine periodically reconciles the live collection into the snapshot ledger, but between engine runs the two are out of sync — which is why the same person can have a different "balance" depending on which world your formula reads.</p>
 </div>
@@ -274,9 +320,7 @@ If a user submits an absence and immediately submits a second one, does my formu
 <div class="am-fig">
 <p class="am-fig-title">DIAGNOSTIC · THE STATUS-CODE NAMING TRAP</p>
 <div style="text-align:center;">
-
-<img src="/diagrams/oracle-fast-formula-getplanbalance-fig9.png" alt="Figure 9" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-
+<img src="/images/posts/oracle-fast-formula-getplanbalance/diagram-9.png" alt="Diagram 9: Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, a" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
 </div>
 <p class="am-fig-caption"><strong>Fig 9 —</strong> The asymmetry is structural — the two columns originate in different framework layers and follow different conventions. There is no Oracle plan to reconcile them. The defensive practice is to filter on both columns with both naming conventions, every time.</p>
 </div>
@@ -293,7 +337,7 @@ The two columns can drift in administrative-cancellation paths. An absence reach
 
 <p>The defensive pattern, every time:</p>
 
-<pre><code>IF abs_status <> 'ORA_WITHDRAWN'
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px"><code>IF abs_status <> 'ORA_WITHDRAWN'
    AND app_status <> 'WITHDRAWN'
    AND app_status <> 'DENIED' THEN
   /* this entry counts towards consumption */
@@ -308,9 +352,7 @@ END IF</code></pre>
 <div class="am-fig">
 <p class="am-fig-title">COMPOSITE PATTERN · END-TO-END</p>
 <div style="text-align:center;">
-
-<img src="/diagrams/oracle-fast-formula-getplanbalance-fig10.png" alt="Figure 10" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-
+<img src="/images/posts/oracle-fast-formula-getplanbalance/diagram-10.png" alt="Diagram 10: Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, a" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
 </div>
 <p class="am-fig-caption"><strong>Fig 10 —</strong> The composite pattern, end-to-end. Step 2 is not just hygiene — on plans with high consumption rates it short-circuits a non-trivial fraction of formula executions, which matters at year-end peak load.</p>
 </div>
@@ -319,7 +361,7 @@ END IF</code></pre>
 
 <p>Below is the full reader. It returns <code>g_live_balance</code> for whatever calling formula type wraps it — Entry Validation will use it to drive a <code>VALID</code>/<code>ERROR_MESSAGE</code> decision, a Plan Use Rate formula will use it to compute deduction, a Type Duration formula will use it to constrain the duration calculation. Only the way you consume the final number changes.</p>
 
-<pre><code>/******************************************************************
+<pre style="background:#2d2926;border-left:3px solid #c0392b;padding:18px 22px;margin:22px 0;font-family:Consolas,'JetBrains Mono',Monaco,monospace;font-size:13.5px;color:#e8e6e3;line-height:1.7;overflow-x:auto;white-space:pre-wrap;border-radius:4px"><code>/******************************************************************
   RECIPE  : LIVE_ABSENCE_BALANCE_READER
   PURPOSE : Return live balance = snapshot anchor minus
             in-flight consumption, using documented Oracle
@@ -427,9 +469,7 @@ RETURN g_live_balance
 <div class="am-fig">
 <p class="am-fig-title">ANTI-PATTERN CATALOGUE</p>
 <div style="text-align:center;">
-
-<img src="/diagrams/oracle-fast-formula-getplanbalance-fig11.png" alt="Figure 11" style="width:100%;max-width:820px;display:block;margin:24px auto;" />
-
+<img src="/images/posts/oracle-fast-formula-getplanbalance/diagram-11.png" alt="Diagram 11: Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, a" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
 </div>
 <p class="am-fig-caption"><strong>Fig 11 —</strong> The five highest-frequency anti-patterns in this domain. Numbers 1, 3, and 4 are syntactic and surface eventually as compile errors or empty results. Numbers 2 and 5 are silent — the formula compiles and runs, returning subtly wrong numbers.</p>
 </div>
