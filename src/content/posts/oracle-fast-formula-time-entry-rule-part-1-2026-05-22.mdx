@@ -5,7 +5,7 @@ pubDate: 2026-05-22
 tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
 ---
 
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -1207,7 +1207,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
 </head><body>
 <div class="container">
 
-<!-- HEADER (Philippine-leave-post style) -->
+
 <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;">
   <span style="display:inline-block; padding:4px 10px; background:#f5f1e8; color:#2d2926; font-size:11px; font-weight:700; letter-spacing:0.5px; border-radius:2px;">Fast Formula</span>
   <span style="display:inline-block; padding:4px 10px; background:#f5f1e8; color:#2d2926; font-size:11px; font-weight:700; letter-spacing:0.5px; border-radius:2px;">Time Entry Rule</span>
@@ -1217,7 +1217,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
 
 <div style="font-size:13px; color:#7a7570; margin-bottom:18px;">May 21, 2026 • 15 min read • Oracle HCM Cloud</div>
 
-<!-- SERIES BREADCRUMB -->
+
 <div style="background:#f5f1e8; border-left:3px solid #b97417; padding:10px 14px; margin-bottom:24px; border-radius:0 3px 3px 0; font-size:12px;">
   <span style="font-weight:700; color:#b97417; letter-spacing:0.5px; text-transform:uppercase; font-size:10px;">The TER Series</span>
   <span style="color:#5a544e; margin-left:8px;">Part 2 of 4</span>
@@ -1316,11 +1316,11 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
   <text x="380" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="#2d2926">From Worker's View to Formula's View</text>
   <text x="380" y="40" text-anchor="middle" font-size="11" fill="#7a7570">OTL injects three kinds of markers before your formula runs</text>
 
-  <!-- LEFT SIDE: Worker view -->
+  
   <text x="170" y="68" text-anchor="middle" font-size="12" font-weight="700" fill="#4472c4">WORKER'S VIEW · 4 rows</text>
   <text x="170" y="82" text-anchor="middle" font-size="9.5" fill="#5a544e" font-style="italic">What Sarah sees on the timecard screen</text>
 
-  <!-- 4 worker rows -->
+  
   <g transform="translate(40, 96)">
     <rect x="0" y="0" width="260" height="32" rx="2" fill="#fff" stroke="#4472c4" stroke-width="1"/>
     <text x="10" y="14" font-size="9.5" font-weight="700" fill="#4472c4">Row 1</text>
@@ -1339,66 +1339,66 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
     <text x="10" y="140" font-size="10" fill="#2d2926">Wed 15-Apr · Reg Hours · 09:00–18:00</text>
   </g>
 
-  <!-- TRANSFORMATION ARROW -->
+  
   <g transform="translate(310, 144)">
     <line x1="0" y1="0" x2="40" y2="0" stroke="#b97417" stroke-width="3" marker-end="url(#arrowT1)"/>
     <text x="20" y="-10" text-anchor="middle" font-size="11" font-weight="700" fill="#b97417">OTL inserts</text>
     <text x="20" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="#b97417">markers</text>
   </g>
 
-  <!-- RIGHT SIDE: Formula view -->
+  
   <text x="580" y="68" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">FORMULA'S VIEW · 8 indexes</text>
   <text x="580" y="82" text-anchor="middle" font-size="9.5" fill="#5a544e" font-style="italic">What your TER formula receives via INPUTS ARE</text>
 
   <g transform="translate(380, 96)">
-    <!-- HEADER -->
+    
     <rect x="0" y="0" width="380" height="32" rx="2" fill="#fff3e0" stroke="#b97417" stroke-width="1.5"/>
     <text x="10" y="14" font-size="9.5" font-weight="700" fill="#b97417">[1] HEADER</text>
     <text x="10" y="26" font-size="10" fill="#2d2926" font-style="italic">Marker · "timecard begins"</text>
 
-    <!-- Row 1 mapped to [2] -->
+    
     <rect x="0" y="38" width="380" height="32" rx="2" fill="#fff" stroke="#7a7570" stroke-width="1"/>
     <text x="10" y="52" font-size="9.5" font-weight="700" fill="#5a544e">[2]  —  (was Row 1)</text>
     <text x="10" y="64" font-size="10" fill="#2d2926">Reg Hours · 09:00–12:00</text>
 
-    <!-- Row 2 mapped to [3] -->
+    
     <rect x="0" y="76" width="380" height="32" rx="2" fill="#fff" stroke="#7a7570" stroke-width="1"/>
     <text x="10" y="90" font-size="9.5" font-weight="700" fill="#5a544e">[3]  —  (was Row 2)</text>
     <text x="10" y="102" font-size="10" fill="#2d2926">Meal Break · 12:00–13:00</text>
 
-    <!-- Row 3 mapped to [4] -->
+    
     <rect x="0" y="114" width="380" height="32" rx="2" fill="#fff" stroke="#7a7570" stroke-width="1"/>
     <text x="10" y="128" font-size="9.5" font-weight="700" fill="#5a544e">[4]  —  (was Row 3)</text>
     <text x="10" y="140" font-size="10" fill="#2d2926">Reg Hours · 13:00–18:00</text>
 
-    <!-- END_DAY for Tuesday -->
+    
     <rect x="0" y="152" width="380" height="32" rx="2" fill="#fce8e8" stroke="#c0392b" stroke-width="1.5"/>
     <text x="10" y="166" font-size="9.5" font-weight="700" fill="#c0392b">[5] END_DAY</text>
     <text x="10" y="178" font-size="10" fill="#2d2926" font-style="italic">Marker · "Tuesday is complete — run day-level checks now"</text>
 
-    <!-- Row 4 mapped to [6] -->
+    
     <rect x="0" y="190" width="380" height="32" rx="2" fill="#fff" stroke="#7a7570" stroke-width="1"/>
     <text x="10" y="204" font-size="9.5" font-weight="700" fill="#5a544e">[6]  —  (was Row 4)</text>
     <text x="10" y="216" font-size="10" fill="#2d2926">Reg Hours · 09:00–18:00 (Wed)</text>
 
-    <!-- END_DAY for Wednesday -->
+    
     <rect x="0" y="228" width="380" height="32" rx="2" fill="#fce8e8" stroke="#c0392b" stroke-width="1.5"/>
     <text x="10" y="242" font-size="9.5" font-weight="700" fill="#c0392b">[7] END_DAY</text>
     <text x="10" y="254" font-size="10" fill="#2d2926" font-style="italic">Marker · "Wednesday is complete — run day-level checks now"</text>
 
-    <!-- END_PERIOD -->
+    
     <rect x="0" y="266" width="380" height="32" rx="2" fill="#fce8e8" stroke="#c0392b" stroke-width="1.5"/>
     <text x="10" y="280" font-size="9.5" font-weight="700" fill="#c0392b">[8] END_PERIOD</text>
     <text x="10" y="292" font-size="10" fill="#2d2926" font-style="italic">Marker · "Whole timecard is complete — loop ends"</text>
   </g>
 
-  <!-- Mapping arrows -->
+  
   <line x1="300" y1="120" x2="380" y2="146" stroke="#7a7570" stroke-width="0.7" stroke-dasharray="2,2"/>
   <line x1="300" y1="156" x2="380" y2="184" stroke="#7a7570" stroke-width="0.7" stroke-dasharray="2,2"/>
   <line x1="300" y1="194" x2="380" y2="222" stroke="#7a7570" stroke-width="0.7" stroke-dasharray="2,2"/>
   <line x1="300" y1="232" x2="380" y2="298" stroke="#7a7570" stroke-width="0.7" stroke-dasharray="2,2"/>
 
-  <!-- KEY INSIGHT BOX -->
+  
   <rect x="40" y="404" width="700" height="32" rx="3" fill="#fff5f0" stroke="#c0392b" stroke-width="1"/>
   <text x="56" y="420" font-size="10.5" font-weight="700" fill="#c0392b">KEY INSIGHT</text>
   <text x="56" y="434" font-size="11" fill="#2d2926">The worker's "row 1" is the formula's "index [2]". Always remember the offset — loop counters start at 1 because of the HEADER.</text>
@@ -1604,16 +1604,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:12px;">Diagram · The three properties of the input/output shape</div>
   <svg viewBox="0 0 720 600" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:720px; display:block;" font-family="Calibri, sans-serif">
 
-    <!-- ===== PROPERTY 1: Parallel arrays, not records ===== -->
+    
     <text x="20" y="20" font-size="11" font-weight="700" fill="#4472c4">PROPERTY 1 · Six parallel arrays, not records — one row spans six columns at the same index</text>
 
-    <!-- Six columns of one row -->
+    
     <g transform="translate(20, 36)">
-      <!-- Index column -->
+      
       <rect x="0" y="0" width="40" height="22" fill="#1f1c19"/>
       <text x="20" y="15" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fff">Idx</text>
 
-      <!-- Six column headers -->
+      
       <rect x="40" y="0" width="106" height="22" fill="#dbe5f4" stroke="#4472c4" stroke-width="0.8"/>
       <text x="93" y="15" text-anchor="middle" font-size="9" font-weight="700" fill="#2d2926">RECORD_POSITIONS</text>
       <rect x="146" y="0" width="106" height="22" fill="#dbe5f4" stroke="#4472c4" stroke-width="0.8"/>
@@ -1627,7 +1627,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <rect x="570" y="0" width="106" height="22" fill="#dbe5f4" stroke="#4472c4" stroke-width="0.8"/>
       <text x="623" y="15" text-anchor="middle" font-size="9" font-weight="700" fill="#2d2926">HWM_MEASURE_DAY</text>
 
-      <!-- One row at index [3] highlighted -->
+      
       <rect x="0" y="22" width="40" height="32" fill="#fff5f0" stroke="#c0392b" stroke-width="2"/>
       <text x="20" y="42" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">[3]</text>
 
@@ -1648,10 +1648,10 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <text x="20" y="100" font-size="10" fill="#5a544e">To work with row 3, the formula reads <tspan font-family="JetBrains Mono, monospace" fill="#c0392b">RECORD_POSITIONS[3]</tspan>, <tspan font-family="JetBrains Mono, monospace" fill="#c0392b">PayrollTimeType[3]</tspan>, <tspan font-family="JetBrains Mono, monospace" fill="#c0392b">StartTime[3]</tspan>...</text>
     <text x="20" y="116" font-size="10" fill="#5a544e">across all six arrays. There's no single row object — each row is reassembled at read time from the parallel slices.</text>
 
-    <!-- ===== PROPERTY 2: Not every row populates every column ===== -->
+    
     <text x="20" y="148" font-size="11" font-weight="700" fill="#4472c4">PROPERTY 2 · Not every row populates every column — marker rows are sparse</text>
 
-    <!-- Mini grid showing marker rows leaving columns empty -->
+    
     <g transform="translate(20, 164)">
       <rect x="0" y="0" width="40" height="22" fill="#e8e8e8" stroke="#999"/>
       <text x="20" y="15" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5a544e">Idx</text>
@@ -1661,7 +1661,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <rect x="146" y="0" width="424" height="22" fill="#dbe5f4" stroke="#4472c4"/>
       <text x="358" y="15" text-anchor="middle" font-size="9" font-weight="700" fill="#2d2926">All other arrays (PayrollTimeType, StartTime, StopTime, measure, HWM_MEASURE_DAY)</text>
 
-      <!-- Marker row HEADER -->
+      
       <rect x="0" y="22" width="40" height="22" fill="#fff8e7" stroke="#999"/>
       <text x="20" y="37" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5a544e">[1]</text>
       <rect x="40" y="22" width="106" height="22" fill="#fff8e7" stroke="#b97417"/>
@@ -1669,7 +1669,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <rect x="146" y="22" width="424" height="22" fill="#fff5f0" stroke="#c0392b" stroke-width="1"/>
       <text x="358" y="37" text-anchor="middle" font-size="9.5" font-style="italic" fill="#c0392b">missing — reading any of these crashes with FFL-09100</text>
 
-      <!-- Real entry -->
+      
       <rect x="0" y="44" width="40" height="22" fill="#fff" stroke="#999"/>
       <text x="20" y="59" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5a544e">[2]</text>
       <rect x="40" y="44" width="106" height="22" fill="#fff" stroke="#999"/>
@@ -1677,7 +1677,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <rect x="146" y="44" width="424" height="22" fill="#fff" stroke="#999"/>
       <text x="358" y="59" text-anchor="middle" font-size="9.5" fill="#27704a">all populated — safe to read</text>
 
-      <!-- Marker row END_DAY -->
+      
       <rect x="0" y="66" width="40" height="22" fill="#fce8e8" stroke="#999"/>
       <text x="20" y="81" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5a544e">[5]</text>
       <rect x="40" y="66" width="106" height="22" fill="#fce8e8" stroke="#c0392b"/>
@@ -1688,16 +1688,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
     <text x="20" y="270" font-size="10" fill="#5a544e">Every read in the formula must be wrapped in <tspan font-family="JetBrains Mono, monospace" fill="#c0392b">.exists(nidx)</tspan> — check first, then read.</text>
 
-    <!-- Pattern code -->
+    
     <rect x="20" y="284" width="680" height="22" rx="3" fill="#1f1c19"/>
     <text x="34" y="300" font-size="10" font-family="JetBrains Mono, monospace" fill="#7fc8a0">IF (StartTime.exists(nidx)) THEN aiStartTime = StartTime[nidx]</text>
 
-    <!-- ===== PROPERTY 3: Output is sparse ===== -->
+    
     <text x="20" y="332" font-size="11" font-weight="700" fill="#4472c4">PROPERTY 3 · The output is sparse, not dense — only flagged rows get an entry</text>
 
-    <!-- 5 timecard rows on the left → OUT_MSG sparse on the right -->
+    
     <g transform="translate(20, 348)">
-      <!-- Left: timecard rows -->
+      
       <text x="100" y="14" text-anchor="middle" font-size="10" font-weight="700" fill="#5a544e">5 timecard rows</text>
 
       <rect x="0" y="22" width="200" height="24" fill="#fff" stroke="#27704a"/>
@@ -1715,12 +1715,12 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <rect x="0" y="126" width="200" height="24" fill="#fff" stroke="#27704a"/>
       <text x="100" y="142" text-anchor="middle" font-size="9.5" fill="#27704a">[5] END_DAY — clean</text>
 
-      <!-- Arrows -->
+      
       <line x1="200" y1="86" x2="280" y2="86" stroke="#7a7570" stroke-width="1.5" marker-end="url(#arrowP3)"/>
       <text x="240" y="80" text-anchor="middle" font-size="9" fill="#7a7570" font-style="italic">flag rows</text>
       <text x="240" y="92" text-anchor="middle" font-size="9" fill="#7a7570" font-style="italic">3 and 4 only</text>
 
-      <!-- Right: OUT_MSG sparse array -->
+      
       <text x="500" y="14" text-anchor="middle" font-size="10" font-weight="700" fill="#c0392b">OUT_MSG · only 2 entries</text>
 
       <rect x="290" y="22" width="60" height="24" fill="#f5f5f5" stroke="#999"/>
@@ -1752,7 +1752,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <text x="20" y="514" font-size="10" fill="#5a544e">The framework reads OUT_MSG when the formula returns and renders red error markers on whatever indexes appear.</text>
     <text x="20" y="528" font-size="10" fill="#5a544e"><tspan font-weight="700">Quiet rows stay quiet.</tspan> Clean rows have nothing to say — so they say nothing.</text>
 
-    <!-- Bottom takeaway strip -->
+    
     <rect x="20" y="552" width="680" height="34" rx="3" fill="#1f1c19"/>
     <text x="34" y="570" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#e6e1d8">SUMMARY:</text>
     <text x="120" y="570" font-size="10" fill="#a8a39c">Six parallel arrays in. One sparse array out. Wrap every read in .exists().</text>
@@ -1792,7 +1792,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <text x="380" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="#2d2926">OTL Validation Pipeline — Where TER Formulas Run</text>
   <text x="380" y="40" text-anchor="middle" font-size="11" fill="#7a7570">Five stages from worker submission to UI feedback. The TER formula fires in Stage 3.</text>
 
-  <!-- STAGE 1: Worker Submits -->
+  
   <rect x="30" y="70" width="130" height="80" rx="4" fill="#fff" stroke="#4472c4" stroke-width="1.5"/>
   <rect x="30" y="70" width="130" height="20" rx="4" fill="#4472c4"/>
   <text x="95" y="85" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">STAGE 1</text>
@@ -1800,10 +1800,10 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <text x="95" y="124" text-anchor="middle" font-size="10" fill="#5a544e">Timecard rows</text>
   <text x="95" y="138" text-anchor="middle" font-size="10" fill="#5a544e">leave the UI</text>
 
-  <!-- Arrow 1 -->
+  
   <line x1="160" y1="110" x2="178" y2="110" stroke="#7a7570" stroke-width="2" marker-end="url(#arrow2)"/>
 
-  <!-- STAGE 2: OTL Pre-processes -->
+  
   <rect x="180" y="70" width="130" height="80" rx="4" fill="#fff" stroke="#4472c4" stroke-width="1.5"/>
   <rect x="180" y="70" width="130" height="20" rx="4" fill="#4472c4"/>
   <text x="245" y="85" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">STAGE 2</text>
@@ -1811,10 +1811,10 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <text x="245" y="124" text-anchor="middle" font-size="10" fill="#5a544e">Inserts markers,</text>
   <text x="245" y="138" text-anchor="middle" font-size="10" fill="#5a544e">shapes data into arrays</text>
 
-  <!-- Arrow 2 -->
+  
   <line x1="310" y1="110" x2="328" y2="110" stroke="#7a7570" stroke-width="2" marker-end="url(#arrow2)"/>
 
-  <!-- STAGE 3: TER Formula (highlighted) -->
+  
   <rect x="330" y="62" width="160" height="96" rx="4" fill="#fff5f0" stroke="#c0392b" stroke-width="2"/>
   <rect x="330" y="62" width="160" height="22" rx="4" fill="#c0392b"/>
   <text x="410" y="78" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">STAGE 3 · YOUR FORMULA</text>
@@ -1823,10 +1823,10 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <text x="410" y="136" text-anchor="middle" font-size="10" fill="#5a544e">populates OUT_MSG,</text>
   <text x="410" y="150" text-anchor="middle" font-size="10" fill="#5a544e">returns to OTL</text>
 
-  <!-- Arrow 3 -->
+  
   <line x1="490" y1="110" x2="508" y2="110" stroke="#7a7570" stroke-width="2" marker-end="url(#arrow2)"/>
 
-  <!-- STAGE 4: OTL processes results -->
+  
   <rect x="510" y="70" width="130" height="80" rx="4" fill="#fff" stroke="#27704a" stroke-width="1.5"/>
   <rect x="510" y="70" width="130" height="20" rx="4" fill="#27704a"/>
   <text x="575" y="85" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">STAGE 4</text>
@@ -1834,10 +1834,10 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <text x="575" y="124" text-anchor="middle" font-size="10" fill="#5a544e">Reads OUT_MSG,</text>
   <text x="575" y="138" text-anchor="middle" font-size="10" fill="#5a544e">aggregates with other rules</text>
 
-  <!-- Arrow 4 (down) -->
+  
   <line x1="575" y1="155" x2="575" y2="195" stroke="#7a7570" stroke-width="2" marker-end="url(#arrow2)"/>
 
-  <!-- STAGE 5: UI Renders -->
+  
   <rect x="510" y="200" width="130" height="80" rx="4" fill="#fff" stroke="#27704a" stroke-width="1.5"/>
   <rect x="510" y="200" width="130" height="20" rx="4" fill="#27704a"/>
   <text x="575" y="215" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">STAGE 5</text>
@@ -1845,7 +1845,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <text x="575" y="254" text-anchor="middle" font-size="10" fill="#5a544e">Red error markers</text>
   <text x="575" y="268" text-anchor="middle" font-size="10" fill="#5a544e">on flagged rows</text>
 
-  <!-- ZOOMED INSET: Stage 3 detail -->
+  
   <rect x="30" y="200" width="450" height="200" rx="4" fill="#f5f1e8" stroke="#b97417" stroke-width="1"/>
   <rect x="30" y="200" width="450" height="22" rx="4" fill="#b97417"/>
   <text x="40" y="216" font-size="10" font-weight="700" fill="#fff">ZOOM: STAGE 3 INTERNAL FLOW — What your formula does between input and output</text>
@@ -1860,7 +1860,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
   <text x="255" y="385" text-anchor="middle" font-size="10" font-style="italic" fill="#7a7570">The 6 inputs and 1 output define the contract. Everything else is your logic.</text>
 
-  <!-- Arrow defs -->
+  
   <defs>
     <marker id="arrow2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
       <path d="M0,0 L0,8 L8,4 z" fill="#7a7570"/>
@@ -1884,10 +1884,10 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <text x="360" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="#2d2926">Anatomy of the Input Names</text>
   <text x="360" y="40" text-anchor="middle" font-size="11" fill="#7a7570">Reading the prefix tells you what kind of data the input represents</text>
 
-  <!-- LONG-PREFIX EXAMPLE -->
+  
   <text x="360" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="#4472c4">Long-prefix names — structural metadata from OTL's framework</text>
 
-  <!-- The full name with each part highlighted -->
+  
   <g transform="translate(80, 100)">
     <rect x="0" y="0" width="80" height="32" fill="#dbe5f4" stroke="#4472c4" stroke-width="1"/>
     <rect x="80" y="0" width="84" height="32" fill="#a8c1e0" stroke="#4472c4" stroke-width="1"/>
@@ -1897,7 +1897,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <text x="122" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="#2d2926" font-family="JetBrains Mono, monospace">CTXARY_</text>
     <text x="362" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="#2d2926" font-family="JetBrains Mono, monospace">RECORD_POSITIONS</text>
 
-    <!-- Annotations under each segment -->
+    
     <line x1="40" y1="38" x2="40" y2="58" stroke="#4472c4" stroke-width="1"/>
     <text x="40" y="74" text-anchor="middle" font-size="9.5" font-weight="700" fill="#4472c4">"HWM"</text>
     <text x="40" y="86" text-anchor="middle" font-size="9" fill="#5a544e">HCM Workforce</text>
@@ -1916,14 +1916,14 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
   <text x="360" y="218" text-anchor="middle" font-size="10.5" fill="#5a544e" font-style="italic">Read aloud: "HCM Workforce Management's context array of record positions"</text>
 
-  <!-- DIVIDER LINE -->
+  
   <line x1="80" y1="240" x2="640" y2="240" stroke="#d4d4d4" stroke-width="1" stroke-dasharray="4,4"/>
 
-  <!-- SHORT-NAME EXAMPLES -->
+  
   <text x="360" y="266" text-anchor="middle" font-size="12" font-weight="700" fill="#b97417">Short-name inputs — per-row time data</text>
   <text x="360" y="282" text-anchor="middle" font-size="10.5" fill="#5a544e" font-style="italic">No prefix needed — these are the original TER inputs from OTL's earliest design</text>
 
-  <!-- Four short-name boxes side by side -->
+  
   <g transform="translate(80, 300)">
     <rect x="0" y="0" width="135" height="60" rx="3" fill="#fff" stroke="#b97417" stroke-width="1"/>
     <text x="67.5" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#2d2926" font-family="JetBrains Mono, monospace">measure</text>
@@ -1946,7 +1946,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <text x="493.5" y="52" text-anchor="middle" font-size="9.5" fill="#5a544e">timestamp per row</text>
   </g>
 
-  <!-- KEY INSIGHT BOX -->
+  
   <rect x="80" y="395" width="560" height="60" rx="4" fill="#fff5f0" stroke="#c0392b" stroke-width="1"/>
   <text x="92" y="415" font-size="10.5" font-weight="700" fill="#c0392b">KEY INSIGHT</text>
   <text x="92" y="432" font-size="11" fill="#2d2926">Long-prefix inputs carry <tspan font-weight="700">structural metadata</tspan> (where in the timecard structure are we?).</text>
@@ -1974,11 +1974,11 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <text x="380" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="#2d2926">Six arrays, one shared index space</text>
   <text x="380" y="40" text-anchor="middle" font-size="11" fill="#7a7570">Read all six at index [3] to reconstruct row 3 of Sarah's timecard</text>
 
-  <!-- Index column header -->
+  
   <rect x="30" y="65" width="50" height="30" fill="#e8e8e8" stroke="#999" stroke-width="1"/>
   <text x="55" y="85" text-anchor="middle" font-size="11" font-weight="700" fill="#5a544e">Idx</text>
 
-  <!-- Six array column headers -->
+  
   <rect x="80" y="65" width="115" height="30" fill="#dbe5f4" stroke="#4472c4" stroke-width="1"/>
   <text x="137.5" y="80" text-anchor="middle" font-size="9" font-weight="700" fill="#2d2926">HWM_CTXARY_</text>
   <text x="137.5" y="91" text-anchor="middle" font-size="9" font-weight="700" fill="#2d2926">RECORD_POSITIONS</text>
@@ -1999,7 +1999,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <rect x="610" y="65" width="100" height="30" fill="#fff3e0" stroke="#b97417" stroke-width="1"/>
   <text x="660" y="85" text-anchor="middle" font-size="11" font-weight="700" fill="#2d2926">StopTime</text>
 
-  <!-- Row 1: HEADER -->
+  
   <rect x="30" y="95" width="50" height="28" fill="#fff8e7" stroke="#999" stroke-width="0.5"/>
   <text x="55" y="113" text-anchor="middle" font-size="10" font-weight="700" fill="#5a544e">[1]</text>
 
@@ -2021,7 +2021,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <rect x="610" y="95" width="100" height="28" fill="#fff8e7" stroke="#999" stroke-width="0.5"/>
   <text x="660" y="113" text-anchor="middle" font-size="10" fill="#999">—</text>
 
-  <!-- Row 2: Real entry -->
+  
   <rect x="30" y="123" width="50" height="28" fill="#fff" stroke="#999" stroke-width="0.5"/>
   <text x="55" y="141" text-anchor="middle" font-size="10" font-weight="700" fill="#5a544e">[2]</text>
 
@@ -2043,7 +2043,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <rect x="610" y="123" width="100" height="28" fill="#fff" stroke="#999" stroke-width="0.5"/>
   <text x="660" y="141" text-anchor="middle" font-size="10" fill="#5a544e">10:00</text>
 
-  <!-- Row 3: Real entry — HIGHLIGHTED -->
+  
   <rect x="30" y="151" width="50" height="32" fill="#ffd180" stroke="#c0392b" stroke-width="2"/>
   <text x="55" y="172" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">[3]</text>
 
@@ -2065,7 +2065,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <rect x="610" y="151" width="100" height="32" fill="#fff5f0" stroke="#c0392b" stroke-width="1"/>
   <text x="660" y="172" text-anchor="middle" font-size="10" font-weight="700" fill="#2d2926">14:45</text>
 
-  <!-- Row 4: END_DAY marker -->
+  
   <rect x="30" y="183" width="50" height="28" fill="#fce8e8" stroke="#999" stroke-width="0.5"/>
   <text x="55" y="201" text-anchor="middle" font-size="10" font-weight="700" fill="#5a544e">[4]</text>
 
@@ -2087,11 +2087,11 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <rect x="610" y="183" width="100" height="28" fill="#fce8e8" stroke="#999" stroke-width="0.5"/>
   <text x="660" y="201" text-anchor="middle" font-size="10" fill="#999">—</text>
 
-  <!-- Annotation: highlight row 3 as current iteration (inline, stays within SVG bounds) -->
+  
   <rect x="30" y="151" width="680" height="32" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4,3"/>
   <text x="700" y="146" text-anchor="end" font-size="10" font-weight="700" fill="#c0392b">← current iteration (nidx = 3)</text>
 
-  <!-- Code example below the table -->
+  
   <rect x="30" y="240" width="700" height="100" rx="3" fill="#1f1c19"/>
   <text x="44" y="260" font-size="10" font-weight="700" fill="#a8a39c" font-family="JetBrains Mono, monospace">/* read all six arrays at index 3 to reconstruct row 3 */</text>
   <text x="44" y="280" font-size="11" fill="#e6e1d8" font-family="JetBrains Mono, monospace">aiRecPos     = HWM_CTXARY_RECORD_POSITIONS[3]   <tspan fill="#a8a39c">// '' (empty)</tspan></text>
@@ -2099,7 +2099,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <text x="44" y="312" font-size="11" fill="#e6e1d8" font-family="JetBrains Mono, monospace">aiMeasure    = measure[3]                       <tspan fill="#a8a39c">// 4.75</tspan></text>
   <text x="44" y="328" font-size="11" fill="#e6e1d8" font-family="JetBrains Mono, monospace">aiTimeType   = PayrollTimeType[3]               <tspan fill="#a8a39c">// 'Regular Hours'</tspan></text>
 
-  <!-- Arrow defs -->
+  
   <defs>
     <marker id="arrow3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
       <path d="M0,0 L0,8 L8,4 z" fill="#c0392b"/>
@@ -2121,7 +2121,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <p>With the framing in place — how the formula fits in OTL's pipeline, what the names mean, how parallel access works — the cards below cover all six inputs (plus the <code>OUT_MSG</code> output) one by one. Each card shows what kind of values the input holds, the actual formula code that reads it, and what the formula does with the value.</p>
 
-<!-- Input 1: RECORD_POSITIONS -->
+
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Input 01 · Text Array</div>
@@ -2146,49 +2146,49 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Diagram · Where each marker value appears in the array</div>
     <svg viewBox="0 0 680 240" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:680px; display:block;" font-family="Calibri, sans-serif">
 
-      <!-- Array cells running horizontally -->
+      
       <g transform="translate(40, 40)">
-        <!-- [1] HEADER -->
+        
         <rect x="0" y="0" width="60" height="50" fill="#fff3e0" stroke="#b97417" stroke-width="1.5"/>
         <text x="30" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="#5a544e">[1]</text>
         <text x="30" y="35" text-anchor="middle" font-size="10" font-weight="700" fill="#b97417">HEADER</text>
 
-        <!-- [2] (empty) -->
+        
         <rect x="60" y="0" width="60" height="50" fill="#fff" stroke="#7a7570" stroke-width="1"/>
         <text x="90" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="#5a544e">[2]</text>
         <text x="90" y="35" text-anchor="middle" font-size="10" fill="#999" font-style="italic">empty</text>
 
-        <!-- [3] (empty) -->
+        
         <rect x="120" y="0" width="60" height="50" fill="#fff" stroke="#7a7570" stroke-width="1"/>
         <text x="150" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="#5a544e">[3]</text>
         <text x="150" y="35" text-anchor="middle" font-size="10" fill="#999" font-style="italic">empty</text>
 
-        <!-- [4] (empty) -->
+        
         <rect x="180" y="0" width="60" height="50" fill="#fff" stroke="#7a7570" stroke-width="1"/>
         <text x="210" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="#5a544e">[4]</text>
         <text x="210" y="35" text-anchor="middle" font-size="10" fill="#999" font-style="italic">empty</text>
 
-        <!-- [5] END_DAY -->
+        
         <rect x="240" y="0" width="60" height="50" fill="#fce8e8" stroke="#c0392b" stroke-width="1.5"/>
         <text x="270" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="#5a544e">[5]</text>
         <text x="270" y="35" text-anchor="middle" font-size="9" font-weight="700" fill="#c0392b">END_DAY</text>
 
-        <!-- [6] (empty) -->
+        
         <rect x="300" y="0" width="60" height="50" fill="#fff" stroke="#7a7570" stroke-width="1"/>
         <text x="330" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="#5a544e">[6]</text>
         <text x="330" y="35" text-anchor="middle" font-size="10" fill="#999" font-style="italic">empty</text>
 
-        <!-- [7] END_DAY -->
+        
         <rect x="360" y="0" width="60" height="50" fill="#fce8e8" stroke="#c0392b" stroke-width="1.5"/>
         <text x="390" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="#5a544e">[7]</text>
         <text x="390" y="35" text-anchor="middle" font-size="9" font-weight="700" fill="#c0392b">END_DAY</text>
 
-        <!-- [8] END_PERIOD -->
+        
         <rect x="420" y="0" width="80" height="50" fill="#fce8e8" stroke="#c0392b" stroke-width="1.5"/>
         <text x="460" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="#5a544e">[8]</text>
         <text x="460" y="35" text-anchor="middle" font-size="9" font-weight="700" fill="#c0392b">END_PERIOD</text>
 
-        <!-- annotations below -->
+        
         <line x1="30" y1="55" x2="30" y2="78" stroke="#b97417" stroke-width="1"/>
         <text x="30" y="92" text-anchor="middle" font-size="9.5" font-weight="700" fill="#b97417">Always at [1]</text>
         <text x="30" y="104" text-anchor="middle" font-size="9" fill="#5a544e">Skip silently</text>
@@ -2212,7 +2212,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
         <text x="460" y="104" text-anchor="middle" font-size="9" fill="#5a544e">Always last index</text>
       </g>
 
-      <!-- Reading row -->
+      
       <g transform="translate(40, 158)">
         <text x="0" y="0" font-size="11" font-weight="700" fill="#2d2926">How the formula reads RECORD_POSITIONS:</text>
         <rect x="0" y="14" width="600" height="56" rx="3" fill="#1f1c19"/>
@@ -2235,7 +2235,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <div class="ic-explain">Empty value at this index → real worker entry, so the formula reads the data columns. Non-empty (HEADER, END_DAY, END_PERIOD) → system marker, so skip the data columns and trigger boundary logic if applicable. <strong>This is the first thing the formula reads every iteration</strong> — it decides everything else.</div>
 </div>
 
-<!-- Input 2: HWM_MEASURE_DAY (reserved, declared but unused) -->
+
 <div class="input-card reserved">
   <div class="ic-head">
     <div class="ic-eyebrow">Input 02 · Number Array · Reserved</div>
@@ -2247,7 +2247,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Diagram · The "declared but unused" pattern</div>
     <svg viewBox="0 0 680 260" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:680px; display:block;" font-family="Calibri, sans-serif">
 
-      <!-- LEFT side: INPUTS ARE declaration -->
+      
       <rect x="20" y="30" width="280" height="190" rx="4" fill="#e8f4ea" stroke="#27704a" stroke-width="1.5"/>
       <rect x="20" y="30" width="280" height="22" rx="4" fill="#27704a"/>
       <text x="160" y="46" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">REQUIRED · INPUTS ARE declaration</text>
@@ -2263,7 +2263,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <text x="34" y="195" font-size="9.5" fill="#5a544e">Otherwise framework throws</text>
       <text x="34" y="208" font-size="9.5" fill="#5a544e">a binding error at runtime</text>
 
-      <!-- RIGHT side: Formula body -->
+      
       <rect x="380" y="30" width="280" height="190" rx="4" fill="#fef7f0" stroke="#b97417" stroke-width="1.5"/>
       <rect x="380" y="30" width="280" height="22" rx="4" fill="#b97417"/>
       <text x="520" y="46" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">FORMULA BODY · never reads it</text>
@@ -2280,12 +2280,12 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <text x="394" y="196" font-size="11" font-family="JetBrains Mono, monospace" fill="#2d2926">Block 8 — state machine</text>
       <text x="394" y="208" font-size="10" font-family="JetBrains Mono, monospace" fill="#7a7570">/* not referenced */</text>
 
-      <!-- Arrow with label -->
+      
       <line x1="300" y1="125" x2="380" y2="125" stroke="#7a7570" stroke-width="1" stroke-dasharray="3,2"/>
       <text x="340" y="118" text-anchor="middle" font-size="9" fill="#7a7570" font-style="italic">contract gap</text>
       <text x="340" y="134" text-anchor="middle" font-size="9" fill="#7a7570" font-style="italic">declare, ignore</text>
 
-      <!-- Bottom takeaway -->
+      
       <rect x="20" y="234" width="640" height="20" rx="3" fill="#1f1c19"/>
       <text x="340" y="248" text-anchor="middle" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#e6e1d8">Required by contract · Read by zero blocks · Pure compliance checkbox</text>
 
@@ -2302,7 +2302,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   </div>
 </div>
 
-<!-- Input 3: measure -->
+
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Input 03 · Number Array</div>
@@ -2327,7 +2327,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Diagram · Real punches vs qty-only — same measure, different intent</div>
     <svg viewBox="0 0 680 250" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:680px; display:block;" font-family="Calibri, sans-serif">
 
-      <!-- LEFT: Real punches case -->
+      
       <rect x="20" y="20" width="300" height="200" rx="4" fill="#e8f4ea" stroke="#27704a" stroke-width="1.5"/>
       <rect x="20" y="20" width="300" height="22" rx="4" fill="#27704a"/>
       <text x="170" y="36" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">CASE 1 · REAL PUNCHES</text>
@@ -2345,7 +2345,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <text x="34" y="194" font-size="10" fill="#27704a" font-weight="700">✓ Use punches directly</text>
       <text x="34" y="208" font-size="9.5" fill="#5a544e">measure is just StopTime − StartTime</text>
 
-      <!-- RIGHT: Qty-only case -->
+      
       <rect x="360" y="20" width="300" height="200" rx="4" fill="#fff5f0" stroke="#c0392b" stroke-width="1.5"/>
       <rect x="360" y="20" width="300" height="22" rx="4" fill="#c0392b"/>
       <text x="510" y="36" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">CASE 2 · QTY-ONLY PLACEHOLDER</text>
@@ -2363,7 +2363,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <text x="374" y="194" font-size="10" fill="#c0392b" font-weight="700">✗ Punches are placeholders</text>
       <text x="374" y="208" font-size="9.5" fill="#5a544e">Trust measure, ignore the punches</text>
 
-      <!-- Bottom takeaway -->
+      
       <rect x="20" y="232" width="640" height="14" rx="3" fill="#1f1c19"/>
       <text x="340" y="243" text-anchor="middle" font-size="9.5" font-family="JetBrains Mono, monospace" fill="#e6e1d8">Detection: if StartTime ≈ 00:00 AND StopTime ≈ 23:59 → this is qty-only</text>
 
@@ -2377,7 +2377,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <div class="ic-explain"><strong>The formula uses this mainly for qty-only detection.</strong> If a worker types just "8 hours" without entering punch times, OTL fills <code>StartTime</code> as <code>00:00</code> and <code>StopTime</code> as <code>23:59</code> — the <code>measure</code> tells you the real intended hours (8) without needing to compute it from the placeholder punches. When the punches are genuine, <code>measure</code> simply equals <code>StopTime − StartTime</code> in hours, and the formula uses the punches directly anyway.</div>
 </div>
 
-<!-- Input 4: PayrollTimeType -->
+
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Input 04 · Text Array · Routing Key</div>
@@ -2403,43 +2403,43 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Diagram · Time-type values fan out to validation paths</div>
     <svg viewBox="0 0 680 280" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:680px; display:block;" font-family="Calibri, sans-serif">
 
-      <!-- INPUT (left) -->
+      
       <rect x="20" y="116" width="160" height="48" rx="4" fill="#1f1c19" stroke="#1f1c19"/>
       <text x="100" y="135" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">aiTimeType</text>
       <text x="100" y="152" text-anchor="middle" font-size="9.5" fill="#a8a39c">a string value per row</text>
 
-      <!-- 5 fan-out branches -->
-      <!-- Reg Hours -->
+      
+      
       <line x1="180" y1="135" x2="280" y2="40" stroke="#27704a" stroke-width="1.5" marker-end="url(#arrowPT)"/>
       <rect x="284" y="20" width="280" height="42" rx="4" fill="#e8f4ea" stroke="#27704a" stroke-width="1.5"/>
       <text x="294" y="36" font-size="10" font-weight="700" fill="#27704a">"Regular Hours"</text>
       <text x="294" y="52" font-size="10" fill="#2d2926">→ Stretch tracker + Day buffer (overlap)</text>
 
-      <!-- Meal Break -->
+      
       <line x1="180" y1="140" x2="280" y2="92" stroke="#4472c4" stroke-width="1.5" marker-end="url(#arrowPT)"/>
       <rect x="284" y="72" width="280" height="42" rx="4" fill="#f0f4fa" stroke="#4472c4" stroke-width="1.5"/>
       <text x="294" y="88" font-size="10" font-weight="700" fill="#4472c4">"Meal Break"</text>
       <text x="294" y="104" font-size="10" fill="#2d2926">→ Schedule-window check + reset stretch</text>
 
-      <!-- Annual Leave -->
+      
       <line x1="180" y1="145" x2="280" y2="144" stroke="#7a7570" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arrowPT)"/>
       <rect x="284" y="124" width="280" height="42" rx="4" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
       <text x="294" y="140" font-size="10" font-weight="700" fill="#7a7570">"Annual Leave"</text>
       <text x="294" y="156" font-size="10" fill="#5a544e">→ (skipped — no path)</text>
 
-      <!-- Sick Leave -->
+      
       <line x1="180" y1="150" x2="280" y2="196" stroke="#7a7570" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arrowPT)"/>
       <rect x="284" y="176" width="280" height="42" rx="4" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
       <text x="294" y="192" font-size="10" font-weight="700" fill="#7a7570">"Sick Leave"</text>
       <text x="294" y="208" font-size="10" fill="#5a544e">→ (skipped — no path)</text>
 
-      <!-- Public Holiday -->
+      
       <line x1="180" y1="155" x2="280" y2="248" stroke="#7a7570" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arrowPT)"/>
       <rect x="284" y="228" width="280" height="42" rx="4" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
       <text x="294" y="244" font-size="10" font-weight="700" fill="#7a7570">"Public Holiday"</text>
       <text x="294" y="260" font-size="10" fill="#5a544e">→ (skipped — no path)</text>
 
-      <!-- Comparison value labels -->
+      
       <text x="200" y="116" font-size="9" fill="#27704a" font-weight="700">= p_reg_type</text>
       <text x="240" y="180" font-size="9" fill="#4472c4" font-weight="700">= p_break_type</text>
 
@@ -2465,7 +2465,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <div class="ic-explain">The most important routing decision in the formula. Reg Hours go into the continuous-stretch tracker and the day buffer for overlap testing. Meal Break runs through the schedule-window check and resets the stretch tracker. Other types (Annual Leave, Sick, etc) silently skip both paths.</div>
 </div>
 
-<!-- Input 5: StartTime -->
+
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Input 05 · Date Array</div>
@@ -2490,37 +2490,37 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Diagram · StartTime feeds four validation paths</div>
     <svg viewBox="0 0 680 290" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:680px; display:block;" font-family="Calibri, sans-serif">
 
-      <!-- Anatomy of the timestamp (top) -->
+      
       <rect x="20" y="14" width="640" height="42" rx="4" fill="#fff3e0" stroke="#b97417" stroke-width="1"/>
       <text x="34" y="32" font-size="10" font-weight="700" fill="#b97417">TIMESTAMP ANATOMY:</text>
       <text x="160" y="32" font-size="11" font-family="JetBrains Mono, monospace" fill="#2d2926" font-weight="700">14-Apr-2026 10:00:00</text>
       <text x="34" y="48" font-size="9.5" fill="#5a544e">A single value combining date AND time of day. Fast Formula's DATE type holds both — you don't get them as separate fields.</text>
 
-      <!-- INPUT (centre-left) -->
+      
       <rect x="20" y="146" width="160" height="48" rx="4" fill="#1f1c19"/>
       <text x="100" y="166" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">aiStartTime</text>
       <text x="100" y="182" text-anchor="middle" font-size="9.5" fill="#a8a39c">DATE per row</text>
 
-      <!-- 4 fan-out uses -->
-      <!-- Use 1: Stretch EXTEND vs RESTART -->
+      
+      
       <line x1="180" y1="160" x2="280" y2="84" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arrowST)"/>
       <rect x="284" y="64" width="380" height="42" rx="4" fill="#fff5f0" stroke="#c0392b" stroke-width="1.5"/>
       <text x="294" y="80" font-size="10" font-weight="700" fill="#c0392b">USE 1 · STRETCH TRACKER (Block 8)</text>
       <text x="294" y="96" font-size="10" fill="#2d2926">aiStartTime = stretchEnd ? → EXTEND : RESTART</text>
 
-      <!-- Use 2: Pairwise overlap -->
+      
       <line x1="180" y1="165" x2="280" y2="136" stroke="#4472c4" stroke-width="1.5" marker-end="url(#arrowST)"/>
       <rect x="284" y="116" width="380" height="42" rx="4" fill="#f0f4fa" stroke="#4472c4" stroke-width="1.5"/>
       <text x="294" y="132" font-size="10" font-weight="700" fill="#4472c4">USE 2 · OVERLAP TEST (Block 7)</text>
       <text x="294" y="148" font-size="10" fill="#2d2926">aiStartTime + aiStopTime define this row's interval</text>
 
-      <!-- Use 3: Schedule window (meal break) -->
+      
       <line x1="180" y1="175" x2="280" y2="188" stroke="#b97417" stroke-width="1.5" marker-end="url(#arrowST)"/>
       <rect x="284" y="168" width="380" height="42" rx="4" fill="#fff3e0" stroke="#b97417" stroke-width="1.5"/>
       <text x="294" y="184" font-size="10" font-weight="700" fill="#b97417">USE 3 · SCHEDULE WINDOW (Block 6e)</text>
       <text x="294" y="200" font-size="10" fill="#2d2926">aiStartTime < p_sched_start ? → flag meal break</text>
 
-      <!-- Use 4: Qty-only detection -->
+      
       <line x1="180" y1="180" x2="280" y2="240" stroke="#27704a" stroke-width="1.5" marker-end="url(#arrowST)"/>
       <rect x="284" y="220" width="380" height="42" rx="4" fill="#e8f4ea" stroke="#27704a" stroke-width="1.5"/>
       <text x="294" y="236" font-size="10" font-weight="700" fill="#27704a">USE 4 · QTY-ONLY DETECTION (Block 6b)</text>
@@ -2551,7 +2551,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <div class="ic-explain">Two jobs. <strong>Stretch tracking:</strong> compared against the previous stretch's end — if it matches, the worker continued seamlessly (extend); if there's a gap, a new stretch begins (restart). <strong>Overlap detection:</strong> paired with StopTime to define the row's interval; the strict-less-than test catches collisions while allowing back-to-back handovers.</div>
 </div>
 
-<!-- Input 6: StopTime -->
+
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Input 06 · Date Array</div>
@@ -2576,7 +2576,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Diagram · StopTime — partnered with StartTime, standalone for schedule check</div>
     <svg viewBox="0 0 680 280" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:680px; display:block;" font-family="Calibri, sans-serif">
 
-      <!-- The interval visualisation -->
+      
       <text x="340" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#2d2926">An entry's interval = StartTime ↔ StopTime</text>
 
       <rect x="100" y="36" width="100" height="40" rx="3" fill="#1f1c19"/>
@@ -2590,10 +2590,10 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <text x="530" y="54" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">aiStopTime</text>
       <text x="530" y="68" text-anchor="middle" font-size="9.5" fill="#a8a39c">14-Apr 14:45</text>
 
-      <!-- Three uses below -->
+      
       <text x="340" y="110" text-anchor="middle" font-size="11" font-weight="700" fill="#2d2926">Three places StopTime appears in the formula</text>
 
-      <!-- Use 1: Pairwise overlap (partnered) -->
+      
       <rect x="20" y="126" width="200" height="120" rx="4" fill="#f0f4fa" stroke="#4472c4" stroke-width="1.5"/>
       <rect x="20" y="126" width="200" height="22" rx="4" fill="#4472c4"/>
       <text x="120" y="142" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">USE 1 · OVERLAP TEST</text>
@@ -2604,7 +2604,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <text x="34" y="220" font-size="9.5" fill="#5a544e">other row's interval.</text>
       <text x="34" y="238" font-size="9" font-family="JetBrains Mono, monospace" fill="#4472c4">starts[i] < stops[j]</text>
 
-      <!-- Use 2: Stretch tracker (partnered) -->
+      
       <rect x="240" y="126" width="200" height="120" rx="4" fill="#fff5f0" stroke="#c0392b" stroke-width="1.5"/>
       <rect x="240" y="126" width="200" height="22" rx="4" fill="#c0392b"/>
       <text x="340" y="142" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">USE 2 · STRETCH TRACKER</text>
@@ -2615,7 +2615,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <text x="254" y="226" font-size="9" font-family="JetBrains Mono, monospace" fill="#c0392b">stretchEnd = aiStopTime</text>
       <text x="254" y="240" font-size="9" font-family="JetBrains Mono, monospace" fill="#c0392b">contHrs = end - start</text>
 
-      <!-- Use 3: Schedule window (standalone) -->
+      
       <rect x="460" y="126" width="200" height="120" rx="4" fill="#fff3e0" stroke="#b97417" stroke-width="1.5"/>
       <rect x="460" y="126" width="200" height="22" rx="4" fill="#b97417"/>
       <text x="560" y="142" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">USE 3 · SCHEDULE WINDOW</text>
@@ -2626,7 +2626,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <text x="474" y="228" font-size="9" font-family="JetBrains Mono, monospace" fill="#b97417">if aiStopTime ></text>
       <text x="474" y="240" font-size="9" font-family="JetBrains Mono, monospace" fill="#b97417">     p_sched_end → flag</text>
 
-      <!-- Bottom callout -->
+      
       <rect x="20" y="258" width="640" height="14" rx="3" fill="#1f1c19"/>
       <text x="340" y="269" text-anchor="middle" font-size="9.5" font-family="JetBrains Mono, monospace" fill="#e6e1d8">Most uses pair Start+Stop, but the schedule window only needs StopTime</text>
 
@@ -2648,7 +2648,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <div class="phase-divider">↓   FORMULA RUNS   ↓</div>
 
-<!-- Output: OUT_MSG -->
+
 <div class="input-card output">
   <div class="ic-head">
     <div class="ic-eyebrow">Output · Text Array (Sparse)</div>
@@ -2674,7 +2674,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Diagram · Sparse output — only flagged rows have entries</div>
     <svg viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:680px; display:block;" font-family="Calibri, sans-serif">
 
-      <!-- LEFT: timecard rows -->
+      
       <text x="120" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#4472c4">Sarah's timecard</text>
       <text x="120" y="36" text-anchor="middle" font-size="9.5" fill="#5a544e" font-style="italic">5 rows in OTL grid</text>
 
@@ -2695,12 +2695,12 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
         <text x="10" y="172" font-size="9.5" font-weight="700" fill="#27704a">Row 5 · Annual Leave</text>
       </g>
 
-      <!-- arrows from each row to OUT_MSG slot -->
+      
       <line x1="220" y1="66" x2="290" y2="106" stroke="#7a7570" stroke-width="1" stroke-dasharray="3,2"/>
       <line x1="220" y1="104" x2="290" y2="144" stroke="#7a7570" stroke-width="1" stroke-dasharray="3,2"/>
       <line x1="220" y1="142" x2="290" y2="182" stroke="#7a7570" stroke-width="1" stroke-dasharray="3,2"/>
 
-      <!-- RIGHT: OUT_MSG array -->
+      
       <text x="500" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">OUT_MSG · sparse array</text>
       <text x="500" y="36" text-anchor="middle" font-size="9.5" fill="#5a544e" font-style="italic">indexed by row number</text>
 
@@ -2731,7 +2731,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
         <text x="205" y="172" text-anchor="middle" font-size="10" fill="#7a7570" font-style="italic">empty · row passed all checks</text>
       </g>
 
-      <!-- Bottom: framework reads it -->
+      
       <line x1="340" y1="248" x2="340" y2="266" stroke="#7a7570" stroke-width="2" marker-end="url(#arrowOM)"/>
       <text x="350" y="262" font-size="10" fill="#7a7570" font-style="italic">framework reads array</text>
 
@@ -2770,12 +2770,12 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:12px;">Diagram · Six arrays, one shared index space</div>
   <svg viewBox="0 0 720 460" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:720px; display:block;" font-family="Calibri, sans-serif">
 
-    <!-- Top: Six arrays shown as separate vertical stacks -->
+    
     <text x="20" y="20" font-size="11" font-weight="700" fill="#4472c4">The mental model — six arrays, each holding one type of data, all keyed by the same row index</text>
 
-    <!-- Six parallel array columns, each labelled and showing 4 cells -->
+    
     <g transform="translate(20, 36)">
-      <!-- Column headers showing array name + type -->
+      
       <rect x="0" y="0" width="106" height="32" fill="#1f1c19"/>
       <text x="53" y="14" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">RECORD_POSITIONS</text>
       <text x="53" y="26" text-anchor="middle" font-size="8" fill="#a8a39c">array of TEXT</text>
@@ -2800,7 +2800,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <text x="618" y="14" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">HWM_MEASURE_DAY</text>
       <text x="618" y="26" text-anchor="middle" font-size="8" fill="#a8a39c">array of NUMBER</text>
 
-      <!-- Row 1 -->
+      
       <rect x="0" y="32" width="106" height="26" fill="#fff8e7" stroke="#b97417"/>
       <text x="53" y="49" text-anchor="middle" font-size="9" font-weight="700" fill="#b97417">'HEADER'</text>
       <rect x="113" y="32" width="106" height="26" fill="#fff5f0" stroke="#c0392b"/>
@@ -2814,7 +2814,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <rect x="565" y="32" width="106" height="26" fill="#fff5f0" stroke="#c0392b"/>
       <text x="618" y="49" text-anchor="middle" font-size="9" fill="#c0392b" font-style="italic">missing</text>
 
-      <!-- Row 2 -->
+      
       <rect x="0" y="58" width="106" height="26" fill="#fff" stroke="#999"/>
       <text x="53" y="75" text-anchor="middle" font-size="9" fill="#999" font-style="italic">empty</text>
       <rect x="113" y="58" width="106" height="26" fill="#fff" stroke="#999"/>
@@ -2828,7 +2828,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <rect x="565" y="58" width="106" height="26" fill="#fff" stroke="#999"/>
       <text x="618" y="75" text-anchor="middle" font-size="9" fill="#999" font-style="italic">unused</text>
 
-      <!-- Row 3 highlighted -->
+      
       <rect x="0" y="84" width="106" height="26" fill="#fff5f0" stroke="#c0392b" stroke-width="2"/>
       <text x="53" y="101" text-anchor="middle" font-size="9" fill="#999" font-style="italic">empty</text>
       <rect x="113" y="84" width="106" height="26" fill="#fff5f0" stroke="#c0392b" stroke-width="2"/>
@@ -2842,7 +2842,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <rect x="565" y="84" width="106" height="26" fill="#fff5f0" stroke="#c0392b" stroke-width="2"/>
       <text x="618" y="101" text-anchor="middle" font-size="9" fill="#999" font-style="italic">unused</text>
 
-      <!-- Row 4 -->
+      
       <rect x="0" y="110" width="106" height="26" fill="#fff" stroke="#999"/>
       <text x="53" y="127" text-anchor="middle" font-size="9" fill="#999" font-style="italic">empty</text>
       <rect x="113" y="110" width="106" height="26" fill="#fff" stroke="#999"/>
@@ -2856,20 +2856,20 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <rect x="565" y="110" width="106" height="26" fill="#fff" stroke="#999"/>
       <text x="618" y="127" text-anchor="middle" font-size="9" fill="#999" font-style="italic">unused</text>
 
-      <!-- Index labels on the LEFT showing the shared index space -->
+      
       <text x="-5" y="49" text-anchor="end" font-size="11" font-weight="700" fill="#b97417">[1]</text>
       <text x="-5" y="75" text-anchor="end" font-size="11" font-weight="700" fill="#5a544e">[2]</text>
       <text x="-5" y="101" text-anchor="end" font-size="13" font-weight="700" fill="#c0392b">[3]</text>
       <text x="-5" y="127" text-anchor="end" font-size="11" font-weight="700" fill="#5a544e">[4]</text>
     </g>
 
-    <!-- The shared index space callout -->
+    
     <rect x="20" y="186" width="680" height="40" rx="4" fill="#fff5f0" stroke="#c0392b" stroke-width="1.5"/>
     <text x="34" y="204" font-size="10" font-weight="700" fill="#c0392b">SHARED INDEX SPACE:</text>
     <text x="180" y="204" font-size="10" fill="#2d2926">All six arrays use the SAME index numbers. Read row [3] across all six and you get the full picture of one timecard row.</text>
     <text x="34" y="220" font-size="10" fill="#5a544e" font-style="italic">No row "object" exists — each row is reassembled at the moment of reading from the six parallel slices.</text>
 
-    <!-- The reassembly pattern -->
+    
     <text x="20" y="252" font-size="11" font-weight="700" fill="#4472c4">How the formula reassembles row [3] inside the loop</text>
 
     <rect x="20" y="266" width="680" height="100" rx="4" fill="#1f1c19"/>
@@ -2882,7 +2882,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <text x="20" y="386" font-size="10" fill="#5a544e">The single index <tspan font-family="JetBrains Mono, monospace" fill="#c0392b">nidx</tspan> walks every array in sync. <tspan font-weight="700">This is the parallel-arrays idiom in action.</tspan></text>
     <text x="20" y="402" font-size="10" fill="#5a544e">Once you internalise it, you'll see it everywhere across OTL formula types — the pattern is consistent.</text>
 
-    <!-- Bottom strip -->
+    
     <rect x="20" y="424" width="680" height="22" rx="3" fill="#1f1c19"/>
     <text x="34" y="440" font-size="9.5" font-family="JetBrains Mono, monospace" fill="#e6e1d8">Six arrays in · One shared index space · No row objects · Reassemble at read time</text>
 
@@ -2955,7 +2955,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <p>Return anything other than <code>OUT_MSG</code> — an extra variable, a misspelled name — and the OTL submission throws a contract error. Return exactly this and nothing else.</p>
 
-<!-- COMPLETE FORMULA CODE -->
+
 <h2>The Complete Formula</h2>
 
 <p>Here it is in full. Every line in this listing is exactly what gets pasted into <strong>Manage Fast Formulas</strong>. Read it once top-to-bottom — don't try to understand every line yet. We'll walk through it block by block in the next section.</p>
@@ -3219,7 +3219,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <p>That's the entire formula. ~200 lines, three nested control structures, one state machine, and five validations all in one pass through the array. Now let's break it down piece by piece.</p>
 
-<!-- BLOCK BY BLOCK WALKTHROUGH -->
+
 <h2>The Formula's Architecture</h2>
 
 <p class="section-lead">Before reading the code line-by-line, it helps to see the shape of the whole thing. The formula has eight blocks that fall into <strong>two clean halves</strong>: the first five blocks run <em>once</em> as scaffolding (set up arrays, capture identity, bind context, read configuration, initialise state), and the last three blocks run <em>repeatedly</em> inside the WHILE loop where the actual validation happens. Every line of code belongs to exactly one of these eight blocks.</p>
@@ -3228,7 +3228,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:12px;">Diagram · Eight blocks, two halves — data flow from input arrays to OUT_MSG return</div>
   <svg viewBox="0 0 720 540" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:720px; display:block;" font-family="Calibri, sans-serif">
 
-    <!-- ===== TOP: Inputs entering ===== -->
+    
     <text x="20" y="20" font-size="11" font-weight="700" fill="#4472c4">Six input arrays enter the formula</text>
 
     <g transform="translate(20, 32)">
@@ -3254,15 +3254,15 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <text x="618" y="26" text-anchor="middle" font-size="8.5" font-weight="700" fill="#2d2926">DAY</text>
     </g>
 
-    <!-- Arrows down into setup -->
+    
     <line x1="360" y1="68" x2="360" y2="92" stroke="#4472c4" stroke-width="2" marker-end="url(#arrowArch)"/>
 
-    <!-- ===== SETUP HALF (5 blocks, runs ONCE) ===== -->
+    
     <rect x="20" y="98" width="680" height="138" rx="6" fill="#fef7f0" stroke="#b97417" stroke-width="2"/>
     <text x="34" y="116" font-size="11" font-weight="700" fill="#b97417">SETUP HALF · runs ONCE at the top of the formula</text>
     <text x="34" y="130" font-size="9.5" fill="#5a544e" font-style="italic">scaffolding — preparing everything the loop will need</text>
 
-    <!-- 5 blocks horizontally -->
+    
     <g transform="translate(34, 142)">
       <rect x="0" y="0" width="125" height="80" rx="4" fill="#fff" stroke="#b97417" stroke-width="1.5"/>
       <text x="62.5" y="16" text-anchor="middle" font-size="10" font-weight="700" fill="#b97417">BLOCK 1</text>
@@ -3295,16 +3295,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <text x="586.5" y="68" text-anchor="middle" font-size="8" fill="#7a7570" font-family="JetBrains Mono, monospace">OUT_MSG, buffers</text>
     </g>
 
-    <!-- Arrow down to loop -->
+    
     <line x1="360" y1="240" x2="360" y2="264" stroke="#4472c4" stroke-width="2" marker-end="url(#arrowArch)"/>
     <text x="380" y="258" font-size="9" fill="#4472c4" font-style="italic">scaffolding done → enter loop</text>
 
-    <!-- ===== LOOP HALF (3 blocks, runs N TIMES) ===== -->
+    
     <rect x="20" y="270" width="680" height="170" rx="6" fill="#f0f4fa" stroke="#4472c4" stroke-width="2"/>
     <text x="34" y="288" font-size="11" font-weight="700" fill="#4472c4">LOOP HALF · runs ONCE PER TIMECARD ROW (N times total)</text>
     <text x="34" y="302" font-size="9.5" fill="#5a544e" font-style="italic">the actual validation work — classify, accumulate, judge</text>
 
-    <!-- 3 blocks with WHILE arrow on the side -->
+    
     <g transform="translate(34, 314)">
       <rect x="0" y="0" width="208" height="100" rx="4" fill="#fff" stroke="#4472c4" stroke-width="1.5"/>
       <text x="104" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="#4472c4">BLOCK 6 · Per-line routing</text>
@@ -3328,15 +3328,15 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <text x="532" y="86" text-anchor="middle" font-size="8.5" fill="#5a544e">error wins over warning</text>
     </g>
 
-    <!-- Loop arrow on the right side -->
+    
     <path d="M 670,364 C 700,364 700,470 360,470 C 60,470 60,364 70,364" fill="none" stroke="#4472c4" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowArch)"/>
     <text x="360" y="465" text-anchor="middle" font-size="9" font-weight="700" fill="#4472c4">WHILE (cntr < wMaAry) — loop back for next row</text>
 
-    <!-- Arrow out to OUT_MSG -->
+    
     <line x1="360" y1="444" x2="360" y2="490" stroke="#27704a" stroke-width="2" marker-end="url(#arrowArch)"/>
     <text x="375" y="478" font-size="9" fill="#27704a" font-style="italic">loop ends → return</text>
 
-    <!-- ===== OUT_MSG return ===== -->
+    
     <rect x="240" y="496" width="240" height="36" rx="4" fill="#e8f4ea" stroke="#27704a" stroke-width="2"/>
     <text x="360" y="512" text-anchor="middle" font-size="11" font-weight="700" fill="#27704a">OUT_MSG returned to OTL framework</text>
     <text x="360" y="526" text-anchor="middle" font-size="9" fill="#5a544e" font-style="italic">sparse array of error messages, one per flagged row</text>
@@ -3556,7 +3556,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <p>Now the prefixes in detail, with examples and the reasoning behind each convention:</p>
 
-<!-- Prefix card 1: HWM_* -->
+
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Prefix 01 · Framework Context</div>
@@ -3577,7 +3577,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <div class="ic-explain">The <code>HWM_</code> prefix — short for <em>HCM Workforce Management</em> — marks variables the OTL framework injects into the formula's scope. They're not declared by the formula author; they appear automatically when the formula runs. The values are read-only from the formula's perspective; trying to assign to them does nothing useful and can break the binding.<br><br>Their purpose is to give the formula access to <strong>contextual information about the current run</strong>: whose timecard is being validated (<code>HWM_PER_ASG_ASSIGNMENT_ID</code>), which rule fired the formula (<code>HWM_RULE_ID</code>), and what unique session ID identifies this specific submission for log tracing (<code>HWM_FFS_ID</code>). Block 2 captures these into shorter local variables (<code>ffs_id</code>, <code>rule_id</code>) for convenience throughout the rest of the formula.</div>
 </div>
 
-<!-- Prefix card 2: HWM_CTXARY_* -->
+
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Prefix 02 · Framework Input Array</div>
@@ -3597,7 +3597,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <div class="ic-explain">The <code>HWM_CTXARY_</code> prefix — short for <em>HCM Workforce Management Context Array</em> — marks the framework's <strong>parallel input arrays</strong>. Where <code>HWM_*</code> holds a single value, <code>HWM_CTXARY_*</code> holds one slot per timecard row, all indexed by the same row number.<br><br>You access them like arrays: <code>HWM_CTXARY_RECORD_POSITIONS[3]</code> retrieves the value for row 3. The naming feels heavy, but it's deliberately verbose so you can never mistake a per-row array for a single-value context. Confusing the two would cause type errors at compile time — loud and easy to fix — so the convention pays off.<br><br>Note that some inputs in the <code>INPUTS ARE</code> declaration (like <code>measure</code>, <code>StartTime</code>, <code>StopTime</code>) <em>also</em> behave as parallel arrays but use cleaner names. They're framework arrays too; they just don't use the <code>HWM_CTXARY_</code> prefix because OTL's design predates the convention. Treat them the same way: per-row, indexed by row number, read-only.</div>
 </div>
 
-<!-- Prefix card 3: p_* -->
+
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Prefix 03 · Parameter</div>
@@ -3620,7 +3620,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <div class="ic-explain">The <code>p_</code> prefix marks <strong>parameter-style variables</strong> — values set once in Block 4 and used throughout the rest of the formula as effectively constant. The lowercase <code>p</code> distinguishes them from framework-supplied values (<code>HWM_*</code>) and per-row scratch (<code>ai*</code>, <code>l_*</code>).<br><br>Most <code>p_*</code> variables are read from the rule configuration via <code>get_rvalue_number</code>, which fetches numeric parameters that legal entities can tune independently — this is how one entity can use a 5-hour cap while another uses 6 with the same formula source. A few <code>p_*</code> variables (the message names like <code>p_msg_overlap</code>, the time-type labels like <code>p_break_type</code>) are hardcoded because they don't vary across the rollout.<br><br>The convention serves a code-review purpose: when you see <code>p_*</code> being assigned anywhere outside Block 4, that's a code smell — parameters should be set once at setup and treated as constant during the loop. Mutation indicates a bug or a misuse.</div>
 </div>
 
-<!-- Prefix card 4: ai* -->
+
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Prefix 04 · Array Input Snapshot</div>
@@ -3642,7 +3642,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <div class="ic-explain">The <code>ai</code> prefix stands for <strong>"array input"</strong> — per-row local snapshots of values pulled from the framework's input arrays. At the top of every loop iteration, the formula reads from the input arrays (with <code>.exists()</code> guards) and copies the values into matching <code>ai*</code> locals.<br><br>Why copy rather than reading the input arrays directly throughout the iteration? Three reasons. First, it creates a <strong>consistent snapshot</strong>: the rest of the iteration always sees the same values for "this row", even if downstream code logic gets restructured. Second, it provides a single place to apply guards (the <code>.exists()</code> checks in the read block) so you can never accidentally trigger an unguarded read elsewhere. Third, it makes the data flow obvious in code review — seeing <code>ai*</code> on the left of an assignment in the read block flags it as the "snapshot point", and the rest of the iteration cleanly works from those locals.<br><br>The <code>ai*</code> variables are reset at the top of every iteration to their sentinel values (<code>NullText</code>, <code>NullDate</code>) before the new row's reads happen. This explicit reset prevents the stale-value bug discussed in Block 5.</div>
 </div>
 
-<!-- Prefix card 5: l_* -->
+
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Prefix 05 · Local Working Variable</div>
@@ -3664,7 +3664,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <div class="ic-explain">The <code>l_</code> prefix marks <strong>local working variables</strong> created inside the loop body for intermediate computation or state-tracking. Some are per-row (computed fresh each iteration), some are per-day (set once on a triggering event and persisting until the next day boundary).<br><br>The prefix's main job is to distinguish working state from input snapshots (<code>ai*</code>) and parameters (<code>p_*</code>). A formula reader scanning the code can immediately tell <code>l_qty_only</code> is a flag the formula sets itself, not data from the framework or a configuration value.<br><br>Within <code>l_*</code> there's an unwritten sub-convention: variables that hold <code>'Y'</code>/<code>'N'</code> flags use names ending in past-tense or descriptive adjectives (<code>l_meal_taken</code>, <code>l_qty_only</code>), while variables that hold computed numeric or string values use abbreviated names (<code>l_st_hr</code>, <code>l_day</code>). The convention isn't enforced, but consistency makes the code easier to scan.</div>
 </div>
 
-<!-- Prefix card 6: day* / stretch* -->
+
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Prefix 06 · Named-Lifetime State</div>
@@ -3684,7 +3684,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <div class="ic-explain">Some variables can't be neatly classified as "per-row" or "whole-formula" — they live for a domain-specific period that the formula explicitly manages. The convention here is to <strong>group these by domain prefix</strong>: <code>day*</code> for variables related to a single day's accumulated state, <code>stretch*</code> for variables tracking the current continuous-work stretch.<br><br>The grouping makes the code's structure self-documenting. When a reader sees <code>dayStarts</code>, <code>dayStops</code>, <code>dayIdxs</code>, and <code>dayCnt</code> together, they immediately recognise these as the day buffer — four pieces of one logical structure. Same for <code>stretchStart</code>, <code>stretchEnd</code>, <code>inStretch</code> as the stretch tracker.<br><br>The grouping also signals that these variables must be <strong>reset together</strong>. Block 7c (the END_DAY reset) clears all four day buffer variables in one block, and clears the stretch tracker variables in the same block. Resetting some without others would corrupt state. The naming makes it obvious which variables belong in the same reset block.</div>
 </div>
 
-<!-- Prefix card 7: OUT_MSG -->
+
 <div class="input-card output">
   <div class="ic-head">
     <div class="ic-eyebrow">Prefix 07 · Formula Output (Reserved Name)</div>
@@ -3723,7 +3723,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <div style="background:#fff; padding:48px 36px 56px 36px; margin:48px 0 24px 0; border-radius:8px; border:1px solid #e8e3d8;">
 
-  <!-- Header: title + tagline -->
+  
   <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:36px; flex-wrap:wrap; gap:16px;">
     <div>
       <div style="font-family:'Manrope', -apple-system, sans-serif; font-size:34px; line-height:1.2; font-weight:300; color:#1f5fa8; letter-spacing:-0.5px;">Same formula.</div>
@@ -3735,10 +3735,10 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     </div>
   </div>
 
-  <!-- Tile grid: 6 tiles in a row -->
+  
   <svg viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:800px; display:block;" font-family="Manrope, -apple-system, sans-serif">
 
-    <!-- Tile 1: Setup Phase (x=10-120) -->
+    
     <rect x="10" y="20" width="110" height="110" fill="#f0ebe0" opacity="0.5"/>
     <rect x="24" y="34" width="82" height="82" fill="none" stroke="#c8c2b8" stroke-width="1"/>
     <g transform="translate(65, 60)" stroke="#a8a39c" stroke-width="1.3" fill="none">
@@ -3751,7 +3751,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <text x="65" y="142" text-anchor="middle" font-size="9" font-weight="700" fill="#7a7570" letter-spacing="0.4">SETUP</text>
     <text x="65" y="154" text-anchor="middle" font-size="9" font-weight="700" fill="#7a7570" letter-spacing="0.4">PHASE</text>
 
-    <!-- Tile 2: Per-Line Routing (x=140-250) -->
+    
     <rect x="140" y="20" width="110" height="110" fill="#f0ebe0" opacity="0.5"/>
     <rect x="154" y="34" width="82" height="82" fill="none" stroke="#c8c2b8" stroke-width="1"/>
     <g transform="translate(195, 75)" stroke="#a8a39c" stroke-width="1.3" fill="none">
@@ -3766,7 +3766,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <text x="195" y="142" text-anchor="middle" font-size="9" font-weight="700" fill="#7a7570" letter-spacing="0.4">PER-LINE</text>
     <text x="195" y="154" text-anchor="middle" font-size="9" font-weight="700" fill="#7a7570" letter-spacing="0.4">ROUTING</text>
 
-    <!-- Tile 3: Day Boundary (x=270-380) -->
+    
     <rect x="270" y="20" width="110" height="110" fill="#f0ebe0" opacity="0.5"/>
     <rect x="284" y="34" width="82" height="82" fill="none" stroke="#c8c2b8" stroke-width="1"/>
     <g transform="translate(325, 75)" stroke="#a8a39c" stroke-width="1.3" fill="none">
@@ -3776,7 +3776,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <text x="325" y="142" text-anchor="middle" font-size="9" font-weight="700" fill="#7a7570" letter-spacing="0.4">DAY</text>
     <text x="325" y="154" text-anchor="middle" font-size="9" font-weight="700" fill="#7a7570" letter-spacing="0.4">BOUNDARY</text>
 
-    <!-- Tile 4: STATE MACHINE - HIGHLIGHTED (x=400-525, wider 125) -->
+    
     <rect x="400" y="14" width="125" height="125" fill="#1f5fa8"/>
     <rect x="414" y="28" width="97" height="97" fill="none" stroke="#fff" stroke-width="1.5"/>
     <g transform="translate(462, 70)" stroke="#fff" stroke-width="1.5" fill="none">
@@ -3788,7 +3788,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <text x="462" y="146" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" letter-spacing="0.5">STATE</text>
     <text x="462" y="158" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" letter-spacing="0.5">MACHINE</text>
 
-    <!-- Tile 5: Setup Dependencies (x=545-655) -->
+    
     <rect x="545" y="20" width="110" height="110" fill="#f0ebe0" opacity="0.5"/>
     <rect x="559" y="34" width="82" height="82" fill="none" stroke="#c8c2b8" stroke-width="1"/>
     <g transform="translate(600, 75)" stroke="#a8a39c" stroke-width="1.3" fill="none">
@@ -3800,7 +3800,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <text x="600" y="142" text-anchor="middle" font-size="9" font-weight="700" fill="#7a7570" letter-spacing="0.4">SETUP</text>
     <text x="600" y="154" text-anchor="middle" font-size="9" font-weight="700" fill="#7a7570" letter-spacing="0.4">DEPENDENCIES</text>
 
-    <!-- Tile 6: Worked Example (x=675-785) -->
+    
     <rect x="675" y="20" width="110" height="110" fill="#f0ebe0" opacity="0.5"/>
     <rect x="689" y="34" width="82" height="82" fill="none" stroke="#c8c2b8" stroke-width="1"/>
     <g transform="translate(730, 75)" stroke="#a8a39c" stroke-width="1.3" fill="none">
@@ -3813,12 +3813,12 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <text x="730" y="142" text-anchor="middle" font-size="9" font-weight="700" fill="#7a7570" letter-spacing="0.4">WORKED</text>
     <text x="730" y="154" text-anchor="middle" font-size="9" font-weight="700" fill="#7a7570" letter-spacing="0.4">EXAMPLE</text>
 
-    <!-- Cursor pointer (positioned inside highlighted tile, no overlap) -->
+    
     <g transform="translate(516, 96)" fill="#1a1a1a">
       <path d="M 0,0 L 0,16 L 4,13 L 8,20 L 11,19 L 7,11 L 13,11 Z" stroke="#fff" stroke-width="0.5"/>
     </g>
 
-    <!-- CTA button (centered, more room) -->
+    
     <g transform="translate(260, 220)">
       <rect x="0" y="0" width="280" height="40" fill="#fff" stroke="#1f5fa8" stroke-width="1.5" rx="2"/>
       <text x="140" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="#1f5fa8">Continue to Part 2 →</text>
@@ -3832,21 +3832,21 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
   </svg>
 
-  <!-- Caption beneath highlighted tile -->
+  
   <p style="margin:24px 0 0 0; font-size:13px; color:#5a544e; line-height:1.6; text-align:center;">
     Part 2 walks through every block of the formula in detail — with the <strong style="color:#1f5fa8;">continuous-hours state machine</strong> as the centrepiece. You'll also get the per-line routing decisions, the day-boundary overlap test, the setup dependencies that must exist for the formula to fire, and a worked end-to-end trace of Sarah's full timecard.
   </p>
 
 </div>
 
-<!-- NEXT IN SERIES -->
+
 <div style="background:#fff8e8; border:1px solid #b97417; border-radius:6px; padding:20px 24px; margin:40px 0 32px 0;">
   <div style="font-size:10px; letter-spacing:1.6px; color:#b97417; text-transform:uppercase; font-weight:700; margin-bottom:6px;">Next in The TER Series</div>
   <div style="font-size:18px; font-weight:700; color:#2d2926; margin-bottom:8px;">Part 3 — The Algorithm: Setup, Routing, and Overlap Detection</div>
   <div style="font-size:13.5px; color:#5a544e; line-height:1.6;">The data shape is settled. Now the algorithm. Part 3 walks through the formula's setup phase (crash prevention, identity capture, per-LE configuration), the per-line routing that decides which checks apply to each row, and the day-boundary pairwise overlap test — the first half of the eight-block algorithm.</div>
 </div>
 
-<!-- FOOTER (Philippine-leave-post style) -->
+
 <hr style="margin:48px 0 32px 0; border:none; border-top:1px solid #e8e3d8;">
 
 <div class="byline">

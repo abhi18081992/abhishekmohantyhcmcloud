@@ -64,18 +64,18 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "DBI", "CHANGE_CONTEXTS"]
 <div style="margin:24px 0;padding:20px;background:#fafafa;border:1px solid #e5e5e5;border-radius:4px;text-align:center"><svg viewBox="0 0 620 340" xmlns="http://www.w3.org/2000/svg" font-family="'Open Sans',sans-serif" font-size="12">
 <text x="310" y="22" text-anchor="middle" font-weight="700" font-size="13" fill="#1a1a1a">Same context, opposite operations</text>
 
-<!-- Central context layer -->
+
 <rect x="180" y="45" width="260" height="60" fill="#fff" stroke="#2c5282" stroke-width="2" rx="4"/>
 <text x="310" y="65" text-anchor="middle" font-weight="700" fill="#2c5282" font-size="12">Context Layer (engine-managed)</text>
 <text x="310" y="84" text-anchor="middle" font-family="Consolas" font-size="11" fill="#555">EFFECTIVE_DATE = 15-Mar-2026</text>
 <text x="310" y="97" text-anchor="middle" fill="#888" font-size="10" font-style="italic">injected by the calling application</text>
 
-<!-- READ arrow (left, upward out of context layer) -->
+
 <defs><marker id="rd" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#c0392b"/></marker><marker id="wr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#6a1b9a"/></marker></defs>
 <line x1="220" y1="105" x2="150" y2="175" stroke="#c0392b" stroke-width="2" marker-end="url(#rd)"/>
 <line x1="400" y1="105" x2="470" y2="175" stroke="#6a1b9a" stroke-width="2" marker-end="url(#wr)"/>
 
-<!-- READ box (left) -->
+
 <rect x="20" y="180" width="260" height="140" fill="#fff5f2" stroke="#c0392b" stroke-width="2" rx="4"/>
 <text x="150" y="203" text-anchor="middle" font-weight="700" fill="#c0392b" font-size="14">GET_CONTEXT — READ</text>
 <text x="150" y="222" text-anchor="middle" fill="#555" font-size="11">copies current value into</text>
@@ -84,7 +84,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "DBI", "CHANGE_CONTEXTS"]
 <text x="150" y="270" text-anchor="middle" font-family="Consolas" font-size="11" fill="#c0392b">l_eff = GET_CONTEXT(EFFECTIVE_DATE, d)</text>
 <text x="150" y="300" text-anchor="middle" fill="#888" font-size="10" font-style="italic">context layer unchanged</text>
 
-<!-- WRITE box (right) -->
+
 <rect x="340" y="180" width="260" height="140" fill="#f8f0fa" stroke="#6a1b9a" stroke-width="2" rx="4"/>
 <text x="470" y="203" text-anchor="middle" font-weight="700" fill="#6a1b9a" font-size="14">CHANGE_CONTEXTS — WRITE</text>
 <text x="470" y="222" text-anchor="middle" fill="#555" font-size="11">temporarily overrides value</text>
@@ -243,44 +243,44 @@ RETURN VALID, ERROR_MESSAGE</pre>
 <defs><marker id="a7" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#555"/></marker></defs>
 <text x="310" y="20" text-anchor="middle" font-weight="700" font-size="13" fill="#1a1a1a">Same employee, same manager, different EFFECTIVE_DATE = different tenure</text>
 
-<!-- Timeline axis with three markers: manager hire, submission, absence start -->
+
 <line x1="50" y1="80" x2="570" y2="80" stroke="#888" stroke-width="2"/>
 
-<!-- Manager hire date marker (green) -->
+
 <circle cx="90" cy="80" r="6" fill="#2e7d32"/>
 <text x="90" y="62" text-anchor="middle" font-weight="700" fill="#2e7d32" font-size="11">Nov 2, 2025</text>
 <text x="90" y="102" text-anchor="middle" fill="#555" font-size="10">manager hired</text>
 
-<!-- Submission date marker (blue) -->
+
 <circle cx="320" cy="80" r="6" fill="#2c5282"/>
 <text x="320" y="62" text-anchor="middle" font-weight="700" fill="#2c5282" font-size="11">Jan 5, 2026</text>
 <text x="320" y="102" text-anchor="middle" fill="#555" font-size="10">user submits leave request</text>
 <text x="320" y="115" text-anchor="middle" fill="#555" font-size="10" font-style="italic">(EFFECTIVE_DATE)</text>
 
-<!-- Absence start date marker (red) -->
+
 <circle cx="500" cy="80" r="6" fill="#c0392b"/>
 <text x="500" y="62" text-anchor="middle" font-weight="700" fill="#c0392b" font-size="11">Feb 10, 2026</text>
 <text x="500" y="102" text-anchor="middle" fill="#555" font-size="10">absence starts</text>
 <text x="500" y="115" text-anchor="middle" fill="#555" font-size="10" font-style="italic">(IV_START_DATE)</text>
 
-<!-- Tenure brackets -->
-<!-- Short bracket: Nov 2 to Jan 5 = 64 days -->
+
+
 <line x1="90" y1="140" x2="320" y2="140" stroke="#c0392b" stroke-width="2"/>
 <line x1="90" y1="135" x2="90" y2="145" stroke="#c0392b" stroke-width="2"/>
 <line x1="320" y1="135" x2="320" y2="145" stroke="#c0392b" stroke-width="2"/>
 <text x="205" y="133" text-anchor="middle" fill="#c0392b" font-weight="700" font-size="11">64 days</text>
 
-<!-- Long bracket: Nov 2 to Feb 10 = 100 days -->
+
 <line x1="90" y1="165" x2="500" y2="165" stroke="#2e7d32" stroke-width="2"/>
 <line x1="90" y1="160" x2="90" y2="170" stroke="#2e7d32" stroke-width="2"/>
 <line x1="500" y1="160" x2="500" y2="170" stroke="#2e7d32" stroke-width="2"/>
 <text x="295" y="180" text-anchor="middle" fill="#2e7d32" font-weight="700" font-size="11">100 days</text>
 
-<!-- 90-day threshold line -->
+
 <line x1="50" y1="200" x2="570" y2="200" stroke="#d4a017" stroke-width="1" stroke-dasharray="4,3"/>
 <text x="565" y="197" text-anchor="end" fill="#d4a017" font-size="10" font-style="italic">— 90 day policy threshold —</text>
 
-<!-- Without override box (red, left) -->
+
 <rect x="30" y="215" width="270" height="150" fill="#fff5f2" stroke="#c0392b" stroke-width="2" rx="4"/>
 <text x="165" y="238" text-anchor="middle" font-weight="700" fill="#c0392b" font-size="13">✗ Without override</text>
 <text x="165" y="258" text-anchor="middle" fill="#555" font-size="11">EFFECTIVE_DATE = Jan 5, 2026</text>
@@ -290,7 +290,7 @@ RETURN VALID, ERROR_MESSAGE</pre>
 <text x="165" y="338" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="700">Below 90 → VALID = 'N'</text>
 <text x="165" y="354" text-anchor="middle" fill="#555" font-size="10" font-style="italic">but this isn't the right answer</text>
 
-<!-- With override box (green, right) -->
+
 <rect x="320" y="215" width="270" height="150" fill="#f0f9f0" stroke="#2e7d32" stroke-width="2" rx="4"/>
 <text x="455" y="238" text-anchor="middle" font-weight="700" fill="#2e7d32" font-size="13">✓ With CHANGE_CONTEXTS override</text>
 <text x="455" y="258" text-anchor="middle" fill="#555" font-size="11">EFFECTIVE_DATE = Feb 10, 2026</text>

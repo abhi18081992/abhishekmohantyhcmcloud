@@ -5,7 +5,7 @@ pubDate: 2026-03-27
 tags: ["Fast Formula", "Oracle HCM Cloud", "HDL"]
 ---
 
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -66,7 +66,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL"]
 <body>
 <div class="hdl-blog" style="font-family:'Plus Jakarta Sans',sans-serif;max-width:820px;margin:0 auto;padding:32px 24px;line-height:1.75;color:var(--dark);">
 
-<!-- ══════ TAGS ══════ -->
+
 <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
 <span style="background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:10px;letter-spacing:0.8px;">Fast Formula</span>
 <span style="background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:10px;letter-spacing:0.8px;">HCM Data Loader</span>
@@ -75,17 +75,17 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL"]
 <span style="background:var(--dark);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:10px;letter-spacing:0.8px;">Series Part 3 of 3</span>
 </div>
 
-<!-- ══════ TITLE ══════ -->
+
 <h1 style="font-size:30px;font-weight:800;color:var(--dark);line-height:1.25;margin:0 0 6px;font-family:inherit;">WSA Implementation and Complete HDL Transformation Fast Formula Code</h1>
 <div style="font-size:16px;color:var(--text);margin-bottom:4px;">Part 3 of 3 — WSA_EXISTS, WSA_GET, WSA_SET, and the Full Formula End-to-End</div>
 <div style="font-size:13px;color:var(--muted);margin-bottom:24px;">March 2026 · 20 min read · Oracle HCM Cloud</div>
 
-<!-- ══════ INTRO ══════ -->
+
 <div style="background:#FDF5ED;border:1px solid #E8DDD0;border-radius:8px;padding:18px 22px;margin-bottom:28px;">
 <p style="margin:0;font-size:15px;color:var(--text);">This is <strong>Part 3</strong> — the final post in this series. Part 1 explained the concepts. Part 2 walked through the code line by line. This post adds WSA caching into the formula and then gives you the <strong>complete formula in one code block</strong> — ready to adapt for your own implementation.</p>
 </div>
 
-<!-- ══════ SERIES ROADMAP ══════ -->
+
 <h3 style="font-size:17px;font-weight:700;color:var(--dark);margin:28px 0 16px;font-family:inherit;">HDL Transformation Formula Series</h3>
 <div style="display:flex;gap:16px;margin-bottom:32px;flex-wrap:wrap;">
 <div style="flex:1;min-width:200px;background:var(--bg-subtle);border-radius:8px;padding:16px 18px;border-left:4px solid var(--muted);">
@@ -105,7 +105,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL"]
 <p style="margin:0;font-size:12px;color:var(--text);">WSA caching code, then the full formula assembled end-to-end.</p></div>
 </div>
 
-<!-- ══════ AUTHOR ══════ -->
+
 <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
 <div style="background:linear-gradient(135deg,var(--accent),#B8501F);color:#fff;font-size:15px;font-weight:800;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;">AM</div>
 <div><div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div><div style="font-size:13px;color:#888;line-height:1.5;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant</div></div>
@@ -113,9 +113,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL"]
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SECTION 1: WHY WSA                                         -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+
+
+
 <h2 style="font-size:22px;font-weight:700;color:var(--dark);margin:30px 0 16px;font-family:inherit;">Why WSA Is Needed in This Formula</h2>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">Part 1 explained this in detail. Here's the short version with a quick visual.</p>
@@ -147,9 +147,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL"]
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SECTION 2: WSA API                                         -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+
+
+
 <h2 style="font-size:22px;font-weight:700;color:var(--dark);margin:30px 0 16px;font-family:inherit;">The WSA API — Three Functions</h2>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">WSA has only three functions. Every usage in this formula follows the same pattern:</p>
@@ -184,9 +184,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL"]
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SECTION 3: WSA FOR PERSON LOOKUP                           -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+
+
+
 <h2 style="font-size:22px;font-weight:700;color:var(--dark);margin:30px 0 16px;font-family:inherit;">WSA for Person and Assignment Lookup (Performance)</h2>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">Instead of calling GET_VALUE_SET every time, the formula checks WSA first. If this person was already looked up on a previous row, read from memory:</p>
@@ -229,9 +229,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL"]
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SECTION 4: WSA FOR MEC                                     -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+
+
+
 <h2 style="font-size:22px;font-weight:700;color:var(--dark);margin:30px 0 16px;font-family:inherit;">WSA for MultipleEntryCount (Correctness)</h2>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">This is the critical one. Without it, two rows for the same person + element in the same batch get the same count — and one overwrites the other.</p>
@@ -278,9 +278,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL"]
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SECTION 5: THREAD WARNING                                  -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+
+
+
 <h2 style="font-size:22px;font-weight:700;color:var(--dark);margin:30px 0 16px;font-family:inherit;">WSA Requires Single Thread — Set Threads = 1</h2>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">WSA memory is per-thread. If "Load Data from File" runs with multiple threads, each thread gets its own empty WSA. The MEC counter breaks — two threads assign the same count.</p>
@@ -292,9 +292,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL"]
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
 
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- SECTION 6: COMPLETE FORMULA                                -->
-<!-- ═══════════════════════════════════════════════════════════ -->
+
+
+
 <h2 style="font-size:22px;font-weight:700;color:var(--dark);margin:30px 0 16px;font-family:inherit;">The Complete Formula — All Sections Assembled</h2>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">Everything from Parts 1, 2, and 3 combined into one formula. OPERATION routing, METADATA, MAP block with WSA caching, GET_VALUE_SET calls, SourceSystemId resolution, LINEREPEATNO passes, and Cancel end-dating. This is the full, working code.</p>
@@ -583,7 +583,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL"]
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
 
-<!-- ══════ SERIES COMPLETE ══════ -->
+
 <h2 style="font-size:22px;font-weight:700;color:var(--dark);margin:30px 0 16px;font-family:inherit;">Series Complete</h2>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">That's all three parts.</p>
@@ -592,7 +592,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL"]
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">You should now be able to read any HDL Transformation Formula, understand every line, and build your own by adapting the code above to your vendor file layout and value set definitions.</p>
 
-<!-- ══════ SERIES ROADMAP BOTTOM ══════ -->
+
 <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:32px 0;">
 <div style="background:var(--bg-subtle);border-radius:20px;padding:6px 16px;font-size:13px;color:var(--muted);font-weight:600;">Part 1: Pure Concepts</div>
 <span style="color:var(--border);">→</span>
@@ -601,7 +601,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL"]
 <div style="background:var(--accent);border-radius:20px;padding:6px 16px;font-size:13px;color:#fff;font-weight:600;">Part 3: WSA + Complete Formula ← This post</div>
 </div>
 
-<!-- ══════ AUTHOR BOTTOM ══════ -->
+
 <div style="display:flex;align-items:center;gap:14px;padding:18px 0;border-top:1px solid var(--border);">
 <div style="background:linear-gradient(135deg,var(--accent),#B8501F);color:#fff;font-size:15px;font-weight:800;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;">AM</div>
 <div><div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div><div style="font-size:13px;color:#888;line-height:1.5;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div></div>

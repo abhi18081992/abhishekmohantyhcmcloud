@@ -5,7 +5,7 @@ pubDate: 2026-04-06
 tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits", "DBI", "CHANGE_CONTEXTS"]
 ---
 
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -135,7 +135,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits", "DBI", "CHANGE_CONTEXTS"]
   </div>
 </div>
 
-<!-- ═══ VISUAL: Formula at a Glance ═══ -->
+
 <div style="margin:28px 0;border:2px solid var(--border-red);border-radius:8px;overflow:hidden;">
   <div style="background:#1a1a1a;padding:12px 18px;font-size:12px;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;">This Formula at a Glance</div>
   <table style="margin:0;border:none;">
@@ -164,7 +164,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits", "DBI", "CHANGE_CONTEXTS"]
   </table>
 </div>
 
-<!-- ═══ VISUAL: The Business Rule ═══ -->
+
 <div style="margin:20px 0 28px;padding:18px 22px;background:#fef2f2;border:2px solid #c0392b;border-radius:8px;text-align:center;">
   <div style="font-size:11px;font-weight:700;color:#c0392b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">The Business Rule</div>
   <div style="font-size:17px;color:#1a1a1a;line-height:1.5;">
@@ -223,7 +223,7 @@ That's the critical distinction. <code>BEN_PEN</code> returns enrollment results
   <tr><td><strong>Future coverage date</strong> (after waiting period)</td><td>Employee Life = gone, Child Life = active</td><td>Oracle has projected the new elections to this date. The drop is now reflected. Only Child Life remains.</td></tr>
 </table>
 
-<!-- ═══ VISUAL: Today vs Future ═══ -->
+
 <div style="margin:24px 0;overflow:hidden;border-radius:8px;border:2px solid var(--border-subtle);">
   <table style="margin:0;">
     <tr>
@@ -253,7 +253,7 @@ That's the critical distinction. <code>BEN_PEN</code> returns enrollment results
 That's why this formula has a waiting period calculation and a <code>CHANGE_CONTEXTS</code> shift. Without them, the formula validates against stale enrollment data and lets Mike through — missing the exact scenario it was built to prevent.
 </p>
 
-<!-- ═══════════════════════════════════════════ -->
+
 <h2>What This Formula Does</h2>
 
 <p>
@@ -281,7 +281,7 @@ The formula does three things in sequence:
 The first thing you'll notice: <strong>Step 1 is the complex part.</strong> Steps 2 and 3 are the standard array loop and IF/ELSE that you've seen in previous posts. Step 1 is unique to this formula — it calculates a waiting period and builds a future effective date before any enrollment data is read.
 </p>
 
-<!-- ═══════════════════════════════════════════ -->
+
 <h2>The Waiting Period — When Does Coverage Actually Start?</h2>
 
 <p>
@@ -300,9 +300,9 @@ The formula needs to know this exact coverage start date because that's the date
 <strong>Sarah's</strong> Open Enrollment event date is <strong>January 1</strong>. She's on the 1st of the month — no extended wait needed. Coverage starts on the <strong>1st of February</strong>, the very next month.
 </p>
 
-<!-- ═══ VISUAL: Waiting Period Timelines — All 3 Employees ═══ -->
 
-<!-- JAMES -->
+
+
 <div style="margin:24px 0 12px;border:2px solid var(--border-subtle);border-radius:8px;overflow:hidden;">
   <div style="background:#1a1a1a;padding:10px 16px;font-size:12px;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;">James (New Hire) — Event on March 15</div>
   <table style="margin:0;">
@@ -336,7 +336,7 @@ The formula needs to know this exact coverage start date because that's the date
   </table>
 </div>
 
-<!-- SARAH -->
+
 <div style="margin:12px 0;border:2px solid var(--border-subtle);border-radius:8px;overflow:hidden;">
   <div style="background:#1a1a1a;padding:10px 16px;font-size:12px;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;">Sarah (Open Enrollment) — Event on January 1</div>
   <table style="margin:0;">
@@ -363,7 +363,7 @@ The formula needs to know this exact coverage start date because that's the date
   </table>
 </div>
 
-<!-- MIKE -->
+
 <div style="margin:12px 0 24px;border:2px solid #c0392b;border-radius:8px;overflow:hidden;">
   <div style="background:#c0392b;padding:10px 16px;font-size:12px;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;">⚠ Mike (Dropping Coverage) — Event on April 10</div>
   <table style="margin:0;">
@@ -397,7 +397,7 @@ The formula needs to know this exact coverage start date because that's the date
   </table>
 </div>
 
-<!-- LISA -->
+
 <div style="margin:12px 0 24px;border:2px solid #e67e22;border-radius:8px;overflow:hidden;">
   <div style="background:#e67e22;padding:10px 16px;font-size:12px;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;">⚠ Lisa (Changing Amounts) — Event on March 20</div>
   <table style="margin:0;">
@@ -459,7 +459,7 @@ That last column is the whole point. The coverage start date becomes the <code>E
   <p>In this formula, the waiting period answers one question: <strong>"As of what date should I check whether this employee still has Employee Life?"</strong> Without this date, the formula falls back to today's effective date — and that's exactly how Mike's scenario slips through.</p>
 </div>
 
-<!-- ═══════════════════════════════════════════ -->
+
 <h2>Why CHANGE_CONTEXTS Is Needed Here</h2>
 
 <p>
@@ -490,7 +490,7 @@ The formula uses <code>CHANGE_CONTEXTS(EFFECTIVE_DATE = l_cvg_eff_date)</code> t
 Without <code>CHANGE_CONTEXTS</code>, the formula validates against stale enrollment data — the Mike scenario from the intro.
 </p>
 
-<!-- ═══════════════════════════════════════════ -->
+
 <h2>The Array DBI Loop — What BEN_PEN Gives You</h2>
 
 <p>
@@ -524,13 +524,13 @@ The formula doesn't know in advance how many enrollments exist or what order the
   <p>The formula checks for exact option names: <code>'1,000 - 10,000'</code> and <code>'10,000 - 500,000'</code>. If the plan configuration changes — say the option range is updated to <code>'10,000 - 600,000'</code> — the formula won't match it. It will treat the employee as not enrolled in Employee Life and block Child Life elections incorrectly. The option names in the formula must exactly match the option names configured in Plan Configuration. A safer approach would be to check only the plan name and ignore the option name — unless the business specifically requires option-level validation.</p>
 </div>
 
-<!-- ═══════════════════════════════════════════ -->
+
 <h2>The Validation Matrix</h2>
 
-<!-- ═══ VISUAL: Decision Flow ═══ -->
+
 <div style="margin:24px 0;">
 
-  <!-- PASS scenarios -->
+  
   <div style="margin-bottom:8px;padding:16px 20px;background:#f0fdf4;border-radius:8px;border:1px solid rgba(0,137,106,0.2);">
     <div style="font-size:11px;font-weight:700;color:#00896a;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">✓ Valid Combinations — PASS</div>
     <table style="margin:0;">
@@ -558,7 +558,7 @@ The formula doesn't know in advance how many enrollments exist or what order the
     </table>
   </div>
 
-  <!-- FAIL: Mike -->
+  
   <div style="margin-bottom:8px;padding:16px 20px;background:#fef2f2;border-radius:8px;border:2px solid #c0392b;">
     <table style="margin:0;">
       <tr>
@@ -574,7 +574,7 @@ The formula doesn't know in advance how many enrollments exist or what order the
     </table>
   </div>
 
-  <!-- FAIL: Lisa -->
+  
   <div style="padding:16px 20px;background:#fef9f0;border-radius:8px;border:2px solid #e67e22;">
     <table style="margin:0;">
       <tr>
@@ -608,7 +608,7 @@ After the loop, the formula has two flags and two amounts. There are five possib
 The formula only returns <code>SUCCESSFUL = 'N'</code> for the fourth combination. In all other cases, <code>SUCCESSFUL</code> stays at its initial value of <code>'Y'</code> and the enrollment proceeds.
 </p>
 
-<!-- ═══════════════════════════════════════════ -->
+
 <h2>The Complete Formula</h2>
 
 <p>
@@ -733,7 +733,7 @@ Here's the full Post Election Edit formula. I'll break it into blocks below.
 </pre>
 </div>
 
-<!-- ═══════════════════════════════════════════ -->
+
 <h2>Block-by-Block Walkthrough</h2>
 
 <div style="margin:20px 0 14px;padding:12px 16px;background:var(--bg-secondary);border-left:4px solid #0984e3;border-radius:0 6px 6px 0;"><span style="display:inline-block;width:28px;height:28px;border-radius:50%;background:#0984e3;color:#fff;font-weight:700;font-size:13px;line-height:28px;text-align:center;margin-right:10px;">1</span><strong style="font-size:15px;">Defaults and Initialization</strong></div>
@@ -788,7 +788,7 @@ Two IF conditions, checked in order. <strong>Step 3</strong> is the plan-presenc
 There's no final ELSE. If neither condition matches, <code>SUCCESSFUL</code> stays at <code>'Y'</code> from initialization and the enrollment proceeds.
 </p>
 
-<!-- ═══════════════════════════════════════════ -->
+
 <h2>The ESS Log Output</h2>
 
 <p>
@@ -858,7 +858,7 @@ The formula logs at every key stage: the life event date, the calculated effecti
   <p>The colored labels in the formula code (<code style="background:#c0392b;color:#fff;padding:1px 5px;border-radius:2px;font-size:10px;">REQUIRED</code> <code style="background:#c0392b;color:#fff;padding:1px 5px;border-radius:2px;font-size:10px;">CONTEXT</code> <code style="background:#c0392b;color:#fff;padding:1px 5px;border-radius:2px;font-size:10px;">LOG</code> <code style="background:#c0392b;color:#fff;padding:1px 5px;border-radius:2px;font-size:10px;">STEP 1</code> etc.) are <strong>blog annotations only</strong> — they highlight what each line does. <strong>Strip them before pasting into the formula editor.</strong> The formula editor will reject any text that isn't valid Fast Formula syntax.</p>
 </div>
 
-<!-- ═══════════════════════════════════════════ -->
+
 <h2>Where This Formula Is Attached</h2>
 
 <table>
@@ -871,7 +871,7 @@ The formula logs at every key stage: the life event date, the calculated effecti
 You can attach the formula at the plan level, plan type level, or option level depending on the scope. For this scenario — where the validation is between two plans — attach it at the <strong>plan type level</strong> so it fires for any plan within the Voluntary Life plan type.
 </p>
 
-<!-- ═══════════════════════════════════════════ -->
+
 <h2>Same Pattern, Different Plans</h2>
 
 <p>
@@ -893,7 +893,7 @@ In each case, the formula is identical in structure: loop through <code>BEN_PEN_
 
 <hr>
 
-<!-- ═══════════════════════════════════════════ -->
+
 <h2>Recap</h2>
 
 <p>
@@ -908,7 +908,7 @@ Three things to watch when adapting this formula: <strong>(1)</strong> plan and 
 
 <hr>
 
-<!-- ═══════════════════════════════════════════ -->
+
 <h2>References</h2>
 
 <table>

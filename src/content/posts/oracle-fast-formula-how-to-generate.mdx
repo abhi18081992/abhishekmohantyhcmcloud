@@ -5,7 +5,7 @@ pubDate: 2026-04-19
 tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
 ---
 
-<!-- Tags for Blogger label system -->
+
 <span style="display:inline-block;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#fff;margin:2px;text-transform:uppercase;background:#c0392b;font-family:'Open Sans',sans-serif">Fast Formula</span>
 <span style="display:inline-block;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#fff;margin:2px;text-transform:uppercase;background:#2e6b9e;font-family:'Open Sans',sans-serif">Time and Labor</span>
 <span style="display:inline-block;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:.5px;color:#fff;margin:2px;text-transform:uppercase;background:#27795a;font-family:'Open Sans',sans-serif">Logging</span>
@@ -13,7 +13,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
 
 <div style="font-family:'Open Sans',Helvetica,Arial,sans-serif;color:#2a2a2a;line-height:1.7;max-width:860px;margin:0 auto">
 
-<!-- ═══════ TITLE ═══════ -->
+
 
 <h1 style="font-size:28px;font-weight:700;color:#1a1a1a;line-height:1.3;margin:18px 0 6px;font-family:'Open Sans',sans-serif">Oracle Fast Formula: How to Generate Logs in OTL — Setup, Code, and Where to Find the Output</h1>
 
@@ -25,7 +25,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
 
 <p style="font-family:'Open Sans',sans-serif;font-size:16px;margin-bottom:18px">This post walks the chain in the right order: setup first, then the formula, then the profile that makes everything visible.</p>
 
-<!-- ═══════ SECTION 1: TCR SETUP ═══════ -->
+
 
 <hr style="border:0;height:1px;background:#e0dcd6;margin:30px 0">
 
@@ -39,10 +39,10 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
 
 <p style="font-family:'Open Sans',sans-serif;font-size:16px;margin-bottom:12px">Five fields matter on this screen:</p>
 
-<!-- Fig 1 — TCR Template Definition tab UI mockup (SVG) -->
+
 <div style="background:#fafafa;border:1px solid #e0dcd6;border-radius:8px;padding:20px;margin:18px 0">
 <svg viewBox="0 0 720 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Open Sans',sans-serif">
-  <!-- Window chrome -->
+  
   <rect x="10" y="10" width="700" height="440" rx="6" fill="#ffffff" stroke="#cfc9c1" stroke-width="1"/>
   <rect x="10" y="10" width="700" height="36" rx="6" fill="#1a1a1a"/>
   <rect x="10" y="34" width="700" height="12" fill="#1a1a1a"/>
@@ -51,7 +51,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
   <circle cx="64" cy="28" r="5" fill="#28c840"/>
   <text x="360" y="33" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Manage Time Rule Templates · Definition tab</text>
 
-  <!-- Form rows -->
+  
   <text x="40" y="80" font-size="13" fill="#333" font-weight="600">Name</text>
   <rect x="200" y="64" width="280" height="26" rx="4" fill="#fff" stroke="#cfc9c1"/>
   <text x="212" y="82" font-size="12" fill="#2a2a2a" font-family="Consolas,monospace">My_TCR_Template</text>
@@ -80,7 +80,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
   <polygon points="466,225 474,225 470,233" fill="#c0392b"/>
   <text x="495" y="234" font-size="12" fill="#27795a" font-style="italic">← one call per row</text>
 
-  <!-- Time Card Events section -->
+  
   <line x1="30" y1="266" x2="690" y2="266" stroke="#e0dcd6"/>
   <text x="40" y="290" font-size="13" fill="#333" font-weight="700">Time Card Events</text>
 
@@ -102,7 +102,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
   <text x="222" y="368" font-size="13" fill="#666">Delete</text>
   <text x="290" y="368" font-size="11" fill="#7f8c8d" font-style="italic">(editable)</text>
 
-  <!-- Buttons -->
+  
   <line x1="30" y1="395" x2="690" y2="395" stroke="#e0dcd6"/>
   <rect x="475" y="412" width="80" height="28" rx="4" fill="#fff" stroke="#cfc9c1"/>
   <text x="515" y="430" font-size="12" fill="#666" text-anchor="middle">Cancel</text>
@@ -121,27 +121,27 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
   <tr><td style="font-family:'Open Sans',sans-serif;padding:10px 14px;font-size:14px;font-weight:600">Time Card Events</td><td style="font-family:'Open Sans',sans-serif;padding:10px 14px;font-size:14px"><code style="background:#f0ece6;padding:2px 6px;border-radius:3px;font-size:13px;color:#c0392b">Submit + Resubmit</code></td><td style="font-family:'Open Sans',sans-serif;padding:10px 14px;font-size:14px">Submit and Resubmit are checked by default — overtime must run at submit time when payroll consumes the data. <strong>Save is editable</strong> if you need calculation to run on every keystroke; most teams leave it off so users don't see overtime numbers shifting as they enter time.</td></tr>
 </table>
 
-<!-- Update vs Create -->
+
 <div style="border-left:4px solid #c0392b;background:#fff7f5;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0">
   <div style="font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#c0392b;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">📌 Execution Type — Update vs Create (per Oracle guide p. 156)</div>
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a">Oracle's official distinction is about <em>total hours</em>. <strong>Create adds NEW premium hours on top of reported time — total goes UP</strong> (10 reported → 12 total = 10 reg + 2 added premium). <strong>Update redistributes the SAME reported hours into different pay categories — total stays the SAME</strong> (10 reported → 10 total = 8 reg + 2 OT). Pick the value that matches whether your formula is <em>adding</em> hours or <em>reclassifying</em> them.</p>
 </div>
 
-<!-- Fig 2 — Create vs Update visualization (SVG) -->
+
 <div style="background:#fafafa;border:1px solid #e0dcd6;border-radius:8px;padding:20px;margin:18px 0">
 <svg viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Open Sans',sans-serif">
 
-  <!-- ═══ CREATE section (top half) ═══ -->
+  
   <rect x="20" y="15" width="640" height="130" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
   <text x="40" y="42" font-size="16" font-weight="700" fill="#c0392b" letter-spacing="1">CREATE</text>
   <text x="140" y="42" font-size="13" fill="#666">adds new hours → total goes UP</text>
 
-  <!-- Before bar -->
+  
   <text x="40" y="72" font-size="12" fill="#888">Before</text>
   <rect x="100" y="58" width="400" height="24" rx="4" fill="#e8e0d8"/>
   <text x="300" y="75" text-anchor="middle" font-size="12" fill="#2a2a2a" font-weight="600">Regular = 10 hrs</text>
 
-  <!-- After bar (wider — total grew) -->
+  
   <text x="40" y="114" font-size="12" fill="#888">After</text>
   <rect x="100" y="100" width="400" height="24" rx="4" fill="#e8e0d8"/>
   <text x="300" y="117" text-anchor="middle" font-size="12" fill="#2a2a2a" font-weight="600">Regular = 10 hrs</text>
@@ -149,17 +149,17 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
   <text x="540" y="117" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">+2 hrs</text>
   <text x="600" y="117" font-size="13" fill="#c0392b" font-weight="700">= 12 hrs</text>
 
-  <!-- ═══ UPDATE section (bottom half) ═══ -->
+  
   <rect x="20" y="170" width="640" height="130" rx="6" fill="#fff" stroke="#2e6b9e" stroke-width="1.5"/>
   <text x="40" y="197" font-size="16" font-weight="700" fill="#2e6b9e" letter-spacing="1">UPDATE</text>
   <text x="145" y="197" font-size="13" fill="#666">reclassifies existing hours → total stays SAME</text>
 
-  <!-- Before bar -->
+  
   <text x="40" y="227" font-size="12" fill="#888">Before</text>
   <rect x="100" y="213" width="400" height="24" rx="4" fill="#e8e0d8"/>
   <text x="300" y="230" text-anchor="middle" font-size="12" fill="#2a2a2a" font-weight="600">Regular = 10 hrs</text>
 
-  <!-- After bar (same width — total unchanged, just recolored) -->
+  
   <text x="40" y="269" font-size="12" fill="#888">After</text>
   <rect x="100" y="255" width="320" height="24" rx="4" fill="#c8d6e2"/>
   <text x="260" y="272" text-anchor="middle" font-size="12" fill="#1a1a1a" font-weight="600">Regular = 8 hrs</text>
@@ -208,7 +208,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a">The implementation guide (p. 87) also lets you attach a Time Category to a rule set member. Use rule-level binding via <code style="background:#f0ece6;padding:2px 6px;border-radius:3px;font-size:13px;color:#c0392b">WORKED_TIME_CONDITION</code> when the category scopes which entries one rule processes. Use rule-set-level binding when the category gates whether the entire rule set member runs at all.</p>
 </div>
 
-<!-- ═══════ SECTION 2: TER SETUP ═══════ -->
+
 
 <hr style="border:0;height:1px;background:#e0dcd6;margin:30px 0">
 
@@ -220,10 +220,10 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
 
 <p style="font-family:'Open Sans',sans-serif;font-size:16px;margin-bottom:12px"><strong>Where:</strong> <em>Setup and Maintenance → Manage Time Rule Templates → open (or create) the TER template → Definition tab.</em></p>
 
-<!-- Fig 3 — TER Template Definition tab UI mockup (SVG) -->
+
 <div style="background:#fafafa;border:1px solid #e0dcd6;border-radius:8px;padding:20px;margin:18px 0">
 <svg viewBox="0 0 720 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Open Sans',sans-serif">
-  <!-- Window chrome -->
+  
   <rect x="10" y="10" width="700" height="460" rx="6" fill="#ffffff" stroke="#cfc9c1" stroke-width="1"/>
   <rect x="10" y="10" width="700" height="36" rx="6" fill="#1a1a1a"/>
   <rect x="10" y="34" width="700" height="12" fill="#1a1a1a"/>
@@ -232,7 +232,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
   <circle cx="64" cy="28" r="5" fill="#28c840"/>
   <text x="360" y="33" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Manage Time Rule Templates · Definition tab</text>
 
-  <!-- Form rows -->
+  
   <text x="40" y="80" font-size="13" fill="#333" font-weight="600">Name</text>
   <rect x="200" y="64" width="280" height="26" rx="4" fill="#fff" stroke="#cfc9c1"/>
   <text x="212" y="82" font-size="12" fill="#2a2a2a" font-family="Consolas,monospace">My_TER_Template</text>
@@ -261,7 +261,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
   <polygon points="466,225 474,225 470,233" fill="#c0392b"/>
   <text x="495" y="234" font-size="12" fill="#27795a" font-style="italic">← match summation</text>
 
-  <!-- Time Card Events section -->
+  
   <line x1="30" y1="266" x2="690" y2="266" stroke="#e0dcd6"/>
   <text x="40" y="290" font-size="13" fill="#333" font-weight="700">Time Card Events</text>
   <text x="220" y="290" font-size="11" fill="#cf6e2c" font-style="italic">all editable — tune per rule</text>
@@ -285,7 +285,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
   <text x="222" y="394" font-size="13" fill="#666">Delete</text>
   <text x="290" y="394" font-size="11" fill="#7f8c8d" font-style="italic">(off by default)</text>
 
-  <!-- Buttons -->
+  
   <line x1="30" y1="415" x2="690" y2="415" stroke="#e0dcd6"/>
   <rect x="475" y="432" width="80" height="28" rx="4" fill="#fff" stroke="#cfc9c1"/>
   <text x="515" y="450" font-size="12" fill="#666" text-anchor="middle">Cancel</text>
@@ -308,55 +308,55 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a">Changing Summation Level on the template does not take effect until you click through the wizard to Review and re-save. The rule built from the template also needs regeneration. Skip either step and the engine behaves as if nothing changed.</p>
 </div>
 
-<!-- Fig 4 — Day vs Time Card summation (SVG) -->
+
 <div style="background:#fafafa;border:1px solid #e0dcd6;border-radius:8px;padding:20px;margin:18px 0">
 <svg viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Open Sans',sans-serif">
 
-  <!-- ═══ DAY SUMMATION (top) ═══ -->
+  
   <rect x="20" y="10" width="640" height="145" rx="6" fill="#fff" stroke="#2e6b9e" stroke-width="1.5"/>
   <text x="40" y="36" font-size="15" font-weight="700" fill="#2e6b9e" letter-spacing="1">DAY</text>
   <text x="85" y="36" font-size="13" fill="#666">— formula called once per day</text>
   <text x="560" y="36" font-size="14" fill="#2e6b9e" font-weight="700">5 calls</text>
 
-  <!-- 5 separate day blocks, each with its own arrow to its own FF box -->
+  
   <g font-size="11" font-weight="600">
-    <!-- Mon -->
+    
     <rect x="40" y="55" width="52" height="30" rx="4" fill="#2e6b9e"/><text x="66" y="75" text-anchor="middle" fill="#fff">Mon</text>
     <line x1="92" y1="70" x2="112" y2="70" stroke="#2e6b9e" stroke-width="1.5"/><polygon points="110,66 116,70 110,74" fill="#2e6b9e"/>
     <rect x="116" y="60" width="24" height="20" rx="3" fill="#f2f5f8" stroke="#2e6b9e"/><text x="128" y="74" text-anchor="middle" fill="#2e6b9e" font-size="8" font-weight="700">FF</text>
 
-    <!-- Tue -->
+    
     <rect x="160" y="55" width="52" height="30" rx="4" fill="#2e6b9e"/><text x="186" y="75" text-anchor="middle" fill="#fff">Tue</text>
     <line x1="212" y1="70" x2="232" y2="70" stroke="#2e6b9e" stroke-width="1.5"/><polygon points="230,66 236,70 230,74" fill="#2e6b9e"/>
     <rect x="236" y="60" width="24" height="20" rx="3" fill="#f2f5f8" stroke="#2e6b9e"/><text x="248" y="74" text-anchor="middle" fill="#2e6b9e" font-size="8" font-weight="700">FF</text>
 
-    <!-- Wed -->
+    
     <rect x="280" y="55" width="52" height="30" rx="4" fill="#2e6b9e"/><text x="306" y="75" text-anchor="middle" fill="#fff">Wed</text>
     <line x1="332" y1="70" x2="352" y2="70" stroke="#2e6b9e" stroke-width="1.5"/><polygon points="350,66 356,70 350,74" fill="#2e6b9e"/>
     <rect x="356" y="60" width="24" height="20" rx="3" fill="#f2f5f8" stroke="#2e6b9e"/><text x="368" y="74" text-anchor="middle" fill="#2e6b9e" font-size="8" font-weight="700">FF</text>
 
-    <!-- Thu -->
+    
     <rect x="400" y="55" width="52" height="30" rx="4" fill="#2e6b9e"/><text x="426" y="75" text-anchor="middle" fill="#fff">Thu</text>
     <line x1="452" y1="70" x2="472" y2="70" stroke="#2e6b9e" stroke-width="1.5"/><polygon points="470,66 476,70 470,74" fill="#2e6b9e"/>
     <rect x="476" y="60" width="24" height="20" rx="3" fill="#f2f5f8" stroke="#2e6b9e"/><text x="488" y="74" text-anchor="middle" fill="#2e6b9e" font-size="8" font-weight="700">FF</text>
 
-    <!-- Fri -->
+    
     <rect x="520" y="55" width="52" height="30" rx="4" fill="#2e6b9e"/><text x="546" y="75" text-anchor="middle" fill="#fff">Fri</text>
     <line x1="572" y1="70" x2="592" y2="70" stroke="#2e6b9e" stroke-width="1.5"/><polygon points="590,66 596,70 590,74" fill="#2e6b9e"/>
     <rect x="596" y="60" width="24" height="20" rx="3" fill="#f2f5f8" stroke="#2e6b9e"/><text x="608" y="74" text-anchor="middle" fill="#2e6b9e" font-size="8" font-weight="700">FF</text>
   </g>
 
-  <!-- Day takeaway -->
+  
   <text x="340" y="116" text-anchor="middle" font-size="12" fill="#1a1a1a" font-weight="700">Each call is independent — state resets between days</text>
   <text x="340" y="136" text-anchor="middle" font-size="11" fill="#27795a" font-weight="600">Simpler code · good for daily validations</text>
 
-  <!-- ═══ TIME CARD SUMMATION (bottom) ═══ -->
+  
   <rect x="20" y="180" width="640" height="145" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
   <text x="40" y="206" font-size="15" font-weight="700" fill="#c0392b" letter-spacing="1">TIME CARD</text>
   <text x="145" y="206" font-size="13" fill="#666">— formula called once for the whole period</text>
   <text x="565" y="206" font-size="14" fill="#c0392b" font-weight="700">1 call</text>
 
-  <!-- All 5 days bundled into one package going to one FF box -->
+  
   <g font-size="11" font-weight="600">
     <rect x="40" y="225" width="52" height="30" rx="4" fill="#c0392b"/><text x="66" y="245" text-anchor="middle" fill="#fff">Mon</text>
     <rect x="96" y="225" width="52" height="30" rx="4" fill="#c0392b"/><text x="122" y="245" text-anchor="middle" fill="#fff">Tue</text>
@@ -364,17 +364,17 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
     <rect x="208" y="225" width="52" height="30" rx="4" fill="#c0392b"/><text x="234" y="245" text-anchor="middle" fill="#fff">Thu</text>
     <rect x="264" y="225" width="52" height="30" rx="4" fill="#c0392b"/><text x="290" y="245" text-anchor="middle" fill="#fff">Fri</text>
 
-    <!-- Bracket around all 5 -->
+    
     <path d="M38,222 L38,258 M38,258 L318,258 M318,258 L318,222" fill="none" stroke="#c0392b" stroke-width="1.5"/>
 
-    <!-- Single arrow to single FF box -->
+    
     <line x1="318" y1="240" x2="380" y2="240" stroke="#c0392b" stroke-width="2"/>
     <polygon points="378,235 386,240 378,245" fill="#c0392b"/>
     <rect x="390" y="225" width="60" height="30" rx="4" fill="#fdf3ef" stroke="#c0392b" stroke-width="1.5"/>
     <text x="420" y="245" text-anchor="middle" fill="#c0392b" font-size="12" font-weight="700">FF</text>
   </g>
 
-  <!-- Time Card takeaway -->
+  
   <text x="340" y="286" text-anchor="middle" font-size="12" fill="#1a1a1a" font-weight="700">All days in one array — state accumulates across the week</text>
   <text x="340" y="306" text-anchor="middle" font-size="11" fill="#cf6e2c" font-weight="600">More code · needed for weekly totals and cross-day checks</text>
 
@@ -390,22 +390,22 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
 
 <p style="font-family:'Open Sans',sans-serif;font-size:16px;margin-bottom:12px">The remaining setup is the same for both TER and TCR — five steps, and all five must be in place or the formula never fires:</p>
 
-<!-- Fig 5 — Setup chain (SVG) -->
+
 <div style="background:#fafafa;border:1px solid #e0dcd6;border-radius:8px;padding:20px;margin:18px 0">
 <svg viewBox="0 0 620 370" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Open Sans',sans-serif">
 
-  <!-- Step 1 -->
+  
   <rect x="20" y="10" width="580" height="44" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
   <circle cx="48" cy="32" r="14" fill="#c0392b"/>
   <text x="48" y="37" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">1</text>
   <text x="75" y="28" font-size="13" fill="#1a1a1a" font-weight="700">Add the Rule to a Rule Set</text>
   <text x="75" y="44" font-size="11" fill="#666">Manage Time Calculation Rule Sets (TCR) or Time Entry Rule Sets (TER)</text>
 
-  <!-- Connector -->
+  
   <line x1="310" y1="54" x2="310" y2="68" stroke="#cfc9c1" stroke-width="2"/>
   <polygon points="305,66 315,66 310,72" fill="#cfc9c1"/>
 
-  <!-- Step 2 -->
+  
   <rect x="20" y="74" width="580" height="44" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
   <circle cx="48" cy="96" r="14" fill="#c0392b"/>
   <text x="48" y="101" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">2</text>
@@ -415,7 +415,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
   <line x1="310" y1="118" x2="310" y2="132" stroke="#cfc9c1" stroke-width="2"/>
   <polygon points="305,130 315,130 310,136" fill="#cfc9c1"/>
 
-  <!-- Step 3 -->
+  
   <rect x="20" y="138" width="580" height="44" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
   <circle cx="48" cy="160" r="14" fill="#c0392b"/>
   <text x="48" y="165" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">3</text>
@@ -425,7 +425,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
   <line x1="310" y1="182" x2="310" y2="196" stroke="#cfc9c1" stroke-width="2"/>
   <polygon points="305,194 315,194 310,200" fill="#cfc9c1"/>
 
-  <!-- Step 4 -->
+  
   <rect x="20" y="202" width="580" height="44" rx="6" fill="#fff" stroke="#c0392b" stroke-width="1.5"/>
   <circle cx="48" cy="224" r="14" fill="#c0392b"/>
   <text x="48" y="229" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">4</text>
@@ -435,14 +435,14 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
   <line x1="310" y1="246" x2="310" y2="260" stroke="#cfc9c1" stroke-width="2"/>
   <polygon points="305,258 315,258 310,264" fill="#cfc9c1"/>
 
-  <!-- Step 5 (highlighted — the payoff) -->
+  
   <rect x="20" y="266" width="580" height="44" rx="6" fill="#f3faf6" stroke="#27795a" stroke-width="2"/>
   <circle cx="48" cy="288" r="14" fill="#27795a"/>
   <text x="48" y="293" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">5</text>
   <text x="75" y="284" font-size="13" fill="#1a1a1a" font-weight="700">Worker saves a timecard → formula fires</text>
   <text x="75" y="300" font-size="11" fill="#27795a">If everything above is in place, the engine will invoke your formula</text>
 
-  <!-- Warning -->
+  
   <rect x="20" y="326" width="580" height="34" rx="4" fill="#fdf3ef" stroke="#c0392b" stroke-width="1"/>
   <text x="310" y="348" text-anchor="middle" font-size="12" fill="#c0392b" font-weight="600">⚠ Skip step 4 and the formula never fires — this is the most commonly missed step</text>
 
@@ -450,7 +450,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
 </div>
 <p style="font-family:'Open Sans',sans-serif;text-align:center;font-size:13px;color:#7f8c8d;font-style:italic;margin:-4px 0 24px">Fig 5 — The setup chain. All five steps must be in place or the formula never fires.</p>
 
-<!-- ═══════ SECTION 3: LOGGING IN THE FORMULA ═══════ -->
+
 
 <hr style="border:0;height:1px;background:#e0dcd6;margin:30px 0">
 
@@ -484,20 +484,20 @@ rule_id = GET_CONTEXT(HWM_RULE_ID, 0)</pre>
 
 <p style="font-family:'Open Sans',sans-serif;font-size:16px;margin-bottom:12px">Both functions produce log lines that you view on the <strong>Analyze Rule Processing Details</strong> page — that is the supported way to read OTL formula logs.</p>
 
-<!-- Fig 6 — Log flow (SVG) -->
+
 <div style="background:#fafafa;border:1px solid #e0dcd6;border-radius:8px;padding:20px;margin:18px 0">
 <svg viewBox="0 0 520 90" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Open Sans',sans-serif">
-  <!-- Your formula -->
+  
   <rect x="10" y="10" width="200" height="70" rx="6" fill="#fff" stroke="#c0392b" stroke-width="2"/>
   <text x="110" y="38" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Your Formula</text>
   <text x="110" y="58" text-anchor="middle" font-size="12" fill="#c0392b" font-family="Consolas,monospace">add_log() / add_rlog()</text>
 
-  <!-- Arrow -->
+  
   <line x1="210" y1="45" x2="290" y2="45" stroke="#666" stroke-width="2"/>
   <polygon points="288,40 296,45 288,50" fill="#666"/>
   <text x="250" y="38" text-anchor="middle" font-size="10" fill="#888">logs appear on</text>
 
-  <!-- UI page -->
+  
   <rect x="296" y="10" width="210" height="70" rx="6" fill="#f3faf6" stroke="#27795a" stroke-width="2"/>
   <text x="401" y="38" text-anchor="middle" font-size="13" font-weight="700" fill="#27795a">Analyze Rule</text>
   <text x="401" y="56" text-anchor="middle" font-size="13" font-weight="700" fill="#27795a">Processing Details</text>
@@ -519,7 +519,7 @@ rule_id = GET_CONTEXT(HWM_RULE_ID, 0)</pre>
 flog = add_log(ffs_id, '>>> idx=' || to_char(nidx) || ' qty=' || to_char(aiMeasure))
 flog = add_log(ffs_id, '>>> Exit ' || ffName)</pre>
 
-<!-- ═══════ SECTION 4: PROFILE OPTION ═══════ -->
+
 
 <hr style="border:0;height:1px;background:#e0dcd6;margin:30px 0">
 
@@ -529,31 +529,31 @@ flog = add_log(ffs_id, '>>> Exit ' || ffName)</pre>
 
 <h3 style="font-family:'Open Sans',sans-serif;font-size:18px;font-weight:700;color:#c0392b;margin:24px 0 12px">ORA_HWM_RULES_LOG_LEVEL</h3>
 
-<!-- Fig 7 — Log level dial (SVG) -->
+
 <div style="background:#fafafa;border:1px solid #e0dcd6;border-radius:8px;padding:20px;margin:18px 0">
 <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Open Sans',sans-serif">
-  <!-- Title -->
+  
   <text x="360" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a" font-family="Consolas,monospace">ORA_HWM_RULES_LOG_LEVEL</text>
 
-  <!-- Vertical "MORE / LESS" axis on the left -->
+  
   <text x="40" y="70" font-size="11" font-weight="700" fill="#27795a" letter-spacing="2">MORE</text>
   <line x1="55" y1="80" x2="55" y2="280" stroke="#cfc9c1" stroke-width="2"/>
   <polygon points="49,82 61,82 55,72" fill="#27795a"/>
   <polygon points="49,278 61,278 55,288" fill="#999"/>
   <text x="40" y="300" font-size="11" font-weight="700" fill="#999" letter-spacing="2">LESS</text>
 
-  <!-- Tier 1: Finest (top, red, full bars) -->
+  
   <rect x="100" y="60" width="500" height="50" rx="4" fill="#fdf3ef" stroke="#c0392b" stroke-width="2"/>
   <text x="120" y="80" font-size="14" font-weight="700" fill="#c0392b" font-family="Consolas,monospace">Finest</text>
   <text x="120" y="98" font-size="11" font-weight="700" fill="#c0392b">← use this for testing</text>
-  <!-- Filled bars for Finest -->
+  
   <rect x="290" y="73" width="20" height="22" rx="2" fill="#c0392b"/>
   <rect x="315" y="73" width="20" height="22" rx="2" fill="#c0392b"/>
   <rect x="340" y="73" width="20" height="22" rx="2" fill="#c0392b"/>
   <rect x="365" y="73" width="20" height="22" rx="2" fill="#c0392b"/>
   <text x="410" y="89" font-size="12" fill="#3a3a3a">everything for every rule type</text>
 
-  <!-- Tier 2: Finer -->
+  
   <rect x="100" y="120" width="500" height="50" rx="4" fill="#fff8f0" stroke="#cf6e2c" stroke-width="1.5"/>
   <text x="120" y="140" font-size="14" font-weight="700" fill="#cf6e2c" font-family="Consolas,monospace">Finer</text>
   <rect x="290" y="133" width="20" height="22" rx="2" fill="#cf6e2c"/>
@@ -562,7 +562,7 @@ flog = add_log(ffs_id, '>>> Exit ' || ffName)</pre>
   <rect x="365" y="133" width="20" height="22" rx="2" fill="#fff" stroke="#e0dcd6"/>
   <text x="410" y="149" font-size="12" fill="#3a3a3a">+ individual rule logs (TER and TCR)</text>
 
-  <!-- Tier 3: Fine -->
+  
   <rect x="100" y="180" width="500" height="50" rx="4" fill="#faf5ec" stroke="#a07530" stroke-width="1.5"/>
   <text x="120" y="200" font-size="14" font-weight="700" fill="#a07530" font-family="Consolas,monospace">Fine</text>
   <rect x="290" y="193" width="20" height="22" rx="2" fill="#a07530"/>
@@ -571,7 +571,7 @@ flog = add_log(ffs_id, '>>> Exit ' || ffName)</pre>
   <rect x="365" y="193" width="20" height="22" rx="2" fill="#fff" stroke="#e0dcd6"/>
   <text x="410" y="209" font-size="12" fill="#3a3a3a">rule set logs only</text>
 
-  <!-- Tier 4: Incident (bottom, grey, mostly empty) -->
+  
   <rect x="100" y="240" width="500" height="50" rx="4" fill="#f8f5f1" stroke="#999" stroke-width="1.5"/>
   <text x="120" y="260" font-size="14" font-weight="700" fill="#666" font-family="Consolas,monospace">Incident</text>
   <text x="120" y="278" font-size="11" fill="#999">← default (almost nothing)</text>
@@ -581,7 +581,7 @@ flog = add_log(ffs_id, '>>> Exit ' || ffName)</pre>
   <rect x="365" y="253" width="20" height="22" rx="2" fill="#fff" stroke="#e0dcd6"/>
   <text x="410" y="269" font-size="12" fill="#3a3a3a">only when processing fails</text>
 
-  <!-- Bottom labels -->
+  
   <text x="335" y="312" text-anchor="middle" font-size="10" fill="#7f8c8d" font-style="italic">retention level</text>
   <text x="500" y="312" text-anchor="middle" font-size="10" fill="#7f8c8d" font-style="italic">what gets kept in the log</text>
 </svg>
@@ -610,7 +610,7 @@ flog = add_log(ffs_id, '>>> Exit ' || ffName)</pre>
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a">If the profile is Finest, the formula compiles, the chain is intact, and you still see "No data to display" — the cause is almost always the data role gap. Oracle MOS Doc <strong>2120220.1</strong> documents this exact situation.</p>
 </div>
 
-<!-- ═══════ SECTION 5: FRAMEWORK OF CODE ═══════ -->
+
 
 <hr style="border:0;height:1px;background:#e0dcd6;margin:30px 0">
 
@@ -836,7 +836,7 @@ flog = <span style="color:#2a2a2a">add_log</span>(ffs_id, <span style="color:#2a
 flog = <span style="color:#2a2a2a">add_log</span>(ffs_id, <span style="color:#2a2a2a">'>>> Exit '</span> || ffName)
 <span style="color:#2a2a2a">RETURN</span> OUT_MSG</pre>
 
-<!-- ═══════ SECTION 5B: TCR SKELETONS ═══════ -->
+
 
 <hr style="border:0;height:1px;background:#e0dcd6;margin:30px 0">
 
@@ -995,7 +995,7 @@ flog = <span style="color:#2a2a2a">ADD_RLOG</span>(ffs_id, <span style="color:#2
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a"><strong>Execution-type guard</strong> — only runs on the CREATE pass, skips VALIDATE to avoid duplicate entries. <strong>WAS NOT DEFAULTED</strong> — null-safe check so the formula doesn't process empty rows. <strong>Two-row output</strong> — Row 1 caps regular hours at the threshold, Row 2 holds the overtime excess. If hours are under the threshold, the formula passes through a single row unchanged. Every decision is logged with <code style="font-size:13px">ADD_RLOG</code> so you can trace exactly which branch fired.</p>
 </div>
 
-<!-- ═══════ SECTION 6: SUMMARY ═══════ -->
+
 
 <hr style="border:0;height:1px;background:#e0dcd6;margin:30px 0">
 
@@ -1044,7 +1044,7 @@ OUT_MSG[1] = <span style="color:#2a2a2a">'DEBUG: idx=1 type='</span> || aiType |
   <tr style="background:#faf7f3"><td style="font-family:'Open Sans',sans-serif;padding:10px 14px;font-size:14px;font-weight:700">8</td><td style="font-family:'Open Sans',sans-serif;padding:10px 14px;font-size:14px">Data role: View All People + Orgs + Positions + LDGs</td><td style="font-family:'Open Sans',sans-serif;padding:10px 14px;font-size:14px;font-style:italic;color:#666">Manage Data Role and Security Profiles (MOS 2120220.1)</td></tr>
 </table>
 
-<!-- ═══════ CLOSING ═══════ -->
+
 
 <hr style="border:0;height:1px;background:#e0dcd6;margin:30px 0">
 
@@ -1058,7 +1058,7 @@ OUT_MSG[1] = <span style="color:#2a2a2a">'DEBUG: idx=1 type='</span> || aiType |
 
 <p style="font-family:'Open Sans',sans-serif;font-size:16px;margin-bottom:18px"><strong>The skeleton is the starting point.</strong> Drop the minimal TER skeleton in, confirm logs appear, then graduate to the production skeleton with all the guards. Business logic goes on top.</p>
 
-<!-- Author card (bottom) -->
+
 <div style="display:flex;align-items:center;gap:14px;margin:28px 0;padding:14px 0;border-top:1px solid #e0dcd6;border-bottom:1px solid #e0dcd6">
   <div style="width:44px;height:44px;background:#c0392b;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;font-family:'Open Sans',sans-serif">AM</div>
   <div>

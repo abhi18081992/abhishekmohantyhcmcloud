@@ -5,7 +5,7 @@ pubDate: 2026-05-16
 tags: ["Fast Formula", "Oracle HCM Cloud", "Null Handling", "DBI", "CHANGE_CONTEXTS"]
 ---
 
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -404,7 +404,7 @@ hr{
 
 <article class="post">
 
-<!-- ── HERO ── -->
+
 <div class="pill-tags">
   <span class="pill pill-red">FAST FORMULA</span>
   <span class="pill pill-navy">ALIAS STATEMENT</span>
@@ -432,7 +432,7 @@ hr{
 
 <hr>
 
-<!-- ── NEW: 5-SECTION STRUCTURE ── -->
+
 <h2>ALIAS in the Five-Section Formula Structure</h2>
 
 <p>Before going deep into ALIAS semantics, it helps to see where ALIAS sits in the larger Fast Formula skeleton. Every formula you'll ever write follows the same five-section template, in exactly this order:</p>
@@ -470,7 +470,7 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
 
 <hr>
 
-<!-- ── SECTION 1 ── -->
+
 <h2>How the Compiler Resolves an Alias</h2>
 
 <p>The Oracle <em>Administering Fast Formulas</em> guide defines ALIAS as a statement that gives a Database Item a shorter, formula-local name. The guide explicitly recommends ALIAS over assigning a DBI to a local variable for the purpose of shortening — because the alias is a reference, not a copy.</p>
@@ -528,7 +528,7 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
 
 <hr>
 
-<!-- ── SECTION 2 ── -->
+
 <h2>Syntax and the Reserved Identifier List</h2>
 
 <p>The form is fixed. One alias declaration per line:</p>
@@ -563,7 +563,7 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
 
 <hr>
 
-<!-- ── SECTION 3 ── -->
+
 <h2>Statement Order: Why ALIAS Comes First</h2>
 
 <p>Fast Formula enforces a strict ordering of declarative statement sections. The order is documented in the Oracle <em>Administering Fast Formulas</em> guide, and the compiler will reject your formula with <em>"Incorrect Statement Order"</em> if you break it.</p>
@@ -605,7 +605,7 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
 
 <hr>
 
-<!-- ── SECTION 4 ── -->
+
 <h2>What You Can & Cannot Alias</h2>
 
 <p>The Fusion 24D <em>Administering Fast Formulas</em> guide narrows ALIAS to one target type: database items. The compiler diagnostic for invalid targets is unambiguous: <em>"you can use an ALIAS statement only for a database item."</em> The practical test is the Database Items picker in the formula editor — if the identifier appears there for your current formula type, it's aliasable; if it doesn't, it isn't.</p>
@@ -690,7 +690,7 @@ L_AID = GET_CONTEXT(HR_ASSIGNMENT_ID, <span class="nm">-1</span>)</div>
 
 <hr>
 
-<!-- ── SECTION 5 ── -->
+
 <h2>The Reference vs Snapshot Distinction</h2>
 
 <p>ALIAS and <code>L_VAR = LONG_DBI_NAME</code> are not equivalent. They have different runtime behaviour, and one of them silently produces wrong answers under <code>CHANGE_CONTEXTS</code>.</p>
@@ -781,7 +781,7 @@ L_ASG_LOS = PER_ASG_REL_LENGTH_OF_SERVICE
 
 <hr>
 
-<!-- ── SECTION 6 ── -->
+
 <h2>DEFAULT FOR and WAS DEFAULTED Against the Alias</h2>
 
 <p>Once an alias is declared, the rest of the formula — including <code>DEFAULT FOR</code> and <code>WAS DEFAULTED</code> — should reference the alias name. The compiler folds the alias and the underlying DBI into the same symbol, so writing the default against either resolves to the same metadata. Consistency is a maintenance discipline, not a compiler requirement:</p>
@@ -807,7 +807,7 @@ L_ASG_LOS = PER_ASG_REL_LENGTH_OF_SERVICE
 
 <hr>
 
-<!-- ── SECTION 7 ── -->
+
 <h2>ALIAS Inside CHANGE_CONTEXTS</h2>
 
 <p>The reference-vs-snapshot distinction has its biggest payoff inside <code>CHANGE_CONTEXTS</code> blocks. Because the alias compiles to a DBI fetch operation, evaluating it under a different context produces a fresh fetch under that context — exactly as if you'd written the long DBI name explicitly:</p>
@@ -869,7 +869,7 @@ L_DELTA = L_END_SAL - L_START_SAL</div>
 
 <hr>
 
-<!-- ── SECTION 8 ── -->
+
 <h2>The Three Compiler Errors You'll Actually See</h2>
 
 <p>The Oracle <em>Administering Fast Formulas</em> compilation-errors table lists several diagnostics that mention ALIAS. In practice, you'll bump into three of them repeatedly.</p>
@@ -913,7 +913,7 @@ L_DELTA = L_END_SAL - L_START_SAL</div>
 
 <hr>
 
-<!-- ── SECTION 9 ── -->
+
 <h2>Production Conventions for ALIAS</h2>
 
 <div class="tblwrap">
@@ -933,7 +933,7 @@ L_DELTA = L_END_SAL - L_START_SAL</div>
 
 <hr>
 
-<!-- ── SECTION 10 ── -->
+
 <h2>Before vs After — The Readability Payoff</h2>
 
 <p>Same logic, written twice. Once without aliases, once with. Watch how the body changes character.</p>
@@ -1015,7 +1015,7 @@ L_MULTIPLIER = <span class="nm">1</span>
 
 <hr>
 
-<!-- ── KEY TAKEAWAYS ── -->
+
 <h2>Key Takeaways</h2>
 
 <p><strong>ALIAS is a compile-time reference, not a runtime variable.</strong> The alias and the underlying DBI share a single metadata handle. No separate runtime allocation occurs.</p>
@@ -1026,7 +1026,7 @@ L_MULTIPLIER = <span class="nm">1</span>
 
 <p><strong>ALIAS targets are restricted to database items in current Fusion releases.</strong> Inputs, contexts, functions, and global values are not valid targets.</p>
 
-<!-- ── CLOSING BYLINE ── -->
+
 <table class="byline">
 <tr>
   <td class="avatar">AM</td>
@@ -1034,7 +1034,7 @@ L_MULTIPLIER = <span class="nm">1</span>
 </tr>
 </table>
 
-<!-- ── TAGS ── -->
+
 <div class="tags">
 <a href="#">Fast Formula</a>
 <a href="#">ALIAS</a>

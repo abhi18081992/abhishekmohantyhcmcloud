@@ -5,12 +5,7 @@ pubDate: 2026-03-31
 tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits", "DBI", "CHANGE_CONTEXTS"]
 ---
 
-<p> </p><!--
-  BLOGGER PASTE-READY
-  Title: Oracle Fast Formula: Rate Periodization
-  Permalink: rate-periodization-fast-formula-benefits
-  Labels: Fast Formula, Benefits, Rate Periodization, HSA, CHANGE_CONTEXTS, ESS_LOG_WRITE, Oracle HCM Cloud
--->
+<p> </p>
 
 <style>
 :root{--font:'Open Sans';--mono:'Courier New',Consolas,monospace;--ink:#1a1a1a;--text:#2a2a2a;--sub:#666;--faint:#888;--whisper:#bbb;--line:#e0dcd6;--wash:#f0ece6;--paper:#faf8f5;--white:#ffffff;--red:#c0392b;--red-bg:#fdf6f0;--red-line:#e8cfc6;--blue:#2c3e50;--blue-bg:#f0f4f8;--blue-line:#c0cfdc;--green:#27ae60;--green-bg:#f0f9f4;--green-line:#b8dcc8;--amber:#e67e22;--amber-bg:#fef8f0;--amber-line:#f0dcc0;--code-bg:#2d2926;--code-surface:#3a3633;--code-text:#f5ebe0;--kw:#e67e22;--fn:#6cacec;--str:#8bc48b;--cm:#6b8e6b;--num:#d4a76a;--ret:#CC7832}
@@ -150,7 +145,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits", "DBI", "CHANGE_CONTEXTS"]
 
 <div class="bl">
 
-<!-- Header -->
+
 <div class="bl-header">
 <div class="bl-header-title">Oracle Fast Formula: Rate Periodization — When the Standard Rate Engine Isn't Enough</div>
 <div class="bl-header-sub">Prorated Employer Contribution with YTD Cap, CHANGE_CONTEXTS Accumulation Loop, and ESS_LOG_WRITE Debug Tracing</div>
@@ -573,7 +568,7 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 
 <p>Now let's go through each section of the formula in detail. This is where the technical decisions live.</p>
 
-<!-- ===== BLOCK 1 ===== -->
+
 <h3>Block 1 — Inputs and Defaults</h3>
 
 <div class="cd"><span class="cm">/* -- Inputs -- */</span>
@@ -619,7 +614,7 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 <p>It's not random. If the context can't resolve the coverage start date (maybe the election was voided), the default kicks in. <code>TO_CHAR('1951/01/01', 'MM')</code> = <code>'01'</code>. The proration formula becomes <code>(13 - 1) / 12 = 1.0</code> — full annual amount. That's the safest fallback: give the employee the full entitlement rather than zero. You'd rather overpay and correct than underpay and have an angry employee. Any date in January of any year would work — 1951 is just obviously not a real date, so it's easy to spot in logs.</p>
 </div>
 
-<!-- ===== CONTEXT CONCEPT ===== -->
+
 <h3>Before Block 2 — Understanding Contexts</h3>
 
 <p>Block 2 uses <code>GET_CONTEXT</code> and <code>CHANGE_CONTEXTS</code>. If you're coming from a functional background or from Payroll/Absence formulas where you rarely touch contexts directly, this is the concept you need.</p>
@@ -630,7 +625,7 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 
 <p>Here are the contexts this formula uses and what each one means in plain English:</p>
 
-<!-- Context cards -->
+
 <div style="margin:24px 0;">
 
 <div style="background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:10px;">
@@ -691,7 +686,7 @@ l_prorated_entitlement = <span class="fn">ROUND</span>(
 
 <p>With that foundation, Block 2 should make sense. Two <code>GET_CONTEXT</code> calls capture the IDs. Then <code>CHANGE_CONTEXTS</code> uses them to shift into the right scope before reading data.</p>
 
-<!-- ===== BLOCK 2 ===== -->
+
 <h3>Block 2 — Proration (Step 1)</h3>
 
 <div class="cd"><span class="cm">/* -- Step 1: Proration Factor -- */</span>
@@ -745,7 +740,7 @@ l_proration_factor = (l_proration_numerator
 <p><code>BEN_EPE_ENRT_CVG_STRT_DT</code> hits its default: <code>'1951/01/01'</code>. Month = 01. Factor = (13−1)/12 = 1.0. Every employee gets the full annual amount with no proration. The formula runs without errors — it just gives wrong results. This is the worst kind of bug because it's silent. The only way to catch it is to check the ESS log and see <code>Proration month = 01</code> for someone who enrolled in July.</p>
 </div>
 
-<!-- ===== BLOCK 3 ===== -->
+
 <h3>Block 3 — YTD Accumulation Loop (Step 2)</h3>
 
 <p>This is the heart of the formula. It answers one question: <strong>how much has the employer already deposited into this employee's HSA this year?</strong></p>
@@ -841,7 +836,7 @@ l_comp_date  = <span class="fn">TRUNC</span>(l_start_date, <span class="str">'MM
 <p><code>CHANGE_CONTEXTS</code> only applies inside its parentheses block. Once the closing <code>)</code> is reached, the context reverts to whatever it was before. You don't need to manually reset it. This is why the <code>ADD_MONTHS</code> and <code>l_count</code> increments are safely placed after the block — they execute with the original context, not the shifted one.</p>
 </div>
 
-<!-- ===== BLOCK 4 ===== -->
+
 <h3>Block 4 — Cap and Split (Step 3)</h3>
 
 <div class="cd"><span class="cm">/* -- Step 3: Cap + Split -- */</span>

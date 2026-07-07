@@ -10,14 +10,14 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
 <div class="post-html">
 
-<!-- ============ HEADER ============ -->
+
 <div style="border-left: 4px solid #8b2e2a; padding-left: 20px; margin: 32px 0 40px 0;">
   <div style="font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; color: #8b2e2a; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 500;">ORACLE HCM CLOUD · TCR DEEP DIVE · PART 5 OF 12</div>
   <h1 style="font-family: 'Source Sans 3', sans-serif; font-size: 30px; font-weight: 700; margin: 0 0 12px 0; line-height: 1.25; color: #2d2926;">Oracle HCM Cloud Fast Formula: Regular and OT Bucket Allocation in a TCR — The Day-Type Branch, the l_total Threshold Cascade, and the l_ot_counter Tracking Pattern</h1>
   <div style="font-size: 18px; color: #5a5550; font-weight: 400; line-height: 1.5;">How the worked-time branch of the DETAIL iteration decides whether each hour goes to <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">Out_Measure_RegHours</code>, <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">Out_Measure_OT_150_Hours</code>, or <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">Out_Measure_OT_200_Hours</code> — driven by the day type (PH / SAT / SUN / Weekday), the daily threshold compare against <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_total</code>, and the spillover logic that splits a single entry across multiple buckets when it straddles a threshold.</div>
 </div>
 
-<!-- ============ TAG PILLS ============ -->
+
 <div style="margin-bottom: 32px;">
   <span style="display: inline-block; background: #2d2926; color: #fff; padding: 4px 12px; font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; margin-right: 6px; margin-bottom: 6px; font-weight: 500;">FAST FORMULA</span>
   <span style="display: inline-block; background: #2d2926; color: #fff; padding: 4px 12px; font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; margin-right: 6px; margin-bottom: 6px; font-weight: 500;">OTL</span>
@@ -25,7 +25,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
   <span style="display: inline-block; background: #8b2e2a; color: #fff; padding: 4px 12px; font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; margin-right: 6px; margin-bottom: 6px; font-weight: 500;">THRESHOLD CASCADE</span>
 </div>
 
-<!-- ============ AUTHOR BYLINE (TOP) ============ -->
+
 <div style="display: flex; align-items: center; background: #faf6f0; border: 1px solid #e8ddc9; margin: 24px 0 32px 0;">
   <div style="background: #8b2e2a; color: #fff; width: 64px; min-width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; font-family: 'Source Sans 3', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1px;">AM</div>
   <div style="padding: 12px 20px;">
@@ -34,19 +34,19 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
   </div>
 </div>
 
-<!-- ============ LEAD ============ -->
+
 <p style="font-family: 'Source Sans 3', sans-serif; font-size: 19px; line-height: 1.6; color: #2d2926; margin: 0 0 24px 0;">Part 4 covered the absence side of the DETAIL fork — when <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">AbsenceType.exists(nidx)</code> returns true. This post covers the other side: when it returns false and the entry represents <strong>worked time</strong>. That's where the bulk of the TCR's allocation logic lives.</p>
 
 <p style="font-family: 'Source Sans 3', sans-serif;">The worked-time branch has one job — decide which output bucket every hour belongs in. The decision rests on two inputs: the <strong>day type</strong> (public holiday, Saturday, Sunday, or weekday) determined via Part 2's day-type branching logic, and the <strong>running daily total</strong> held in <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_total</code>. Day type controls which thresholds apply; <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_total</code> controls whether the current entry has already crossed them.</p>
 
 <p style="font-family: 'Source Sans 3', sans-serif;">A worked example threads the whole post: a single Wednesday on which a worker logs <strong>two DETAIL entries</strong> — a 4-hour morning shift (09:00–13:00) and an 8-hour afternoon shift (14:00–22:00), for a 12-hour day. The daily thresholds are 8 hours for Regular and 10 hours for OT 150%, above which everything is OT 200%. The formula's job is to split those 12 hours across three buckets correctly: 8 Regular, 2 OT 150%, 2 OT 200% — even though no single entry is split that way in isolation.</p>
 
-<!-- ============ SECTION ============ -->
+
 <h2 style="font-family: 'Source Sans 3', sans-serif; font-size: 24px; font-weight: 700; color: #2d2926; margin: 48px 0 16px 0; padding-bottom: 8px; border-bottom: 2px solid #f0e9dd;">The Worked-Time Branch — Where the DETAIL Decision Tree Leads</h2>
 
 <p style="font-family: 'Source Sans 3', sans-serif;">Inside every DETAIL iteration, the formula first checks <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">AbsenceType.exists(nidx)</code>. If true, the absence branch (Part 4) fires. If false, control flows here — into a sequence of four steps that map an entry's hours onto the right output buckets:</p>
 
-<!-- VIZ: FIGURE 01 — Worked-Time Branch Decision Tree -->
+
 <div style="background: #fff; border: 1px solid #d9c9b0; box-shadow: 0 2px 0 #e8e3dd, 0 1px 3px rgba(45, 41, 38, 0.04); margin: 36px 0; overflow: hidden;">
 
   <div style="background: #2d2926; padding: 16px 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; border-bottom: 3px solid #8b2e2a;">
@@ -59,7 +59,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
   <div style="padding: 32px 24px 28px 24px; background: #faf8f5;">
 
-    <!-- Entry node -->
+    
     <div style="display: flex; justify-content: center; margin-bottom: 12px;">
       <div style="background: #fff; border: 1px solid #d9c9b0; border-top: 3px solid #2d2926; padding: 12px 22px; text-align: center; box-shadow: 0 2px 4px rgba(45, 41, 38, 0.06); min-width: 280px;">
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #8a847d; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 6px;">DETAIL ITERATION (worked path)</div>
@@ -70,7 +70,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
     <div style="text-align: center; color: #2d2926; font-size: 14px; margin: 4px 0;">▼</div>
 
-    <!-- Step 1: Determine day type -->
+    
     <div style="background: #fff; border: 1px solid #d9c9b0; border-left: 4px solid #8b2e2a; padding: 12px 18px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(45, 41, 38, 0.04);">
       <div style="display: flex; align-items: center; gap: 12px;">
         <div style="width: 24px; height: 24px; background: #8b2e2a; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; border-radius: 12px; flex-shrink: 0;">1</div>
@@ -83,7 +83,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
     <div style="text-align: center; color: #8b2e2a; font-size: 14px; margin: 4px 0;">▼</div>
 
-    <!-- Step 2: Compute regular capacity -->
+    
     <div style="background: #fff; border: 1px solid #d9c9b0; border-left: 4px solid #8b2e2a; padding: 12px 18px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(45, 41, 38, 0.04);">
       <div style="display: flex; align-items: center; gap: 12px;">
         <div style="width: 24px; height: 24px; background: #8b2e2a; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; border-radius: 12px; flex-shrink: 0;">2</div>
@@ -96,7 +96,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
     <div style="text-align: center; color: #8b2e2a; font-size: 14px; margin: 4px 0;">▼</div>
 
-    <!-- Step 3: Allocate measure -->
+    
     <div style="background: #fff; border: 1px solid #d9c9b0; border-left: 4px solid #8b2e2a; padding: 12px 18px; margin-bottom: 8px; box-shadow: 0 1px 2px rgba(45, 41, 38, 0.04);">
       <div style="display: flex; align-items: center; gap: 12px;">
         <div style="width: 24px; height: 24px; background: #8b2e2a; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; border-radius: 12px; flex-shrink: 0;">3</div>
@@ -109,7 +109,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
     <div style="text-align: center; color: #8b2e2a; font-size: 14px; margin: 4px 0;">▼</div>
 
-    <!-- Step 4: Update counters -->
+    
     <div style="background: #fff; border: 1px solid #d9c9b0; border-left: 4px solid #2d6b3f; padding: 12px 18px; margin-bottom: 16px; box-shadow: 0 1px 2px rgba(45, 41, 38, 0.04);">
       <div style="display: flex; align-items: center; gap: 12px;">
         <div style="width: 24px; height: 24px; background: #2d6b3f; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; border-radius: 12px; flex-shrink: 0;">4</div>
@@ -122,7 +122,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
     <div style="text-align: center; color: #2d2926; font-size: 14px; margin: 4px 0;">▼</div>
 
-    <!-- Output -->
+    
     <div style="display: flex; justify-content: center;">
       <div style="background: #2d2926; color: #fff; padding: 12px 22px; text-align: center; box-shadow: 0 2px 4px rgba(45, 41, 38, 0.15); min-width: 280px;">
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #d4a574; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 4px;">OUTPUT BUCKETS UPDATED</div>
@@ -141,12 +141,12 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
 </div>
 
-<!-- ============ SECTION ============ -->
+
 <h2 style="font-family: 'Source Sans 3', sans-serif; font-size: 24px; font-weight: 700; color: #2d2926; margin: 48px 0 16px 0; padding-bottom: 8px; border-bottom: 2px solid #f0e9dd;">The Four-Way Day-Type Branch — One Rule Set Per Day Category</h2>
 
 <p style="font-family: 'Source Sans 3', sans-serif;">Day type changes everything about allocation. The same worked hour on a Wednesday is Regular pay; on a Sunday it's OT at 200%; on a public holiday it's a different output bucket entirely. Part 2 covered the day-type detection logic (<code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">GET_DATE_DAY_OF_WEEK</code>, the FRI-anchored weekly compare, and the holiday calendar lookup). Part 5 uses the result:</p>
 
-<!-- VIZ: FIGURE 02 — Day-Type Matrix -->
+
 <div style="background: #fff; border: 1px solid #d9c9b0; box-shadow: 0 2px 0 #e8e3dd, 0 1px 3px rgba(45, 41, 38, 0.04); margin: 36px 0; overflow: hidden;">
 
   <div style="background: #2d2926; padding: 16px 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; border-bottom: 3px solid #8b2e2a;">
@@ -164,7 +164,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
 
-      <!-- WEEKDAY -->
+      
       <div style="background: #fff; border: 1px solid #d9c9b0; box-shadow: 0 1px 3px rgba(45, 41, 38, 0.04); overflow: hidden;">
         <div style="background: #2d6b3f; padding: 10px 14px; display: flex; align-items: center; gap: 10px;">
           <div style="width: 22px; height: 22px; background: #fff; color: #2d6b3f; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; border-radius: 11px;">W</div>
@@ -183,7 +183,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
         </div>
       </div>
 
-      <!-- SATURDAY -->
+      
       <div style="background: #fff; border: 1px solid #d9c9b0; box-shadow: 0 1px 3px rgba(45, 41, 38, 0.04); overflow: hidden;">
         <div style="background: #d4a574; padding: 10px 14px; display: flex; align-items: center; gap: 10px;">
           <div style="width: 22px; height: 22px; background: #fff; color: #8a7038; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; border-radius: 11px;">S</div>
@@ -201,7 +201,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
         </div>
       </div>
 
-      <!-- SUNDAY -->
+      
       <div style="background: #fff; border: 1px solid #d9c9b0; box-shadow: 0 1px 3px rgba(45, 41, 38, 0.04); overflow: hidden;">
         <div style="background: #8b2e2a; padding: 10px 14px; display: flex; align-items: center; gap: 10px;">
           <div style="width: 22px; height: 22px; background: #fff; color: #8b2e2a; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; border-radius: 11px;">S</div>
@@ -219,7 +219,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
         </div>
       </div>
 
-      <!-- PUBLIC HOLIDAY -->
+      
       <div style="background: #fff; border: 1px solid #d9c9b0; box-shadow: 0 1px 3px rgba(45, 41, 38, 0.04); overflow: hidden;">
         <div style="background: #2d2926; padding: 10px 14px; display: flex; align-items: center; gap: 10px;">
           <div style="width: 22px; height: 22px; background: #fff; color: #2d2926; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; border-radius: 11px;">P</div>
@@ -250,12 +250,12 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
 </div>
 
-<!-- ============ SECTION ============ -->
+
 <h2 style="font-family: 'Source Sans 3', sans-serif; font-size: 24px; font-weight: 700; color: #2d2926; margin: 48px 0 16px 0; padding-bottom: 8px; border-bottom: 2px solid #f0e9dd;">The l_total Threshold Cascade — Where Each Hour Lands</h2>
 
 <p style="font-family: 'Source Sans 3', sans-serif;">The Weekday branch is the only one with a true threshold cascade, so it's the one worth visualizing. <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_total</code> holds the running daily total of worked hours (introduced in Part 3, reset at every <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">END_DAY</code> phase marker). The cascade asks one question for every incoming hour: <em>where is <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_total</code> sitting right now relative to the two thresholds?</em></p>
 
-<!-- VIZ: FIGURE 03 — Threshold Cascade -->
+
 <div style="background: #fff; border: 1px solid #d9c9b0; box-shadow: 0 2px 0 #e8e3dd, 0 1px 3px rgba(45, 41, 38, 0.04); margin: 36px 0; overflow: hidden;">
 
   <div style="background: #2d2926; padding: 16px 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; border-bottom: 3px solid #8b2e2a;">
@@ -271,32 +271,32 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
   <div style="padding: 28px 28px 24px 28px; background: #faf8f5;">
 
-    <!-- Three-zone bar showing 0-12 hours with thresholds at 8 and 10 -->
+    
     <div style="position: relative; padding-top: 38px; padding-bottom: 4px;">
 
-      <!-- Threshold labels ABOVE bar -->
-      <!-- Threshold 1 at 8/12 = 66.67% -->
+      
+      
       <div style="position: absolute; top: 0; left: 66.67%; transform: translateX(-50%);">
         <div style="background: #2d6b3f; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; padding: 5px 10px; letter-spacing: 0.5px; white-space: nowrap; border-radius: 2px; box-shadow: 0 2px 4px rgba(45, 107, 63, 0.15);">REG CAP · 8 hrs</div>
         <div style="width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid #2d6b3f; margin: 0 auto;"></div>
       </div>
-      <!-- Threshold 2 at 10/12 = 83.33% -->
+      
       <div style="position: absolute; top: 0; left: 83.33%; transform: translateX(-50%);">
         <div style="background: #8b2e2a; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; padding: 5px 10px; letter-spacing: 0.5px; white-space: nowrap; border-radius: 2px; box-shadow: 0 2px 4px rgba(139, 46, 42, 0.15);">OT 150 CAP · 10 hrs</div>
         <div style="width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid #8b2e2a; margin: 0 auto;"></div>
       </div>
 
-      <!-- The 3-zone bar -->
+      
       <div style="display: flex; height: 60px; border: 1px solid #d9c9b0; position: relative; overflow: visible;">
-        <!-- Regular zone: 0-8 = 66.67% -->
+        
         <div style="background: linear-gradient(to bottom, #4f8c5e, #2d6b3f); width: 66.67%; display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);">REGULAR · 0 – 8 hrs</div>
-        <!-- OT 150 zone: 8-10 = 16.67% -->
+        
         <div style="background: linear-gradient(to bottom, #e0b683, #d4a574); width: 16.67%; display: flex; align-items: center; justify-content: center; color: #2d2926; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; box-shadow: inset 0 -2px 0 rgba(0,0,0,0.1);">OT 150</div>
-        <!-- OT 200 zone: 10-12 = 16.67% -->
+        
         <div style="background: linear-gradient(to bottom, #a83833, #8b2e2a); width: 16.67%; display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);">OT 200</div>
       </div>
 
-      <!-- Scale markers below -->
+      
       <div style="position: relative; height: 24px; margin-top: 6px;">
         <div style="position: absolute; left: 0%; transform: translateX(-50%); font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8a847d;">0</div>
         <div style="position: absolute; left: 16.67%; transform: translateX(-50%); font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8a847d;">2</div>
@@ -308,7 +308,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
       </div>
     </div>
 
-    <!-- Legend -->
+    
     <div style="display: flex; gap: 22px; margin-top: 28px; padding-top: 14px; border-top: 1px dashed #d9c9b0; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #5a5550; letter-spacing: 0.3px; flex-wrap: wrap;">
       <div style="display: flex; align-items: center; gap: 8px;">
         <div style="width: 16px; height: 14px; background: linear-gradient(to bottom, #4f8c5e, #2d6b3f);"></div>
@@ -324,7 +324,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
       </div>
     </div>
 
-    <!-- Key insight -->
+    
     <div style="background: #faf6f0; border-left: 4px solid #d4a574; padding: 14px 18px; margin-top: 22px;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8b2e2a; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 6px;">HOW TO READ THE CASCADE</div>
       <div style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #2d2926; line-height: 1.55;">Each incoming worked hour is placed in the zone where <code style="background: #fff; padding: 2px 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8b2e2a; border: 1px solid #d9c9b0;">l_total</code> currently sits, then <code style="background: #fff; padding: 2px 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8b2e2a; border: 1px solid #d9c9b0;">l_total</code> advances by one. A single multi-hour entry whose measure straddles a threshold gets split — the part below the threshold goes to one bucket, the part above to the next. That's the spillover logic Figure 04 traces.</div>
@@ -341,12 +341,12 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
 </div>
 
-<!-- ============ SECTION ============ -->
+
 <h2 style="font-family: 'Source Sans 3', sans-serif; font-size: 24px; font-weight: 700; color: #2d2926; margin: 48px 0 16px 0; padding-bottom: 8px; border-bottom: 2px solid #f0e9dd;">The Spillover Logic — One Entry Crossing Multiple Thresholds</h2>
 
 <p style="font-family: 'Source Sans 3', sans-serif;">The interesting case is when a single DETAIL entry's measure straddles a threshold. Walk through the worked example. The second entry is 8 hours long, but <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_total</code> already sits at 4 from the first entry. There are 4 hours of Regular capacity left, then 2 hours of OT 150 capacity, then everything above goes to OT 200. The 8-hour measure has to split three ways:</p>
 
-<!-- CODE BLOCK -->
+
 <div style="background: #f5ede0; border: 1px solid #d9c9b0; padding: 20px 24px; margin: 24px 0; overflow-x: auto; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 13px; line-height: 1.75; color: #2d2926;">
 <span style="color: #8a7560; font-style: italic;">/* Compute remaining capacity in each zone */</span><br>
 l_reg_remaining    <span style="color: #8b2e2a; font-weight: 700;">=</span> <span style="color: #8b2e2a; font-weight: 700;">GREATEST</span>(0, l_daily_reg_cap - l_total)<br>
@@ -374,7 +374,7 @@ l_remaining <span style="color: #8b2e2a; font-weight: 700;">=</span> l_remaining
 
 <p style="font-family: 'Source Sans 3', sans-serif;"><code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">LEAST</code> and <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">GREATEST</code> are delivered Fast Formula functions — they're the idiomatic way to clamp values without nested IF blocks. The pattern reads as: "give the current zone as much as it can take, then move on." Figure 04 traces every step:</p>
 
-<!-- VIZ: FIGURE 04 — Allocation Trace -->
+
 <div style="background: #fff; border: 1px solid #d9c9b0; box-shadow: 0 2px 0 #e8e3dd, 0 1px 3px rgba(45, 41, 38, 0.04); margin: 36px 0; overflow: hidden;">
 
   <div style="background: #2d2926; padding: 16px 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; border-bottom: 3px solid #8b2e2a;">
@@ -460,7 +460,7 @@ l_remaining <span style="color: #8b2e2a; font-weight: 700;">=</span> l_remaining
       </tbody>
     </table>
 
-    <!-- Conservation invariant -->
+    
     <div style="background: #faf6f0; border-left: 4px solid #d4a574; padding: 14px 18px; margin-top: 22px;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8b2e2a; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 6px;">CONSERVATION INVARIANT</div>
       <div style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #2d2926; line-height: 1.55;">At every step: <code style="background: #fff; padding: 2px 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8b2e2a; border: 1px solid #d9c9b0;">REG + OT_150 + OT_200 = sum of measures consumed</code>. Final totals: 8 + 2 + 2 = 12, matching the worked-time input exactly. No hour is double-counted; no hour is dropped.</div>
@@ -477,7 +477,7 @@ l_remaining <span style="color: #8b2e2a; font-weight: 700;">=</span> l_remaining
 
 </div>
 
-<!-- ============ SECTION ============ -->
+
 <h2 style="font-family: 'Source Sans 3', sans-serif; font-size: 24px; font-weight: 700; color: #2d2926; margin: 48px 0 16px 0; padding-bottom: 8px; border-bottom: 2px solid #f0e9dd;">The l_ot_counter — A Running Tally for the Downstream Cascade</h2>
 
 <p style="font-family: 'Source Sans 3', sans-serif;">Alongside <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_total</code>, the formula maintains a second running counter: <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_ot_counter</code>. It increments only when OT hours (150 or 200) are allocated. <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_total</code> tracks how much was worked; <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_ot_counter</code> tracks how much of that was OT.</p>
@@ -486,12 +486,12 @@ l_remaining <span style="color: #8b2e2a; font-weight: 700;">=</span> l_remaining
 
 <p style="font-family: 'Source Sans 3', sans-serif;">Unlike <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_total</code>, <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_ot_counter</code> is <strong>not</strong> reset at <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">END_DAY</code>. It accumulates across the entire period because the downstream cascade is period-level, not daily.</p>
 
-<!-- ============ SECTION ============ -->
+
 <h2 style="font-family: 'Source Sans 3', sans-serif; font-size: 24px; font-weight: 700; color: #2d2926; margin: 48px 0 16px 0; padding-bottom: 8px; border-bottom: 2px solid #f0e9dd;">The Output Buckets — Where Worked Hours Land</h2>
 
 <p style="font-family: 'Source Sans 3', sans-serif;">Three output arrays capture the worked-time classification for the period. Together with the <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">Out_Abs_*</code> buckets from Part 4, they form the complete picture of compensable time the formula returns to payroll:</p>
 
-<!-- VIZ: FIGURE 05 — Worked-Time Output Bucket Reference -->
+
 <div style="background: #fff; border: 1px solid #d9c9b0; box-shadow: 0 2px 0 #e8e3dd, 0 1px 3px rgba(45, 41, 38, 0.04); margin: 36px 0; overflow: hidden;">
 
   <div style="background: #2d2926; padding: 16px 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; border-bottom: 3px solid #8b2e2a;">
@@ -509,7 +509,7 @@ l_remaining <span style="color: #8b2e2a; font-weight: 700;">=</span> l_remaining
 
     <div style="display: grid; grid-template-columns: 1fr; gap: 14px;">
 
-      <!-- Out_Measure_RegHours -->
+      
       <div style="background: #fff; border: 1px solid #d9c9b0; box-shadow: 0 1px 3px rgba(45, 41, 38, 0.04); overflow: hidden;">
         <div style="display: grid; grid-template-columns: 200px 1fr auto; align-items: center; gap: 16px; padding: 12px 18px; background: #faf6f0; border-bottom: 1px solid #e8d8b8; border-left: 4px solid #2d6b3f;">
           <div style="display: flex; align-items: center; gap: 10px;">
@@ -533,7 +533,7 @@ l_remaining <span style="color: #8b2e2a; font-weight: 700;">=</span> l_remaining
         </div>
       </div>
 
-      <!-- Out_Measure_OT_150_Hours -->
+      
       <div style="background: #fff; border: 1px solid #d9c9b0; box-shadow: 0 1px 3px rgba(45, 41, 38, 0.04); overflow: hidden;">
         <div style="display: grid; grid-template-columns: 200px 1fr auto; align-items: center; gap: 16px; padding: 12px 18px; background: #faf6f0; border-bottom: 1px solid #e8d8b8; border-left: 4px solid #d4a574;">
           <div style="display: flex; align-items: center; gap: 10px;">
@@ -557,7 +557,7 @@ l_remaining <span style="color: #8b2e2a; font-weight: 700;">=</span> l_remaining
         </div>
       </div>
 
-      <!-- Out_Measure_OT_200_Hours -->
+      
       <div style="background: #fff; border: 1px solid #d9c9b0; box-shadow: 0 1px 3px rgba(45, 41, 38, 0.04); overflow: hidden;">
         <div style="display: grid; grid-template-columns: 200px 1fr auto; align-items: center; gap: 16px; padding: 12px 18px; background: #faf6f0; border-bottom: 1px solid #e8d8b8; border-left: 4px solid #8b2e2a;">
           <div style="display: flex; align-items: center; gap: 10px;">
@@ -594,14 +594,14 @@ l_remaining <span style="color: #8b2e2a; font-weight: 700;">=</span> l_remaining
 
 </div>
 
-<!-- ============ NEXT UP ============ -->
+
 <div style="background: #2d2926; color: #fff; padding: 32px; margin: 48px 0 24px 0;">
   <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #d4a574; letter-spacing: 2px; margin-bottom: 8px; font-weight: 500;">NEXT IN THE SERIES</div>
   <h3 style="font-family: 'Source Sans 3', sans-serif; margin: 0 0 8px 0; font-size: 22px; color: #fff; font-weight: 700;">Part 6 — Night Surcharge Detection with the Night-Time Code Match and the Monthly Night Accumulator</h3>
   <p style="font-family: 'Source Sans 3', sans-serif; margin: 0; color: #c4bdb5; line-height: 1.5; font-size: 15px;">A second classification layered on top of the day-type allocation — how the formula identifies night-time hours by matching <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">PayrollTimeType</code> against a configured night-time code, why <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">l_daily_night_total</code> resets on <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">END_DAY</code> while <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">l_period_night_total</code> doesn't, and how night-surcharge hours stack alongside the Reg/OT-150/OT-200 buckets without disturbing them.</p>
 </div>
 
-<!-- ============ AUTHOR BYLINE (BOTTOM) ============ -->
+
 <div style="display: flex; align-items: stretch; background: #faf6f0; border: 1px solid #e8ddc9; margin: 32px 0 24px 0;">
   <div style="background: #8b2e2a; color: #fff; width: 64px; min-width: 64px; display: flex; align-items: center; justify-content: center; font-family: 'Source Sans 3', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1px;">AM</div>
   <div style="padding: 14px 20px;">
@@ -610,7 +610,7 @@ l_remaining <span style="color: #8b2e2a; font-weight: 700;">=</span> l_remaining
   </div>
 </div>
 
-<!-- ============ FOOTER ============ -->
+
 <div style="border-top: 2px solid #f0e9dd; padding-top: 24px; margin-top: 48px; font-size: 13px; color: #8a847d; font-family: 'JetBrains Mono', monospace; line-height: 1.6;">
   <div style="margin-bottom: 6px; font-weight: 500;">TCR DEEP DIVE · PART 5 / 10</div>
   <div>Series tag: <span style="color: #8b2e2a; font-weight: 500;">#TCRDeepDive</span></div>
