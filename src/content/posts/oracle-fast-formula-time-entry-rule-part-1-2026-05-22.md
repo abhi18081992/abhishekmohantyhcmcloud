@@ -15,6 +15,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
 
 </head><body>
 </head><body>
+
 <div class="container">
 
 
@@ -43,9 +44,12 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
 
 <div class="byline">
   <div class="avatar">AM</div>
+
   <div class="author-block">
     <div class="author-name">Abhishek Mohanty</div>
+
     <div class="author-creds">Oracle ACE Apprentice · AIOUG Member · Oracle HCM Cloud Consultant & Technical Lead</div>
+
   </div>
 </div>
 
@@ -66,6 +70,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
     <span class="filename">My_Timecard_Week_14Apr2026.xlsx</span>
     <span class="app">Excel</span>
   </div>
+
   <table class="excel-sheet">
     <thead>
       <tr>
@@ -113,6 +118,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
     </tbody>
   </table>
 </div>
+
 <div class="excel-caption">Four entries across two days — this is exactly what Sarah types into OTL. Clean, simple, no surprises.</div>
 
 <h3>What OTL does between submission and your formula</h3>
@@ -240,6 +246,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
     <span class="filename">As_The_Formula_Sees_It.xlsx</span>
     <span class="app">Excel</span>
   </div>
+
   <table class="excel-sheet">
     <thead>
       <tr>
@@ -319,6 +326,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
     </tbody>
   </table>
 </div>
+
 <div class="excel-caption">Same four entries, now wrapped with HEADER, END_DAY, and END_PERIOD marker rows. Notice the dashes — marker rows have no time-type, no punches, no hours. Trying to read those slots will crash your formula.</div>
 
 <h3>How the formula reads it — three questions per row</h3>
@@ -333,10 +341,12 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
 
 <div style="background:#fff5f0; border-left:4px solid #c0392b; padding:14px 20px; margin:20px 0; border-radius:0 4px 4px 0; font-size:13px; line-height:1.65;">
   <div style="font-size:9.5px; letter-spacing:1.6px; color:#c0392b; text-transform:uppercase; font-weight:700; margin-bottom:6px;">Production trap</div>
+
   Marker rows are why you can't read input arrays directly. <code>StartTime[1]</code> doesn't exist as a value — HEADER rows have no punch time. Read it without protection and Fast Formula throws a runtime error and crashes the whole submission. Every read in the formula must be wrapped in <code>.exists()</code>:
   <div style="background:#1f1c19; color:#e6e1d8; padding:10px 14px; margin-top:10px; border-radius:3px; font-family:'JetBrains Mono', monospace; font-size:11px;">
 IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   </div>
+
   Skip this guard and the formula passes UAT cleanly — test data rarely covers the edge case — then breaks day one in production when a real submission arrives. <strong>This is the single most common reason a TER formula goes live and immediately blocks every submission</strong>. Don't be that consultant.
 </div>
 
@@ -349,6 +359,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <span class="filename">The_Contract_at_a_Glance.xlsx</span>
     <span class="app">Excel</span>
   </div>
+
   <table class="excel-sheet">
     <thead>
       <tr>
@@ -404,6 +415,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     </tbody>
   </table>
 </div>
+
 <div class="excel-caption">Six inputs in. One output out. The framework enforces these names exactly — misspell one, omit one, return anything else, and the formula won't even compile.</div>
 
 <h4>Three things to understand before reading further</h4>
@@ -412,6 +424,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <div style="background:#fafaf7; border:1px solid #e8e3d8; border-radius:6px; padding:18px; margin:18px 0;">
   <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:12px;">Diagram · The three properties of the input/output shape</div>
+
   <svg viewBox="0 0 720 600" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:720px; display:block;" font-family="Calibri, sans-serif">
 
     
@@ -587,6 +600,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <div style="background:#f5f1e8; border-left:4px solid #b97417; padding:18px 22px; margin:24px 0; font-size:14px; line-height:1.7; color:#2d2926; border-radius:0 4px 4px 0;">
   <div style="font-size:10px; letter-spacing:1.8px; color:#b97417; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Expert framing</div>
+
   <p style="margin-top:0;">When I'm reviewing a junior developer's first TER formula, the question I always hear is: <em>"Why are some inputs called <code>HWM_CTXARY_RECORD_POSITIONS</code> and others just <code>StartTime</code>?"</em> The answer isn't really about names — it's about <strong>what kind of data each input represents</strong>, and Oracle's naming conventions reflect that distinction once you see the pattern.</p>
   <p style="margin-bottom:0;">Fast Formula isn't a general-purpose programming language. It's a <strong>rule engine plugged into specific HCM modules</strong>. Each module (Payroll, Absence, Time and Labor, Benefits) defines its own <em>formula types</em>, and each formula type is a contract: <em>"If you write a formula of this type, you'll receive these inputs and you must return these outputs."</em> The TER formula type is one such contract, defined inside OTL. The six inputs we're about to dissect aren't arbitrary — they're exactly what OTL's validation pipeline hands every TER formula by design.</p>
 </div>
@@ -770,6 +784,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <div style="background:#fff5f0; border-left:4px solid #c0392b; padding:14px 20px; margin:20px 0; border-radius:0 4px 4px 0; font-size:13px; line-height:1.65;">
   <div style="font-size:9.5px; letter-spacing:1.6px; color:#c0392b; text-transform:uppercase; font-weight:700; margin-bottom:6px;">Expert insight</div>
+
   You'll see this same <code>HWM_</code> prefix convention across other OTL formula types too — calculation rules, time-calculation formulas, time-card validation formulas. Once you internalise that <code>HWM_</code> means "framework-supplied" and <code>HWM_CTXARY_</code> means "framework-supplied per-row metadata", you can read any OTL formula and immediately know which variables come from the framework versus which ones the author created. <strong>This pattern recognition is what separates a fluent OTL developer from someone still puzzling over the syntax.</strong>
 </div>
 
@@ -924,6 +939,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <div style="background:#f5f1e8; border-left:4px solid #b97417; padding:14px 20px; margin:20px 0; border-radius:0 4px 4px 0; font-size:13px; line-height:1.65;">
   <div style="font-size:9.5px; letter-spacing:1.6px; color:#b97417; text-transform:uppercase; font-weight:700; margin-bottom:6px;">Practitioner's tip</div>
+
   When debugging a TER formula in production, the first thing I check is the <code>HWM_CTXARY_RECORD_POSITIONS</code> array length. If <code>.count = 0</code>, the formula received nothing to validate — the bug is upstream in the OTL configuration, not in your formula logic. If <code>.count</code> is non-zero but no validations fire, your loop counter or your <code>.exists()</code> guards are wrong. <strong>Always log <code>.count</code> at the top of the formula via <code>add_rlog</code></strong> — it'll save you hours of guessing.
 </div>
 
@@ -937,11 +953,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Input 01 · Text Array</div>
+
     <div class="ic-name">HWM_CTXARY_RECORD_POSITIONS</div>
+
   </div>
+
   <div class="ic-question">"What kind of row is this?"</div>
+
   <div class="ic-mini-excel">
     <div class="me-bar"><span>RECORD_POSITIONS_examples.xlsx</span><span class="app">Excel</span></div>
+
     <table>
       <thead><tr><th>Possible value</th><th>Meaning</th></tr></thead>
       <tbody>
@@ -952,10 +973,12 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </tbody>
     </table>
   </div>
+
   <div class="ic-mini-excel-cap">Four possible values. Empty means real data; non-empty is a system-inserted marker telling the formula something about structure.</div>
 
   <div style="background:#fafaf7; border:1px solid #e8e3d8; border-radius:6px; padding:18px; margin:16px 0;">
     <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Diagram · Where each marker value appears in the array</div>
+
     <svg viewBox="0 0 680 240" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:680px; display:block;" font-family="Calibri, sans-serif">
 
       
@@ -1033,6 +1056,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
         <text x="14" y="68" font-size="10" fill="#a8a39c" font-family="JetBrains Mono, monospace">/* HEADER is silently skipped — no branch needed */</text>
       </g>
     </svg>
+
   </div>
 
   <div class="ic-snippet">
@@ -1044,6 +1068,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <span class="k">IF</span> (<span class="v">aiRecPos</span> <span class="op">=</span> <span class="s">'END_DAY'</span>
     <span class="k">OR</span> <span class="v">aiRecPos</span> <span class="op">=</span> <span class="s">'END_PERIOD'</span>) <span class="k">THEN</span>
   <span class="c">/* run pairwise overlap, reset day buffer */</span></div>
+
   <div class="ic-explain">Empty value at this index → real worker entry, so the formula reads the data columns. Non-empty (HEADER, END_DAY, END_PERIOD) → system marker, so skip the data columns and trigger boundary logic if applicable. <strong>This is the first thing the formula reads every iteration</strong> — it decides everything else.</div>
 </div>
 
@@ -1051,12 +1076,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <div class="input-card reserved">
   <div class="ic-head">
     <div class="ic-eyebrow">Input 02 · Number Array · Reserved</div>
+
     <div class="ic-name">HWM_CTXARY_HWM_MEASURE_DAY</div>
+
   </div>
+
   <div class="ic-question">"Is this input actually used?" — <strong>No, but it must be declared.</strong></div>
 
   <div style="background:#fafaf7; border:1px solid #e8e3d8; border-radius:6px; padding:18px; margin:16px 0;">
     <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Diagram · The "declared but unused" pattern</div>
+
     <svg viewBox="0 0 680 260" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:680px; display:block;" font-family="Calibri, sans-serif">
 
       
@@ -1102,6 +1131,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <text x="340" y="248" text-anchor="middle" font-size="10.5" font-family="JetBrains Mono, monospace" fill="#e6e1d8">Required by contract · Read by zero blocks · Pure compliance checkbox</text>
 
     </svg>
+
   </div>
 
   <div class="ic-explain">
@@ -1118,11 +1148,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Input 03 · Number Array</div>
+
     <div class="ic-name">measure</div>
+
   </div>
+
   <div class="ic-question">"How many hours on this row?"</div>
+
   <div class="ic-mini-excel">
     <div class="me-bar"><span>measure_examples.xlsx</span><span class="app">Excel</span></div>
+
     <table>
       <thead><tr><th>Sample value</th><th>What it represents</th></tr></thead>
       <tbody>
@@ -1133,10 +1168,12 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </tbody>
     </table>
   </div>
+
   <div class="ic-mini-excel-cap">Always a number when present. The same value can come from real punches or from a qty-only placeholder — <code>measure</code> alone can't tell which.</div>
 
   <div style="background:#fafaf7; border:1px solid #e8e3d8; border-radius:6px; padding:18px; margin:16px 0;">
     <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Diagram · Real punches vs qty-only — same measure, different intent</div>
+
     <svg viewBox="0 0 680 250" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:680px; display:block;" font-family="Calibri, sans-serif">
 
       
@@ -1180,12 +1217,14 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <text x="340" y="243" text-anchor="middle" font-size="9.5" font-family="JetBrains Mono, monospace" fill="#e6e1d8">Detection: if StartTime ≈ 00:00 AND StopTime ≈ 23:59 → this is qty-only</text>
 
     </svg>
+
   </div>
 
   <div class="ic-snippet">
 <span class="lbl">How the formula reads it</span><span class="c">/* per-line measure, used for qty-only entries */</span>
 <span class="k">IF</span> (<span class="v">measure</span>.<span class="f">exists</span>(<span class="v">nidx</span>)) <span class="k">THEN</span>
   <span class="v">aiMeasure</span> <span class="op">=</span> <span class="v">measure</span>[<span class="v">nidx</span>]</div>
+
   <div class="ic-explain"><strong>The formula uses this mainly for qty-only detection.</strong> If a worker types just "8 hours" without entering punch times, OTL fills <code>StartTime</code> as <code>00:00</code> and <code>StopTime</code> as <code>23:59</code> — the <code>measure</code> tells you the real intended hours (8) without needing to compute it from the placeholder punches. When the punches are genuine, <code>measure</code> simply equals <code>StopTime − StartTime</code> in hours, and the formula uses the punches directly anyway.</div>
 </div>
 
@@ -1193,11 +1232,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Input 04 · Text Array · Routing Key</div>
+
     <div class="ic-name">PayrollTimeType</div>
+
   </div>
+
   <div class="ic-question">"What kind of time?"</div>
+
   <div class="ic-mini-excel">
     <div class="me-bar"><span>PayrollTimeType_routes.xlsx</span><span class="app">Excel</span></div>
+
     <table>
       <thead><tr><th>Time type value</th><th>Where the formula sends it</th></tr></thead>
       <tbody>
@@ -1209,10 +1253,12 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </tbody>
     </table>
   </div>
+
   <div class="ic-mini-excel-cap">The string value drives the entire routing decision. Reg Hours and Meal Break have validation paths; everything else falls through silently.</div>
 
   <div style="background:#fafaf7; border:1px solid #e8e3d8; border-radius:6px; padding:18px; margin:16px 0;">
     <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Diagram · Time-type values fan out to validation paths</div>
+
     <svg viewBox="0 0 680 280" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:680px; display:block;" font-family="Calibri, sans-serif">
 
       
@@ -1262,6 +1308,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </defs>
 
     </svg>
+
   </div>
 
   <div class="ic-snippet">
@@ -1274,6 +1321,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <span class="k">IF</span> (<span class="v">aiTimeType</span> <span class="op">=</span> <span class="v">p_break_type</span>) <span class="k">THEN</span>
   <span class="c">/* → schedule window + reset stretch */</span></div>
+
   <div class="ic-explain">The most important routing decision in the formula. Reg Hours go into the continuous-stretch tracker and the day buffer for overlap testing. Meal Break runs through the schedule-window check and resets the stretch tracker. Other types (Annual Leave, Sick, etc) silently skip both paths.</div>
 </div>
 
@@ -1281,11 +1329,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Input 05 · Date Array</div>
+
     <div class="ic-name">StartTime</div>
+
   </div>
+
   <div class="ic-question">"When did this row begin?"</div>
+
   <div class="ic-mini-excel">
     <div class="me-bar"><span>StartTime_uses.xlsx</span><span class="app">Excel</span></div>
+
     <table>
       <thead><tr><th>Used in</th><th>What for</th></tr></thead>
       <tbody>
@@ -1296,10 +1349,12 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </tbody>
     </table>
   </div>
+
   <div class="ic-mini-excel-cap">A single date value, but it feeds four different validation paths depending on the time type.</div>
 
   <div style="background:#fafaf7; border:1px solid #e8e3d8; border-radius:6px; padding:18px; margin:16px 0;">
     <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Diagram · StartTime feeds four validation paths</div>
+
     <svg viewBox="0 0 680 290" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:680px; display:block;" font-family="Calibri, sans-serif">
 
       
@@ -1345,6 +1400,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </defs>
 
     </svg>
+
   </div>
 
   <div class="ic-snippet">
@@ -1360,6 +1416,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <span class="c">/* and in pairwise overlap test */</span>
 <span class="k">IF</span> (<span class="v">dayStarts</span>[<span class="v">i</span>] <span class="op"><</span> <span class="v">dayStops</span>[<span class="v">j</span>]
     <span class="k">AND</span> <span class="v">dayStarts</span>[<span class="v">j</span>] <span class="op"><</span> <span class="v">dayStops</span>[<span class="v">i</span>]) <span class="k">THEN</span></div>
+
   <div class="ic-explain">Two jobs. <strong>Stretch tracking:</strong> compared against the previous stretch's end — if it matches, the worker continued seamlessly (extend); if there's a gap, a new stretch begins (restart). <strong>Overlap detection:</strong> paired with StopTime to define the row's interval; the strict-less-than test catches collisions while allowing back-to-back handovers.</div>
 </div>
 
@@ -1367,11 +1424,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Input 06 · Date Array</div>
+
     <div class="ic-name">StopTime</div>
+
   </div>
+
   <div class="ic-question">"When did this row end?"</div>
+
   <div class="ic-mini-excel">
     <div class="me-bar"><span>StopTime_uses.xlsx</span><span class="app">Excel</span></div>
+
     <table>
       <thead><tr><th>Used in</th><th>What for</th></tr></thead>
       <tbody>
@@ -1382,10 +1444,12 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </tbody>
     </table>
   </div>
+
   <div class="ic-mini-excel-cap">Always partnered with StartTime to define an interval, but it has its own role in the schedule-window check too.</div>
 
   <div style="background:#fafaf7; border:1px solid #e8e3d8; border-radius:6px; padding:18px; margin:16px 0;">
     <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Diagram · StopTime — partnered with StartTime, standalone for schedule check</div>
+
     <svg viewBox="0 0 680 280" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:680px; display:block;" font-family="Calibri, sans-serif">
 
       
@@ -1443,6 +1507,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       <text x="340" y="269" text-anchor="middle" font-size="9.5" font-family="JetBrains Mono, monospace" fill="#e6e1d8">Most uses pair Start+Stop, but the schedule window only needs StopTime</text>
 
     </svg>
+
   </div>
 
   <div class="ic-snippet">
@@ -1455,6 +1520,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <span class="c">/* contHrs calculation */</span>
 <span class="v">contHrs</span> <span class="op">=</span> (<span class="v">stretchEnd</span> <span class="op">-</span> <span class="v">stretchStart</span>) <span class="op">*</span> <span class="n">24</span></div>
+
   <div class="ic-explain">With StartTime, defines the row's interval for overlap testing. Drives the schedule-window check — if a Meal Break ends after <code>sched_end</code>, the row gets flagged. Also feeds the continuous-hours calculation as the running stretchEnd.</div>
 </div>
 
@@ -1464,11 +1530,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <div class="input-card output">
   <div class="ic-head">
     <div class="ic-eyebrow">Output · Text Array (Sparse)</div>
+
     <div class="ic-name">OUT_MSG</div>
+
   </div>
+
   <div class="ic-question">"Which rows are bad and why?"</div>
+
   <div class="ic-mini-excel">
     <div class="me-bar"><span>OUT_MSG_messages.xlsx</span><span class="app">Excel</span></div>
+
     <table>
       <thead><tr><th>Possible message</th><th>Fired by</th></tr></thead>
       <tbody>
@@ -1480,10 +1551,12 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </tbody>
     </table>
   </div>
+
   <div class="ic-mini-excel-cap">Sparse array indexed by row number. The framework reads each populated slot and renders a red error marker next to that row in the timecard UI; empty slots stay clean.</div>
 
   <div style="background:#fafaf7; border:1px solid #e8e3d8; border-radius:6px; padding:18px; margin:16px 0;">
     <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Diagram · Sparse output — only flagged rows have entries</div>
+
     <svg viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:680px; display:block;" font-family="Calibri, sans-serif">
 
       
@@ -1558,6 +1631,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </defs>
 
     </svg>
+
   </div>
 
   <div class="ic-snippet">
@@ -1571,6 +1645,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <span class="c">/* returned implicitly at end of formula */</span>
 <span class="k">RETURN</span> <span class="v">OUT_MSG</span></div>
+
   <div class="ic-explain"><strong>Mandatory return.</strong> Sparse — only flagged rows have entries; clean rows leave their slot empty. The framework reads the array after the formula finishes and renders red error markers next to those line numbers in the worker's timecard UI.</div>
 </div>
 
@@ -1580,6 +1655,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <div style="background:#fafaf7; border:1px solid #e8e3d8; border-radius:6px; padding:18px; margin:18px 0;">
   <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:12px;">Diagram · Six arrays, one shared index space</div>
+
   <svg viewBox="0 0 720 460" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:720px; display:block;" font-family="Calibri, sans-serif">
 
     
@@ -1706,6 +1782,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <span class="filename">Six_Arrays_One_Spreadsheet.xlsx</span>
     <span class="app">Excel</span>
   </div>
+
   <table class="excel-sheet">
     <thead>
       <tr>
@@ -1761,6 +1838,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     </tbody>
   </table>
 </div>
+
 <div class="excel-caption">A simple one-day timecard. Marker rows ([1] HEADER and [5] END_DAY) only fill the <code>RECORD_POSITIONS</code> column; their other slots are blank. Real worker entries leave RECORD_POSITIONS empty and fill the data columns. The formula reads <code>RECORD_POSITIONS</code> first to decide which path to take.</div>
 
 <p>The formula's WHILE loop walks the index from 1 to N, reading the same index across all six arrays each iteration. There's no concept of a "row object" — each row is reassembled at the moment of reading from the parallel slices. This pattern is consistent across all of OTL's formula types, so once you internalise it once, you'll see it everywhere.</p>
@@ -1773,6 +1851,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <p>Here it is in full. Every line in this listing is exactly what gets pasted into <strong>Manage Fast Formulas</strong>. Read it once top-to-bottom — don't try to understand every line yet. We'll walk through it block by block in the next section.</p>
 
 <div class="code-wrap">
+
 <div class="code-header"><span>XX_TER_CONTINUOUS_HOURS_VALIDATION.ff</span><span class="label-right">Time Entry Rule</span></div>
 <pre><code><span class="c">/* ============================================================
    Formula Name: XX_TER_CONTINUOUS_HOURS_VALIDATION
@@ -2038,6 +2117,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <div style="background:#fafaf7; border:1px solid #e8e3d8; border-radius:6px; padding:18px; margin:18px 0;">
   <div style="font-size:10px; letter-spacing:1.5px; color:#7a7570; text-transform:uppercase; font-weight:700; margin-bottom:12px;">Diagram · Eight blocks, two halves — data flow from input arrays to OUT_MSG return</div>
+
   <svg viewBox="0 0 720 540" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-width:720px; display:block;" font-family="Calibri, sans-serif">
 
     
@@ -2164,6 +2244,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <div class="arch-flow">
   <div class="arch-eyebrow">Architecture · eight blocks, two halves</div>
+
   <div class="arch-title">From input array to OUT_MSG return</div>
 
   <div class="arch-stages">
@@ -2171,118 +2252,190 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <div class="arch-stage active">
       <div class="stage-label">
         <div class="stage-num">Stage 01</div>
+
         <div class="stage-name">Block 1</div>
+
       </div>
+
       <div class="stage-rail"><div class="stage-dot"></div></div>
+
       <div class="stage-body">
         <div><span class="stage-pill scope-init">Init</span><span class="stage-pill">runs once</span></div>
+
         <div class="stage-headline" style="margin-top:6px;">Declare inputs and their empty-array defaults</div>
+
         <div class="stage-meta"><code>DEFAULT FOR</code> for every input prevents <code>FFL-09100</code> at runtime when the framework hands over a sparse array.</div>
+
       </div>
+
     </div>
 
     <div class="arch-stage active">
       <div class="stage-label">
         <div class="stage-num">Stage 02</div>
+
         <div class="stage-name">Block 2</div>
+
       </div>
+
       <div class="stage-rail"><div class="stage-dot"></div></div>
+
       <div class="stage-body">
         <div><span class="stage-pill scope-init">Init</span><span class="stage-pill">runs once</span></div>
+
         <div class="stage-headline" style="margin-top:6px;">Capture identity, define sentinels, log entry</div>
+
         <div class="stage-meta">Capture <code>ffs_id</code> and <code>rule_id</code> from context, declare <code>NullDate</code> and <code>NullText</code> sentinels, and write the formula's first log line so every subsequent message is scoped and traceable.</div>
+
       </div>
+
     </div>
 
     <div class="arch-stage active">
       <div class="stage-label">
         <div class="stage-num">Stage 03</div>
+
         <div class="stage-name">Block 3</div>
+
       </div>
+
       <div class="stage-rail"><div class="stage-dot"></div></div>
+
       <div class="stage-body">
         <div><span class="stage-pill scope-init">Init</span><span class="stage-pill">runs once</span></div>
+
         <div class="stage-headline" style="margin-top:6px;">Wrap the body in <code>CHANGE_CONTEXTS</code></div>
+
         <div class="stage-meta">One outer wrap binds <code>HR_ASSIGNMENT_ID</code> for every DBI and value-set lookup inside — <strong>200× faster</strong> than re-binding per iteration.</div>
+
       </div>
+
     </div>
 
     <div class="arch-stage active">
       <div class="stage-label">
         <div class="stage-num">Stage 04</div>
+
         <div class="stage-name">Block 4</div>
+
       </div>
+
       <div class="stage-rail"><div class="stage-dot"></div></div>
+
       <div class="stage-body">
         <div><span class="stage-pill scope-init">Init</span><span class="stage-pill">runs once</span></div>
+
         <div class="stage-headline" style="margin-top:6px;">Read configuration via <code>get_rvalue_number</code></div>
+
         <div class="stage-meta">Schedule bounds and continuous-hours thresholds come from the rule definition. <strong>One formula serves every LE</strong> — per-entity variation lives in the rule, not the source.</div>
+
       </div>
+
     </div>
 
     <div class="arch-stage active">
       <div class="stage-label">
         <div class="stage-num">Stage 05</div>
+
         <div class="stage-name">Block 5</div>
+
       </div>
+
       <div class="stage-rail"><div class="stage-dot"></div></div>
+
       <div class="stage-body">
         <div><span class="stage-pill scope-init">Init</span><span class="stage-pill">runs once</span></div>
+
         <div class="stage-headline" style="margin-top:6px;">Initialise day buffer, stretch tracker, OUT_MSG</div>
+
         <div class="stage-meta">Three pieces of state with three different lifetimes — per-line, per-day, per-formula. The lifecycle distinction is what makes the rest of the formula correct.</div>
+
       </div>
+
     </div>
 
     <div class="arch-stage">
       <div class="stage-label">
         <div class="stage-num">Stage 06</div>
+
         <div class="stage-name">Block 6</div>
+
       </div>
+
       <div class="stage-rail"><div class="stage-dot"></div></div>
+
       <div class="stage-body">
         <div><span class="stage-pill scope-loop">Per line</span><span class="stage-pill">in WHILE loop</span></div>
+
         <div class="stage-headline" style="margin-top:6px;">Read line, classify, route by time type</div>
+
         <div class="stage-meta">Detect qty-only placeholders (<code>00:00–23:59</code>), buffer Reg Hours for overlap, route Meal Breaks to the schedule-window check.</div>
+
       </div>
+
     </div>
 
     <div class="arch-stage">
       <div class="stage-label">
         <div class="stage-num">Stage 07</div>
+
         <div class="stage-name">Block 7</div>
+
       </div>
+
       <div class="stage-rail"><div class="stage-dot"></div></div>
+
       <div class="stage-body">
         <div><span class="stage-pill scope-loop">Per day</span><span class="stage-pill">at END_DAY marker</span></div>
+
         <div class="stage-headline" style="margin-top:6px;">Pairwise overlap test on the day buffer</div>
+
         <div class="stage-meta">Strict less-than (<code><</code>) intersection test. Catches collisions; allows back-to-back 12:00→12:00 handovers without false flags.</div>
+
       </div>
+
     </div>
 
     <div class="arch-stage">
       <div class="stage-label">
         <div class="stage-num">Stage 08</div>
+
         <div class="stage-name">Block 8</div>
+
       </div>
+
       <div class="stage-rail"><div class="stage-dot"></div></div>
+
       <div class="stage-body">
         <div><span class="stage-pill scope-loop">Per line</span><span class="stage-pill">cross-iteration state</span></div>
+
         <div class="stage-headline" style="margin-top:6px;">Continuous-hours state machine</div>
+
         <div class="stage-meta">Idle ↔ Active. EXTEND when adjacent, RESTART on gap, RESET on meal break. Compares <code>contHrs</code> against soft-warn (5h) and hard-error (6h) thresholds.</div>
+
       </div>
+
     </div>
 
     <div class="arch-stage">
       <div class="stage-label">
         <div class="stage-num">Return</div>
+
         <div class="stage-name" style="color:var(--accent);">OUT_MSG</div>
+
       </div>
+
       <div class="stage-rail"><div class="stage-dot" style="background:var(--accent);"></div></div>
+
       <div class="stage-body">
         <div><span class="stage-pill scope-exit">Exit</span><span class="stage-pill">framework reads sparse array</span></div>
+
         <div class="stage-headline" style="margin-top:6px;">Sparse array of error messages by line index</div>
+
         <div class="stage-meta">Empty slots = clean rows. Populated slots become red error markers in the worker's timecard UI.</div>
+
       </div>
+
     </div>
 
   </div>
@@ -2301,6 +2454,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     <span class="filename">Naming_Conventions_Reference.xlsx</span>
     <span class="app">Excel</span>
   </div>
+
   <table class="excel-sheet">
     <thead>
       <tr>
@@ -2364,6 +2518,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
     </tbody>
   </table>
 </div>
+
 <div class="excel-caption">Seven naming patterns. Each one signals a different role and lifetime, making the formula's intent visible without reading the surrounding code.</div>
 
 <p>Now the prefixes in detail, with examples and the reasoning behind each convention:</p>
@@ -2372,11 +2527,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Prefix 01 · Framework Context</div>
+
     <div class="ic-name">HWM_*</div>
+
   </div>
+
   <div class="ic-question">"Where does this value come from?" → The OTL framework, before the formula even runs.</div>
+
   <div class="ic-mini-excel">
     <div class="me-bar"><span>HWM_Examples.xlsx</span><span class="app">Excel</span></div>
+
     <table>
       <thead><tr><th>Variable</th><th>What it holds</th><th>Set by</th></tr></thead>
       <tbody>
@@ -2386,6 +2546,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </tbody>
     </table>
   </div>
+
   <div class="ic-explain">The <code>HWM_</code> prefix — short for <em>HCM Workforce Management</em> — marks variables the OTL framework injects into the formula's scope. They're not declared by the formula author; they appear automatically when the formula runs. The values are read-only from the formula's perspective; trying to assign to them does nothing useful and can break the binding.<br><br>Their purpose is to give the formula access to <strong>contextual information about the current run</strong>: whose timecard is being validated (<code>HWM_PER_ASG_ASSIGNMENT_ID</code>), which rule fired the formula (<code>HWM_RULE_ID</code>), and what unique session ID identifies this specific submission for log tracing (<code>HWM_FFS_ID</code>). Block 2 captures these into shorter local variables (<code>ffs_id</code>, <code>rule_id</code>) for convenience throughout the rest of the formula.</div>
 </div>
 
@@ -2393,11 +2554,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Prefix 02 · Framework Input Array</div>
+
     <div class="ic-name">HWM_CTXARY_*</div>
+
   </div>
+
   <div class="ic-question">"Is this a single value or a parallel array indexed by row number?" → An array, one slot per timecard row.</div>
+
   <div class="ic-mini-excel">
     <div class="me-bar"><span>HWM_CTXARY_Examples.xlsx</span><span class="app">Excel</span></div>
+
     <table>
       <thead><tr><th>Variable</th><th>Holds (per row)</th><th>Type</th></tr></thead>
       <tbody>
@@ -2406,6 +2572,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </tbody>
     </table>
   </div>
+
   <div class="ic-explain">The <code>HWM_CTXARY_</code> prefix — short for <em>HCM Workforce Management Context Array</em> — marks the framework's <strong>parallel input arrays</strong>. Where <code>HWM_*</code> holds a single value, <code>HWM_CTXARY_*</code> holds one slot per timecard row, all indexed by the same row number.<br><br>You access them like arrays: <code>HWM_CTXARY_RECORD_POSITIONS[3]</code> retrieves the value for row 3. The naming feels heavy, but it's deliberately verbose so you can never mistake a per-row array for a single-value context. Confusing the two would cause type errors at compile time — loud and easy to fix — so the convention pays off.<br><br>Note that some inputs in the <code>INPUTS ARE</code> declaration (like <code>measure</code>, <code>StartTime</code>, <code>StopTime</code>) <em>also</em> behave as parallel arrays but use cleaner names. They're framework arrays too; they just don't use the <code>HWM_CTXARY_</code> prefix because OTL's design predates the convention. Treat them the same way: per-row, indexed by row number, read-only.</div>
 </div>
 
@@ -2413,11 +2580,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Prefix 03 · Parameter</div>
+
     <div class="ic-name">p_*</div>
+
   </div>
+
   <div class="ic-question">"Is this value tunable per legal entity?" → Yes — read once from the rule, then used as a constant.</div>
+
   <div class="ic-mini-excel">
     <div class="me-bar"><span>p_Examples.xlsx</span><span class="app">Excel</span></div>
+
     <table>
       <thead><tr><th>Variable</th><th>Source</th><th>Purpose</th></tr></thead>
       <tbody>
@@ -2429,6 +2601,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </tbody>
     </table>
   </div>
+
   <div class="ic-explain">The <code>p_</code> prefix marks <strong>parameter-style variables</strong> — values set once in Block 4 and used throughout the rest of the formula as effectively constant. The lowercase <code>p</code> distinguishes them from framework-supplied values (<code>HWM_*</code>) and per-row scratch (<code>ai*</code>, <code>l_*</code>).<br><br>Most <code>p_*</code> variables are read from the rule configuration via <code>get_rvalue_number</code>, which fetches numeric parameters that legal entities can tune independently — this is how one entity can use a 5-hour cap while another uses 6 with the same formula source. A few <code>p_*</code> variables (the message names like <code>p_msg_overlap</code>, the time-type labels like <code>p_break_type</code>) are hardcoded because they don't vary across the rollout.<br><br>The convention serves a code-review purpose: when you see <code>p_*</code> being assigned anywhere outside Block 4, that's a code smell — parameters should be set once at setup and treated as constant during the loop. Mutation indicates a bug or a misuse.</div>
 </div>
 
@@ -2436,11 +2609,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Prefix 04 · Array Input Snapshot</div>
+
     <div class="ic-name">ai*</div>
+
   </div>
+
   <div class="ic-question">"Is this a per-row local copy of input data?" → Yes — refreshed at the top of every iteration.</div>
+
   <div class="ic-mini-excel">
     <div class="me-bar"><span>ai_Examples.xlsx</span><span class="app">Excel</span></div>
+
     <table>
       <thead><tr><th>Variable</th><th>Source array</th><th>Used for</th></tr></thead>
       <tbody>
@@ -2451,6 +2629,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </tbody>
     </table>
   </div>
+
   <div class="ic-explain">The <code>ai</code> prefix stands for <strong>"array input"</strong> — per-row local snapshots of values pulled from the framework's input arrays. At the top of every loop iteration, the formula reads from the input arrays (with <code>.exists()</code> guards) and copies the values into matching <code>ai*</code> locals.<br><br>Why copy rather than reading the input arrays directly throughout the iteration? Three reasons. First, it creates a <strong>consistent snapshot</strong>: the rest of the iteration always sees the same values for "this row", even if downstream code logic gets restructured. Second, it provides a single place to apply guards (the <code>.exists()</code> checks in the read block) so you can never accidentally trigger an unguarded read elsewhere. Third, it makes the data flow obvious in code review — seeing <code>ai*</code> on the left of an assignment in the read block flags it as the "snapshot point", and the rest of the iteration cleanly works from those locals.<br><br>The <code>ai*</code> variables are reset at the top of every iteration to their sentinel values (<code>NullText</code>, <code>NullDate</code>) before the new row's reads happen. This explicit reset prevents the stale-value bug discussed in Block 5.</div>
 </div>
 
@@ -2458,11 +2637,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Prefix 05 · Local Working Variable</div>
+
     <div class="ic-name">l_*</div>
+
   </div>
+
   <div class="ic-question">"Is this a temporary working value or flag inside the loop body?" → Yes.</div>
+
   <div class="ic-mini-excel">
     <div class="me-bar"><span>l_Examples.xlsx</span><span class="app">Excel</span></div>
+
     <table>
       <thead><tr><th>Variable</th><th>Type</th><th>Lifetime & purpose</th></tr></thead>
       <tbody>
@@ -2473,6 +2657,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </tbody>
     </table>
   </div>
+
   <div class="ic-explain">The <code>l_</code> prefix marks <strong>local working variables</strong> created inside the loop body for intermediate computation or state-tracking. Some are per-row (computed fresh each iteration), some are per-day (set once on a triggering event and persisting until the next day boundary).<br><br>The prefix's main job is to distinguish working state from input snapshots (<code>ai*</code>) and parameters (<code>p_*</code>). A formula reader scanning the code can immediately tell <code>l_qty_only</code> is a flag the formula sets itself, not data from the framework or a configuration value.<br><br>Within <code>l_*</code> there's an unwritten sub-convention: variables that hold <code>'Y'</code>/<code>'N'</code> flags use names ending in past-tense or descriptive adjectives (<code>l_meal_taken</code>, <code>l_qty_only</code>), while variables that hold computed numeric or string values use abbreviated names (<code>l_st_hr</code>, <code>l_day</code>). The convention isn't enforced, but consistency makes the code easier to scan.</div>
 </div>
 
@@ -2480,11 +2665,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <div class="input-card">
   <div class="ic-head">
     <div class="ic-eyebrow">Prefix 06 · Named-Lifetime State</div>
+
     <div class="ic-name">day*  ·  stretch*</div>
+
   </div>
+
   <div class="ic-question">"Does this variable have a specific multi-row lifetime tied to a domain concept?" → Yes.</div>
+
   <div class="ic-mini-excel">
     <div class="me-bar"><span>State_Group_Examples.xlsx</span><span class="app">Excel</span></div>
+
     <table>
       <thead><tr><th>Group</th><th>Variables</th><th>Resets when</th></tr></thead>
       <tbody>
@@ -2493,6 +2683,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </tbody>
     </table>
   </div>
+
   <div class="ic-explain">Some variables can't be neatly classified as "per-row" or "whole-formula" — they live for a domain-specific period that the formula explicitly manages. The convention here is to <strong>group these by domain prefix</strong>: <code>day*</code> for variables related to a single day's accumulated state, <code>stretch*</code> for variables tracking the current continuous-work stretch.<br><br>The grouping makes the code's structure self-documenting. When a reader sees <code>dayStarts</code>, <code>dayStops</code>, <code>dayIdxs</code>, and <code>dayCnt</code> together, they immediately recognise these as the day buffer — four pieces of one logical structure. Same for <code>stretchStart</code>, <code>stretchEnd</code>, <code>inStretch</code> as the stretch tracker.<br><br>The grouping also signals that these variables must be <strong>reset together</strong>. Block 7c (the END_DAY reset) clears all four day buffer variables in one block, and clears the stretch tracker variables in the same block. Resetting some without others would corrupt state. The naming makes it obvious which variables belong in the same reset block.</div>
 </div>
 
@@ -2500,11 +2691,16 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 <div class="input-card output">
   <div class="ic-head">
     <div class="ic-eyebrow">Prefix 07 · Formula Output (Reserved Name)</div>
+
     <div class="ic-name">OUT_MSG</div>
+
   </div>
+
   <div class="ic-question">"Is this the value the formula returns to the framework?" → Yes — and the name is reserved.</div>
+
   <div class="ic-mini-excel">
     <div class="me-bar"><span>OUT_MSG_Behaviour.xlsx</span><span class="app">Excel</span></div>
+
     <table>
       <thead><tr><th>Idx</th><th>OUT_MSG content</th><th>Meaning</th></tr></thead>
       <tbody>
@@ -2515,6 +2711,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
       </tbody>
     </table>
   </div>
+
   <div class="ic-explain"><code>OUT_MSG</code> is the only variable in this formula whose name is <strong>not chosen by the author</strong> — it's reserved by the TER formula type contract. The framework expects the formula to write error messages into a variable with this exact name, and reads from it after the formula returns.<br><br>The naming is uppercase to signal "framework-reserved", distinguishing it from the lowercase prefixes (<code>p_</code>, <code>ai</code>, <code>l_</code>, <code>day</code>, <code>stretch</code>) used for author-chosen names. The pattern carries over to other formula types: payroll formulas have their own reserved output names, absence formulas have theirs.<br><br>The <code>_MSG</code> suffix hints at the data type (a sparse array of message strings indexed by row number). The combination — uppercase name plus underscore-separated suffix — is a strong visual signal that this variable is a contract surface, not a working variable. Treat it as such: write to it sparingly, only for rows that need flagging, and never reset it during the run.</div>
 </div>
 
@@ -2530,6 +2727,7 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <div class="aside">
   <div class="head">A note on consistency across formulas</div>
+
   Different teams use different conventions, and Oracle's documentation doesn't mandate any specific style. The patterns shown here (<code>HWM_</code>, <code>p_</code>, <code>ai</code>, <code>l_</code>, <code>day*</code>, <code>stretch*</code>, <code>OUT_MSG</code>) are common in OTL implementations but you'll see variations elsewhere. The principle that matters is <em>consistency within a project</em>. Pick a convention, document it, and apply it uniformly. The specific letters matter less than the discipline of using them.
 </div>
 
@@ -2539,12 +2737,18 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
   <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:36px; flex-wrap:wrap; gap:16px;">
     <div>
       <div style="font-family:'Manrope', -apple-system, sans-serif; font-size:34px; line-height:1.2; font-weight:300; color:#1f5fa8; letter-spacing:-0.5px;">Same formula.</div>
+
       <div style="font-family:'Manrope', -apple-system, sans-serif; font-size:34px; line-height:1.2; font-weight:300; color:#2d2926; letter-spacing:-0.5px; margin-top:4px;">The algorithm in detail.</div>
+
     </div>
+
     <div style="text-align:right;">
       <div style="font-family:'Manrope', -apple-system, sans-serif; font-size:14px; font-weight:700; color:#2d2926; letter-spacing:0.5px;">PART 2 OF 2</div>
+
       <div style="font-family:'Manrope', -apple-system, sans-serif; font-size:11px; color:#7a7570; margin-top:2px; letter-spacing:0.5px;">Coming next</div>
+
     </div>
+
   </div>
 
   
@@ -2657,7 +2861,9 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <div style="background:#fff8e8; border:1px solid #b97417; border-radius:6px; padding:20px 24px; margin:40px 0 32px 0;">
   <div style="font-size:10px; letter-spacing:1.6px; color:#b97417; text-transform:uppercase; font-weight:700; margin-bottom:6px;">Next in The TER Series</div>
+
   <div style="font-size:18px; font-weight:700; color:#2d2926; margin-bottom:8px;">Part 3 — The Algorithm: Setup, Routing, and Overlap Detection</div>
+
   <div style="font-size:13.5px; color:#5a544e; line-height:1.6;">The data shape is settled. Now the algorithm. Part 3 walks through the formula's setup phase (crash prevention, identity capture, per-LE configuration), the per-line routing that decides which checks apply to each row, and the day-boundary pairwise overlap test — the first half of the eight-block algorithm.</div>
 </div>
 
@@ -2666,9 +2872,12 @@ IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 
 <div class="byline">
   <div class="avatar">AM</div>
+
   <div class="author-block">
     <div class="author-name">Abhishek Mohanty</div>
+
     <div class="author-creds">Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Time and Labor, Absence Management, Core HR, Redwood, HDL, OTBI.</div>
+
   </div>
 </div>
 

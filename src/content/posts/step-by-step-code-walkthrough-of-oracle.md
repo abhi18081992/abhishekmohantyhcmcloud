@@ -21,6 +21,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 
 </head>
 <body>
+
 <div class="hdl-blog" style="font-family:'Plus Jakarta Sans',sans-serif;max-width:820px;margin:0 auto;padding:32px 24px;line-height:1.75;color:var(--dark);">
 
 
@@ -34,7 +35,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 
 
 <h1 style="font-size:30px;font-weight:800;color:var(--dark);line-height:1.25;margin:0 0 6px;font-family:inherit;">Oracle HCM Cloud HDL Transformation Fast Formula — Line-by-Line Code Walkthrough</h1>
+
 <div style="font-size:16px;color:var(--text);margin-bottom:4px;">Vendor Deduction Interface | ElementEntry + ElementEntryValue</div>
+
 <div style="font-size:13px;color:var(--muted);margin-bottom:24px;">March 2026 · 30 min read · Oracle HCM Cloud</div>
 
 
@@ -44,18 +47,25 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 
 
 <h3 style="font-size:17px;font-weight:700;color:var(--dark);margin:28px 0 16px;font-family:inherit;">HDL Transformation Formula Series</h3>
+
 <div style="display:flex;gap:16px;margin-bottom:32px;flex-wrap:wrap;">
+
 <div style="flex:1;min-width:200px;background:var(--bg-subtle);border-radius:8px;padding:16px 18px;border-left:4px solid var(--muted);">
+
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
 <span style="background:var(--muted);color:#fff;font-size:13px;font-weight:800;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;">1</span>
 <span style="font-size:14px;font-weight:700;color:var(--muted);">Pure Concepts</span></div>
 <p style="margin:0;font-size:12px;color:var(--muted);">INPUTS, OPERATION, METADATA, MAP, WSA, LINEREPEATNO, RETURN. Zero code.</p></div>
+
 <div style="flex:1;min-width:200px;background:#FDF5ED;border-radius:8px;padding:16px 18px;border-left:4px solid var(--accent);">
+
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
 <span style="background:var(--accent);color:#fff;font-size:13px;font-weight:800;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;">2</span>
 <span style="font-size:14px;font-weight:700;color:var(--accent);">Code Walkthrough ← You are here</span></div>
 <p style="margin:0;font-size:12px;color:var(--text);">Actual code, line-by-line. Value set calls, ISNULL, SourceSystemId, ESS_LOG_WRITE, Cancel branching.</p></div>
+
 <div style="flex:1;min-width:200px;background:var(--bg-subtle);border-radius:8px;padding:16px 18px;border-left:4px solid var(--border);">
+
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
 <span style="background:var(--border);color:#fff;font-size:13px;font-weight:800;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;">3</span>
 <span style="font-size:14px;font-weight:700;color:#bbb;">Build Your Own <span style="font-size:11px;background:#eee;padding:2px 8px;border-radius:8px;color:#999;">Soon</span></span></div>
@@ -64,7 +74,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 
 
 <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+
 <div style="background:linear-gradient(135deg,var(--accent),#B8501F);color:#fff;font-size:15px;font-weight:800;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;">AM</div>
+
 <div><div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div><div style="font-size:13px;color:#888;line-height:1.5;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant</div></div>
 </div>
 
@@ -76,8 +88,11 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">The HDL engine calls your formula many times. The OPERATION variable tells the formula <em>why</em> it's being called. Here's the routing code that handles each call:</p>
 
 <div class="code-pro">
+
 <div class="code-pro-header">
+
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
+
 <div class="label">OPERATION Routing — Setup Handshake</div>
 </div>
 <pre>
@@ -95,8 +110,11 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 </div>
 
 <div class="code-pro">
+
 <div class="code-pro-header">
+
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
+
 <div class="label">OPERATION Routing — METADATA Header Definitions</div>
 </div>
 <pre>
@@ -141,7 +159,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 
 
 <h3 style="font-size:17px;font-weight:700;color:var(--dark);margin:28px 0 14px;font-family:inherit;">What This Post Covers</h3>
+
 <div style="background:var(--bg-subtle);border-radius:8px;padding:18px 22px;margin-bottom:28px;">
+
 <table style="width:100%;border-collapse:collapse;font-size:14px;">
 <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:700;color:var(--accent);width:30px;">1</td><td style="padding:8px 12px;font-weight:700;">Full INPUTS ARE Block</td><td style="padding:8px 12px;color:#888;">Every POSITION mapped to its vendor column.</td></tr>
 <tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 12px;font-weight:700;color:var(--accent);">2</td><td style="padding:8px 12px;font-weight:700;">GET_VALUE_SET Calls</td><td style="padding:8px 12px;color:#888;">How the formula talks to the database.</td></tr>
@@ -163,31 +183,49 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 
 
 <div class="diag">
+
 <div class="diag-title">How the Engine Maps CSV Columns to POSITION Variables</div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--code-bg);color:#C8C9D4;padding:12px 16px;border-radius:8px;margin-bottom:16px;overflow-x:auto;">
 <span style="color:#57A64A;">/* Your CSV row: */</span>  <span style="color:#DCDCAA;">1</span><span style="color:#666;">,</span><span style="color:#CE9178;">DENTAL01</span><span style="color:#666;">,</span><span style="color:#CE9178;">2024-01-15</span><span style="color:#666;">,</span><span style="color:#CE9178;">100045</span><span style="color:#666;">,</span><span style="color:#CE9178;">E12345</span><span style="color:#666;">,</span><span style="color:#DCDCAA;">150.00</span><span style="color:#666;">,</span><span style="color:#888;">...</span>
 </div>
+
 <div class="pipeline" style="gap:4px;">
+
 <div class="pipe-node"><div class="pipe-label">COL 1</div><div class="pipe-value" style="color:var(--muted);">1</div><div class="pipe-sub">POSITION1</div></div>
+
 <div class="pipe-connector"></div>
+
 <div class="pipe-node accent"><div class="pipe-label" style="color:var(--accent);">COL 2 ★</div><div class="pipe-value" style="color:var(--accent);">DENTAL01</div><div class="pipe-sub">POSITION2</div></div>
+
 <div class="pipe-connector"></div>
+
 <div class="pipe-node accent"><div class="pipe-label" style="color:var(--accent);">COL 3 ★</div><div class="pipe-value" style="color:var(--accent);">2024-01-15</div><div class="pipe-sub">POSITION3</div></div>
+
 <div class="pipe-connector"></div>
+
 <div class="pipe-node accent"><div class="pipe-label" style="color:var(--accent);">COL 4 ★</div><div class="pipe-value" style="color:var(--accent);">100045</div><div class="pipe-sub">POSITION4</div></div>
+
 <div class="pipe-connector"></div>
+
 <div class="pipe-node"><div class="pipe-label">COL 5</div><div class="pipe-value" style="color:var(--muted);">E12345</div><div class="pipe-sub">POSITION5</div></div>
+
 <div class="pipe-connector"></div>
+
 <div class="pipe-node accent"><div class="pipe-label" style="color:var(--accent);">COL 6 ★</div><div class="pipe-value" style="color:var(--accent);">150.00</div><div class="pipe-sub">POSITION6</div></div>
 </div>
+
 <div style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px;">★ Columns actively used in the MAP logic. Others are declared but not referenced.</div>
 </div>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">Here's the actual declaration code:</p>
 
 <div class="code-pro">
+
 <div class="code-pro-header">
+
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
+
 <div class="label">XXTAV_HDL_ACCRUAL_INBOUND — Input Declaration</div>
 </div>
 <pre>
@@ -232,20 +270,33 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 
 
 <div class="diag">
+
 <div class="diag-title">How GET_VALUE_SET Works</div>
+
 <div class="pipeline">
+
 <div class="pipe-node accent" style="min-width:150px;">
+
 <div class="pipe-label" style="color:var(--accent);">Your Formula</div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dark);">GET_VALUE_SET(<br>'XXTAV_ACCRUAL_ELEMENTS',<br>'DENTAL01')</div>
 </div>
+
 <div class="pipe-connector" style="width:40px;"></div>
+
 <div class="pipe-node" style="min-width:150px;">
+
 <div class="pipe-label">Value Set</div>
+
 <div style="font-size:12px;color:var(--muted);line-height:1.5;">Looks up vendor code<br>in the mapping table<br>and returns the Oracle<br>element name</div>
 </div>
+
 <div class="pipe-connector" style="width:40px;"></div>
+
 <div class="pipe-node" style="min-width:120px;border-left:3px solid var(--green);">
+
 <div class="pipe-label" style="color:var(--green);">Result</div>
+
 <div class="pipe-value" style="color:var(--green);">Dental EE Deduction</div>
 </div>
 </div>
@@ -262,22 +313,35 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 
 
 <div style="margin:20px 0;">
+
 <div class="code-annot"><div class="code-annot-line"><span style="color:#B5CEA8;">l_AssignmentNumber</span> = <span style="color:#DCDCAA;">GET_VALUE_SET</span>(</div><div class="code-annot-note">Store the answer here</div></div>
+
 <div class="code-annot"><div class="code-annot-line">  <span style="color:#CE9178;">'XXTAV_GET_LATEST_ASSIGNMENT_NUMBER'</span>,</div><div class="code-annot-note">Which value set to call</div></div>
+
 <div class="code-annot"><div class="code-annot-line">  <span style="color:#CE9178;">'|=P_PERSON_NUMBER='''</span> || <span style="color:#B5CEA8;text-decoration:underline;">POSITION4</span> || <span style="color:#CE9178;">''''</span></div><div class="code-annot-note">Param 1: Person# (100045)</div></div>
+
 <div class="code-annot"><div class="code-annot-line"> || <span style="color:#DCDCAA;">TO_CHAR</span>(<span style="color:#DCDCAA;">TO_DATE</span>(<span style="color:#B5CEA8;text-decoration:underline;">POSITION3</span>,...),<span style="color:#CE9178;">'YYYY-MM-DD'</span>)</div><div class="code-annot-note">Param 2: Date (normalized)</div></div>
 </div>
 
 
 <div class="diag" style="padding:20px;">
+
 <div class="diag-title">TO_DATE → TO_CHAR: Date Normalization Pipeline</div>
+
 <div class="pipeline">
+
 <div class="pipe-node" style="border-left:3px solid var(--red);"><div class="pipe-label" style="color:var(--red);">Raw Input</div><div class="pipe-value">POSITION3</div><div class="pipe-sub">'2024-01-15' or '2024/01/15'</div></div>
+
 <div class="pipe-connector" style="width:28px;"></div>
+
 <div class="pipe-node"><div class="pipe-label">TO_DATE( )</div><div class="pipe-sub">Parse string → date object</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);margin-top:4px;">15-JAN-2024</div></div>
+
 <div class="pipe-connector" style="width:28px;"></div>
+
 <div class="pipe-node"><div class="pipe-label">TO_CHAR( )</div><div class="pipe-sub">Date object → clean string</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green);margin-top:4px;">2024-01-15</div></div>
+
 <div class="pipe-connector" style="width:28px;"></div>
+
 <div class="pipe-node" style="border-left:3px solid var(--green);"><div class="pipe-label" style="color:var(--green);">Clean Output</div><div class="pipe-sub">Ready to pass into<br>the value set</div></div>
 </div>
 </div>
@@ -305,9 +369,13 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "HDL", "TER", "Time Entry Rule", "OTL
 
 
 <div class="decision-pair" style="margin:18px 0;">
+
 <div class="decision-card">
+
 <div class="decision-card-head" style="background:var(--green);color:#fff;">ISNULL(x) = 'Y' → value exists ✓</div>
+
 <div class="decision-card-body">
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2;">
 l_MEC = <strong>'3'</strong><br>
 ISNULL('3') → <span style="color:var(--green);font-weight:700;">'Y'</span><br>
@@ -316,9 +384,13 @@ Is 'Y' = 'N'? → <strong>No</strong><br>
 </div>
 </div>
 </div>
+
 <div class="decision-card">
+
 <div class="decision-card-head" style="background:var(--red);color:#fff;">ISNULL(x) = 'N' → value is null ✗</div>
+
 <div class="decision-card-body">
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2;">
 l_MEC = <strong>(null)</strong><br>
 ISNULL(null) → <span style="color:var(--red);font-weight:700;">'N'</span><br>
@@ -339,38 +411,60 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 
 
 <div class="diag">
+
 <div class="diag-title">Value Set Resolution Chain — Each Step Feeds the Next</div>
+
 <div class="timeline">
 
 <div class="tl-step">
+
 <div class="tl-dot active"></div>
+
 <div class="tl-label">Call 1 — Element Name</div>
+
 <div class="tl-desc">Uses: <strong>POSITION2</strong> (vendor code)<br>Produces: <strong style="color:var(--accent);">l_ElementName</strong></div>
+
 <div class="tl-result">DENTAL01 → 'Dental EE Deduction'</div>
+
 <div style="font-size:11px;color:var(--muted);margin-top:4px;">No dependencies — this call only needs the raw vendor code from the CSV.</div>
 </div>
 
 <div class="tl-step">
+
 <div class="tl-dot active"></div>
+
 <div class="tl-label">Call 2 — Assignment Number</div>
+
 <div class="tl-desc">Uses: <strong>POSITION4</strong> (person#) + <strong>POSITION3</strong> (date)<br>Produces: <strong style="color:var(--accent);">l_AssignmentNumber</strong></div>
+
 <div class="tl-result">100045 + 2024-01-15 → 'E12345'</div>
+
 <div style="font-size:11px;color:var(--muted);margin-top:4px;">No dependencies — uses raw CSV values directly.</div>
 </div>
 
 <div class="tl-step">
+
 <div class="tl-dot active"></div>
+
 <div class="tl-label">Call 3 — MultipleEntryCount</div>
+
 <div class="tl-desc">Uses: <strong>POSITION4</strong> + <strong>POSITION3</strong> + <strong style="color:var(--accent);">l_ElementName</strong> ← <em>from Call 1</em><br>Produces: <strong style="color:var(--accent);">l_MultipleEntryCount</strong></div>
+
 <div class="tl-result">100045 + 2024-01-15 + 'Dental EE Deduction' → '1'</div>
+
 <div style="font-size:11px;color:var(--red);margin-top:4px;">Depends on Call 1. If you swap the order, l_ElementName is empty and this call returns wrong results.</div>
 </div>
 
 <div class="tl-step">
+
 <div class="tl-dot active"></div>
+
 <div class="tl-label">Call 4 — SourceSystemId</div>
+
 <div class="tl-desc">Uses: <strong>POSITION4</strong> + <strong>POSITION3</strong> + <strong style="color:var(--accent);">l_ElementName</strong> ← <em>from Call 1</em><br>Produces: <strong style="color:var(--accent);">l_SourceSystemId</strong></div>
+
 <div class="tl-result">Lookup existing SSID or construct new one</div>
+
 <div style="font-size:11px;color:var(--red);margin-top:4px;">Depends on Call 1. Also uses l_AssignmentNumber from Call 2 when constructing a new ID.</div>
 </div>
 
@@ -393,24 +487,41 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 
 
 <div class="diag">
+
 <div class="diag-title">SourceSystemId Resolution Flow</div>
+
 <div class="timeline">
+
 <div class="tl-step">
+
 <div class="tl-dot active"></div>
+
 <div class="tl-label">Step 1 — Ask the cloud</div>
+
 <div class="tl-desc">"Does a SourceSystemId already exist for this person + element + date?"</div>
+
 <div class="tl-result">GET_VALUE_SET('XXTAV_GET_ELEMENT_ENTRY_SOURCE_SYSTEM_ID', ...)</div>
 </div>
+
 <div class="tl-step">
+
 <div class="tl-dot"></div>
+
 <div class="tl-label">Step 2 — Check what came back</div>
+
 <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
+
 <div style="flex:1;min-width:180px;background:#fff;border-radius:8px;padding:12px;box-shadow:0 1px 4px rgba(0,0,0,0.05);border-left:3px solid var(--green);">
+
 <div style="font-size:12px;font-weight:700;color:var(--green);">Found → Reuse it</div>
+
 <div style="font-size:11px;color:var(--muted);margin-top:4px;">Oracle will UPDATE the existing entry</div>
 </div>
+
 <div style="flex:1;min-width:180px;background:#fff;border-radius:8px;padding:12px;box-shadow:0 1px 4px rgba(0,0,0,0.05);border-left:3px solid var(--red);">
+
 <div style="font-size:12px;font-weight:700;color:var(--red);">Not found → Build a new one</div>
+
 <div style="font-size:11px;color:var(--muted);margin-top:4px;">Oracle will INSERT a new entry</div>
 </div>
 </div>
@@ -436,23 +547,35 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 
 
 <div class="diag" style="padding:20px;">
+
 <div class="diag-title">SourceSystemId — Assembled from parts</div>
+
 <div class="seg-bar">
+
 <div style="background:var(--accent);color:#fff;">XXTAV_HDL<span class="seg-label">prefix</span></div>
+
 <div style="background:var(--blue);color:#fff;">E12345<span class="seg-label">Assignment#</span></div>
+
 <div style="background:#666;color:#fff;">_EE_<span class="seg-label">marker</span></div>
+
 <div style="background:var(--green);color:#fff;">100045<span class="seg-label">Person#</span></div>
+
 <div style="background:#7B5EA7;color:#fff;">DENTAL01<span class="seg-label">Code</span></div>
+
 <div style="background:var(--red);color:#fff;">2024-01-15<span class="seg-label">Date</span></div>
 </div>
+
 <div style="display:flex;gap:12px;justify-content:center;margin-top:12px;">
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:11px;padding:8px 14px;background:var(--code-bg);color:#C8C9D4;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
 <span style="color:#888;">ElementEntry:</span> XXTAV_HDL...<strong style="color:var(--green);">_EE_</strong>...
 </div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:11px;padding:8px 14px;background:var(--code-bg);color:#C8C9D4;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
 <span style="color:#888;">EntryValue:</span> XXTAV_HDL...<strong style="color:var(--accent);">_EEV_</strong>...
 </div>
 </div>
+
 <div style="text-align:center;font-size:11px;color:var(--muted);margin-top:8px;">Only difference between header and value ID: <strong>_EE_</strong> vs <strong>_EEV_</strong></div>
 </div>
 
@@ -469,8 +592,11 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 
 
 <div class="code-pro">
+
 <div class="code-pro-header">
+
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
+
 <div class="label">XXTAV_HDL_ACCRUAL_INBOUND — Debug Trace Logs</div>
 </div>
 <pre>
@@ -497,8 +623,11 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 
 
 <div class="code-pro">
+
 <div class="code-pro-header">
+
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
+
 <div class="label">ESS Job Log — Output for Row 1</div>
 </div>
 <pre style="color:#88C999;">
@@ -524,9 +653,13 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 
 
 <div class="decision-pair" style="margin:20px 0;">
+
 <div class="decision-card">
+
 <div class="decision-card-head" style="background:var(--green);color:#fff;">Active (POSITION11 = blank)</div>
+
 <div class="decision-card-body">
+
 <div style="font-size:13px;line-height:1.8;color:var(--text);">
 <strong>EffectiveStartDate</strong> = vendor date (POSITION3)<br>
 <strong>EffectiveEndDate</strong> = <span style="color:var(--muted);">not set</span><br>
@@ -535,9 +668,13 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 </div>
 </div>
 </div>
+
 <div class="decision-card">
+
 <div class="decision-card-head" style="background:var(--red);color:#fff;">Cancel (POSITION11 = 'C')</div>
+
 <div class="decision-card-body">
+
 <div style="font-size:13px;line-height:1.8;color:var(--text);">
 <strong>EffectiveStartDate</strong> = <span style="color:var(--red);font-weight:600;">fetched from cloud</span><br>
 <strong>EffectiveEndDate</strong> = <span style="color:var(--red);font-weight:600;">vendor's cancel date</span><br>
@@ -553,8 +690,11 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">On the first pass, the formula sets all output variables for the ElementEntry header. Each variable name must match a METADATA1 column name exactly — that's how the engine knows which .dat column to write it into.</p>
 
 <div class="code-pro">
+
 <div class="code-pro-header">
+
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
+
 <div class="label">Active Path — LINEREPEATNO = 1 — Create ElementEntry</div>
 </div>
 <pre>
@@ -586,8 +726,11 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">After setting the variables, the formula decides what to RETURN. This is the guard logic — if the element lookup failed, skip the row:</p>
 
 <div class="code-pro">
+
 <div class="code-pro-header">
+
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
+
 <div class="label">The ISNULL Guard — Two Different RETURN Paths</div>
 </div>
 <pre>
@@ -619,23 +762,39 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 
 
 <div class="diag">
+
 <div class="diag-title">One Vendor Row → Two .dat Rows (Full Journey)</div>
+
 <div class="timeline">
+
 <div class="tl-step">
+
 <div class="tl-dot active"></div>
+
 <div class="tl-label">Vendor CSV Row</div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-top:4px;">1, DENTAL01, 2024-01-15, 100045, E12345, <strong style="color:var(--accent);">150.00</strong>, ...</div>
 </div>
+
 <div class="tl-step">
+
 <div class="tl-dot active"></div>
+
 <div class="tl-label" style="color:var(--green);">Pass 1 (LINEREPEATNO = 1) → ElementEntry</div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);background:#fff;padding:8px 12px;border-radius:6px;margin-top:6px;box-shadow:0 1px 3px rgba(0,0,0,0.04);overflow-x:auto;">MERGE|ElementEntry|US LDG|2024/01/15|Dental EE Deduction|E12345|H|E|1|XXTAV_HDL|XXTAV_HDL...</div>
+
 <div class="tl-result">LINEREPEAT = 'Y' → engine increments LINEREPEATNO to 2, calls formula again</div>
 </div>
+
 <div class="tl-step">
+
 <div class="tl-dot active"></div>
+
 <div class="tl-label" style="color:var(--accent);">Pass 2 (LINEREPEATNO = 2) → ElementEntryValue</div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);background:#fff;padding:8px 12px;border-radius:6px;margin-top:6px;box-shadow:0 1px 3px rgba(0,0,0,0.04);overflow-x:auto;">MERGE|ElementEntryValue|US LDG|2024/01/15|Dental EE Deduction|E12345|XXTAV_PTO BALANCE|E|1|<strong style="color:var(--accent);">150</strong>|...</div>
+
 <div class="tl-result">LINEREPEAT = 'N' → engine moves to next CSV row</div>
 </div>
 </div>
@@ -646,8 +805,11 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 <p style="font-size:15px;color:var(--text);margin-bottom:14px;">The vendor only sends the <em>cancellation date</em>. Oracle also needs the <em>original start date</em>. So the formula fetches it from the cloud:</p>
 
 <div class="code-pro">
+
 <div class="code-pro-header">
+
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
+
 <div class="label">Cancel Path — POSITION11 = 'C' — End-Date Entry</div>
 </div>
 <pre>
@@ -674,23 +836,39 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 
 
 <div class="diag">
+
 <div class="diag-title">Cancel Path — Where Each Date Comes From</div>
+
 <div style="display:flex;gap:16px;flex-wrap:wrap;">
+
 <div style="flex:1;min-width:200px;">
+
 <div style="padding:12px 16px;background:var(--blue);color:#fff;border-radius:10px 10px 0 0;font-size:12px;font-weight:700;">EffectiveStartDate</div>
+
 <div style="background:#fff;border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;padding:16px;box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+
 <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">Source: <strong style="color:var(--blue);">Oracle Cloud</strong></div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--blue);background:rgba(74,111,165,0.06);padding:6px 10px;border-radius:4px;">GET_VALUE_SET('XXTAV_GET_EE_START_DATE')</div>
+
 <div style="font-size:12px;color:var(--text);margin-top:8px;">When the entry <strong>originally started</strong></div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--blue);font-weight:600;margin-top:4px;">2024/01/01</div>
 </div>
 </div>
+
 <div style="flex:1;min-width:200px;">
+
 <div style="padding:12px 16px;background:var(--red);color:#fff;border-radius:10px 10px 0 0;font-size:12px;font-weight:700;">EffectiveEndDate</div>
+
 <div style="background:#fff;border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;padding:16px;box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+
 <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">Source: <strong style="color:var(--red);">Vendor File</strong></div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red);background:rgba(184,66,58,0.06);padding:6px 10px;border-radius:4px;">POSITION3 (cancellation date)</div>
+
 <div style="font-size:12px;color:var(--text);margin-top:8px;">When the entry <strong>should end</strong></div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--red);font-weight:600;margin-top:4px;">2024/03/15</div>
 </div>
 </div>
@@ -704,8 +882,11 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 <p style="font-size:15px;color:var(--text);margin-bottom:10px;"><strong>First — clean the amount:</strong></p>
 
 <div class="code-pro">
+
 <div class="code-pro-header">
+
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
+
 <div class="label">Pass 2 — Clean the Dollar Amount</div>
 </div>
 <pre>
@@ -720,7 +901,9 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 <p style="font-size:14px;color:var(--text);margin:8px 0;">Line 3 strips trailing zeros and dots. If the result is empty, line 5 defaults to '0'.</p>
 
 <div class="diag" style="padding:14px 20px;">
+
 <div class="diag-title">What line 3 does to different amounts</div>
+
 <table style="width:100%;border-collapse:collapse;font-size:13px;">
 <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 12px;font-family:'JetBrains Mono',monospace;color:var(--muted);">150.00</td><td style="padding:6px 12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);">→ 150</td></tr>
 <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 12px;font-family:'JetBrains Mono',monospace;color:var(--muted);">75.50</td><td style="padding:6px 12px;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);">→ 75.5</td></tr>
@@ -731,8 +914,11 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 <p style="font-size:15px;color:var(--text);margin:18px 0 10px;"><strong>Then — set output variables.</strong> Most are the same as Pass 1. Only three things change:</p>
 
 <div class="code-pro">
+
 <div class="code-pro-header">
+
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
+
 <div class="label">Pass 2 — The Three Things That Change</div>
 </div>
 <pre>
@@ -755,8 +941,11 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 <p style="font-size:15px;color:var(--text);margin:18px 0 10px;"><strong>Finally — RETURN:</strong></p>
 
 <div class="code-pro">
+
 <div class="code-pro-header">
+
 <div class="dots"><span style="background:#FF5F56;"></span><span style="background:#FFBD2E;"></span><span style="background:#27C93F;"></span></div>
+
 <div class="label">Pass 2 — RETURN</div>
 </div>
 <pre>
@@ -771,6 +960,7 @@ Is 'N' = 'N'? → <strong>Yes</strong><br>
 </div>
 
 <p style="font-size:15px;color:var(--text);margin-bottom:6px;">The engine writes this to the .dat file:</p>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--code-bg);color:var(--accent);padding:12px 16px;border-radius:8px;margin:8px 0 20px;overflow-x:auto;">
 MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|XXTAV_PTO BALANCE|E|1|<strong>150</strong>
 </div>
@@ -788,8 +978,10 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 
 
 <div style="border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.06);margin:0 0 24px;">
+
 <div style="background:var(--code-bg);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;">
 <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#6B6F88;">vendor_accrual_file.csv</span>
+
 <div style="display:flex;gap:5px;"><span style="width:9px;height:9px;border-radius:50%;background:#FF5F56;"></span><span style="width:9px;height:9px;border-radius:50%;background:#FFBD2E;"></span><span style="width:9px;height:9px;border-radius:50%;background:#27C93F;"></span></div>
 </div>
 <pre style="background:#1F2133;color:#C8C9D4;padding:14px 20px;margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.8;overflow-x:auto;"><span style="color:#6B6F88;">Row 1:</span>  1,<span style="color:var(--green);">DENTAL01</span>,2024-01-15,100045,E12345,<span style="color:var(--green);font-weight:600;">150.00</span>,...
@@ -802,6 +994,7 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 
 
 <div style="background:var(--bg-subtle);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;">
+
 <div style="display:flex;align-items:center;gap:10px;">
 <span style="background:var(--green);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;">ROW 1</span>
 <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--dark);">DENTAL01  ·  100045  ·  $150.00</span>
@@ -811,38 +1004,56 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 
 
 <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
+
 <div style="min-width:60px;">
+
 <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:4px;">PASS 1</div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:800;color:var(--green);">1</div>
 </div>
+
 <div style="flex:1;min-width:200px;">
+
 <div style="font-size:13px;color:var(--text);line-height:1.7;">
 <span style="color:var(--muted);font-size:11px;">Engine sends LINEREPEATNO =</span> <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);">1</span><br>
 <span style="color:var(--muted);font-size:11px;">Formula creates →</span> <strong>ElementEntry</strong> header for <span style="color:var(--green);font-weight:600;">Dental EE Deduction</span>
 </div>
 </div>
+
 <div style="text-align:right;min-width:120px;">
+
 <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">FORMULA RETURNS</div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--green);background:rgba(45,139,111,0.08);padding:4px 10px;border-radius:5px;display:inline-block;">LINEREPEAT = 'Y'</div>
+
 <div style="font-size:11px;color:var(--muted);margin-top:4px;">↓ engine calls again</div>
 </div>
 </div>
 
 
 <div style="padding:16px 20px;display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;background:rgba(212,98,43,0.02);">
+
 <div style="min-width:60px;">
+
 <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:4px;">PASS 2</div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:800;color:var(--accent);">2</div>
 </div>
+
 <div style="flex:1;min-width:200px;">
+
 <div style="font-size:13px;color:var(--text);line-height:1.7;">
 <span style="color:var(--muted);font-size:11px;">Engine sends LINEREPEATNO =</span> <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--accent);">2</span><br>
 <span style="color:var(--muted);font-size:11px;">Formula creates →</span> <strong>ElementEntryValue</strong> with amount <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--accent);">$150</span>
 </div>
 </div>
+
 <div style="text-align:right;min-width:120px;">
+
 <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">FORMULA RETURNS</div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--accent);background:rgba(212,98,43,0.08);padding:4px 10px;border-radius:5px;display:inline-block;">LINEREPEAT = 'N'</div>
+
 <div style="font-size:11px;color:var(--accent);font-weight:600;margin-top:4px;">→ next row</div>
 </div>
 </div>
@@ -853,6 +1064,7 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 <div style="border-radius:12px;border:1px solid var(--border);overflow:hidden;margin-bottom:16px;box-shadow:0 1px 6px rgba(0,0,0,0.04);">
 
 <div style="background:var(--bg-subtle);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;">
+
 <div style="display:flex;align-items:center;gap:10px;">
 <span style="background:var(--green);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;">ROW 2</span>
 <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--dark);">MEDICAL01  ·  100045  ·  $200.00</span>
@@ -861,37 +1073,55 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 </div>
 
 <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
+
 <div style="min-width:60px;">
+
 <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:4px;">PASS 1</div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:800;color:var(--green);">1</div>
 </div>
+
 <div style="flex:1;min-width:200px;">
+
 <div style="font-size:13px;color:var(--text);line-height:1.7;">
 <span style="color:var(--muted);font-size:11px;">Engine sends LINEREPEATNO =</span> <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);">1</span><br>
 <span style="color:var(--muted);font-size:11px;">Formula creates →</span> <strong>ElementEntry</strong> header for <span style="color:var(--green);font-weight:600;">Medical EE Deduction</span>
 </div>
 </div>
+
 <div style="text-align:right;min-width:120px;">
+
 <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">FORMULA RETURNS</div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--green);background:rgba(45,139,111,0.08);padding:4px 10px;border-radius:5px;display:inline-block;">LINEREPEAT = 'Y'</div>
+
 <div style="font-size:11px;color:var(--muted);margin-top:4px;">↓ engine calls again</div>
 </div>
 </div>
 
 <div style="padding:16px 20px;display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;background:rgba(212,98,43,0.02);">
+
 <div style="min-width:60px;">
+
 <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:4px;">PASS 2</div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:800;color:var(--accent);">2</div>
 </div>
+
 <div style="flex:1;min-width:200px;">
+
 <div style="font-size:13px;color:var(--text);line-height:1.7;">
 <span style="color:var(--muted);font-size:11px;">Engine sends LINEREPEATNO =</span> <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--accent);">2</span><br>
 <span style="color:var(--muted);font-size:11px;">Formula creates →</span> <strong>ElementEntryValue</strong> with amount <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--accent);">$200</span>
 </div>
 </div>
+
 <div style="text-align:right;min-width:120px;">
+
 <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">FORMULA RETURNS</div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--accent);background:rgba(212,98,43,0.08);padding:4px 10px;border-radius:5px;display:inline-block;">LINEREPEAT = 'N'</div>
+
 <div style="font-size:11px;color:var(--accent);font-weight:600;margin-top:4px;">→ next row</div>
 </div>
 </div>
@@ -902,6 +1132,7 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 <div style="border-radius:12px;border:1px solid rgba(184,66,58,0.25);overflow:hidden;margin-bottom:16px;box-shadow:0 1px 6px rgba(184,66,58,0.06);">
 
 <div style="background:rgba(184,66,58,0.04);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;">
+
 <div style="display:flex;align-items:center;gap:10px;">
 <span style="background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:4px;">ROW 3</span>
 <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--dark);">VISION01  ·  100045  ·  Status = C</span>
@@ -911,20 +1142,29 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 
 
 <div style="padding:16px 20px;display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
+
 <div style="min-width:60px;">
+
 <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.5px;margin-bottom:4px;">PASS 1</div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:800;color:var(--red);">1</div>
 </div>
+
 <div style="flex:1;min-width:200px;">
+
 <div style="font-size:13px;color:var(--text);line-height:1.7;">
 <span style="color:var(--muted);font-size:11px;">Engine sends LINEREPEATNO =</span> <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--red);">1</span><br>
 <span style="color:var(--muted);font-size:11px;">Formula creates →</span> <strong>ElementEntry</strong> with <span style="color:var(--red);font-weight:600;">end-date</span> for Vision EE Deduction<br>
 <span style="color:var(--muted);font-size:11px;">No Pass 2 — cancellation has no dollar amount to load</span>
 </div>
 </div>
+
 <div style="text-align:right;min-width:120px;">
+
 <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">FORMULA RETURNS</div>
+
 <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--red);background:rgba(184,66,58,0.08);padding:4px 10px;border-radius:5px;display:inline-block;">LINEREPEAT = 'N'</div>
+
 <div style="font-size:11px;color:var(--red);font-weight:600;margin-top:4px;">→ done</div>
 </div>
 </div>
@@ -941,6 +1181,7 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 <p style="font-size:14px;color:var(--text);margin-bottom:10px;">After all 5 calls, the engine writes this file:</p>
 
 <div style="border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.07);margin:14px 0 24px;">
+
 <div style="background:var(--code-bg);padding:10px 16px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#6B6F88;letter-spacing:0.3px;">ElementEntry.dat — Generated Output</div>
 <pre style="background:#1F2133;color:#C8C9D4;padding:16px 20px;margin:0;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2;overflow-x:auto;white-space:pre-wrap;"><span style="color:#6B6F88;">/* ElementEntry block */</span>
 <span style="color:#888;">METADATA|</span>ElementEntry|LDG|EffStart|ElementName|Asg#|Creator|Entry|MEC
@@ -968,8 +1209,10 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 
 
 <div style="background:linear-gradient(135deg,var(--accent),#B8501F);border-radius:10px;padding:22px 26px;margin:28px 0;box-shadow:0 4px 16px rgba(212,98,43,0.15);">
+
 <div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:12px;">Coming Next — Part 3: Build Your Own</div>
 <p style="font-size:14px;color:rgba(255,255,255,0.9);margin-bottom:16px;">Everything copy-paste ready.</p>
+
 <table style="width:100%;border-collapse:collapse;">
 <tr style="border-bottom:1px solid rgba(255,255,255,0.15);"><td style="padding:8px 0;font-size:14px;color:#fff;font-weight:700;">WSA Implementation</td><td style="padding:8px 0;font-size:13px;color:rgba(255,255,255,0.8);">Full WSA_EXISTS / WSA_GET / WSA_SET code</td></tr>
 <tr style="border-bottom:1px solid rgba(255,255,255,0.15);"><td style="padding:8px 0;font-size:14px;color:#fff;font-weight:700;">Complete Formula</td><td style="padding:8px 0;font-size:13px;color:rgba(255,255,255,0.8);">Assembled end-to-end</td></tr>
@@ -979,16 +1222,21 @@ MERGE|ElementEntryValue|United States LDG|2024/01/15|Dental EE Deduction|E12345|
 
 
 <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:32px 0;">
+
 <div style="background:var(--bg-subtle);border-radius:20px;padding:6px 16px;font-size:13px;color:var(--muted);font-weight:600;">Part 1: Pure Concepts</div>
 <span style="color:var(--border);">→</span>
+
 <div style="background:var(--accent);border-radius:20px;padding:6px 16px;font-size:13px;color:#fff;font-weight:600;">Part 2: Code Walkthrough ← This post</div>
 <span style="color:var(--border);">→</span>
+
 <div style="background:var(--bg-subtle);border-radius:20px;padding:6px 16px;font-size:13px;color:#bbb;font-weight:600;">Part 3: Build Your Own <span style="font-size:10px;background:#eee;padding:1px 6px;border-radius:6px;color:#999;">Soon</span></div>
 </div>
 
 
 <div style="display:flex;align-items:center;gap:14px;padding:18px 0;border-top:1px solid var(--border);">
+
 <div style="background:linear-gradient(135deg,var(--accent),#B8501F);color:#fff;font-size:15px;font-weight:800;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;">AM</div>
+
 <div><div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div><div style="font-size:13px;color:#888;line-height:1.5;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div></div>
 </div>
 

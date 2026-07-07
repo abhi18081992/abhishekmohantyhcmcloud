@@ -15,6 +15,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
 
 </head><body>
 </head><body>
+
 <div class="container">
 
 
@@ -43,9 +44,12 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
 
 <div class="byline">
   <div class="avatar">AM</div>
+
   <div class="author-block">
     <div class="author-name">Abhishek Mohanty</div>
+
     <div class="author-creds">Oracle ACE Apprentice · AIOUG Member · Oracle HCM Cloud Consultant & Technical Lead</div>
+
   </div>
 </div>
 
@@ -94,12 +98,18 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
   <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:36px; flex-wrap:wrap; gap:16px;">
     <div>
       <div style="font-family:'Manrope', -apple-system, sans-serif; font-size:34px; line-height:1.2; font-weight:300; color:#1f5fa8; letter-spacing:-0.5px;">Five rules.</div>
+
       <div style="font-family:'Manrope', -apple-system, sans-serif; font-size:34px; line-height:1.2; font-weight:300; color:#2d2926; letter-spacing:-0.5px; margin-top:4px;">One enforces them all.</div>
+
     </div>
+
     <div style="text-align:right;">
       <div style="font-family:'Manrope', -apple-system, sans-serif; font-size:14px; font-weight:700; color:#2d2926; letter-spacing:0.5px;">WHAT THIS FORMULA DOES</div>
+
       <div style="font-family:'Manrope', -apple-system, sans-serif; font-size:11px; color:#7a7570; margin-top:2px; letter-spacing:0.5px;">Validation rules at a glance</div>
+
     </div>
+
   </div>
 
   
@@ -207,6 +217,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
 
 <div style="background:#f5f1e8; border-left:4px solid #b97417; padding:18px 22px; margin:24px 0; font-size:14px; line-height:1.7; color:#2d2926; border-radius:0 4px 4px 0;">
   <div style="font-size:10px; letter-spacing:1.8px; color:#b97417; text-transform:uppercase; font-weight:700; margin-bottom:10px;">Expert framing</div>
+
   <p style="margin-top:0;">Rules 4 and 5 (the continuous-work checks) are the genuinely hard ones — not because the maths is complex, but because they require <strong>state that persists across loop iterations</strong>. You can't just look at row 3 and decide whether continuous work has been exceeded; you need to know what rows 1 and 2 said, whether a meal break has been logged yet, and whether yesterday's data has been correctly cleared.</p>
   <p style="margin-bottom:0;">Most TER implementations I've reviewed in client environments either get this wrong (the formula incorrectly extends a stretch across a meal break) or skip it entirely (declaring the validation "out of scope" and pushing it to a manager-review step). Both outcomes are bad. By the end of Part 2, you'll know exactly how to do it right.</p>
 </div>
@@ -361,6 +372,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
     <span class="filename">Sarah_Timecard_14Apr2026.xlsx</span>
     <span class="app">Excel</span>
   </div>
+
   <table class="excel-sheet">
     <thead>
       <tr>
@@ -413,6 +425,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
     </tbody>
   </table>
 </div>
+
 <div class="excel-caption">Sarah's submission — one clean row, three problem rows. Before reading the analysis below, take a moment to spot the three errors yourself. They're all visible if you know what to look for.</div>
 
 <h3>The day, drawn on a timeline</h3>
@@ -554,6 +567,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
 
 <div style="background:#f5f1e8; border-left:4px solid #b97417; padding:14px 20px; margin:20px 0; border-radius:0 4px 4px 0; font-size:13px; line-height:1.65;">
   <div style="font-size:9.5px; letter-spacing:1.6px; color:#b97417; text-transform:uppercase; font-weight:700; margin-bottom:6px;">Practitioner's tip</div>
+
   When I'm sketching out a TER's behaviour for a client, I always start with a timeline like this one. Tables hide temporal relationships; timelines surface them. If you're explaining to a non-technical stakeholder why their data is producing strange results, draw a timeline. Five minutes of pen-and-paper sketching will save you an hour of meeting time.
 </div>
 
@@ -798,6 +812,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
 
 <div style="background:#f5f1e8; border-left:4px solid #b97417; padding:14px 20px; margin:20px 0; border-radius:0 4px 4px 0; font-size:13px; line-height:1.65;">
   <div style="font-size:9.5px; letter-spacing:1.6px; color:#b97417; text-transform:uppercase; font-weight:700; margin-bottom:6px;">Expert insight</div>
+
   Notice that the formula always flags the <em>later</em> row in any conflict. Row 1 is clean even though row 4 collides with it — because row 1 was already there when row 4 was added. This matches Sarah's mental model: <em>the entry I just added is the one that's wrong</em>. Flagging row 1 instead would turn a previously-correct entry red, which is profoundly confusing for the worker. It's a small UX choice that reflects a deep understanding of how people use timecard software.
 </div>
 
@@ -806,6 +821,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
 <p>The formula's output is a single sparse array called <code>OUT_MSG</code>, indexed by row number. Most slots stay empty — those rows passed every check. The flagged rows have error message strings in their slots:</p>
 
 <div class="code-wrap">
+
 <div class="code-header"><span>Formula return · sparse output array</span><span class="label-right">OUT_MSG</span></div>
 <pre><code><span class="cm">/* Row 1 has no entry — it's clean. */</span>
 <span class="v">OUT_MSG[2]</span> = <span class="s">"Continuous work exceeds 6 hours"</span>
@@ -826,7 +842,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
 
 <div style="background:#fff8e8; border:1px solid #b97417; border-radius:6px; padding:20px 24px; margin:40px 0 32px 0;">
   <div style="font-size:10px; letter-spacing:1.6px; color:#b97417; text-transform:uppercase; font-weight:700; margin-bottom:6px;">Next in The TER Series</div>
+
   <div style="font-size:18px; font-weight:700; color:#2d2926; margin-bottom:8px;">Part 2 — The Input Contract</div>
+
   <div style="font-size:13.5px; color:#5a544e; line-height:1.6;">OTL doesn't hand your formula a timecard object. It hands you six parallel arrays with shared row indexes, plus a strict contract about what goes in and what must come out. Part 2 dissects the data shape, every input variable, and the naming conventions that keep production TER code maintainable.</div>
 </div>
 
@@ -835,9 +853,12 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TER", "Time Entry Rule", "OTL"]
 
 <div class="byline">
   <div class="avatar">AM</div>
+
   <div class="author-block">
     <div class="author-name">Abhishek Mohanty</div>
+
     <div class="author-creds">Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Time and Labor, Absence Management, Core HR, Redwood, HDL, OTBI.</div>
+
   </div>
 </div>
 

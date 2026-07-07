@@ -52,6 +52,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Null Handling"]
 <p>Before going deep into ALIAS semantics, it helps to see where ALIAS sits in the larger Fast Formula skeleton. Every formula you'll ever write follows the same five-section template, in exactly this order:</p>
 
 <div class="tblwrap">
+
 <table class="ref">
 <thead><tr><th>Position</th><th>Section</th><th>Purpose</th></tr></thead>
 <tbody>
@@ -92,6 +93,7 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
 <p>The binding happens at compile time. The compiler builds a symbol table that maps both the long DBI name and your short alias to the same metadata handle:</p>
 
 <div class="tblwrap">
+
 <table class="ref">
 <thead><tr><th>Database Item</th><th>Alias</th></tr></thead>
 <tbody>
@@ -104,7 +106,9 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
 </div>
 
 <div class="figure">
+
 <div class="figure-title">Figure 1 · Compile-Time Binding</div>
+
 <svg class="svg-figure" viewBox="0 0 660 220" xmlns="http://www.w3.org/2000/svg">
   <text x="160" y="28" text-anchor="middle" class="svg-label-tag">declared by ALIAS</text>
   <rect x="20" y="44" width="280" height="38" rx="3" fill="#ffffff" stroke="#c8c0b4" stroke-width="1.2"/>
@@ -122,12 +126,14 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
   <line x1="20" y1="184" x2="640" y2="184" stroke="#e0d8c8" stroke-width="1"/>
   <text x="330" y="206" text-anchor="middle" class="svg-text-sm">Both names share the same route, user-entity, and context dependency.</text>
 </svg>
+
 <div class="figure-caption"><strong>One handle, two labels.</strong> Reading either name at runtime triggers the same DBI fetch under whichever contexts are active.</div>
 </div>
 
 <p>Four things happen behind the scenes when you write the ALIAS line:</p>
 
 <div class="tblwrap">
+
 <table class="ref single">
 <thead><tr><th>What the compiler does with each ALIAS declaration</th></tr></thead>
 <tbody>
@@ -160,6 +166,7 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
 <p>The alias name on the right of <code>AS</code> can't collide with any reserved word in the language. The reserved identifiers fall into six categories:</p>
 
 <div class="tblwrap">
+
 <table class="ref">
 <thead><tr><th>Category</th><th>Reserved identifiers</th></tr></thead>
 <tbody>
@@ -183,6 +190,7 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
 <p>Fast Formula enforces a strict ordering of declarative statement sections. The order is documented in the Oracle <em>Administering Fast Formulas</em> guide, and the compiler will reject your formula with <em>"Incorrect Statement Order"</em> if you break it.</p>
 
 <div class="tblwrap">
+
 <table class="ref single">
 <thead><tr><th>Required statement order — top to bottom</th></tr></thead>
 <tbody>
@@ -227,6 +235,7 @@ L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)            
 <h3>What ALIAS will accept</h3>
 
 <div class="tblwrap">
+
 <table class="ref">
 <thead><tr><th>Aliasable</th><th>Notes</th></tr></thead>
 <tbody>
@@ -290,6 +299,7 @@ L_AID = GET_CONTEXT(HR_ASSIGNMENT_ID, <span class="nm">-1</span>)</div>
 <h3>Should I alias this? — three quick checks</h3>
 
 <div class="tblwrap">
+
 <table class="ref single">
 <thead><tr><th>The three-question decision</th></tr></thead>
 <tbody>
@@ -333,6 +343,7 @@ L_ASG_LOS = PER_ASG_REL_LENGTH_OF_SERVICE
 <p>Functionally similar in this isolated case. But four behavioural differences matter:</p>
 
 <div class="tblwrap">
+
 <table class="ref">
 <thead><tr><th>Property</th><th>Local-variable assignment</th><th>ALIAS</th></tr></thead>
 <tbody>
@@ -345,7 +356,9 @@ L_ASG_LOS = PER_ASG_REL_LENGTH_OF_SERVICE
 </div>
 
 <div class="figure">
+
 <div class="figure-title">Figure 2 · Reference vs Snapshot — Same Logic, Different Runtime Behaviour</div>
+
 <svg class="svg-figure" viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg">
   <rect x="20" y="14" width="310" height="32" rx="3" fill="#7a3a2b"/>
   <text x="175" y="35" text-anchor="middle" class="svg-header">LOCAL VARIABLE  ·  SNAPSHOT</text>
@@ -388,6 +401,7 @@ L_ASG_LOS = PER_ASG_REL_LENGTH_OF_SERVICE
   <rect x="350" y="306" width="310" height="38" rx="3" fill="#eaf4ec" stroke="#2e6b3a" stroke-width="1.2"/>
   <text x="505" y="330" text-anchor="middle" class="svg-result-good">L_DELTA = $7,500  →  CORRECT</text>
 </svg>
+
 <div class="figure-caption"><strong>The same three references, two different runtime behaviours.</strong> Local-variable assignment captures the value once at the assignment line; ALIAS re-evaluates the underlying DBI at every reference, under whatever context is active.</div>
 </div>
 
@@ -447,7 +461,9 @@ L_DELTA = L_END_SAL - L_START_SAL</div>
 <p>Two reads of the same alias <code>ASG_SAL</code>, each fetching under a different <code>EFFECTIVE_DATE</code>, each producing a different value:</p>
 
 <div class="figure">
+
 <div class="figure-title">Figure 3 · ALIAS Re-Evaluates Under Each Context</div>
+
 <svg class="svg-figure" viewBox="0 0 660 260" xmlns="http://www.w3.org/2000/svg">
   <rect x="260" y="20" width="140" height="42" rx="4" fill="#9c2818"/>
   <text x="330" y="46" text-anchor="middle" class="svg-handle">ASG_SAL</text>
@@ -474,6 +490,7 @@ L_DELTA = L_END_SAL - L_START_SAL</div>
   <text x="155" y="240" text-anchor="middle" class="svg-value-big">$ 75,000</text>
   <text x="505" y="240" text-anchor="middle" class="svg-value-big">$ 82,500</text>
 </svg>
+
 <div class="figure-caption"><strong>Same alias, two contexts, two distinct values.</strong> Each evaluation is an independent DBI fetch under whichever context is active at that point in the code.</div>
 </div>
 
@@ -531,6 +548,7 @@ L_DELTA = L_END_SAL - L_START_SAL</div>
 <h2>Production Conventions for ALIAS</h2>
 
 <div class="tblwrap">
+
 <table class="ref single">
 <thead><tr><th>Seven principles that pay off across every formula</th></tr></thead>
 <tbody>

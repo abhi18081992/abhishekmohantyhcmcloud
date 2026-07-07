@@ -40,6 +40,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
 
 
 <div style="background:#fafafa;border:1px solid #e0dcd6;border-radius:8px;padding:20px;margin:18px 0">
+
 <svg viewBox="0 0 720 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Open Sans',sans-serif">
   
   <rect x="10" y="10" width="700" height="440" rx="6" fill="#ffffff" stroke="#cfc9c1" stroke-width="1"/>
@@ -123,11 +124,13 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
 
 <div style="border-left:4px solid #c0392b;background:#fff7f5;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0">
   <div style="font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#c0392b;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">📌 Execution Type — Update vs Create (per Oracle guide p. 156)</div>
+
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a">Oracle's official distinction is about <em>total hours</em>. <strong>Create adds NEW premium hours on top of reported time — total goes UP</strong> (10 reported → 12 total = 10 reg + 2 added premium). <strong>Update redistributes the SAME reported hours into different pay categories — total stays the SAME</strong> (10 reported → 10 total = 8 reg + 2 OT). Pick the value that matches whether your formula is <em>adding</em> hours or <em>reclassifying</em> them.</p>
 </div>
 
 
 <div style="background:#fafafa;border:1px solid #e0dcd6;border-radius:8px;padding:20px;margin:18px 0">
+
 <svg viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Open Sans',sans-serif">
 
   
@@ -199,11 +202,13 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
 
 <div style="border-left:4px solid #cf6e2c;background:#fff8f0;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0">
   <div style="font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#cf6e2c;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">⚠️ Always verify the binding visually</div>
+
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a">"Confirmed" in a chat message is not the same as "I see it on screen". Open the rule's Parameters tab, screenshot it, and attach it to your design document.</p>
 </div>
 
 <div style="border-left:4px solid #c0392b;background:#fff7f5;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0">
   <div style="font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#c0392b;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">📌 Time Category can also bind at the Rule Set level</div>
+
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a">The implementation guide (p. 87) also lets you attach a Time Category to a rule set member. Use rule-level binding via <code style="background:#f0ece6;padding:2px 6px;border-radius:3px;font-size:13px;color:#c0392b">WORKED_TIME_CONDITION</code> when the category scopes which entries one rule processes. Use rule-set-level binding when the category gates whether the entire rule set member runs at all.</p>
 </div>
 
@@ -221,6 +226,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
 
 
 <div style="background:#fafafa;border:1px solid #e0dcd6;border-radius:8px;padding:20px;margin:18px 0">
+
 <svg viewBox="0 0 720 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Open Sans',sans-serif">
   
   <rect x="10" y="10" width="700" height="460" rx="6" fill="#ffffff" stroke="#cfc9c1" stroke-width="1"/>
@@ -304,11 +310,13 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
 
 <div style="border-left:4px solid #cf6e2c;background:#fff8f0;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0">
   <div style="font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#cf6e2c;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">⚠️ Regenerate after changing the template</div>
+
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a">Changing Summation Level on the template does not take effect until you click through the wizard to Review and re-save. The rule built from the template also needs regeneration. Skip either step and the engine behaves as if nothing changed.</p>
 </div>
 
 
 <div style="background:#fafafa;border:1px solid #e0dcd6;border-radius:8px;padding:20px;margin:18px 0">
+
 <svg viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Open Sans',sans-serif">
 
   
@@ -391,6 +399,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Debugging"]
 
 
 <div style="background:#fafafa;border:1px solid #e0dcd6;border-radius:8px;padding:20px;margin:18px 0">
+
 <svg viewBox="0 0 620 370" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Open Sans',sans-serif">
 
   
@@ -476,6 +485,7 @@ rule_id = GET_CONTEXT(HWM_RULE_ID, 0)</pre>
 
 <div style="border-left:4px solid #cf6e2c;background:#fff8f0;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0">
   <div style="font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#cf6e2c;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">📌 The HWM_ prefix matters</div>
+
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a">Older posts show <code style="background:#f0ece6;padding:2px 6px;border-radius:3px;font-size:13px;color:#c0392b">HXT_FFS_ID</code> or <code style="background:#f0ece6;padding:2px 6px;border-radius:3px;font-size:13px;color:#c0392b">HXT_RULE_ID</code> — those are leftover names from the on-premises HXT module. In Oracle Fusion HCM Cloud, the contexts are <strong>HWM_</strong>. Mixing them up gives you a NULL ffs_id and every <code style="background:#f0ece6;padding:2px 6px;border-radius:3px;font-size:13px;color:#c0392b">add_log</code> call silently writes nothing.</p>
 </div>
 
@@ -485,6 +495,7 @@ rule_id = GET_CONTEXT(HWM_RULE_ID, 0)</pre>
 
 
 <div style="background:#fafafa;border:1px solid #e0dcd6;border-radius:8px;padding:20px;margin:18px 0">
+
 <svg viewBox="0 0 520 90" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Open Sans',sans-serif">
   
   <rect x="10" y="10" width="200" height="70" rx="6" fill="#fff" stroke="#c0392b" stroke-width="2"/>
@@ -507,6 +518,7 @@ rule_id = GET_CONTEXT(HWM_RULE_ID, 0)</pre>
 
 <div style="border-left:4px solid #cf6e2c;background:#fff8f0;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0">
   <div style="font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#cf6e2c;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">⚠️ For those who used to query the table directly</div>
+
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a">In earlier releases, consultants would query <code style="background:#f0ece6;padding:2px 6px;border-radius:3px;font-size:13px;color:#c0392b">HWM_RULE_FF_WORK_LOG</code> via BI Publisher SQL data models as a debugging shortcut. From 2025 onward, Oracle has decommissioned this table — it is no longer reliably populated and is not exposed in OTBI. The <strong>Analyze Rule Processing Details</strong> UI page is the only supported path.</p>
 </div>
 
@@ -530,6 +542,7 @@ flog = add_log(ffs_id, '>>> Exit ' || ffName)</pre>
 
 
 <div style="background:#fafafa;border:1px solid #e0dcd6;border-radius:8px;padding:20px;margin:18px 0">
+
 <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;font-family:'Open Sans',sans-serif">
   
   <text x="360" y="25" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a" font-family="Consolas,monospace">ORA_HWM_RULES_LOG_LEVEL</text>
@@ -597,6 +610,7 @@ flog = add_log(ffs_id, '>>> Exit ' || ffName)</pre>
 
 <div style="border-left:4px solid #27795a;background:#f3faf6;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0">
   <div style="font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#27795a;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">✅ How to flip the dial</div>
+
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a">Setup and Maintenance → search "Manage Administrator Profile Values" → search profile code <code style="background:#f0ece6;padding:2px 6px;border-radius:3px;font-size:13px;color:#c0392b">ORA_HWM_RULES_LOG</code> → set <code style="background:#f0ece6;padding:2px 6px;border-radius:3px;font-size:13px;color:#c0392b">ORA_HWM_RULES_LOG_LEVEL</code> to <strong>Finest</strong> at Site level → also set <code style="background:#f0ece6;padding:2px 6px;border-radius:3px;font-size:13px;color:#c0392b">ORA_HWM_RULES_LOG_MONTHS_TO_KEEP</code> to <strong>1</strong> at Site level → Save and Close → <strong>sign out completely and sign back in</strong>.</p>
 </div>
 
@@ -606,6 +620,7 @@ flog = add_log(ffs_id, '>>> Exit ' || ffName)</pre>
 
 <div style="border-left:4px solid #cf6e2c;background:#fff8f0;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0">
   <div style="font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#cf6e2c;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">📌 MOS Doc 2120220.1</div>
+
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a">If the profile is Finest, the formula compiles, the chain is intact, and you still see "No data to display" — the cause is almost always the data role gap. Oracle MOS Doc <strong>2120220.1</strong> documents this exact situation.</p>
 </div>
 
@@ -670,6 +685,7 @@ flog = <span style="color:#2a2a2a">add_log</span>(ffs_id, <span style="color:#2a
 
 <div style="border-left:4px solid #c0392b;background:#fff7f5;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0">
   <div style="font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#c0392b;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">💡 What you should see</div>
+
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a"><code style="font-size:13px">>>> Enter MY_TER_LOG_TEST</code>, the two context IDs as non-zero numbers, the row count, one <code style="font-size:13px">>>> idx=</code> line per timecard entry, and <code style="font-size:13px">>>> Exit MY_TER_LOG_TEST</code>. If anything is missing, walk the checklist in the <em>30-Second Checklist</em> below.</p>
 </div>
 
@@ -756,6 +772,7 @@ flog = <span style="color:#2a2a2a">add_log</span>(ffs_id, <span style="color:#2a
 
 <div style="border-left:4px solid #c0392b;background:#fff7f5;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0">
   <div style="font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#c0392b;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">📌 Summary of the two extras</div>
+
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a">Time Card adds exactly two code blocks Day does not need: <strong>★ EXTRA 1</strong> — Manual state reset inside END_DAY (so Monday's totals don't leak into Tuesday). <strong>★ EXTRA 2</strong> — END_PERIOD handler for period-level checks. The DETAIL processing is identical between the two. Start with Day, add these two if you later switch to Time Card.</p>
 </div>
 
@@ -879,11 +896,13 @@ flog = <span style="color:#2a2a2a">add_log</span>(ffs_id, <span style="color:#2a
 
 <div style="border-left:4px solid #c0392b;background:#fff7f5;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0">
   <div style="font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#c0392b;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">💡 What you should see</div>
+
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a"><code style="font-size:13px">>>> Enter MY_TCR_LOG_TEST</code>, the measure value (hours), payroll time type, start/stop timestamps, and <code style="font-size:13px">>>> Exit MY_TCR_LOG_TEST</code>. One set of lines per matched time entry row. If you see nothing, walk the <em>30-Second Checklist</em> below.</p>
 </div>
 
 <div style="border-left:4px solid #2e6b9e;background:#f2f6fa;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0">
   <div style="font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#2e6b9e;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">📌 TER vs TCR — key structural difference</div>
+
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a"><strong>TER</strong> receives arrays (<code style="font-size:13px">HWM_CTXARY_RECORD_POSITIONS</code>, <code style="font-size:13px">measure[]</code>) and loops through them. <strong>TCR at Details level</strong> receives scalar values (<code style="font-size:13px">measure</code>, <code style="font-size:13px">PayrollTimeType</code>) — no loop needed. The engine calls the formula once per matched row and passes one row's worth of data each time.</p>
 </div>
 
@@ -991,6 +1010,7 @@ flog = <span style="color:#2a2a2a">ADD_RLOG</span>(ffs_id, <span style="color:#2
 
 <div style="border-left:4px solid #27795a;background:#f3faf6;padding:14px 18px;margin:20px 0;border-radius:0 6px 6px 0">
   <div style="font-family:'Open Sans',sans-serif;font-size:13px;font-weight:700;color:#27795a;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase">✅ What this skeleton covers</div>
+
   <p style="font-family:'Open Sans',sans-serif;margin:0;font-size:15px;color:#3a3a3a"><strong>Execution-type guard</strong> — only runs on the CREATE pass, skips VALIDATE to avoid duplicate entries. <strong>WAS NOT DEFAULTED</strong> — null-safe check so the formula doesn't process empty rows. <strong>Two-row output</strong> — Row 1 caps regular hours at the threshold, Row 2 holds the overtime excess. If hours are under the threshold, the formula passes through a single row unchanged. Every decision is logged with <code style="font-size:13px">ADD_RLOG</code> so you can trace exactly which branch fired.</p>
 </div>
 
@@ -1060,9 +1080,12 @@ OUT_MSG[1] = <span style="color:#2a2a2a">'DEBUG: idx=1 type='</span> || aiType |
 
 <div style="display:flex;align-items:center;gap:14px;margin:28px 0;padding:14px 0;border-top:1px solid #e0dcd6;border-bottom:1px solid #e0dcd6">
   <div style="width:44px;height:44px;background:#c0392b;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0;font-family:'Open Sans',sans-serif">AM</div>
+
   <div>
     <div style="font-weight:700;font-size:15px;color:#1a1a1a">Abhishek Mohanty</div>
+
     <div style="font-family:'Open Sans',sans-serif;font-size:13px;color:#666">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div>
+
   </div>
 </div>
 

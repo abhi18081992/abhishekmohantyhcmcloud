@@ -10,6 +10,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor"]
 
 <div style="border-left: 4px solid #8b2e2a; padding-left: 20px; margin: 32px 0 40px 0;">
   <div style="font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; color: #8b2e2a; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 500;">ORACLE HCM CLOUD · TCR DEEP DIVE · PART 2 OF 12</div>
+
   <h1 style="font-family: 'Source Sans 3', sans-serif; font-size: 30px; font-weight: 700; margin: 0 0 12px 0; line-height: 1.25; color: #2d2926;">Oracle HCM Cloud Fast Formula: Day-Type Branching in TCR Calculations with GET_DATE_DAY_OF_WEEK, CALL_FORMULA Holiday Resolution, and the PER_ASG_FULL_PART_TIME Fork</h1>
   <div style="font-size: 18px; color: #5a5550; font-weight: 400; line-height: 1.5;">How a Time Calculation Rule formula picks the right OT bucket — examining <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">GET_DATE_DAY_OF_WEEK</code> return values, the FRI-anchored weekly compare via <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">ADD_DAYS</code> in a <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">WHILE 1=1</code> loop, the <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">CALL_FORMULA</code> bind syntax for holiday resolution, and the four-way day-type fork.</div>
 </div>
@@ -25,9 +26,12 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor"]
 
 <div style="display: flex; align-items: center; background: #faf6f0; border: 1px solid #e8ddc9; margin: 24px 0 32px 0;">
   <div style="background: #8b2e2a; color: #fff; width: 64px; min-width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; font-family: 'Source Sans 3', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1px;">AM</div>
+
   <div style="padding: 12px 20px;">
     <div style="font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 700; color: #2d2926; margin-bottom: 2px;">Abhishek Mohanty</div>
+
     <div style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #8b2e2a; line-height: 1.4;">Oracle ACE Associate  |  AIOUG Member  |  Oracle HCM Cloud Consultant</div>
+
   </div>
 </div>
 
@@ -46,29 +50,45 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor"]
 
 <div style="background: #faf8f5; border: 1px solid #e8e3dd; padding: 24px; margin: 24px 0;">
   <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8a847d; margin-bottom: 14px; letter-spacing: 1px; font-weight: 500;">RETURN VALUES — FIXED, LOCALE-INDEPENDENT</div>
+
   <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; font-family: 'JetBrains Mono', monospace;">
     <div style="text-align: center; padding: 12px 4px; background: #e8e3dd; border-radius: 3px;">
       <div style="font-size: 13px; color: #2d2926; font-weight: 700;">'SUN'</div>
+
     </div>
+
     <div style="text-align: center; padding: 12px 4px; background: #fff; border: 1px solid #d9c9b0; border-radius: 3px;">
       <div style="font-size: 13px; color: #2d2926; font-weight: 700;">'MON'</div>
+
     </div>
+
     <div style="text-align: center; padding: 12px 4px; background: #fff; border: 1px solid #d9c9b0; border-radius: 3px;">
       <div style="font-size: 13px; color: #2d2926; font-weight: 700;">'TUE'</div>
+
     </div>
+
     <div style="text-align: center; padding: 12px 4px; background: #fff; border: 1px solid #d9c9b0; border-radius: 3px;">
       <div style="font-size: 13px; color: #2d2926; font-weight: 700;">'WED'</div>
+
     </div>
+
     <div style="text-align: center; padding: 12px 4px; background: #fff; border: 1px solid #d9c9b0; border-radius: 3px;">
       <div style="font-size: 13px; color: #2d2926; font-weight: 700;">'THU'</div>
+
     </div>
+
     <div style="text-align: center; padding: 12px 4px; background: #fff; border: 1px solid #d9c9b0; border-radius: 3px;">
       <div style="font-size: 13px; color: #2d2926; font-weight: 700;">'FRI'</div>
+
     </div>
+
     <div style="text-align: center; padding: 12px 4px; background: #e8e3dd; border-radius: 3px;">
       <div style="font-size: 13px; color: #2d2926; font-weight: 700;">'SAT'</div>
+
     </div>
+
   </div>
+
   <div style="font-family: 'Source Sans 3', sans-serif; font-size: 13px; color: #5a5550; margin-top: 14px; line-height: 1.5;">Every comparison in the day-type branch must use uppercase three-letter literals: <code style="background: #fff; padding: 2px 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8b2e2a; font-weight: 500;">l_week_day = 'SAT'</code>, never <code style="background: #fff; padding: 2px 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8b2e2a; font-weight: 500;">'Sat'</code> or <code style="background: #fff; padding: 2px 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8b2e2a; font-weight: 500;">'Saturday'</code>. Mismatched case silently fails the IF branch and the formula falls through to weekday logic.</div>
 </div>
 
@@ -147,9 +167,13 @@ flog <span style="color: #8b2e2a; font-weight: 700;">=</span> <span style="color
 <div style="background: #faf8f5; border: 1px solid #e8e3dd; padding: 20px 24px; margin: 24px 0;">
   <div style="display: grid; grid-template-columns: auto 1fr; gap: 16px 20px; align-items: start;">
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 24px; color: #8b2e2a; font-weight: 700; line-height: 1;">></div>
+
     <div style="font-family: 'Source Sans 3', sans-serif; font-size: 15px; line-height: 1.5;"><strong>Input binding.</strong> Local variable on the left flows into the called formula's input parameter (named on the right). The local must already be populated.</div>
+
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 24px; color: #8b2e2a; font-weight: 700; line-height: 1;"><</div>
+
     <div style="font-family: 'Source Sans 3', sans-serif; font-size: 15px; line-height: 1.5;"><strong>Output binding.</strong> Called formula's RETURN value (named on the right) flows back into the local variable on the left. The <code style="background: #fff; padding: 2px 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8b2e2a; font-weight: 500;">DEFAULT</code> clause is mandatory for outputs and provides a fallback if the called formula errors or returns null.</div>
+
   </div>
 </div>
 
@@ -158,6 +182,7 @@ flog <span style="color: #8b2e2a; font-weight: 700;">=</span> <span style="color
 
 <div style="background: #faf6f0; border-left: 4px solid #8b2e2a; padding: 20px 24px; margin: 32px 0;">
   <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8b2e2a; letter-spacing: 2px; margin-bottom: 8px; font-weight: 500;">A NOTE ON DEFAULT FOR OUTPUT BINDINGS</div>
+
   <p style="font-family: 'Source Sans 3', sans-serif; margin: 0; line-height: 1.65;">Unlike the <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">DEFAULT FOR <DBI> IS</code> declaration at the top of the formula, the <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">DEFAULT</code> clause inside a <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">CALL_FORMULA</code> bind is required, not optional. Omit it and the formula will compile but fail at runtime with <em>"output parameter must specify DEFAULT value"</em>. The default has to match the declared type of the local variable — <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">0</code> for number, <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">EMPTY_DATE_NUMBER</code> for date arrays, <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">' '</code> for text.</p>
 </div>
 
@@ -313,6 +338,7 @@ l_holiday_cat <span style="color: #8b2e2a; font-weight: 700;">=</span> <span sty
 
 <div style="background: #2d2926; color: #fff; padding: 32px; margin: 48px 0 24px 0;">
   <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #d4a574; letter-spacing: 2px; margin-bottom: 8px; font-weight: 500;">NEXT IN THE SERIES</div>
+
   <h3 style="font-family: 'Source Sans 3', sans-serif; margin: 0 0 8px 0; font-size: 22px; color: #fff; font-weight: 700;">Part 3 — The Main Iteration Loop with HWM_CTXARY_RECORD_POSITIONS, aiRecPosition, and the Infinite-Loop Guard</h3>
   <p style="font-family: 'Source Sans 3', sans-serif; margin: 0; color: #c4bdb5; line-height: 1.5; font-size: 15px;">How a TCR walks the timecard one entry at a time — array iteration via <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">HWM_CTXARY_RECORD_POSITIONS</code>, the <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">aiRecPosition = 'DETAIL'</code> vs <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">'END_DAY'</code> branch, the <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">HWM_CTXARY_HWM_MEASURE_DAY</code> companion array, and the defensive <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">raise_error</code> at nidx > 1000 that saves your rule from a runaway loop.</p>
 </div>
@@ -320,15 +346,19 @@ l_holiday_cat <span style="color: #8b2e2a; font-weight: 700;">=</span> <span sty
 
 <div style="display: flex; align-items: stretch; background: #faf6f0; border: 1px solid #e8ddc9; margin: 32px 0 24px 0;">
   <div style="background: #8b2e2a; color: #fff; width: 64px; min-width: 64px; display: flex; align-items: center; justify-content: center; font-family: 'Source Sans 3', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1px;">AM</div>
+
   <div style="padding: 14px 20px;">
     <div style="font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 700; color: #2d2926; margin-bottom: 4px;">Abhishek Mohanty</div>
+
     <div style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #5a5550; line-height: 1.5;"><span style="color: #8b2e2a; font-weight: 600;">Oracle ACE Associate  |  AIOUG Member  |  Oracle HCM Cloud Consultant & Technical Lead</span> — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div>
+
   </div>
 </div>
 
 
 <div style="border-top: 2px solid #f0e9dd; padding-top: 24px; margin-top: 48px; font-size: 13px; color: #8a847d; font-family: 'JetBrains Mono', monospace; line-height: 1.6;">
   <div style="margin-bottom: 6px; font-weight: 500;">TCR DEEP DIVE · PART 2 / 10</div>
+
   <div>Series tag: <span style="color: #8b2e2a; font-weight: 500;">#TCRDeepDive</span></div>
 </div>
 

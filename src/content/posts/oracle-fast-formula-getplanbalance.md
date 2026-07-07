@@ -36,7 +36,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Absence Management"]
 
 <div class="am-fig">
 <p class="am-fig-title">FORMULA CONTEXT · THE QUESTION</p>
+
 <div style="text-align:center;">
+
 <svg viewBox="0 0 880 360" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Open Sans', system-ui, sans-serif;">
   <defs>
     <marker id="arrowSlim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
@@ -153,7 +155,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Absence Management"]
 
 <div class="am-fig">
 <p class="am-fig-title">CAPABILITY MATRIX</p>
+
 <div style="text-align:center;">
+
 <svg viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Open Sans', system-ui, sans-serif;">
   <defs>
     <filter id="matrixShadow" x="-5%" y="-5%" width="110%" height="110%">
@@ -271,7 +275,9 @@ The four functions all return a number related to absence consumption. They all 
 
 <div class="am-fig">
 <p class="am-fig-title">SEQUENCE DIAGRAM · A DAY IN THE LIFE OF A BALANCE</p>
+
 <div style="text-align:center;">
+
 <svg viewBox="0 0 900 460" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Open Sans', system-ui, sans-serif;">
   <defs>
     <filter id="seqShadow" x="-5%" y="-5%" width="110%" height="110%">
@@ -445,7 +451,9 @@ Carryover formulas (where you want the snapshot — that is precisely the point)
 
 <div class="am-fig">
 <p class="am-fig-title">DATA VIEW · GET_ABSENCE_COUNTS</p>
+
 <div style="text-align:center;">
+
 <svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Open Sans', system-ui, sans-serif;">
   <defs>
     <filter id="rowShadow" x="-5%" y="-5%" width="110%" height="110%">
@@ -554,7 +562,9 @@ Despite the name, the function returns <em>seven</em> values via OUT parameters 
 
 <div class="am-fig">
 <p class="am-fig-title">FILTER VISIBILITY · THE OPAQUE-FILTER PROBLEM</p>
+
 <div style="text-align:center;">
+
 <svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Open Sans', system-ui, sans-serif;">
   <defs>
     <pattern id="opacityHatch" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -672,7 +682,9 @@ Indicative day totals in management reports or debug logging. Do <strong>not</st
 
 <div class="am-fig">
 <p class="am-fig-title">DBI ARCHITECTURE · TWO-STEP MODEL</p>
+
 <div style="text-align:center;">
+
 <svg viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Open Sans', system-ui, sans-serif;">
   <defs>
     <filter id="tierShadow" x="-5%" y="-5%" width="110%" height="110%">
@@ -767,7 +779,9 @@ Indicative day totals in management reports or debug logging. Do <strong>not</st
 
 <div class="am-fig">
 <p class="am-fig-title">FLOWCHART · LIVE-LOOP CONTROL FLOW</p>
+
 <div style="text-align:center;">
+
 <svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Open Sans', system-ui, sans-serif;">
   <defs>
     <filter id="flowShadow" x="-5%" y="-5%" width="110%" height="110%">
@@ -924,7 +938,9 @@ Any rule that needs an accurate live balance — real-time validation, audit-gra
 
 <div class="am-fig">
 <p class="am-fig-title">DATA TOPOLOGY · SNAPSHOT VS LIVE</p>
+
 <div style="text-align:center;">
+
 <svg viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Open Sans', system-ui, sans-serif;">
   <defs>
     <filter id="worldShadow" x="-5%" y="-5%" width="110%" height="110%">
@@ -1032,7 +1048,9 @@ If a user submits an absence and immediately submits a second one, does my formu
 
 <div class="am-fig">
 <p class="am-fig-title">DIAGNOSTIC · THE STATUS-CODE NAMING TRAP</p>
+
 <div style="text-align:center;">
+
 <svg viewBox="0 0 900 440" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Open Sans', system-ui, sans-serif;">
   <defs>
     <filter id="trapShadow" x="-5%" y="-5%" width="110%" height="110%">
@@ -1138,7 +1156,9 @@ END IF</code></pre>
 
 <div class="am-fig">
 <p class="am-fig-title">COMPOSITE PATTERN · END-TO-END</p>
+
 <div style="text-align:center;">
+
 <svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Open Sans', system-ui, sans-serif;">
   <defs>
     <filter id="stepShadow" x="-5%" y="-5%" width="110%" height="110%">
@@ -1356,7 +1376,9 @@ RETURN g_live_balance
 
 <div class="am-fig">
 <p class="am-fig-title">ANTI-PATTERN CATALOGUE</p>
+
 <div style="text-align:center;">
+
 <svg viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg" style="font-family: 'Open Sans', system-ui, sans-serif;">
   <defs>
     <filter id="apShadow" x="-5%" y="-5%" width="110%" height="110%">
@@ -1491,9 +1513,13 @@ RETURN g_live_balance
 <p>Next in this series: the equivalent function reference for OTL Time Entry Rules — where the live data lives in the <code>HWM_*</code> schema, the available functions are substantially different, and the lifecycle states map onto a different framework altogether.</p>
 
 <div class="am-bio">
+
 <div class="am-bio-avatar">AM</div>
+
 <div>
+
 <div class="am-bio-name">Abhishek Mohanty</div>
+
 <div class="am-bio-role">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div>
 </div>
 </div>

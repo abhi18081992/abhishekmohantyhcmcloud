@@ -10,6 +10,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor"]
 
 <div style="border-left: 4px solid #8b2e2a; padding-left: 20px; margin: 32px 0 40px 0;">
   <div style="font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; color: #8b2e2a; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 500;">ORACLE HCM CLOUD · TCR DEEP DIVE · PART 6 OF 12</div>
+
   <h1 style="font-family: 'Source Sans 3', sans-serif; font-size: 30px; font-weight: 700; margin: 0 0 12px 0; line-height: 1.25; color: #2d2926;">Oracle HCM Cloud Fast Formula: Night Surcharge Detection in a TCR — The PayrollTimeType Match, UPPER() Case-Insensitive Compare, and the Dual Daily/Period Night Accumulators</h1>
   <div style="font-size: 18px; color: #5a5550; font-weight: 400; line-height: 1.5;">How night hours are identified through a configurable time-type code, why <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_daily_night_total</code> resets at <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">END_DAY</code> while <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">l_period_night_total</code> keeps climbing, and how <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">Out_Measure_Night_Hours</code> stacks alongside the Reg / OT-150 / OT-200 buckets from Part 5 without disturbing any of them.</div>
 </div>
@@ -25,9 +26,12 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor"]
 
 <div style="display: flex; align-items: center; background: #faf6f0; border: 1px solid #e8ddc9; margin: 24px 0 32px 0;">
   <div style="background: #8b2e2a; color: #fff; width: 64px; min-width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; font-family: 'Source Sans 3', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1px;">AM</div>
+
   <div style="padding: 12px 20px;">
     <div style="font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 700; color: #2d2926; margin-bottom: 2px;">Abhishek Mohanty</div>
+
     <div style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #8b2e2a; line-height: 1.4;">Oracle ACE Associate  |  AIOUG Member  |  Oracle HCM Cloud Consultant</div>
+
   </div>
 </div>
 
@@ -49,9 +53,13 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor"]
   <div style="background: #2d2926; padding: 16px 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; border-bottom: 3px solid #8b2e2a;">
     <div>
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #d4a574; letter-spacing: 2.5px; font-weight: 600;">FIGURE 01 · CONTROL FLOW</div>
+
       <div style="font-family: 'Source Sans 3', sans-serif; font-size: 17px; color: #fff; font-weight: 700; margin-top: 6px; line-height: 1.3;">Two Classification Layers, One Entry</div>
+
     </div>
+
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8a847d; text-align: right; padding-bottom: 2px; letter-spacing: 0.5px;">independent · parallel</div>
+
   </div>
 
   <div style="padding: 24px 20px 20px 20px; background: #faf8f5;">
@@ -180,11 +188,15 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor"]
     <div style="background: #2d2926; color: #fff; padding: 16px 22px; margin-top: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
       <div>
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #d4a574; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 4px;">SUM OF OUTPUT VALUES</div>
+
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 20px; color: #fff; font-weight: 700; letter-spacing: 0.5px;">8 + 2 + 2 + 12 = <span style="color: #d4a574;">24</span></div>
+
       </div>
+
       <div style="flex: 1; min-width: 200px; font-family: 'Source Sans 3', sans-serif; font-size: 13px; color: #c4bdb5; line-height: 1.5;">
         <strong style="color: #fff;">Twice the input.</strong> Not a double count — Reg/OT and Night are independent classifications. Payroll pays each rate element separately.
       </div>
+
     </div>
 
   </div>
@@ -192,8 +204,11 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor"]
   <div style="background: #2d2926; padding: 16px 24px; border-top: 1px solid #8b2e2a;">
     <div style="display: flex; gap: 14px; align-items: flex-start;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #d4a574; letter-spacing: 1.5px; font-weight: 700; padding-top: 2px; flex-shrink: 0;">READ →</div>
+
       <div style="font-family: 'Source Sans 3', sans-serif; font-size: 13.5px; color: #c4bdb5; line-height: 1.55;">The sum of output values (24) is double the worked hours (12) — intentionally. Reg/OT hours and Night Surcharge hours are separate classifications, not partitions of the same time. Payroll interprets each bucket independently: standard rate × Reg hours + 150% × OT-150 hours + 200% × OT-200 hours + night differential × Night hours.</div>
+
     </div>
+
   </div>
 
 </div>
@@ -255,12 +270,18 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
   <div style="background: #2d2926; padding: 16px 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; border-bottom: 3px solid #8b2e2a;">
     <div>
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #d4a574; letter-spacing: 2.5px; font-weight: 600;">FIGURE 02 · ACCUMULATOR TRACE</div>
+
       <div style="font-family: 'Source Sans 3', sans-serif; font-size: 17px; color: #fff; font-weight: 700; margin-top: 6px; line-height: 1.3;">Daily Sawtooth vs Period Monotonic</div>
+
     </div>
+
     <div style="text-align: right;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #8a847d; letter-spacing: 1px; font-weight: 600;">TRACE ACROSS</div>
+
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #d4a574; font-weight: 700; margin-top: 2px;">4 days</div>
+
     </div>
+
   </div>
 
   <div style="padding: 28px 28px 22px 28px; background: #faf8f5;">
@@ -271,11 +292,17 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
       
       <div style="position: relative; height: 220px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8a847d; font-weight: 600;">
         <div style="position: absolute; top: -5px; right: 8px; text-align: right; letter-spacing: 0.5px;">16</div>
+
         <div style="position: absolute; top: 50px; right: 8px; text-align: right;">12</div>
+
         <div style="position: absolute; top: 105px; right: 8px; text-align: right;">8</div>
+
         <div style="position: absolute; top: 160px; right: 8px; text-align: right;">4</div>
+
         <div style="position: absolute; top: 215px; right: 8px; text-align: right;">0</div>
+
         <div style="position: absolute; top: 240px; right: 8px; text-align: right; color: #8b2e2a; font-weight: 700; letter-spacing: 0.5px;">hrs</div>
+
       </div>
 
       
@@ -347,41 +374,60 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
         
         <div style="display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #2d2926; font-weight: 700; letter-spacing: 0.5px;">
           <div style="text-align: center;">MON</div>
+
           <div style="text-align: center;">TUE</div>
+
           <div style="text-align: center;">WED</div>
+
           <div style="text-align: center;">THU</div>
+
           <div style="text-align: center; color: #d4a574;">END_PERIOD</div>
+
         </div>
 
         
         <div style="display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 8px; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #8a847d; letter-spacing: 0.5px;">
           <div style="text-align: center; color: #c4b298; font-style: italic;">day shift</div>
+
           <div style="text-align: center; color: #8b2e2a; font-weight: 700;">↻ reset</div>
+
           <div style="text-align: center; color: #c4b298; font-style: italic;">day shift</div>
+
           <div style="text-align: center; color: #8b2e2a; font-weight: 700;">↻ reset</div>
+
           <div style="text-align: center; color: #d4a574; font-weight: 700;">→ 12 final</div>
+
         </div>
+
       </div>
+
     </div>
 
     
     <div style="display: flex; gap: 24px; margin-top: 22px; padding-top: 14px; border-top: 1px dashed #d9c9b0; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #5a5550; letter-spacing: 0.3px; flex-wrap: wrap;">
       <div style="display: flex; align-items: center; gap: 8px;">
         <div style="width: 18px; height: 14px; background: linear-gradient(to bottom, #a83833, #8b2e2a);"></div>
+
         <span><strong style="color: #2d2926;">l_daily_night_total</strong> · sawtooth peak per day (resets at END_DAY)</span>
       </div>
+
       <div style="display: flex; align-items: center; gap: 8px;">
         <div style="width: 20px; height: 3px; background: #d4a574; align-self: center; position: relative;">
           <div style="position: absolute; top: -3px; left: 3px; width: 6px; height: 6px; border-radius: 50%; background: #d4a574; border: 1.5px solid #fff;"></div>
+
         </div>
+
         <span><strong style="color: #2d2926;">l_period_night_total</strong> · monotonic climb (persists across days)</span>
       </div>
+
     </div>
 
     
     <div style="background: #faf6f0; border-left: 4px solid #d4a574; padding: 14px 18px; margin-top: 22px;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8b2e2a; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 6px;">THE PATTERN TO SPOT</div>
+
       <div style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #2d2926; line-height: 1.55;">Maroon bars draw a sawtooth — climb, reset, climb, reset. Gold line only climbs, never falls. If your daily accumulator is climbing across days without resetting, you missed the END_DAY branch. If your period accumulator is resetting between days, you accidentally added it to the END_DAY reset list.</div>
+
     </div>
 
   </div>
@@ -389,8 +435,11 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
   <div style="background: #2d2926; padding: 16px 24px; border-top: 1px solid #8b2e2a;">
     <div style="display: flex; gap: 14px; align-items: flex-start;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #d4a574; letter-spacing: 1.5px; font-weight: 700; padding-top: 2px; flex-shrink: 0;">READ →</div>
+
       <div style="font-family: 'Source Sans 3', sans-serif; font-size: 13.5px; color: #c4bdb5; line-height: 1.55;">The final value of <code style="background: #1a1816; padding: 2px 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #d4a574;">l_period_night_total</code> at END_PERIOD equals <code style="background: #1a1816; padding: 2px 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #d4a574;">Out_Measure_Night_Hours</code>. They track the same thing — but the local variable stays available to downstream logic (e.g., monthly night-hour caps) that reads its value inline before the outputs are sealed.</div>
+
     </div>
+
   </div>
 
 </div>
@@ -418,12 +467,18 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
   <div style="background: #2d2926; padding: 16px 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; border-bottom: 3px solid #8b2e2a;">
     <div>
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #d4a574; letter-spacing: 2.5px; font-weight: 600;">FIGURE 03 · STACKING VIEW</div>
+
       <div style="font-family: 'Source Sans 3', sans-serif; font-size: 17px; color: #fff; font-weight: 700; margin-top: 6px; line-height: 1.3;">One Entry, Two Classifications</div>
+
     </div>
+
     <div style="text-align: right;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #8a847d; letter-spacing: 1px; font-weight: 600;">WORKED</div>
+
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #d4a574; font-weight: 700; margin-top: 2px;">12 hrs</div>
+
     </div>
+
   </div>
 
   <div style="padding: 28px 24px 22px 24px; background: #faf8f5;">
@@ -434,21 +489,34 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
     
     <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; margin-bottom: 6px;">
       <div style="background: #fff; border: 1px solid #d9c9b0; padding: 10px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #2d2926;">1</div>
+
       <div style="background: #fff; border: 1px solid #d9c9b0; padding: 10px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #2d2926;">2</div>
+
       <div style="background: #fff; border: 1px solid #d9c9b0; padding: 10px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #2d2926;">3</div>
+
       <div style="background: #fff; border: 1px solid #d9c9b0; padding: 10px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #2d2926;">4</div>
+
       <div style="background: #fff; border: 1px solid #d9c9b0; padding: 10px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #2d2926;">5</div>
+
       <div style="background: #fff; border: 1px solid #d9c9b0; padding: 10px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #2d2926;">6</div>
+
       <div style="background: #fff; border: 1px solid #d9c9b0; padding: 10px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #2d2926;">7</div>
+
       <div style="background: #fff; border: 1px solid #d9c9b0; padding: 10px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #2d2926;">8</div>
+
       <div style="background: #fff; border: 1px solid #d9c9b0; padding: 10px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #2d2926;">9</div>
+
       <div style="background: #fff; border: 1px solid #d9c9b0; padding: 10px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #2d2926;">10</div>
+
       
       <div style="background: #fff5dc; border: 2px solid #d4a574; padding: 9px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #8a7038; position: relative;">
         11
         <div style="position: absolute; top: -6px; right: -6px; background: #d4a574; color: #fff; font-size: 8px; padding: 1px 4px; border-radius: 6px; font-weight: 700; letter-spacing: 0.3px;">★</div>
+
       </div>
+
       <div style="background: #fff; border: 1px solid #d9c9b0; padding: 10px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #2d2926;">12</div>
+
     </div>
 
     
@@ -457,16 +525,22 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
     
     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
       <div style="width: 22px; height: 22px; background: #2d6b3f; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; border-radius: 11px;">1</div>
+
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #2d6b3f; letter-spacing: 1.5px; font-weight: 700;">LAYER 1 · PART 5 CASCADE</div>
+
       <div style="font-family: 'Source Sans 3', sans-serif; font-size: 12px; color: #5a5550; font-style: italic;">day-type + l_total → three OT tiers</div>
+
     </div>
 
     
     <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px;">
       <div style="grid-column: span 8; background: linear-gradient(to bottom, #4f8c5e, #2d6b3f); height: 42px; display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.5px;">8 hrs REGULAR</div>
+
       <div style="grid-column: span 2; background: linear-gradient(to bottom, #e0b683, #d4a574); height: 42px; display: flex; align-items: center; justify-content: center; color: #2d2926; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;">2 · OT 150</div>
+
       
       <div style="grid-column: span 2; background: linear-gradient(to bottom, #a83833, #8b2e2a); height: 42px; display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; box-shadow: inset 0 0 0 2px rgba(212, 165, 116, 0.4);">2 · OT 200</div>
+
     </div>
 
     
@@ -475,30 +549,46 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
     
     <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; margin-top: 16px; margin-bottom: 16px;">
       <div style="text-align: center; color: #8a847d; font-size: 11px;">↓</div>
+
       <div style="text-align: center; color: #8a847d; font-size: 11px;">↓</div>
+
       <div style="text-align: center; color: #8a847d; font-size: 11px;">↓</div>
+
       <div style="text-align: center; color: #8a847d; font-size: 11px;">↓</div>
+
       <div style="text-align: center; color: #8a847d; font-size: 11px;">↓</div>
+
       <div style="text-align: center; color: #8a847d; font-size: 11px;">↓</div>
+
       <div style="text-align: center; color: #8a847d; font-size: 11px;">↓</div>
+
       <div style="text-align: center; color: #8a847d; font-size: 11px;">↓</div>
+
       <div style="text-align: center; color: #8a847d; font-size: 11px;">↓</div>
+
       <div style="text-align: center; color: #8a847d; font-size: 11px;">↓</div>
+
       
       <div style="text-align: center; color: #d4a574; font-size: 13px; font-weight: 700;">↓</div>
+
       <div style="text-align: center; color: #8a847d; font-size: 11px;">↓</div>
+
     </div>
 
     
     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
       <div style="width: 22px; height: 22px; background: #2d2926; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; border-radius: 11px;">2</div>
+
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #2d2926; letter-spacing: 1.5px; font-weight: 700;">LAYER 2 · PART 6 DETECTION</div>
+
       <div style="font-family: 'Source Sans 3', sans-serif; font-size: 12px; color: #5a5550; font-style: italic;">PayrollTimeType match → single bucket</div>
+
     </div>
 
     
     <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px;">
       <div style="grid-column: span 12; background: linear-gradient(to bottom, #3d3936, #2d2926); height: 42px; display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; box-shadow: inset 0 0 0 2px rgba(212, 165, 116, 0.4);">12 hrs NIGHT SURCHARGE</div>
+
     </div>
 
     
@@ -508,25 +598,32 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
     <div style="background: #fff5dc; border: 1px solid #d4a574; border-left: 4px solid #d4a574; padding: 14px 18px; margin-top: 24px;">
       <div style="display: flex; gap: 12px; align-items: flex-start;">
         <div style="background: #d4a574; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; padding: 3px 8px; letter-spacing: 0.5px; flex-shrink: 0; margin-top: 1px;">★ HOUR 11</div>
+
         <div>
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8a7038; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 6px;">LANDS IN TWO BUCKETS SIMULTANEOUSLY</div>
+
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #2d2926; line-height: 1.8;">
             +1 → <span style="color: #8b2e2a; font-weight: 700;">Out_Measure_OT_200_Hours</span>  <span style="color: #8a847d;">(via Layer 1 cascade)</span><br>
             +1 → <span style="color: #2d2926; font-weight: 700;">Out_Measure_Night_Hours</span>  <span style="color: #8a847d;">(via Layer 2 detection)</span>
           </div>
+
         </div>
+
       </div>
+
     </div>
 
     
     <div style="background: #faf6f0; border-left: 4px solid #2d2926; padding: 14px 18px; margin-top: 14px;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #2d2926; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 8px;">FINAL OUTPUT TOTALS · 4 BUCKETS · 24 SUMMED HRS FROM 12 WORKED HRS</div>
+
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #2d2926; line-height: 1.85;">
         <span style="color: #2d6b3f; font-weight: 700;">Out_Measure_RegHours</span> = 8<br>
         <span style="color: #d4a574; font-weight: 700;">Out_Measure_OT_150_Hours</span> = 2<br>
         <span style="color: #8b2e2a; font-weight: 700;">Out_Measure_OT_200_Hours</span> = 2<br>
         <span style="color: #2d2926; font-weight: 700;">Out_Measure_Night_Hours</span> = 12
       </div>
+
     </div>
 
   </div>
@@ -534,8 +631,11 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
   <div style="background: #2d2926; padding: 16px 24px; border-top: 1px solid #8b2e2a;">
     <div style="display: flex; gap: 14px; align-items: flex-start;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #d4a574; letter-spacing: 1.5px; font-weight: 700; padding-top: 2px; flex-shrink: 0;">READ →</div>
+
       <div style="font-family: 'Source Sans 3', sans-serif; font-size: 13.5px; color: #c4bdb5; line-height: 1.55;">The two OT-200 hours land in <em>both</em> <code style="background: #1a1816; padding: 2px 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #d4a574;">Out_Measure_OT_200_Hours</code> <em>and</em> <code style="background: #1a1816; padding: 2px 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #d4a574;">Out_Measure_Night_Hours</code>. That's not a double count. Payroll interprets them as "two hours at 200% rate <em>and</em> two hours of night differential" — two separate rate elements applied to the same underlying worked time.</div>
+
     </div>
+
   </div>
 
 </div>
@@ -575,12 +675,18 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
   <div style="background: #2d2926; padding: 16px 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; border-bottom: 3px solid #8b2e2a;">
     <div>
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #d4a574; letter-spacing: 2.5px; font-weight: 600;">FIGURE 04 · OUTPUT REFERENCE</div>
+
       <div style="font-family: 'Source Sans 3', sans-serif; font-size: 17px; color: #fff; font-weight: 700; margin-top: 6px; line-height: 1.3;">The Night-Time Output Bucket</div>
+
     </div>
+
     <div style="text-align: right;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #8a847d; letter-spacing: 1px; font-weight: 600;">RUNNING TOTAL</div>
+
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #d4a574; font-weight: 700; margin-top: 2px;">6 buckets</div>
+
     </div>
+
   </div>
 
   <div style="padding: 24px 20px 20px 20px; background: #faf8f5;">
@@ -594,11 +700,17 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
         
         <div style="position: relative; height: 240px; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #8a847d; font-weight: 600;">
           <div style="position: absolute; top: -5px; right: 4px;">16</div>
+
           <div style="position: absolute; top: 45px; right: 4px;">12</div>
+
           <div style="position: absolute; top: 95px; right: 4px;">8</div>
+
           <div style="position: absolute; top: 145px; right: 4px;">4</div>
+
           <div style="position: absolute; top: 195px; right: 4px;">0</div>
+
           <div style="position: absolute; top: 215px; right: 4px; color: #8b2e2a; font-weight: 700;">hrs</div>
+
         </div>
 
         
@@ -674,71 +786,112 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
           <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 10px;">
             <div style="text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #8a7038; font-weight: 700; letter-spacing: 0.3px;">
               <div style="border-top: 3px solid #d4a574; padding-top: 6px;">Abs_Cd</div>
+
               <div style="font-size: 8px; color: #8a847d; margin-top: 2px; font-weight: 500;">metadata</div>
+
             </div>
+
             <div style="text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #8a7038; font-weight: 700; letter-spacing: 0.3px;">
               <div style="border-top: 3px solid #d4a574; padding-top: 6px;">Abs_Hours</div>
+
               <div style="font-size: 8px; color: #8a847d; margin-top: 2px; font-weight: 500;">absence qty</div>
+
             </div>
+
             <div style="text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #2d6b3f; font-weight: 700; letter-spacing: 0.3px;">
               <div style="border-top: 3px solid #2d6b3f; padding-top: 6px;">RegHours</div>
+
               <div style="font-size: 8px; color: #8a847d; margin-top: 2px; font-weight: 500;">base rate</div>
+
             </div>
+
             <div style="text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #8a7038; font-weight: 700; letter-spacing: 0.3px;">
               <div style="border-top: 3px solid #d4a574; padding-top: 6px;">OT_150</div>
+
               <div style="font-size: 8px; color: #8a847d; margin-top: 2px; font-weight: 500;">first-tier OT</div>
+
             </div>
+
             <div style="text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #8b2e2a; font-weight: 700; letter-spacing: 0.3px;">
               <div style="border-top: 3px solid #8b2e2a; padding-top: 6px;">OT_200</div>
+
               <div style="font-size: 8px; color: #8a847d; margin-top: 2px; font-weight: 500;">second-tier OT</div>
+
             </div>
+
             <div style="text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #2d2926; font-weight: 700; letter-spacing: 0.3px;">
               <div style="border-top: 3px solid #2d2926; padding-top: 6px;">Night_Hours</div>
+
               <div style="font-size: 8px; color: #d4a574; margin-top: 2px; font-weight: 700;">← THIS POST</div>
+
             </div>
+
           </div>
+
         </div>
+
       </div>
 
       
       <div style="display: flex; gap: 20px; margin-top: 18px; padding-top: 12px; border-top: 1px dashed #d9c9b0; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #5a5550; letter-spacing: 0.3px; flex-wrap: wrap;">
         <div style="display: flex; align-items: center; gap: 6px;">
           <div style="width: 14px; height: 12px; background: url(#ghostFill), #faf6f0; border: 1px dashed #d4a574;"></div>
+
           <span><strong style="color: #2d2926;">empty in this example</strong> · absence buckets (no absence entered)</span>
         </div>
+
         <div style="display: flex; align-items: center; gap: 6px;">
           <div style="width: 14px; height: 12px; background: linear-gradient(to bottom, #4f8c5e, #2d6b3f);"></div>
+
           <span><strong style="color: #2d2926;">worked-time</strong> · Part 5 cascade</span>
         </div>
+
         <div style="display: flex; align-items: center; gap: 6px;">
           <div style="width: 14px; height: 12px; background: linear-gradient(to bottom, #3d3936, #2d2926); border: 1.5px solid #d4a574;"></div>
+
           <span><strong style="color: #2d2926;">night surcharge</strong> · Part 6 parallel classification</span>
         </div>
+
       </div>
+
     </div>
 
     
     <div style="background: #fff; border: 1px solid #d9c9b0; margin-top: 18px; overflow: hidden;">
       <div style="background: linear-gradient(to right, #2d2926, #3d3936); padding: 12px 18px; display: flex; align-items: center; gap: 12px;">
         <div style="width: 30px; height: 30px; background: #d4a574; color: #2d2926; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 700; border-radius: 15px;">☾</div>
+
         <div style="flex: 1;">
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #d4a574; letter-spacing: 1.5px; font-weight: 700;">FOCUS BUCKET · PART 6</div>
+
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #fff; font-weight: 700; margin-top: 2px;">Out_Measure_Night_Hours</div>
+
         </div>
+
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 20px; color: #d4a574; font-weight: 700;">12 hrs</div>
+
       </div>
+
       <div style="padding: 16px 18px;">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
           <div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #8a847d; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 4px;">FED BY</div>
+
             <div style="font-family: 'Source Sans 3', sans-serif; font-size: 13px; color: #2d2926; line-height: 1.5;">Every DETAIL entry whose <code style="background: #f5ede0; padding: 2px 5px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8b2e2a;">PayrollTimeType</code> matches the configured night code (case-insensitive via <code style="background: #f5ede0; padding: 2px 5px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8b2e2a;">UPPER()</code>).</div>
+
           </div>
+
           <div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #8a847d; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 4px;">STACKS ON TOP OF</div>
+
             <div style="font-family: 'Source Sans 3', sans-serif; font-size: 13px; color: #2d2926; line-height: 1.5;">Reg / OT-150 / OT-200 without disturbing them. The 12 hrs here are the same underlying 12 hrs already classified into the 3 worked-time buckets — payroll pays each rate element separately.</div>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
 
   </div>
@@ -746,8 +899,11 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
   <div style="background: #2d2926; padding: 16px 24px; border-top: 1px solid #8b2e2a;">
     <div style="display: flex; gap: 14px; align-items: flex-start;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #d4a574; letter-spacing: 1.5px; font-weight: 700; padding-top: 2px; flex-shrink: 0;">READ →</div>
+
       <div style="font-family: 'Source Sans 3', sans-serif; font-size: 13.5px; color: #c4bdb5; line-height: 1.55;">Six output buckets so far — two absence, three worked-time, one night. Parts 7 and 8 add night-OT spillover (a second night bucket that captures automatic night detection based on clock time) and OT claim reconciliation buckets. The output inventory keeps growing without any single bucket's semantics changing.</div>
+
     </div>
+
   </div>
 
 </div>
@@ -755,6 +911,7 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
 
 <div style="background: #2d2926; color: #fff; padding: 32px; margin: 48px 0 24px 0;">
   <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #d4a574; letter-spacing: 2px; margin-bottom: 8px; font-weight: 500;">NEXT IN THE SERIES</div>
+
   <h3 style="font-family: 'Source Sans 3', sans-serif; margin: 0 0 8px 0; font-size: 22px; color: #fff; font-weight: 700;">Part 7 — Night OT Spillover with IS_DATE_BETWEEN, the StartTimeMid Wrap, and the Four-Bucket Allocation</h3>
   <p style="font-family: 'Source Sans 3', sans-serif; margin: 0; color: #c4bdb5; line-height: 1.5; font-size: 15px;">A shift starting at 22:00 crosses midnight into the next day. The PayrollTimeType may not be tagged as night, but the physical clock time falls squarely in the 22:00–06:00 window. Part 7 covers the second night-detection path — <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">IS_DATE_BETWEEN</code> against the night window, the <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">StartTimeMid + 24</code> arithmetic that handles day-boundary crossings, and the allocation into four different output buckets (regular night, night OT-150, night OT-200, weekend night) without any minute being counted twice.</p>
 </div>
@@ -762,15 +919,19 @@ l_night_code <span style="color: #8b2e2a; font-weight: 700;">=</span> <span styl
 
 <div style="display: flex; align-items: stretch; background: #faf6f0; border: 1px solid #e8ddc9; margin: 32px 0 24px 0;">
   <div style="background: #8b2e2a; color: #fff; width: 64px; min-width: 64px; display: flex; align-items: center; justify-content: center; font-family: 'Source Sans 3', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1px;">AM</div>
+
   <div style="padding: 14px 20px;">
     <div style="font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 700; color: #2d2926; margin-bottom: 4px;">Abhishek Mohanty</div>
+
     <div style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #5a5550; line-height: 1.5;"><span style="color: #8b2e2a; font-weight: 600;">Oracle ACE Associate  |  AIOUG Member  |  Oracle HCM Cloud Consultant & Technical Lead</span> — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div>
+
   </div>
 </div>
 
 
 <div style="border-top: 2px solid #f0e9dd; padding-top: 24px; margin-top: 48px; font-size: 13px; color: #8a847d; font-family: 'JetBrains Mono', monospace; line-height: 1.6;">
   <div style="margin-bottom: 6px; font-weight: 500;">TCR DEEP DIVE · PART 6 / 11</div>
+
   <div>Series tag: <span style="color: #8b2e2a; font-weight: 500;">#TCRDeepDive</span></div>
 </div>
 

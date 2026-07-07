@@ -10,6 +10,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
 <div style="border-left: 4px solid #8b2e2a; padding-left: 20px; margin: 32px 0 40px 0;">
   <div style="font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; color: #8b2e2a; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 500;">ORACLE HCM CLOUD · TCR DEEP DIVE · PART 1 OF 12</div>
+
   <h1 style="font-family: 'Source Sans 3', sans-serif; font-size: 30px; font-weight: 700; margin: 0 0 12px 0; line-height: 1.25; color: #2d2926;">Oracle HCM Cloud Fast Formula: Deriving Daily Working Hours from PER_ASG_WORK_SCH_WORKDAY_PATTERN in TCR Calculations</h1>
   <div style="font-size: 18px; color: #5a5550; font-weight: 400; line-height: 1.5;">A breakdown of how Time Calculation Rule formulas parse the workday pattern DBI with INSTR + SUBSTR, guard null schedules with <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">WAS NOT DEFAULTED</code>, and compute the monthly norm via <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #8b2e2a; font-weight: 500;">GET_PAY_AVAILABILITY</code>.</div>
 </div>
@@ -25,9 +26,12 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
 <div style="display: flex; align-items: center; background: #faf6f0; border: 1px solid #e8ddc9; margin: 24px 0 32px 0;">
   <div style="background: #8b2e2a; color: #fff; width: 64px; min-width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; font-family: 'Source Sans 3', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1px;">AM</div>
+
   <div style="padding: 12px 20px;">
     <div style="font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 700; color: #2d2926; margin-bottom: 2px;">Abhishek Mohanty</div>
+
     <div style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #8b2e2a; line-height: 1.4;">Oracle ACE Associate  |  AIOUG Member  |  Oracle HCM Cloud Consultant</div>
+
   </div>
 </div>
 
@@ -46,37 +50,61 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "TCR", "OTL", "Time and Labor", "TER"
 
 <div style="background: #faf8f5; border: 1px solid #e8e3dd; padding: 24px; margin: 24px 0; font-family: 'JetBrains Mono', monospace;">
   <div style="font-size: 12px; color: #8a847d; margin-bottom: 12px; letter-spacing: 1px; font-weight: 500;">RAW DBI VALUE</div>
+
   <div style="font-size: 20px; color: #2d2926; margin-bottom: 20px; letter-spacing: 2px; font-weight: 500;">0 - 8 - 8 - 8 - 8 - 8 - 0</div>
+
   <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;">
     <div style="text-align: center; padding: 8px 4px; background: #e8e3dd; border-radius: 3px;">
       <div style="font-size: 10px; color: #8a847d; letter-spacing: 1px; font-weight: 500;">SUN</div>
+
       <div style="font-size: 18px; color: #8a847d; font-weight: 700;">0</div>
+
     </div>
+
     <div style="text-align: center; padding: 8px 4px; background: #8b2e2a; border-radius: 3px;">
       <div style="font-size: 10px; color: #fff; letter-spacing: 1px; font-weight: 500;">MON</div>
+
       <div style="font-size: 18px; color: #fff; font-weight: 700;">8</div>
+
     </div>
+
     <div style="text-align: center; padding: 8px 4px; background: #8b2e2a; border-radius: 3px;">
       <div style="font-size: 10px; color: #fff; letter-spacing: 1px; font-weight: 500;">TUE</div>
+
       <div style="font-size: 18px; color: #fff; font-weight: 700;">8</div>
+
     </div>
+
     <div style="text-align: center; padding: 8px 4px; background: #8b2e2a; border-radius: 3px;">
       <div style="font-size: 10px; color: #fff; letter-spacing: 1px; font-weight: 500;">WED</div>
+
       <div style="font-size: 18px; color: #fff; font-weight: 700;">8</div>
+
     </div>
+
     <div style="text-align: center; padding: 8px 4px; background: #8b2e2a; border-radius: 3px;">
       <div style="font-size: 10px; color: #fff; letter-spacing: 1px; font-weight: 500;">THU</div>
+
       <div style="font-size: 18px; color: #fff; font-weight: 700;">8</div>
+
     </div>
+
     <div style="text-align: center; padding: 8px 4px; background: #8b2e2a; border-radius: 3px;">
       <div style="font-size: 10px; color: #fff; letter-spacing: 1px; font-weight: 500;">FRI</div>
+
       <div style="font-size: 18px; color: #fff; font-weight: 700;">8</div>
+
     </div>
+
     <div style="text-align: center; padding: 8px 4px; background: #e8e3dd; border-radius: 3px;">
       <div style="font-size: 10px; color: #8a847d; letter-spacing: 1px; font-weight: 500;">SAT</div>
+
       <div style="font-size: 18px; color: #8a847d; font-weight: 700;">0</div>
+
     </div>
+
   </div>
+
   <div style="font-size: 12px; color: #8a847d; margin-top: 14px; letter-spacing: 1px; font-weight: 500;">5 WORKING DAYS · 40 WEEKLY HOURS · 8 HRS/DAY</div>
 </div>
 
@@ -191,6 +219,7 @@ l_working_hours <span style="color: #8b2e2a; font-weight: 700;">=</span> <span s
 
 <div style="background: #2d2926; color: #fff; padding: 16px 20px; margin: 24px 0; font-family: 'JetBrains Mono', monospace;">
   <div style="font-size: 11px; color: #d4a574; letter-spacing: 2px; margin-bottom: 6px; font-weight: 500;">RESULT</div>
+
   <div style="font-size: 15px;">l_working_hours = ROUNDUP(40 / 5, 2) = <span style="color: #d4a574; font-weight: 700;">8.00</span></div>
 </div>
 
@@ -237,6 +266,7 @@ l_monthly_hours <span style="color: #8b2e2a; font-weight: 700;">=</span> l_worki
 
 <div style="background: #faf6f0; border-left: 4px solid #8b2e2a; padding: 20px 24px; margin: 32px 0;">
   <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8b2e2a; letter-spacing: 2px; margin-bottom: 8px; font-weight: 500;">A NOTE ON ROUNDUP</div>
+
   <p style="font-family: 'Source Sans 3', sans-serif; margin: 0; line-height: 1.65;">Fast Formula doesn't ship with a native <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">ROUNDUP</code>. The line <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">l_working_hours = ROUNDUP((l_normal_hours/l_count),2)</code> only compiles if a custom function with that name has been registered at the instance level (via Setup & Maintenance → <em>Manage Formula Functions</em>). If you lift this parser into your own formula, swap <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">ROUNDUP</code> for <code style="background: #f5ede0; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8b2e2a; font-weight: 500;">ROUND(...)</code> or build a CEIL-based equivalent — otherwise the compile will fail with a function-not-found error and the rule will refuse to validate.</p>
 </div>
 
@@ -250,6 +280,7 @@ l_monthly_hours <span style="color: #8b2e2a; font-weight: 700;">=</span> l_worki
 
 <div style="background: #2d2926; color: #fff; padding: 32px; margin: 48px 0 24px 0;">
   <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #d4a574; letter-spacing: 2px; margin-bottom: 8px; font-weight: 500;">NEXT IN THE SERIES</div>
+
   <h3 style="font-family: 'Source Sans 3', sans-serif; margin: 0 0 8px 0; font-size: 22px; color: #fff; font-weight: 700;">Part 2 — Day-Type Branching with GET_DATE_DAY_OF_WEEK, Public Holiday Override, and the FULL_TIME Fork</h3>
   <p style="font-family: 'Source Sans 3', sans-serif; margin: 0; color: #c4bdb5; line-height: 1.5; font-size: 15px;">Why <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">GET_DATE_DAY_OF_WEEK</code> alone isn't enough to fork OT logic — the formula needs a FRI-anchored weekly compare, a <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">pOvrdPubCat</code> rule parameter for public holiday overrides, and a <code style="background: #1a1816; padding: 2px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #d4a574; font-weight: 500;">PER_ASG_FULL_PART_TIME</code> DBI check before threshold logic activates.</p>
 </div>
@@ -258,15 +289,19 @@ l_monthly_hours <span style="color: #8b2e2a; font-weight: 700;">=</span> l_worki
 
 <div style="display: flex; align-items: stretch; background: #faf6f0; border: 1px solid #e8ddc9; margin: 32px 0 24px 0;">
   <div style="background: #8b2e2a; color: #fff; width: 64px; min-width: 64px; display: flex; align-items: center; justify-content: center; font-family: 'Source Sans 3', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1px;">AM</div>
+
   <div style="padding: 14px 20px;">
     <div style="font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 700; color: #2d2926; margin-bottom: 4px;">Abhishek Mohanty</div>
+
     <div style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #5a5550; line-height: 1.5;"><span style="color: #8b2e2a; font-weight: 600;">Oracle ACE Associate  |  AIOUG Member  |  Oracle HCM Cloud Consultant & Technical Lead</span> — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div>
+
   </div>
 </div>
 
 
 <div style="border-top: 2px solid #f0e9dd; padding-top: 24px; margin-top: 48px; font-size: 13px; color: #8a847d; font-family: 'JetBrains Mono', monospace; line-height: 1.6;">
   <div style="margin-bottom: 6px; font-weight: 500;">TCR DEEP DIVE · PART 1 / 5</div>
+
   <div>Series tag: <span style="color: #8b2e2a; font-weight: 500;">#TCRDeepDive</span></div>
 </div>
 

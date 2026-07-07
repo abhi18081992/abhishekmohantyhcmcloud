@@ -15,6 +15,7 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 
 </head>
 <body>
+
 <div class="container">
 
 <div class="tags-row">
@@ -35,7 +36,9 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
   <img src="data:image/jpeg;base64,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" style="width:46px;height:46px;border-radius:50%;object-fit:cover;flex-shrink:0;" alt="Abhishek Mohanty">
   <div>
     <div class="name">Abhishek Mohanty</div>
+
     <div class="role">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant</div>
+
   </div>
 </div>
 
@@ -43,27 +46,40 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 
 <div style="margin:28px 0;border:2px solid var(--border-red);border-radius:8px;overflow:hidden;">
   <div style="background:#1a1a1a;padding:12px 18px;font-size:12px;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;">This Formula at a Glance</div>
+
   <table style="margin:0;border:none;">
     <tr>
       <td style="width:25%;padding:16px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);">
         <div style="width:48px;height:48px;border-radius:50%;background:#0984e3;color:#fff;font-weight:700;font-size:20px;line-height:48px;margin:0 auto 10px;">1</div>
+
         <div style="font-size:13px;font-weight:700;color:var(--text-heading);margin-bottom:4px;">Calculate Future Date</div>
+
         <div style="font-size:12px;color:var(--text-secondary);">Life event + waiting period → coverage start date</div>
+
       </td>
       <td style="width:25%;padding:16px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);">
         <div style="width:48px;height:48px;border-radius:50%;background:#c0392b;color:#fff;font-weight:700;font-size:20px;line-height:48px;margin:0 auto 10px;">2</div>
+
         <div style="font-size:13px;font-weight:700;color:var(--text-heading);margin-bottom:4px;">Read Enrollment at Future</div>
+
         <div style="font-size:12px;color:var(--text-secondary);">CHANGE_CONTEXTS → loop BEN_PEN → set flags</div>
+
       </td>
       <td style="width:25%;padding:16px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);">
         <div style="width:44px;height:44px;border-radius:50%;background:#00b894;color:#fff;font-weight:700;font-size:18px;line-height:44px;margin:0 auto 8px;">3</div>
+
         <div style="font-size:12px;font-weight:700;color:var(--text-heading);margin-bottom:4px;">Validate Plan Presence</div>
+
         <div style="font-size:11px;color:var(--text-secondary);">Child=Y + Employee=N → BLOCK</div>
+
       </td>
       <td style="width:25%;padding:16px;text-align:center;border-bottom:none;">
         <div style="width:44px;height:44px;border-radius:50%;background:#e67e22;color:#fff;font-weight:700;font-size:18px;line-height:44px;margin:0 auto 8px;">4</div>
+
         <div style="font-size:12px;font-weight:700;color:var(--text-heading);margin-bottom:4px;">Validate Amounts</div>
+
         <div style="font-size:11px;color:var(--text-secondary);">Child $ > Employee $ → BLOCK</div>
+
       </td>
     </tr>
   </table>
@@ -72,17 +88,21 @@ tags: ["Fast Formula", "Oracle HCM Cloud", "Benefits"]
 
 <div style="margin:20px 0 28px;padding:18px 22px;background:#fef2f2;border:2px solid #c0392b;border-radius:8px;text-align:center;">
   <div style="font-size:11px;font-weight:700;color:#c0392b;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">The Business Rule</div>
+
   <div style="font-size:17px;color:#1a1a1a;line-height:1.5;">
     <span style="display:inline-block;padding:4px 12px;background:#c0392b;color:#fff;border-radius:4px;font-weight:700;font-size:14px;">Child Life</span>
     <span style="font-size:20px;color:#c0392b;font-weight:700;margin:0 8px;">requires</span>
     <span style="display:inline-block;padding:4px 12px;background:#0984e3;color:#fff;border-radius:4px;font-weight:700;font-size:14px;">Employee Life</span>
   </div>
+
   <div style="font-size:13px;color:#666;margin-top:8px;">No employee coverage → no child coverage. Standard US group life rule.</div>
+
   <div style="font-size:15px;color:#1a1a1a;line-height:1.5;margin-top:12px;padding-top:12px;border-top:1px solid rgba(192,57,43,0.2);">
     <span style="display:inline-block;padding:4px 12px;background:#c0392b;color:#fff;border-radius:4px;font-weight:700;font-size:14px;">Child Life $</span>
     <span style="font-size:20px;color:#c0392b;font-weight:700;margin:0 8px;">≤</span>
     <span style="display:inline-block;padding:4px 12px;background:#0984e3;color:#fff;border-radius:4px;font-weight:700;font-size:14px;">Employee Life $</span>
   </div>
+
   <div style="font-size:13px;color:#666;margin-top:6px;">Child coverage amount can't exceed employee coverage. Only a formula can compare dollar amounts.</div>
 </div>
 
@@ -135,17 +155,27 @@ That's the critical distinction. <code>BEN_PEN</code> returns enrollment results
     <tr>
       <td style="width:50%;padding:20px;background:#fef2f2;border-bottom:none;border-right:2px solid var(--border-subtle);vertical-align:top;">
         <div style="font-size:11px;font-weight:700;color:#c0392b;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">❌ Checking at Today's Date</div>
+
         <div style="font-size:14px;color:#333;margin-bottom:8px;">BEN_PEN sees:</div>
+
         <div style="display:inline-block;padding:4px 10px;background:#0984e3;color:#fff;border-radius:3px;font-size:12px;font-weight:600;margin:2px;">Employee Life ✓</div>
+
         <div style="display:inline-block;padding:4px 10px;background:#c0392b;color:#fff;border-radius:3px;font-size:12px;font-weight:600;margin:2px;">Child Life ✓</div>
+
         <div style="font-size:13px;color:#c0392b;margin-top:10px;font-weight:700;">→ Both active → PASSES (wrong!)</div>
+
       </td>
       <td style="width:50%;padding:20px;background:#f0fdf4;border-bottom:none;vertical-align:top;">
         <div style="font-size:11px;font-weight:700;color:#00896a;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">✓ Checking at Future Coverage Date</div>
+
         <div style="font-size:14px;color:#333;margin-bottom:8px;">BEN_PEN sees:</div>
+
         <div style="display:inline-block;padding:4px 10px;background:#ddd;color:#888;border-radius:3px;font-size:12px;font-weight:600;margin:2px;text-decoration:line-through;">Employee Life</div>
+
         <div style="display:inline-block;padding:4px 10px;background:#c0392b;color:#fff;border-radius:3px;font-size:12px;font-weight:600;margin:2px;">Child Life ✓</div>
+
         <div style="font-size:13px;color:#00896a;margin-top:10px;font-weight:700;">→ Child without Employee → BLOCKED ✓</div>
+
       </td>
     </tr>
   </table>
@@ -212,32 +242,48 @@ The formula needs to know this exact coverage start date because that's the date
 
 <div style="margin:24px 0 12px;border:2px solid var(--border-subtle);border-radius:8px;overflow:hidden;">
   <div style="background:#1a1a1a;padding:10px 16px;font-size:12px;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;">James (New Hire) — Event on March 15</div>
+
   <table style="margin:0;">
     <tr>
       <td style="width:20%;padding:14px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);background:#fef2f2;">
         <div style="font-size:11px;font-weight:700;color:#c0392b;letter-spacing:0.5px;">MAR 15</div>
+
         <div style="font-size:12px;color:#333;margin-top:4px;">Event date</div>
+
         <div style="font-size:11px;color:#888;">Partial month</div>
+
       </td>
       <td style="width:20%;padding:14px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);">
         <div style="font-size:11px;font-weight:700;color:#666;">APR</div>
+
         <div style="font-size:12px;color:#333;margin-top:4px;">Wait month 1</div>
+
         <div style="font-size:16px;color:#ccc;">⏳</div>
+
       </td>
       <td style="width:20%;padding:14px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);">
         <div style="font-size:11px;font-weight:700;color:#666;">MAY</div>
+
         <div style="font-size:12px;color:#333;margin-top:4px;">Wait month 2</div>
+
         <div style="font-size:16px;color:#ccc;">⏳</div>
+
       </td>
       <td style="width:20%;padding:14px;text-align:center;border-bottom:none;background:#f0fdf4;">
         <div style="font-size:11px;font-weight:700;color:#00896a;">JUN 1</div>
+
         <div style="font-size:12px;color:#333;margin-top:4px;font-weight:700;">Coverage starts</div>
+
         <div style="font-size:11px;color:#00896a;font-weight:600;">Formula checks here</div>
+
       </td>
       <td style="width:20%;padding:14px;text-align:center;border-bottom:none;background:#f0fdf4;">
         <div style="font-size:24px;">✅</div>
+
         <div style="font-size:11px;color:#00896a;font-weight:700;margin-top:2px;">PASSES</div>
+
         <div style="font-size:10px;color:#888;">Both plans elected</div>
+
       </td>
     </tr>
   </table>
@@ -246,25 +292,36 @@ The formula needs to know this exact coverage start date because that's the date
 
 <div style="margin:12px 0;border:2px solid var(--border-subtle);border-radius:8px;overflow:hidden;">
   <div style="background:#1a1a1a;padding:10px 16px;font-size:12px;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;">Sarah (Open Enrollment) — Event on January 1</div>
+
   <table style="margin:0;">
     <tr>
       <td style="width:20%;padding:14px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);background:#eff6ff;">
         <div style="font-size:11px;font-weight:700;color:#0984e3;letter-spacing:0.5px;">JAN 1</div>
+
         <div style="font-size:12px;color:#333;margin-top:4px;">Event date</div>
+
         <div style="font-size:11px;color:#0984e3;font-weight:600;">On the 1st!</div>
+
       </td>
       <td style="width:20%;padding:14px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);background:#f0fdf4;">
         <div style="font-size:11px;font-weight:700;color:#00896a;">FEB 1</div>
+
         <div style="font-size:12px;color:#333;margin-top:4px;font-weight:700;">Coverage starts</div>
+
         <div style="font-size:11px;color:#00896a;font-weight:600;">Formula checks here</div>
+
       </td>
       <td style="width:20%;padding:14px;text-align:center;border-bottom:none;background:#f0fdf4;" colspan="2">
         <div style="font-size:12px;color:#888;font-style:italic;">No extended wait — event was on the 1st</div>
+
       </td>
       <td style="width:20%;padding:14px;text-align:center;border-bottom:none;background:#f0fdf4;">
         <div style="font-size:24px;">✅</div>
+
         <div style="font-size:11px;color:#00896a;font-weight:700;margin-top:2px;">PASSES</div>
+
         <div style="font-size:10px;color:#888;">Has Employee Life</div>
+
       </td>
     </tr>
   </table>
@@ -273,32 +330,48 @@ The formula needs to know this exact coverage start date because that's the date
 
 <div style="margin:12px 0 24px;border:2px solid #c0392b;border-radius:8px;overflow:hidden;">
   <div style="background:#c0392b;padding:10px 16px;font-size:12px;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;">⚠ Mike (Dropping Coverage) — Event on April 10</div>
+
   <table style="margin:0;">
     <tr>
       <td style="width:20%;padding:14px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);background:#fef2f2;">
         <div style="font-size:11px;font-weight:700;color:#c0392b;letter-spacing:0.5px;">APR 10</div>
+
         <div style="font-size:12px;color:#333;margin-top:4px;">Event date</div>
+
         <div style="font-size:11px;color:#888;">Partial month</div>
+
       </td>
       <td style="width:20%;padding:14px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);">
         <div style="font-size:11px;font-weight:700;color:#666;">MAY</div>
+
         <div style="font-size:12px;color:#333;margin-top:4px;">Wait month 1</div>
+
         <div style="font-size:16px;color:#ccc;">⏳</div>
+
       </td>
       <td style="width:20%;padding:14px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);">
         <div style="font-size:11px;font-weight:700;color:#666;">JUN</div>
+
         <div style="font-size:12px;color:#333;margin-top:4px;">Wait month 2</div>
+
         <div style="font-size:16px;color:#ccc;">⏳</div>
+
       </td>
       <td style="width:20%;padding:14px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);background:#f0fdf4;">
         <div style="font-size:11px;font-weight:700;color:#00896a;">JUL 1</div>
+
         <div style="font-size:12px;color:#333;margin-top:4px;font-weight:700;">Coverage starts</div>
+
         <div style="font-size:11px;color:#00896a;font-weight:600;">Formula checks here</div>
+
       </td>
       <td style="width:20%;padding:14px;text-align:center;border-bottom:none;background:#fef2f2;">
         <div style="font-size:24px;">🚫</div>
+
         <div style="font-size:11px;color:#c0392b;font-weight:700;margin-top:2px;">BLOCKED</div>
+
         <div style="font-size:10px;color:#c0392b;">Child Life without<br>Employee Life</div>
+
       </td>
     </tr>
   </table>
@@ -307,29 +380,42 @@ The formula needs to know this exact coverage start date because that's the date
 
 <div style="margin:12px 0 24px;border:2px solid #e67e22;border-radius:8px;overflow:hidden;">
   <div style="background:#e67e22;padding:10px 16px;font-size:12px;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;">⚠ Lisa (Changing Amounts) — Event on March 20</div>
+
   <table style="margin:0;">
     <tr>
       <td style="width:16%;padding:14px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);background:#fef9f0;">
         <div style="font-size:11px;font-weight:700;color:#e67e22;letter-spacing:0.5px;">MAR 20</div>
+
         <div style="font-size:12px;color:#333;margin-top:4px;">Event date</div>
+
       </td>
       <td style="width:12%;padding:14px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);">
         <div style="font-size:11px;font-weight:700;color:#666;">APR</div>
+
         <div style="font-size:16px;color:#ccc;">⏳</div>
+
       </td>
       <td style="width:12%;padding:14px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);">
         <div style="font-size:11px;font-weight:700;color:#666;">MAY</div>
+
         <div style="font-size:16px;color:#ccc;">⏳</div>
+
       </td>
       <td style="width:16%;padding:14px;text-align:center;border-bottom:none;border-right:1px solid var(--border-subtle);background:#f0fdf4;">
         <div style="font-size:11px;font-weight:700;color:#00896a;">JUN 1</div>
+
         <div style="font-size:12px;color:#333;font-weight:700;">Checks here</div>
+
       </td>
       <td style="width:44%;padding:14px;text-align:center;border-bottom:none;background:#fef2f2;">
         <div style="font-size:13px;font-weight:700;color:#e67e22;margin-bottom:6px;">🚫 BLOCKED — Amount Violation</div>
+
         <div style="display:inline-block;padding:4px 10px;background:#c0392b;color:#fff;border-radius:4px;font-size:11px;font-weight:700;margin:2px;">Child $150K</div>
+
         <div style="display:inline-block;font-size:14px;color:#c0392b;font-weight:700;margin:0 4px;">></div>
+
         <div style="display:inline-block;padding:4px 10px;background:#0984e3;color:#fff;border-radius:4px;font-size:11px;font-weight:700;margin:2px;">Employee $100K</div>
+
       </td>
     </tr>
   </table>
@@ -357,11 +443,13 @@ That last column is the whole point. The coverage start date becomes the <code>E
 
 <div class="cb yellow">
   <div class="cb-t">How the Formula Calculates This Date</div>
+
   <p>Fast Formula can't set the day of a date to "01" directly — there's no such function. So it uses a workaround: <code>ADD_MONTHS(date, 2)</code> moves forward 2 months → <code>LAST_DAY()</code> jumps to the end of that month → <code>ADD_DAYS(, 1)</code> lands on the 1st of the next month. For Mike: 10-Apr + 2 months = 10-Jun → last day of Jun = 30-Jun → +1 = <strong>01-Jul</strong>. You'll see this <code>LAST_DAY + ADD_DAYS(1)</code> trick throughout Oracle Benefits formulas wherever a "1st of the month" date is needed.</p>
 </div>
 
 <div class="cb blue">
   <div class="cb-t">The Role of the Waiting Period in This Formula</div>
+
   <p>The waiting period here is <strong>not controlling when coverage starts</strong> — Oracle's built-in waiting period configuration on the plan enrollment page handles that. You can set "30 days" or "first of the month following 60 days" in plan setup without any formula.</p>
   <p>In this formula, the waiting period answers one question: <strong>"As of what date should I check whether this employee still has Employee Life?"</strong> Without this date, the formula falls back to today's effective date — and that's exactly how Mike's scenario slips through.</p>
 </div>
@@ -379,6 +467,7 @@ The formula uses <code>CHANGE_CONTEXTS(EFFECTIVE_DATE = l_cvg_eff_date)</code> t
 
 <div class="cbl">
   <div class="ch">The Context Shift — Today vs Future</div>
+
   <pre>
 <span class="l"><span class="c">/* Without CHANGE_CONTEXTS — reads enrollment as of TODAY     */</span></span>
 <span class="l"><span class="c">/* Result: might not see the new elections yet                */</span></span>
@@ -428,6 +517,7 @@ The formula doesn't know in advance how many enrollments exist or what order the
 
 <div class="cb yellow">
   <div class="cb-t">Watch Out — Hardcoded Option Names</div>
+
   <p>The formula checks for exact option names: <code>'1,000 - 10,000'</code> and <code>'10,000 - 500,000'</code>. If the plan configuration changes — say the option range is updated to <code>'10,000 - 600,000'</code> — the formula won't match it. It will treat the employee as not enrolled in Employee Life and block Child Life elections incorrectly. The option names in the formula must exactly match the option names configured in Plan Configuration. A safer approach would be to check only the plan name and ignore the option name — unless the business specifically requires option-level validation.</p>
 </div>
 
@@ -440,6 +530,7 @@ The formula doesn't know in advance how many enrollments exist or what order the
   
   <div style="margin-bottom:8px;padding:16px 20px;background:#f0fdf4;border-radius:8px;border:1px solid rgba(0,137,106,0.2);">
     <div style="font-size:11px;font-weight:700;color:#00896a;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">✓ Valid Combinations — PASS</div>
+
     <table style="margin:0;">
       <tr>
         <td style="width:30%;padding:10px 14px;border-bottom:1px solid rgba(0,137,106,0.15);font-size:13px;">
@@ -475,7 +566,9 @@ The formula doesn't know in advance how many enrollments exist or what order the
         </td>
         <td style="padding:10px 14px;border-bottom:none;vertical-align:middle;">
           <div style="font-size:14px;font-weight:700;color:#c0392b;">🚫 BLOCKED — Step 3 (Mike)</div>
+
           <div style="font-size:12px;color:#666;margin-top:4px;">Child Life without Employee Life. Plan Dependency also catches this at the UI.</div>
+
         </td>
       </tr>
     </table>
@@ -491,7 +584,9 @@ The formula doesn't know in advance how many enrollments exist or what order the
         </td>
         <td style="padding:10px 14px;border-bottom:none;vertical-align:middle;">
           <div style="font-size:14px;font-weight:700;color:#e67e22;">🚫 BLOCKED — Step 4 (Lisa)</div>
+
           <div style="font-size:12px;color:#666;margin-top:4px;">Both enrolled but <strong>$150K > $100K</strong>. Child coverage exceeds employee coverage. <em>Only the formula catches this — no configuration can compare amounts.</em></div>
+
         </td>
       </tr>
     </table>
@@ -524,6 +619,7 @@ Here's the full Post Election Edit formula. I'll break it into blocks below.
 
 <div class="cbl">
   <div class="ch">XX_VOL_LIFE_CROSS_PLAN_EDIT — Post Election Edit</div>
+
   <pre>
 <span class="l"><span class="c">/*************************************************************</span></span>
 <span class="l"><span class="c">FORMULA NAME : XX_VOL_LIFE_CROSS_PLAN_EDIT</span></span>
@@ -704,6 +800,7 @@ Here's what the log looks like for Mike — dropping Employee Life but keeping C
 
 <div class="cbl">
   <div class="ch">ESS Log — Mike: Child Life Without Employee Life (Blocked — Step 3)</div>
+
   <pre>
 <span class="l"><span class="s">l_event_dt is 04/10/2025</span><span class="lbl lbl-log">LOG</span></span>
 <span class="l"><span class="s">l_cvg_eff_date is 07/01/2025</span>          <span class="c">/* 2-month wait → Jul 1 */</span></span>
@@ -720,6 +817,7 @@ And for Lisa — both plans enrolled but Child Life amount exceeds Employee Life
 
 <div class="cbl">
   <div class="ch">ESS Log — Lisa: Child Amount Exceeds Employee (Blocked — Step 4)</div>
+
   <pre>
 <span class="l"><span class="s">l_event_dt is 03/20/2025</span><span class="lbl lbl-log">LOG</span></span>
 <span class="l"><span class="s">l_cvg_eff_date is 06/01/2025</span>          <span class="c">/* 2-month wait → Jun 1 */</span><span class="lbl lbl-log">LOG</span></span>
@@ -736,6 +834,7 @@ And for Sarah — existing Employee Life, adding Child Life within limits, event
 
 <div class="cbl">
   <div class="ch">ESS Log — Sarah: Both Plans, Amounts OK (Allowed)</div>
+
   <pre>
 <span class="l"><span class="s">l_event_dt is 01/01/2025</span><span class="lbl lbl-log">LOG</span></span>
 <span class="l"><span class="s">l_cvg_eff_date is 02/01/2025</span>          <span class="c">/* event on 1st → next month */</span></span>
@@ -752,11 +851,13 @@ The formula logs at every key stage: the life event date, the calculated effecti
 
 <div class="cb yellow">
   <div class="cb-t">Debugging Tip</div>
+
   <p>If the formula is blocking elections that should be allowed, add <code>ESS_LOG_WRITE('Plan[' || TO_CHAR(i) || '] = ' || BEN_PEN_PL_NAME_TN[i])</code> inside the loop. This prints every plan in the array. The most common issue is a plan name mismatch — the formula checks for <code>'Voluntary Employee Life and AD&D'</code> but the plan is configured as <code>'Voluntary Employee Life & AD&D'</code> (ampersand vs "and"). One character difference and the flag never gets set.</p>
 </div>
 
 <div class="cb yellow">
   <div class="cb-t">Edge Case — Zero Amounts</div>
+
   <p>If <code>BEN_PEN_BNFT_AMT_NN</code> returns the default value <code>0</code> for both plans (missing data, configuration issue, or non-monetary plan), the comparison <code>0 > 0</code> evaluates to FALSE — so the formula passes the employee through. This is intentional: <strong>don't block elections when you can't determine amounts.</strong> If your business requires blocking on zero amounts, add an explicit check: <code>IF (l_child_amt = 0 OR l_emp_amt = 0) THEN</code> with a separate error message.</p>
 </div>
 
@@ -764,6 +865,7 @@ The formula logs at every key stage: the life event date, the calculated effecti
 
 <div class="cb blue">
   <div class="cb-t">About the Code Labels</div>
+
   <p>The colored labels in the formula code (<code style="background:#c0392b;color:#fff;padding:1px 5px;border-radius:2px;font-size:10px;">REQUIRED</code> <code style="background:#c0392b;color:#fff;padding:1px 5px;border-radius:2px;font-size:10px;">CONTEXT</code> <code style="background:#c0392b;color:#fff;padding:1px 5px;border-radius:2px;font-size:10px;">LOG</code> <code style="background:#c0392b;color:#fff;padding:1px 5px;border-radius:2px;font-size:10px;">STEP 1</code> etc.) are <strong>blog annotations only</strong> — they highlight what each line does. <strong>Strip them before pasting into the formula editor.</strong> The formula editor will reject any text that isn't valid Fast Formula syntax.</p>
 </div>
 
@@ -828,6 +930,7 @@ Three things to watch when adapting this formula: <strong>(1)</strong> plan and 
 
 <div class="cb blue">
   <div class="cb-t">A Note on the Formula</div>
+
   <p>The formula in this post is based on a production Post Election Edit formula from a US Oracle HCM Cloud implementation. Plan and option names are unchanged to illustrate the exact-match sensitivity — in your implementation, replace them with your configured plan and option names. The waiting period logic, CHANGE_CONTEXTS pattern, and array DBI loop structure are reusable across any cross-plan dependency scenario.</p>
 </div>
 
@@ -837,7 +940,9 @@ Three things to watch when adapting this formula: <strong>(1)</strong> plan and 
   <img src="data:image/jpeg;base64,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" style="width:46px;height:46px;border-radius:50%;object-fit:cover;flex-shrink:0;" alt="Abhishek Mohanty">
   <div>
     <div class="name">Abhishek Mohanty</div>
+
     <div class="role">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div>
+
   </div>
 </div>
 
