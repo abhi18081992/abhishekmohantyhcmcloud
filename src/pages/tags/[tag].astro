@@ -95,6 +95,16 @@ const primaryCategory = (tags: string[], title: string): string => {
   if (all.includes('benefit')) return 'Benefits';
   if (all.includes('recruit')) return 'Recruiting';
   if (all.includes('absence')) return 'Absence';
+  if (
+    all.includes('time and labor') ||
+    all.includes('time & labor') ||
+    all.includes('time entry rule') ||
+    all.includes('time calculation rule') ||
+    all.includes('timecard') ||
+    /\btcr\b/.test(all) ||
+    /\bter\b/.test(all)
+  ) return 'Time & Labor';
+  if (all.includes('null') || all.includes('defaulted')) return 'Null Handling';
   if (tags.length > 0) return tags[0];
   return 'Fast Formula';
 };
@@ -105,12 +115,15 @@ const currentSlug = Astro.params.tag;
 <BaseLayout title={tag} description={`Posts about ${tag}`}>
   <section class="container articles">
     <header class="articles-header">
-      <h1>Articles</h1>
-      <p class="articles-sub">Technical guides, deep-dives, and practical solutions.</p>
+      <h1>{tag}</h1>
+      <p class="articles-sub">
+        {posts.length} {posts.length === 1 ? 'article' : 'articles'} in this category.
+      </p>
     </header>
 
     <nav class="filter-row" aria-label="Categories">
       <a href="/" class="pill-outline">All</a>
+      <a href="/tags/otl" class={currentSlug === 'otl' ? 'pill-outline is-active' : 'pill-outline'}>OTL</a>
       <a href="/tags/fast-formula" class={currentSlug === 'fast-formula' ? 'pill-outline is-active' : 'pill-outline'}>Fast Formula</a>
       <a href="/tags/benefits" class={currentSlug === 'benefits' ? 'pill-outline is-active' : 'pill-outline'}>Benefits</a>
       <a href="/tags/hdl" class={currentSlug === 'hdl' ? 'pill-outline is-active' : 'pill-outline'}>HDL</a>
