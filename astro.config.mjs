@@ -8,5 +8,5 @@ export default defineConfig({
     rehypePlugins: [rehypeRaw],
     shikiConfig: { theme: 'github-light', wrap: true },
   },
-  build: { format: 'directory' },
+  build: { format: 'directory', inlineStylesheets: 'always' },
 });
