@@ -13,7 +13,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="band">
         <div class="band-grid">
           <div>
-            <div class="eyebrow">About</div>
+            <div class="ab-eyebrow">About</div>
             <h1>Abhishek Mohanty</h1>
             <div class="role">Oracle HCM Cloud Technical Architect</div>
 
@@ -247,11 +247,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);
     gap:36px;align-items:start;padding:36px 34px 32px;
   }
-  .eyebrow{
+  .ab-eyebrow{
+    background:none;padding:0;border-radius:0;      /* beat global .eyebrow pill */
     font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
     color:var(--ab-orange-dp);margin-bottom:14px;display:flex;align-items:center;gap:12px;
   }
-  .eyebrow::after{
+  .ab-eyebrow::after{
     content:'';height:2px;flex:1;max-width:120px;border-radius:2px;
     background:linear-gradient(90deg,var(--ab-orange),transparent);
   }
