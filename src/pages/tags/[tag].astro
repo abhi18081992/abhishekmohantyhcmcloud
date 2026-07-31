@@ -12,6 +12,7 @@ export async function getStaticPaths() {
   // Add a few "category" slugs that may not exist as exact tags but should fuzzy-match
   const fuzzyCategories = [
     'Fast Formula',
+    'OTL',
     'Benefits',
     'HDL',
     'Recruiting',
@@ -19,23 +20,48 @@ export async function getStaticPaths() {
     'Absence Management',
     'Time and Labor',
   ];
+
+  // Category aliases — one chip gathers several underlying tags and title keywords.
+  // Used for umbrella categories that don't exist as a literal tag on every post.
+  const categoryAliases: Record<string, string[]> = {
+    OTL: [
+      'otl',
+      'time & labor',
+      'time and labor',
+      'time entry rule',
+      'time calculation rule',
+      'timecard',
+      'tcr deep dive',
+    ],
+  };
   for (const c of fuzzyCategories) tagSet.add(c);
 
   return Array.from(tagSet).map((tag) => {
     const slug = tag.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     const needle = tag.toLowerCase();
+    const aliases = categoryAliases[tag];
 
-    // Try exact tag match first
-    let matched = posts.filter((p) =>
-      p.data.tags.some((t) => t.toLowerCase() === needle)
-    );
+    let matched;
 
-    // Fallback: substring match against tags + title
-    if (matched.length === 0) {
+    if (aliases) {
+      // Umbrella category: union match across every alias, tags + title
       matched = posts.filter((p) => {
         const haystack = (p.data.tags.join(' ') + ' ' + p.data.title).toLowerCase();
-        return haystack.includes(needle);
+        return aliases.some((a) => haystack.includes(a));
       });
+    } else {
+      // Try exact tag match first
+      matched = posts.filter((p) =>
+        p.data.tags.some((t) => t.toLowerCase() === needle)
+      );
+
+      // Fallback: substring match against tags + title
+      if (matched.length === 0) {
+        matched = posts.filter((p) => {
+          const haystack = (p.data.tags.join(' ') + ' ' + p.data.title).toLowerCase();
+          return haystack.includes(needle);
+        });
+      }
     }
 
     matched.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
