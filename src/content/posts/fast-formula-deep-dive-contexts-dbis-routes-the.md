@@ -39,7 +39,7 @@ A **Context** is a predefined parameter the engine passes to your formula at run
 
 Context determines the **who** and **when** of your formula. When a Database Item like `PER_ASG_REL_ORIGINAL_DATE_OF_HIRE` returns a hire date — whose hire date? The context answers that.
 
-```text
+```plsql
 l_person_id     = GET_CONTEXT(PERSON_ID, 0)
 l_assignment_id = GET_CONTEXT(HR_ASSIGNMENT_ID, 0)
 ```
@@ -56,7 +56,7 @@ Because they aren't in Oracle's metadata tables, **you cannot query the database
 
 They're declared with `INPUTS ARE` and conventionally prefixed `IV_`:
 
-```text
+```plsql
 INPUTS ARE
   IV_ACCRUAL,
   IV_ACCRUALPERIODSTARTDATE (DATE),
@@ -116,7 +116,7 @@ The **Return Variable** is what your formula sends back to the calling process. 
 
 **Pattern 3 — multiple named variables.** When returning several values, as in a Total Compensation Item formula, each has its own name — one for date, one for value, one for assignment ID, one for legal employer. Order doesn't matter; the engine maps by name.
 
-```text
+```plsql
 /* Pattern 1 — name is free */
 RETVAL = 'Y'
 RETURN RETVAL

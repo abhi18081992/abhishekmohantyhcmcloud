@@ -6,7 +6,7 @@ export default defineConfig({
   markdown: {
     allowDangerousHtml: true,
     rehypePlugins: [rehypeRaw],
-    shikiConfig: { theme: 'github-light', wrap: true },
+    shikiConfig: { theme: 'dark-plus', wrap: true },
   },
   build: { format: 'directory', inlineStylesheets: 'always' },
 });
