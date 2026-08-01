@@ -62,7 +62,10 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ── Nav / Header ────────────────────────────────────────────── */
-header {
+/* Scoped to the site nav. A bare `header` selector also matched
+   <header class="post-header"> inside articles, making the article
+   title block sticky and eating half the viewport. */
+.site-header {
   position: sticky;
   top: 0;
   z-index: 100;
@@ -71,7 +74,7 @@ header {
   border-bottom: 1px solid var(--border);
 }
 
-header nav {
+.site-header nav {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 24px;
