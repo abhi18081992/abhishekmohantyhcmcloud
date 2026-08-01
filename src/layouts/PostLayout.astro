@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import type { CollectionEntry } from 'astro:content';
+import TrainingCTA from '../components/TrainingCTA.astro';
 interface Props {
   post: CollectionEntry<'posts'>;
 }
@@ -44,6 +45,9 @@ const tagColor = (tag: string): string => {
     </header>
     <div class="post-body prose-container">
       <slot />
+    </div>
+    <div class="prose-container">
+      <TrainingCTA />
     </div>
     <footer class="post-footer prose-container">
       <a href="/" class="back-link">← Back to all articles</a>

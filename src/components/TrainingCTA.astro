@@ -1,0 +1,170 @@
+---
+const EMAIL = 'abhishek.mohantyoracle@gmail.com';
+---
+
+<aside class="tcta" aria-labelledby="tcta-heading">
+  <div class="tcta-flag">
+    <span class="tcta-dot" aria-hidden="true"></span>
+    Training &amp; Support
+  </div>
+
+  <div class="tcta-body">
+    <h2 id="tcta-heading">Stuck on something like this in your own instance?</h2>
+    <p>
+      I run training and one-to-one support on Fast Formula, Absence, Time &amp; Labor,
+      HDL, BI Publisher, OTBI, SQL and OIC — built from production rollouts, not courseware.
+    </p>
+
+    <div class="tcta-topics">
+      <span>Fast Formula</span><span>HDL</span><span>BI Publisher</span>
+      <span>OTBI</span><span>SQL</span><span>OIC</span><span>Interview prep</span>
+    </div>
+
+    <div class="tcta-actions">
+      <a class="tcta-btn" href="/training">See what's covered →</a>
+      <a class="tcta-mail" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+    </div>
+  </div>
+</aside>
+
+<style>
+  .tcta {
+    position: relative;
+    margin: 3rem 0 1rem;
+    background: linear-gradient(150deg, #04294F 0%, #063B6B 55%, #0A4A80 100%);
+    border-radius: 14px;
+    padding: 26px 28px 24px;
+    overflow: hidden;
+    color: #E8EEF6;
+  }
+  /* accent rule across the top — the one bright thing */
+  .tcta::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    background: linear-gradient(90deg, #F07818 0%, #FFA24D 45%, #F07818 100%);
+  }
+  /* soft glow bottom-right so the block has depth */
+  .tcta::after {
+    content: '';
+    position: absolute;
+    right: -80px;
+    bottom: -110px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,120,24,.20), transparent 68%);
+    pointer-events: none;
+  }
+
+  .tcta-flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #FFB870;
+    margin-bottom: 14px;
+  }
+  .tcta-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #F07818;
+    box-shadow: 0 0 0 0 rgba(240,120,24,.6);
+    animation: tctaPulse 2.4s ease-out infinite;
+  }
+  @keyframes tctaPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(240,120,24,.55); }
+    70%  { box-shadow: 0 0 0 9px rgba(240,120,24,0); }
+    100% { box-shadow: 0 0 0 0 rgba(240,120,24,0); }
+  }
+
+  .tcta-body { position: relative; z-index: 1; }
+
+  .tcta h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -.028em;
+    line-height: 1.25;
+    color: #FFFFFF;
+    margin: 0 0 8px;
+  }
+  .tcta p {
+    font-size: .875rem;
+    line-height: 1.62;
+    color: #B7C8DA;
+    margin: 0 0 16px;
+    max-width: 62ch;
+  }
+
+  .tcta-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  .tcta-topics span {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    color: #CFE0F0;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 999px;
+    padding: 4px 11px;
+    white-space: nowrap;
+  }
+
+  .tcta-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .tcta-btn {
+    display: inline-flex;
+    align-items: center;
+    background: #F07818;
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    text-decoration: none;
+    padding: 11px 20px;
+    border-radius: 999px;
+    transition: background .18s ease, transform .18s ease;
+  }
+  .tcta-btn:hover {
+    background: #FF8C33;
+    transform: translateY(-1px);
+  }
+  .tcta-mail {
+    font-size: 12.5px;
+    color: #9FB6CC;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(159,182,204,.35);
+    padding-bottom: 1px;
+    word-break: break-all;
+    transition: color .18s ease, border-color .18s ease;
+  }
+  .tcta-mail:hover {
+    color: #FFB870;
+    border-color: rgba(255,184,112,.6);
+  }
+
+  @media (max-width: 560px) {
+    .tcta { padding: 22px 20px 20px; border-radius: 12px; }
+    .tcta h2 { font-size: 1.05rem; }
+    .tcta-btn { width: 100%; justify-content: center; }
+    .tcta-mail { width: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tcta-dot { animation: none; }
+    .tcta-btn { transition: none; }
+  }
+</style>
