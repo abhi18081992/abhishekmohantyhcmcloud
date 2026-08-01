@@ -5,9 +5,13 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-brand">
-      <a href="/" class="brand">
-        <span class="brand-mark">AM</span>
-        <span class="brand-name">Abhishek Mohanty</span>
+      <a href="/" class="brand" aria-label="Abhishek Mohanty — Oracle Fusion Applications, home">
+        <img
+          class="brand-logo"
+          src="/images/brand/logo-lockup.png"
+          alt="Abhishek Mohanty — Oracle Fusion Applications"
+          width="620" height="247"
+        />
       </a>
       <p class="bio">
         Oracle HCM Cloud Technical Lead. <strong>Oracle ACE Associate</strong> and member of the
@@ -40,6 +44,11 @@ const year = new Date().getFullYear();
     grid-template-columns: 1.5fr 1fr;
     gap: 2.5rem;
     padding-bottom: 1.5rem;
+  }
+  .brand-logo {
+    display: block;
+    height: 52px;
+    width: auto;
   }
   .footer-brand .brand {
     display: flex;
