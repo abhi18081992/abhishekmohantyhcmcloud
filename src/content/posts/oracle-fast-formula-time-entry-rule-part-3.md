@@ -27,7 +27,7 @@ Five blocks of scaffolding run once at the top of the formula, before the loop t
 
 ### Block 1 — Crash Prevention
 
-```text
+```plsql
 DEFAULT FOR RECORD_POSITIONS IS EMPTY_TEXT_NUMBER
 DEFAULT FOR measure          IS EMPTY_NUMBER_NUMBER
 DEFAULT FOR PayrollTimeType  IS EMPTY_TEXT_NUMBER
@@ -54,7 +54,7 @@ Pick the wrong constant and you get a type-mismatch at compile time — loud and
 
 ### Block 2 — Self-Identification
 
-```text
+```plsql
 ffName  = 'XX_TER_CONTINUOUS_HOURS_VALIDATION'
 ffs_id  = GET_CONTEXT(HWM_FFS_ID, 0)
 rule_id = GET_CONTEXT(HWM_RULE_ID, 0)
@@ -71,7 +71,7 @@ The two sentinels solve a Fast Formula quirk: **once an array slot exists, it mu
 
 ### Block 3 — Single Context Wrap
 
-```text
+```plsql
 CHANGE_CONTEXTS(HR_ASSIGNMENT_ID = HWM_PER_ASG_ASSIGNMENT_ID)
 (
   /* the entire formula body lives inside this block */
@@ -154,7 +154,7 @@ Every timecard row falls into one of five paths based on two questions: *is this
 
 #### 6a — Defensive reads
 
-```text
+```plsql
 IF (RECORD_POSITIONS.exists(nidx)) THEN
   aiRecPos = RECORD_POSITIONS[nidx]
 IF (PayrollTimeType.exists(nidx)) THEN
@@ -171,7 +171,7 @@ Every read populates a local `ai*` variable rather than working off the input di
 
 #### 6b — Qty-only detection
 
-```text
+```plsql
 IF (aiTimeType = p_reg_type
     AND aiStartTime <> NullDate
     AND aiStopTime <> NullDate) THEN
@@ -194,7 +194,7 @@ The flag doesn't fire an error itself. It changes how three later blocks treat t
 
 #### 6c — The hard requirement
 
-```text
+```plsql
 IF (aiTimeType = p_reg_type
     AND (aiStartTime = NullDate
          OR aiStopTime = NullDate
@@ -211,7 +211,7 @@ This is the only validation in the formula demanding both punches. The asymmetry
 
 #### 6d — Buffer for overlap
 
-```text
+```plsql
 IF (aiTimeType = p_reg_type
     AND l_qty_only = 'N'
     AND aiStartTime <> NullDate
@@ -227,7 +227,7 @@ This block fires no errors. It collects evidence for Block 7's overlap test. Wha
 
 #### 6e — Schedule window
 
-```text
+```plsql
 IF (aiTimeType = p_break_type
     AND aiStartTime <> NullDate) THEN
 ( bk_st = TO_NUMBER(TO_CHAR(aiStartTime, 'HH24'))
@@ -261,7 +261,7 @@ Block 7 is the only block that runs conditionally. Blocks 6 and 8 fire on every 
 
 ### The pairwise loop
 
-```text
+```plsql
 i = 1
 WHILE (i < dayCnt) LOOP (
   j = i + 1
@@ -281,7 +281,7 @@ This is a case where understanding the data shape matters more than understandin
 
 ### The intersection test
 
-```text
+```plsql
 IF (dayStarts[i] < dayStops[j]
     AND dayStarts[j] < dayStops[i]) THEN
 ( flagIdx = dayIdxs[j]

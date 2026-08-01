@@ -59,7 +59,7 @@ The plan ID is read from a rule input parameter. The person ID is available in t
 
 `CHANGE_CONTEXTS` temporarily overrides context values for the duration of a block. The function inside the block reads under the specified context; when the block ends, the original context is restored:
 
-```text
+```plsql
 CHANGE_CONTEXTS(
   EFFECTIVE_DATE = l_period_end_date,
   LEGISLATIVE_DATA_GROUP_ID = l_ldg_id
@@ -104,7 +104,7 @@ The failure is silent because Fast Formula never sees the difference — both va
 
 Once the correct claimed balance is in `l_claimed_ot`, the delta is arithmetic. But the arithmetic has to handle two edge cases: over-allocated (delta > 0, push the delta) and under-allocated (delta < 0, unusual but possible after adjustments):
 
-```text
+```plsql
 l_total_allocated_ot = Out_Measure_OT_150_Hours + Out_Measure_OT_200_Hours
                      + Out_Measure_OT_150_Night_Hours + Out_Measure_OT_200_Night_Hours
 

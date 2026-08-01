@@ -25,7 +25,7 @@ This is the heart of the formula. The rule says *no worker shall log more than 6
 
 ### Block 8a — The Gate
 
-```text
+```plsql
 IF (aiTimeType = p_reg_type
     AND aiStartTime <> NullDate
     AND aiStopTime <> NullDate
@@ -44,7 +44,7 @@ Conditions 2 and 3 are technically redundant after Block 6c already flagged miss
 
 ### Block 8b — EXTEND and RESTART
 
-```text
+```plsql
 IF (inStretch = 'N') THEN
 ( stretchStart = aiStartTime
   stretchEnd   = aiStopTime
@@ -77,7 +77,7 @@ But the default should be strict.
 
 ### Block 8c — Cross-Midnight Arithmetic
 
-```text
+```plsql
 endMins = TO_NUMBER(TO_CHAR(stretchEnd, 'J'))*1440
         + TO_NUMBER(TO_CHAR(stretchEnd, 'HH24'))*60
         + TO_NUMBER(TO_CHAR(stretchEnd, 'MI'))
@@ -99,7 +99,7 @@ The cost of including it is one extra character per call. The pattern generalise
 
 ### Block 8d — Threshold Checks
 
-```text
+```plsql
 IF (contHrs > p_max_cont_err
     AND l_day <> 'SAT'
     AND l_day <> 'SUN'

@@ -115,7 +115,7 @@ Both return a number. Fast Formula requires every expression to be assigned, so 
 
 ### The two required contexts
 
-```text
+```plsql
 ffs_id  = GET_CONTEXT(HWM_FFS_ID, 0)
 rule_id = GET_CONTEXT(HWM_RULE_ID, 0)
 ```
@@ -171,7 +171,7 @@ Setting the profile is necessary but not sufficient. The user viewing Analyze Ru
 
 The smallest TER formula that produces useful logs. Deploy this first after enabling `Finest`. If you save a timecard and see these lines, every link in the chain works.
 
-```text
+```plsql
 /******************************************************************
   FORMULA: MY_TER_LOG_TEST
   TYPE   : Time Entry Rule
@@ -235,7 +235,7 @@ The Summation Level changes *what the engine sends* to the formula, so the code 
 
 **Day summation** is the simpler pattern:
 
-```text
+```plsql
 WHILE (nidx < wMaAry) LOOP
 (
   nidx = nidx + 1
@@ -257,7 +257,7 @@ WHILE (nidx < wMaAry) LOOP
 
 **Time card summation** adds exactly two blocks the Day pattern doesn't need:
 
-```text
+```plsql
 WHILE (nidx < wMaAry) LOOP
 (
   nidx = nidx + 1
@@ -299,7 +299,7 @@ The DETAIL processing is identical between the two. Start with Day; add these tw
 
 Once logging works, build on this. It adds runaway-loop protection, header-attribute readback, parameter logging, and explicit business-logic placement. The formula and parameter names are placeholders; the Oracle-defined names must stay exactly as shown.
 
-```text
+```plsql
 /* A. DEFAULTS */
 DEFAULT FOR HWM_CTXARY_RECORD_POSITIONS IS EMPTY_TEXT_NUMBER
 DEFAULT FOR HWM_CTXARY_HWM_MEASURE_DAY  IS EMPTY_NUMBER_NUMBER
@@ -383,7 +383,7 @@ TCR formulas calculate or reclassify hours — they don't validate. At `Details`
 
 ### Minimal TCR logging skeleton
 
-```text
+```plsql
 /******************************************************************
   FORMULA: MY_TCR_LOG_TEST
   TYPE   : Time Calculation Rule (Create · Details)
@@ -414,7 +414,7 @@ RETURN
 
 ### Production-ready TCR skeleton (Create · Threshold)
 
-```text
+```plsql
 /* A. DEFAULTS */
 DEFAULT FOR HWM_CTXARY_RECORD_POSITIONS  IS EMPTY_TEXT_NUMBER
 DEFAULT FOR HWM_CTXARY_HWM_MEASURE_DAY   IS EMPTY_NUMBER_NUMBER
@@ -524,7 +524,7 @@ Sample output:
 
 If you've done everything right and still see nothing, push diagnostic data straight into the validation message that surfaces on the timecard. The output variable name varies by template — some Oracle samples use `out_msg_ary` rather than `OUT_MSG`. Check your template's output spec first.
 
-```text
+```plsql
 /* DEBUG MODE — push diagnostic payload into the user-facing message */
 OUT_MSG[1] = 'DEBUG: idx=1 type=' || aiType || ' qty=' || to_char(aiMeasure)
 RETURN OUT_MSG

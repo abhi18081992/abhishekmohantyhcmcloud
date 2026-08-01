@@ -27,7 +27,7 @@ The RETURN story is straightforward — the formula names its outputs in a decla
 
 `ADD_RLOG` is OTL's dedicated logging function. It takes three arguments: the *formula-setup ID*, the *rule ID*, and the *message string*. The two IDs are context variables OTL populates automatically — `HWM_FFS_ID` and `HWM_RULE_ID` — so you just pass them through. The message string is whatever you want to see, typically a labeled variable dump:
 
-```text
+```plsql
 ADD_RLOG(HWM_FFS_ID, HWM_RULE_ID,
          'nidx=' || TO_CHAR(nidx) ||
          ' | l_total=' || TO_CHAR(l_total) ||
@@ -77,7 +77,7 @@ This matters mainly for adjacent rules (Time Entry Validation, some Time Card Ap
 
 Force the formula to fail deliberately, embedding your debug string inside the error message. The timecard entry gets rejected, the message shows up in the validation error UI, and you see the values you wanted:
 
-```text
+```plsql
 /* Force failure with debug info in the error message */
 VALID = 'N'
 ERROR_MESSAGE = 'DEBUG: nidx=' || TO_CHAR(nidx) ||
@@ -107,7 +107,7 @@ The forced-fail row works, but it's a debugging technique, not a production patt
 
 Everything the formula computes lives in local variables and output arrays through the body. The `RETURN` statement at the bottom is what actually hands those values off to the payroll formulas waiting upstream. The syntax is minimal — `RETURN` followed by a comma-separated list of every output variable the formula's declaration block promised:
 
-```text
+```plsql
 RETURN
   /* Absence bundle */
   Out_Abs_Cd, Out_Abs_Hours,

@@ -54,7 +54,7 @@ The tiers are independent, not sequential. Tier 5 doesn't check whether tier 4 f
 
 The obvious refactor a developer new to Fast Formula reaches for looks like this:
 
-```text
+```plsql
 /* ❌ This is not possible in Fast Formula */
 l_i = 1
 WHILE (l_i <= 12) LOOP
@@ -109,7 +109,7 @@ The counter is monotonic. Once the counter reaches a value, it never decreases (
 
 Twelve unrolled tiers in one END_PERIOD block. The pattern is deliberately identical across tiers — same shape, same structure, only the numeric constant and the trigger name change:
 
-```text
+```plsql
 IF (aiRecPosition = 'END_PERIOD') THEN
 (
   IF (l_ot_counter >= 1)  THEN Out_OT_Trigger_1  = 'Y'

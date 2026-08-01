@@ -25,7 +25,7 @@ A short worked example runs through the post: three timecard entries on a single
 
 Everything you know about `nidx` in a TCR is what your own code puts there. OTL doesn't populate it, doesn't reset it between iterations, doesn't increment it, doesn't check its bounds. It's a plain numeric local — the same kind you'd declare for `l_total` or `l_ot_counter`. The name is convention. You could call it `i`, `l_pos`, or anything else — the compiler doesn't care.
 
-```text
+```plsql
 /* nidx is initialised at the top of the DETAIL branch */
 nidx = 1
 
@@ -83,7 +83,7 @@ The parallel-indexing contract is the reason no single "current entry" object ex
 
 Fast Formula's `WHILE` has no auto-increment. There's no `FOR i IN 1..count` equivalent. The loop condition is checked, the body runs, the condition is checked again — and if nothing inside the body changed the condition, you're in an infinite loop. That's why the increment line at the bottom of the body is *mandatory*:
 
-```text
+```plsql
 nidx = 1
 
 WHILE (nidx <= Measure.count) LOOP
@@ -123,7 +123,7 @@ The obvious termination check is `nidx <= Measure.count` — perfect when every 
 
 Where `.exists()` earns its keep is on the **sparse** arrays. Some tracks — `AbsenceType` is the canonical example — only carry a value at the indices where that attribute applies. For a day of five worked entries and one absence entry, `AbsenceType` has one populated element and five gaps. Reading `AbsenceType[nidx]` at a gap position throws — unless you check first:
 
-```text
+```plsql
 IF (AbsenceType.exists(nidx)) THEN
 (
   l_absence_type = AbsenceType[nidx]
@@ -159,7 +159,7 @@ Part 4 introduced AbsenceType as the sparse track. The reason `.exists()` exists
 
 Pull it all together. The loop skeleton has four moving parts working in concert: **initialization** sets the index to 1, the **bounds check** decides whether to enter the body, the **slice-and-work** block reads the parallel arrays and does whatever the tier requires, and the **increment** at the bottom advances to the next entry.
 
-```text
+```plsql
 ① INITIALISATION
    nidx = 1
         │
@@ -191,7 +191,7 @@ This diagram is the shape of every DETAIL-phase iteration you write. The cascade
 
 A single line at the top of every DETAIL iteration solves ninety percent of production debugging. Log `nidx` alongside the slice values you care about — `l_measure`, `l_start_time`, `l_time_type`. When something goes wrong for entry #7 of an eleven-entry day, having nidx in the log tells you exactly which slice to reason about:
 
-```text
+```plsql
 ADD_RLOG(HWM_FFS_ID, HWM_RULE_ID,
          'ENTRY nidx=' || TO_CHAR(nidx) ||
          ' | measure=' || TO_CHAR(l_measure) ||

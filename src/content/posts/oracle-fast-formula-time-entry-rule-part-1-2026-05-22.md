@@ -88,7 +88,7 @@ Marker rows only fill `RECORD_POSITIONS`. The other arrays have no slot at those
 
 This is why every read in the formula is wrapped in a guard:
 
-```text
+```plsql
 IF (StartTime.exists(nidx)) THEN ( aiStartTime = StartTime[nidx] )
 ```
 
@@ -127,7 +127,7 @@ Once you see this split, the naming makes sense. The `HWM_CTXARY_` prefix is Ora
 | `END_DAY` | End of each day — trigger day-level work |
 | `END_PERIOD` | End of the whole timecard period |
 
-```text
+```plsql
 IF (HWM_CTXARY_RECORD_POSITIONS.exists(nidx)) THEN
   aiRecPos = HWM_CTXARY_RECORD_POSITIONS[nidx]
 
@@ -155,7 +155,7 @@ If a worker types just "8 hours" without entering punch times, OTL fills `StartT
 
 The most important routing decision in the formula:
 
-```text
+```plsql
 IF (PayrollTimeType.exists(nidx)) THEN
   aiTimeType = PayrollTimeType[nidx]
 
@@ -176,7 +176,7 @@ IF (aiTimeType = p_break_type) THEN
 | Qty-only detection | Start near `00:00` and stop near `23:59` → placeholder, not a real punch |
 | Continuous-hours math | Feed the `contHrs` calculation via Julian Day arithmetic |
 
-```text
+```plsql
 /* EXTEND vs RESTART */
 IF (aiStartTime = stretchEnd) THEN
   stretchEnd = aiStopTime      /* EXTEND */
@@ -245,7 +245,7 @@ Three reasons this matters beyond style.
 
 When debugging a TER formula in production, the first thing to check is the `HWM_CTXARY_RECORD_POSITIONS` array length. If `.count` is 0, the formula received nothing to validate — the bug is upstream in the OTL configuration, not in your formula logic. If `.count` is non-zero but no validations fire, your loop counter or your `.exists()` guards are wrong.
 
-```text
+```plsql
 rLog = add_rlog(ffs_id, rule_id,
                 '>>> Start bulk wMaAry=' || TO_CHAR(wMaAry))
 ```
