@@ -52,11 +52,13 @@ const EMAIL = 'abhishek.mohantyoracle@gmail.com';
         <div class="sec-kicker">Training</div>
         <h2>Learn the model, not the clicks</h2>
         <p class="sec-lead">
-          Sessions are built around real formulas and real data, and they assume you'll be
-          maintaining what you write. Delivered remotely, recorded if you want it.
+          Sessions are built around real formulas, real data and real integrations, and they
+          assume you'll be maintaining what you write. Delivered remotely, recorded if you
+          want it.
         </p>
       </div>
 
+      <div class="track">Fast Formula &amp; functional</div>
       <div class="grid">
         <article class="card">
           <div class="card-tag">Fast Formula</div>
@@ -113,6 +115,117 @@ const EMAIL = 'abhishek.mohantyoracle@gmail.com';
             output, and where each module actually writes its log.
           </p>
         </article>
+      </div>
+
+      <div class="track">Reporting, data &amp; integration</div>
+      <div class="grid">
+        <article class="card">
+          <div class="card-tag">HDL</div>
+          <h3>HCM Data Loader</h3>
+          <p>
+            File structure, business objects and discriminators, SourceSystemId and MERGE
+            behaviour, and reading the error log well enough to fix a failed load without
+            guessing.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-tag">BI Publisher</div>
+          <h3>BI Publisher reporting</h3>
+          <p>
+            Data models and SQL against the HCM schema, bursting, layout templates, secured
+            list views, and scheduling reports that keep working after a release.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-tag">OTBI</div>
+          <h3>OTBI analytics</h3>
+          <p>
+            Subject areas and how they join, folder and attribute selection, filters and
+            prompts, and where OTBI is the right tool versus where you should drop to BI
+            Publisher.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-tag">SQL</div>
+          <h3>SQL for HCM</h3>
+          <p>
+            Practical SQL against the HCM tables — joins, analytic functions, date-effective
+            rows and the <code>_F</code> table patterns that trip people up on their first
+            extract.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-tag">OIC</div>
+          <h3>Oracle Integration Cloud</h3>
+          <p>
+            Integration patterns for HCM — adapters, mappings, scheduled versus event-driven
+            flows, error handling and retries, and moving files in and out reliably.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-tag">End to end</div>
+          <h3>Putting it together</h3>
+          <p>
+            One realistic requirement carried through the whole stack: extract with SQL,
+            report in BI Publisher, load with HDL, integrate with OIC. This is where the
+            pieces stop feeling separate.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════ INTERVIEW PREP ══════════ -->
+    <section class="tr-shell sec">
+      <div class="sec-head">
+        <div class="sec-kicker">Interview preparation</div>
+        <h2>Built around the questions that actually get asked</h2>
+        <p class="sec-lead">
+          Oracle HCM interviews rarely test definitions. They test whether you've hit the
+          problem before — and whether you can explain what you did about it.
+        </p>
+      </div>
+
+      <div class="prep">
+        <article class="prep-card">
+          <h3>Module-by-module coverage</h3>
+          <p>
+            Fast Formula, HDL, BI Publisher, OTBI, SQL and OIC — the questions that come up
+            for each, and the follow-ups that come after your first answer.
+          </p>
+        </article>
+        <article class="prep-card">
+          <h3>Scenario questions</h3>
+          <p>
+            "A load failed for 200 of 5,000 rows — what do you check first?" The kind of
+            question where a memorised answer falls apart on the second sentence.
+          </p>
+        </article>
+        <article class="prep-card">
+          <h3>Mock interviews</h3>
+          <p>
+            Live, timed, with honest feedback afterwards on what was weak — including when
+            the problem is delivery rather than knowledge.
+          </p>
+        </article>
+        <article class="prep-card">
+          <h3>Your own project, explained</h3>
+          <p>
+            Most candidates lose points describing work they genuinely did. We rehearse
+            your actual rollouts into answers you can give under pressure.
+          </p>
+        </article>
+      </div>
+
+      <div class="prep-note">
+        <b>On outcomes.</b> I'll prepare you thoroughly and tell you honestly when you're
+        ready — but hiring decisions involve headcount, budget, timing and competition that
+        neither of us controls. What I can commit to is that you'll walk in knowing your
+        material, and that we keep working until you do.
       </div>
     </section>
 
@@ -330,6 +443,36 @@ const EMAIL = 'abhishek.mohantyoracle@gmail.com';
     padding:1px 5px;border-radius:4px;letter-spacing:-.02em;
   }
 
+  /* ── track label ── */
+  .track{
+    font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--tr-navy);margin:0 0 12px;display:flex;align-items:center;gap:10px;
+  }
+  .track:not(:first-of-type){margin-top:26px}
+  .track::after{
+    content:'';height:1px;flex:1;background:var(--tr-line);
+  }
+
+  /* ── interview prep ── */
+  .prep{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .prep-card{
+    background:var(--tr-surface);border:1px solid var(--tr-line);
+    border-left:3px solid var(--tr-blue);border-radius:12px;padding:18px 20px;
+    transition:border-color .2s ease,transform .2s ease;
+  }
+  .prep-card:hover{border-color:var(--tr-orange-edge);transform:translateY(-2px)}
+  .tr .prep-card h3{
+    font-family:var(--tr-f);font-size:13.5px;font-weight:700;color:var(--tr-navy);
+    letter-spacing:-.024em;margin:0 0 6px;
+  }
+  .prep-card p{font-size:12.5px;color:var(--tr-dim);line-height:1.62;margin:0}
+  .prep-note{
+    margin-top:16px;background:var(--tr-surface-2);
+    border:1px solid var(--tr-line);border-radius:12px;padding:16px 20px;
+    font-size:12.5px;color:var(--tr-dim);line-height:1.68;
+  }
+  .prep-note b{color:var(--tr-navy);font-weight:700}
+
   /* ── support rows ── */
   .rows{display:grid;gap:12px}
   .row{
@@ -379,6 +522,7 @@ const EMAIL = 'abhishek.mohantyoracle@gmail.com';
   }
   @media (max-width:700px){
     .grid{grid-template-columns:1fr}
+    .prep{grid-template-columns:1fr}
   }
   @media (max-width:600px){
     .tr-shell{padding:0 16px}
