@@ -1,972 +1,444 @@
 ---
-title: "How Oracle Fast Formula resolves ALIAS at compile time: statement order, reference-vs-snapshot semantics, CHANGE_CONTEXTS re-evaluation, and the three compiler errors."
+title: "Oracle Fast Formula ALIAS: How the Compiler Resolves Long DBI Names at Parse Time"
 pubDate: 2026-05-16
-description: "How Oracle Fast Formula resolves ALIAS at compile time: statement order, reference-vs-snapshot semantics, CHANGE_CONTEXTS re-evaluation, and the three..."
+description: "ALIAS is a compile-time reference, not a runtime variable — and that distinction decides whether your formula returns the right answer inside CHANGE_CONTEXTS. Statement order, what you can and cannot alias, reference-versus-snapshot semantics, WAS DEFAULTED compatibility, and the three compiler errors you'll actually hit."
 tags: ["Fast Formula", "Null Handling", "Oracle HCM Cloud"]
 author: "Abhishek Mohanty"
 draft: false
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The ALIAS Statement in Oracle Fast Formula — Compile-Time Reference, Statement Order, CHANGE_CONTEXTS Re-evaluation, and the Three Compiler Errors Every HCM Cloud Consultant Must Know</title>
-<style>
-:root{
---bg:#f5f3ef;
---page:#ffffff;
---text:#1f1d1b;
---soft:#5a5651;
---muted:#8a857f;
---rule:#dcd6cc;
---rule-soft:#e8e2d6;
---accent:#b73a2c;
---accent-soft:#f4ddd7;
---code-bg:#f0ece4;
---code-text:#3a3631;
---tbl-head:#5a1810;
---tbl-head-text:#f4ede0;
---tbl-zebra:#faf7f0;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{
-font-family:'Lato',Arial,Helvetica,sans-serif;
-background:var(--bg);
-color:var(--text);
-line-height:1.7;
-font-size:17px;
--webkit-font-smoothing:antialiased;
-}
-
-/* page container */
-.post{
-max-width:760px;
-margin:0 auto;
-background:var(--page);
-padding:54px 52px 64px;
-border-left:1px solid var(--rule);
-border-right:1px solid var(--rule);
-min-height:100vh;
-}
-
-/* ── HERO BLOCK ── */
-.pill-tags{
-display:flex;
-flex-wrap:wrap;
-gap:8px;
-margin-bottom:22px;
-}
-.pill{
-display:inline-block;
-padding:11px 18px;
-font-family:'Lato',Arial,Helvetica,sans-serif;
-font-size:12.5px;
-font-weight:700;
-color:#ffffff;
-text-transform:uppercase;
-letter-spacing:1.6px;
-border-radius:5px;
-line-height:1;
-white-space:nowrap;
-}
-.pill-red{background:#c2392b}
-.pill-navy{background:#1f2d3d}
-.pill-purple{background:#7e3da3}
-.pill-teal{background:#1a6b6b}
-.pill-amber{background:#a06814}
-h1.title{
-font-family:'Lato',Arial,Helvetica,sans-serif;
-font-size:36px;
-font-weight:800;
-line-height:1.2;
-letter-spacing:-0.5px;
-color:#2a0f0a;
-margin-bottom:14px;
-}
-.subtitle{
-font-family:'Lato',Arial,Helvetica,sans-serif;
-font-size:20px;
-font-weight:400;
-line-height:1.5;
-color:#5a4338;
-font-style:italic;
-margin-bottom:18px;
-}
-.meta{
-font-size:14px;
-color:var(--muted);
-margin-bottom:24px;
-letter-spacing:0.2px;
-}
-.meta .sep{margin:0 6px;color:var(--rule)}
-
-.lede{
-font-size:18px;
-line-height:1.65;
-color:var(--text);
-margin-bottom:28px;
-}
-
-/* ── BYLINE TABLE (the signature element) ── */
-table.byline{
-width:100%;
-border-collapse:collapse;
-margin:8px 0 36px;
-border:1px solid var(--rule);
-background:#fbf8f1;
-}
-table.byline td{
-padding:14px 18px;
-vertical-align:middle;
-}
-table.byline td.avatar{
-width:64px;
-text-align:center;
-background:var(--accent);
-color:#fff;
-font-weight:700;
-font-size:16px;
-letter-spacing:1.5px;
-border-right:1px solid var(--accent);
-font-family:'Lato',Arial,Helvetica,sans-serif;
-}
-table.byline td.name{font-size:14.5px;line-height:1.55}
-table.byline td.name strong{
-display:block;
-font-size:15.5px;
-color:#0e0c0a;
-margin-bottom:2px;
-font-weight:700;
-}
-table.byline td.name span{color:var(--soft);font-size:13.5px}
-
-/* ── BODY TYPOGRAPHY ── */
-h2{
-font-family:'Lato',Arial,Helvetica,sans-serif;
-font-size:25px;
-font-weight:700;
-line-height:1.3;
-letter-spacing:-0.3px;
-color:#9c2818;
-margin:42px 0 16px;
-padding-bottom:8px;
-border-bottom:2px solid #ead6c8;
-position:relative;
-}
-h2::after{
-content:'';
-position:absolute;
-left:0;
-bottom:-2px;
-width:54px;
-height:2px;
-background:#c2392b;
-}
-h3{
-font-family:'Lato',Arial,Helvetica,sans-serif;
-font-size:20px;
-font-weight:600;
-line-height:1.35;
-color:#1e3a5e;
-margin:32px 0 12px;
-}
-h4{
-font-family:'Lato',Arial,Helvetica,sans-serif;
-font-size:16px;
-font-weight:700;
-color:#b73a2c;
-margin:24px 0 10px;
-letter-spacing:0.1px;
-}
-p{margin-bottom:16px;line-height:1.7}
-strong{font-weight:700;color:#0e0c0a}
-em{font-style:italic}
-a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
-
-ul,ol{margin:0 0 18px 22px}
-li{margin-bottom:7px;line-height:1.65}
-
-/* ── INLINE CODE ── */
-code{
-font-family:'JetBrains Mono',monospace;
-font-size:0.86em;
-background:var(--code-bg);
-color:#7a2618;
-padding:1.5px 6px;
-border-radius:2px;
-font-weight:500;
-letter-spacing:-0.3px;
-}
-h1 code,h2 code,h3 code,h4 code{font-size:0.78em;background:var(--accent-soft)}
-
-/* ── CODE BLOCKS — simple indented look ── */
-.codeblock{
-background:var(--code-bg);
-border-left:3px solid var(--rule);
-padding:16px 20px;
-margin:18px 0;
-font-family:'JetBrains Mono',monospace;
-font-size:13.5px;
-line-height:1.7;
-color:var(--code-text);
-overflow-x:auto;
-white-space:pre;
-border-radius:2px;
-}
-.codeblock .cm{color:#9a8a78;font-style:italic}
-.codeblock .kw{color:#7a2618;font-weight:600}
-.codeblock .st{color:#7a5a18}
-.codeblock .nm{color:#a04020}
-
-/* ── REFERENCE TABLES (signature element) ── */
-.tblwrap{margin:22px 0;overflow-x:auto}
-table.ref{
-width:100%;
-border-collapse:collapse;
-border:1px solid var(--rule);
-background:var(--page);
-font-size:14.5px;
-line-height:1.55;
-}
-table.ref th{
-background:var(--tbl-head);
-color:var(--tbl-head-text);
-text-align:left;
-padding:11px 16px;
-font-weight:600;
-font-size:13.5px;
-letter-spacing:0.2px;
-}
-table.ref td{
-padding:11px 16px;
-border-top:1px solid var(--rule);
-vertical-align:top;
-color:var(--text);
-}
-table.ref tr:nth-child(even) td{background:var(--tbl-zebra)}
-table.ref td code{font-size:0.92em}
-table.ref td strong{color:#0e0c0a}
-
-/* Single-column reference table with title row */
-table.ref.single th{font-style:italic;font-weight:600}
-table.ref.single td:only-child{padding:11px 16px}
-
-/* Step row — flex layout for reliable pill alignment */
-table.ref td .step-row{
-display:flex;
-align-items:flex-start;
-gap:14px;
-}
-table.ref td .step-row .step-num{
-flex-shrink:0;
-display:inline-block;
-font-family:'JetBrains Mono',monospace;
-font-size:11.5px;
-font-weight:700;
-color:#ffffff;
-background:#9c2818;
-padding:5px 11px;
-border-radius:3px;
-letter-spacing:0.8px;
-white-space:nowrap;
-line-height:1.3;
-min-width:74px;
-text-align:center;
-}
-table.ref td .step-row .step-body{
-flex:1;
-line-height:1.65;
-padding-top:1px;
-}
-table.ref td .step-row .step-body code{font-size:0.9em}
-
-/* ── HR DIVIDER ── */
-hr{
-border:none;
-border-top:1px solid var(--rule);
-margin:32px 0;
-position:relative;
-}
-
-/* ── INLINE NOTE / ITALIC PULL ── */
-.italic-note{
-font-style:italic;
-color:var(--soft);
-font-size:15.5px;
-margin:18px 0;
-padding-left:18px;
-border-left:2px solid var(--rule);
-line-height:1.65;
-}
-
-/* ── ERROR DISPLAY ── */
-.error-line{
-font-family:'JetBrains Mono',monospace;
-font-size:13px;
-background:#2c2925;
-color:#f4a8a0;
-padding:11px 16px;
-border-radius:2px;
-margin:10px 0 18px;
-font-style:italic;
-line-height:1.55;
-}
-.error-line::before{
-content:'FF Compile Error  ';
-font-style:normal;
-font-weight:700;
-color:#f4ede0;
-font-size:11px;
-letter-spacing:1px;
-text-transform:uppercase;
-}
-
-/* ── TAGS AT FOOTER ── */
-.tags{
-margin:34px 0 0;
-padding-top:20px;
-border-top:1px solid var(--rule);
-font-size:14px;
-}
-.tags a{
-color:var(--accent);
-text-decoration:none;
-margin-right:14px;
-letter-spacing:0.1px;
-}
-.tags a:hover{text-decoration:underline}
-
-/* mobile */
-@media(max-width:680px){
-.post{padding:32px 22px 48px;border-left:none;border-right:none}
-h1.title{font-size:27px}
-.subtitle{font-size:17px}
-h2{font-size:22px}
-h3{font-size:18px}
-body{font-size:16px}
-.codeblock{font-size:12.5px;padding:13px 16px}
-table.ref{font-size:13.5px}
-table.ref th,table.ref td{padding:10px 12px}
-table.byline td{padding:11px 14px}
-table.byline td.avatar{width:50px;font-size:14px}
-}
-
-/* ── DIAGRAMS ── */
-.figure{
-margin:28px 0;
-padding:22px 22px 16px;
-background:#fbf8f1;
-border:1px solid #e8dfd0;
-border-radius:6px;
-}
-.figure-title{
-font-family:'Lato',Arial,sans-serif;
-font-size:11.5px;
-font-weight:700;
-color:#5a4338;
-text-transform:uppercase;
-letter-spacing:1.6px;
-text-align:center;
-margin-bottom:14px;
-}
-.figure-caption{
-font-family:'Lato',Arial,sans-serif;
-font-size:13px;
-color:#5a5651;
-font-style:italic;
-text-align:center;
-margin-top:12px;
-line-height:1.55;
-padding:0 10px;
-}
-.figure-caption strong{color:#1f1d1b;font-style:normal;font-weight:600}
-.svg-figure{width:100%;height:auto;display:block}
-.svg-title{font:700 12px 'Lato',Arial,sans-serif;fill:#5a4338;letter-spacing:1.4px}
-.svg-label{font:600 10.5px 'Lato',Arial,sans-serif;fill:#5a4338;letter-spacing:1.1px}
-.svg-label-tag{font:italic 500 11px 'Lato',Arial,sans-serif;fill:#8a857f}
-.svg-label-context{font:700 10.5px 'Lato',Arial,sans-serif;fill:#1c3960;letter-spacing:0.8px}
-.svg-code{font:500 13px 'JetBrains Mono',monospace;fill:#1f1d1b}
-.svg-code-sm{font:500 11.5px 'JetBrains Mono',monospace;fill:#1f1d1b}
-.svg-text{font:400 12.5px 'Lato',Arial,sans-serif;fill:#1f1d1b}
-.svg-text-sm{font:400 11.5px 'Lato',Arial,sans-serif;fill:#5a5651}
-.svg-handle{font:700 11.5px 'Lato',Arial,sans-serif;fill:#ffffff;letter-spacing:1.2px}
-.svg-header{font:700 11.5px 'Lato',Arial,sans-serif;fill:#ffffff;letter-spacing:1.3px}
-.svg-value-good{font:600 12px 'JetBrains Mono',monospace;fill:#2e6b3a}
-.svg-value-bad{font:600 12px 'JetBrains Mono',monospace;fill:#b73a2c}
-.svg-value-big{font:700 17px 'JetBrains Mono',monospace;fill:#9c2818;letter-spacing:0.4px}
-.svg-result-good{font:700 13px 'JetBrains Mono',monospace;fill:#2e6b3a;letter-spacing:0.4px}
-.svg-result-bad{font:700 13px 'JetBrains Mono',monospace;fill:#b73a2c;letter-spacing:0.4px}
-</style>
-</head>
-<body>
-
-<article class="post">
-
-<!-- ── HERO ── -->
-<div class="pill-tags">
-<span class="pill pill-red">FAST FORMULA</span>
-<span class="pill pill-navy">ALIAS STATEMENT</span>
-<span class="pill pill-purple">DEEP DIVE</span>
-</div>
-
-<h1 class="title">Oracle Fast Formula ALIAS: How the Compiler Resolves Long DBI Names at Parse Time and Why It's Not Just a Typing Convenience</h1>
-
-<div class="subtitle">A definitive walkthrough of compile-time reference semantics, statement ordering, the reference-vs-snapshot distinction, CHANGE_CONTEXTS re-evaluation, and the three compiler errors every Fast Formula author has hit at least once.</div>
-
-<div class="meta">May 8, 2026 <span class="sep">•</span> 16 min read <span class="sep">•</span> Oracle HCM Cloud</div>
-
-<p class="lede">Database item names in Fusion HCM Fast Formulas routinely run past thirty characters. <code>PER_ASG_REL_LENGTH_OF_SERVICE</code>. <code>CMP_ASSIGNMENT_RGE_SALARY_CHANGE_AMOUNT</code>. <code>PER_HIST_ASG_EFFECTIVE_START_DATE</code>. Reference one of these eight times in a single formula and the calculation logic disappears under the noise. Oracle's documented answer is the <code>ALIAS</code> statement — a single keyword, an <code>AS</code> clause, a target identifier. But ALIAS is more than a typing shortcut. It's a compile-time reference, not a runtime variable, and that distinction matters more than most authors realise.</p>
-
-<table class="byline">
-<tr>
-<td class="avatar">AM</td>
-<td class="name"><strong>Abhishek Mohanty</strong><span>Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant</span></td>
-</tr>
-</table>
-
-<p>Fast Formula has no debugger. It also has no convenient way to fold a 38-character DBI reference into something readable — except for ALIAS. Authors who reach for <code>L_VAR = LONG_DBI_NAME</code> instead end up with a snapshot variable that silently breaks under <code>CHANGE_CONTEXTS</code>, and they don't find out until a salary delta computes to zero in production.</p>
-
-<p>This post covers what ALIAS actually does at the language level, where it must sit in your statement order, why it's not interchangeable with a local-variable assignment, the three compiler errors you'll hit, and the production conventions that keep aliased formulas readable six months after go-live.</p>
-
-<hr>
-
-<!-- ── NEW: 5-SECTION STRUCTURE ── -->
-<h2>ALIAS in the Five-Section Formula Structure</h2>
-
-<p>Before going deep into ALIAS semantics, it helps to see where ALIAS sits in the larger Fast Formula skeleton. Every formula you'll ever write follows the same five-section template, in exactly this order:</p>
-
-<div class="tblwrap">
-<table class="ref">
-<thead><tr><th>Position</th><th>Section</th><th>Purpose</th></tr></thead>
-<tbody>
-<tr><td><strong>1</strong></td><td><code>ALIAS</code></td><td>Shortens long DBI names. Compile-time symbol binding.</td></tr>
-<tr><td><strong>2</strong></td><td><code>DEFAULT FOR</code></td><td>Null-handling for database items, including aliased ones.</td></tr>
-<tr><td><strong>3</strong></td><td><code>INPUTS ARE</code></td><td>Typed parameters passed in by the calling formula type.</td></tr>
-<tr><td><strong>4</strong></td><td>Calculation body</td><td>Assignments, IF / THEN / ELSE, function calls — the actual logic.</td></tr>
-<tr><td><strong>5</strong></td><td><code>RETURN</code></td><td>One or more values handed back to the calling application.</td></tr>
-</tbody>
-</table>
-</div>
-
-<p>A complete minimal formula showing all five sections in order:</p>
-
-<div class="codeblock"><span class="kw">ALIAS</span> CMP_ASSIGNMENT_SALARY_AMOUNT <span class="kw">AS</span> ASG_SAL        <span class="cm">/* 1. ALIAS — shortens the DBI         */</span>
-<span class="kw">ALIAS</span> ASG_HR_ASG_ID                <span class="kw">AS</span> ASG_ID         <span class="cm">/*    one alias per line               */</span>
-
-<span class="kw">DEFAULT FOR</span> ASG_SAL <span class="kw">IS</span> <span class="nm">0</span>                              <span class="cm">/* 2. DEFAULT — null handling          */</span>
-<span class="kw">DEFAULT FOR</span> ASG_ID  <span class="kw">IS</span> <span class="nm">0</span>
-
-<span class="kw">INPUTS ARE</span> BONUS_PERCENTAGE                          <span class="cm">/* 3. INPUTS — typed parameters        */</span>
-
-L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / <span class="nm">100</span>)              <span class="cm">/* 4. CALCULATION — the logic itself   */</span>
-
-<span class="kw">RETURN</span> L_BONUS, ASG_ID                                 <span class="cm">/* 5. RETURN — values passed back      */</span></div>
-
-<p>One structural fact about ALIAS matters for understanding everything that follows: <strong>ALIAS resolution happens at compile time, not at runtime.</strong> By the time the runtime execution begins, every alias has already been substituted with the underlying DBI's fetch logic. The alias has no independent existence at runtime — it's a label the compiler removes.</p>
-
-<p class="italic-note">This second point is the key insight the rest of this post unpacks. Because ALIAS is resolved before the formula body even starts running, the alias inherits the semantic properties of the underlying DBI — lazy evaluation, context-sensitive re-fetching, <code>WAS DEFAULTED</code> compatibility — that a local-variable assignment cannot reproduce.</p>
-
-<hr>
-
-<!-- ── SECTION 1 ── -->
-<h2>How the Compiler Resolves an Alias</h2>
-
-<p>The Oracle <em>Administering Fast Formulas</em> guide defines ALIAS as a statement that gives a Database Item a shorter, formula-local name. The guide explicitly recommends ALIAS over assigning a DBI to a local variable for the purpose of shortening — because the alias is a reference, not a copy.</p>
-
-<p>The binding happens at compile time. The compiler builds a symbol table that maps both the long DBI name and your short alias to the same metadata handle:</p>
-
-<div class="tblwrap">
-<table class="ref">
-<thead><tr><th>Database Item</th><th>Alias</th></tr></thead>
-<tbody>
-<tr><td><code>PER_ASG_REL_LENGTH_OF_SERVICE</code></td><td><code>ASG_LOS</code></td></tr>
-<tr><td><code>CMP_ASSIGNMENT_SALARY_AMOUNT</code></td><td><code>ASG_SAL</code></td></tr>
-<tr><td><code>PER_ASG_JOB_NAME</code></td><td><code>ASG_JOB</code></td></tr>
-<tr><td><code>ASG_HR_ASG_ID</code></td><td><code>ASG_ID</code></td></tr>
-</tbody>
-</table>
-</div>
-
-<div class="figure">
-<div class="figure-title">Figure 1 · Compile-Time Binding</div>
-<img src="/images/posts/how-oracle-fast-formula-resolves-alias/diagram-1.png" alt="Diagram 1: How Oracle Fast Formula resolves ALIAS at compile time: stat" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
-<div class="figure-caption"><strong>One handle, two labels.</strong> Reading either name at runtime triggers the same DBI fetch under whichever contexts are active.</div>
-</div>
-
-<p>Four things happen behind the scenes when you write the ALIAS line:</p>
-
-<div class="tblwrap">
-<table class="ref single">
-<thead><tr><th>What the compiler does with each ALIAS declaration</th></tr></thead>
-<tbody>
-<tr><td><div class="step-row"><span class="step-num">STEP 1</span><div class="step-body">You write the ALIAS line: <code>ALIAS PER_ASG_REL_LENGTH_OF_SERVICE AS ASG_LOS</code> at the top of the formula.</div></div></td></tr>
-<tr><td><div class="step-row"><span class="step-num">STEP 2</span><div class="step-body">The compiler records both names — long DBI and short alias — as labels pointing to the same route and user-entity in the formula metadata. They become two names for one underlying handle.</div></div></td></tr>
-<tr><td><div class="step-row"><span class="step-num">STEP 3</span><div class="step-body">Every later reference to the alias in the formula body resolves to the exact same DBI fetch logic that the long name would have produced. The substitution is complete before any runtime execution.</div></div></td></tr>
-</tbody>
-</table>
-</div>
-
-<p class="italic-note">The alias is a label processed at compile time. There is no runtime storage allocated to it, and no separate value held against it. Every reference is a fresh evaluation of the underlying DBI under whatever contexts are active at the point of reference.</p>
-
-<hr>
-
-<!-- ── SECTION 2 ── -->
-<h2>Syntax and the Reserved Identifier List</h2>
-
-<p>The form is fixed. One alias declaration per line:</p>
-
-<div class="codeblock"><span class="kw">ALIAS</span> DATABASE_ITEM_NAME <span class="kw">AS</span> SHORT_NAME</div>
-
-<p>Three things to know about the syntax:</p>
-
-<ol>
-<li><strong>The <code>AS</code> keyword is required.</strong> Both <code>ALIAS</code> and <code>AS</code> are reserved — neither can be used as a variable name elsewhere in the formula.</li>
-<li><strong>Case-insensitive.</strong> <code>ALIAS x AS Y</code> and <code>alias X as y</code> compile identically. Pick a casing convention and apply it consistently.</li>
-<li><strong>One alias per line.</strong> No comma-separated multi-alias declarations.</li>
-</ol>
-
-<p>The alias name on the right of <code>AS</code> can't collide with any reserved word in the language. The reserved identifiers fall into six categories:</p>
-
-<div class="tblwrap">
-<table class="ref">
-<thead><tr><th>Category</th><th>Reserved identifiers</th></tr></thead>
-<tbody>
-<tr><td><strong>Declaration & section statements</strong></td><td><code>ALIAS</code>, <code>AS</code>, <code>DEFAULT</code>, <code>DEFAULT_DATA_VALUE</code>, <code>DEFAULTED</code>, <code>FOR</code>, <code>INPUTS</code>, <code>ARE</code>, <code>USING</code>, <code>RETURN</code></td></tr>
-<tr><td><strong>Control flow</strong></td><td><code>IF</code>, <code>THEN</code>, <code>ELSE</code>, <code>WHILE</code>, <code>LOOP</code>, <code>EXIT</code></td></tr>
-<tr><td><strong>Logical & comparison operators</strong></td><td><code>AND</code>, <code>OR</code>, <code>NOT</code>, <code>IS</code>, <code>LIKE</code>, <code>WAS</code></td></tr>
-<tr><td><strong>Context management</strong></td><td><code>CHANGE_CONTEXTS</code>, <code>GET_CONTEXT</code>, <code>CONTEXT_IS_SET</code>, <code>NEED_CONTEXT</code></td></tr>
-<tr><td><strong>Formula execution & I/O</strong></td><td><code>EXECUTE</code>, <code>IS_EXECUTABLE</code>, <code>SET_INPUT</code>, <code>GET_OUTPUT</code></td></tr>
-<tr><td><strong>Working storage area</strong></td><td><code>WSA_GET</code>, <code>WSA_SET</code>, <code>WSA_EXISTS</code>, <code>WSA_DELETE</code></td></tr>
-</tbody>
-</table>
-</div>
-
-<p>If your formula won't compile and you've named your alias something like <code>DEFAULT</code>, <code>FOR</code>, or <code>IS</code> — that's why. Add a prefix or suffix to escape: <code>L_DEFAULT</code>, <code>FOR_DT</code>, <code>IS_FLAG</code>.</p>
-
-<hr>
-
-<!-- ── SECTION 3 ── -->
-<h2>Statement Order: Why ALIAS Comes First</h2>
-
-<p>Fast Formula enforces a strict ordering of declarative statement sections. The order is documented in the Oracle <em>Administering Fast Formulas</em> guide, and the compiler will reject your formula with <em>"Incorrect Statement Order"</em> if you break it.</p>
-
-<div class="tblwrap">
-<table class="ref single">
-<thead><tr><th>Required statement order — top to bottom</th></tr></thead>
-<tbody>
-<tr><td><div class="step-row"><span class="step-num">FIRST</span><div class="step-body"><strong>ALIAS</strong> — all alias declarations, grouped together at the top of the formula.</div></div></td></tr>
-<tr><td><div class="step-row"><span class="step-num">SECOND</span><div class="step-body"><strong>DEFAULT FOR</strong> and <strong>DEFAULT_DATA_VALUE FOR</strong> — scalar and array DBI defaults.</div></div></td></tr>
-<tr><td><div class="step-row"><span class="step-num">THIRD</span><div class="step-body"><strong>INPUTS ARE</strong> — single block, all input parameters typed.</div></div></td></tr>
-<tr><td><div class="step-row"><span class="step-num">FOURTH</span><div class="step-body"><strong>Body and RETURN</strong> — logic, control flow, assignments, and the return statement.</div></div></td></tr>
-</tbody>
-</table>
-</div>
-
-<h3>What going out of order looks like</h3>
-
-<p>The mistake is genuinely common when you're refactoring an existing formula and adding an alias mid-file. Wrong:</p>
-
-<div class="codeblock"><span class="kw">DEFAULT FOR</span> ASG_HR_ASG_ID <span class="kw">IS</span> <span class="nm">0</span>      <span class="cm">/* DEFAULT before ALIAS */</span>
-
-<span class="kw">ALIAS</span> PER_ASG_JOB_NAME <span class="kw">AS</span> ASG_JOB     <span class="cm">/* ← raises the error */</span>
-
-<span class="kw">INPUTS ARE</span> EFFECTIVE_DATE_FROM (<span class="kw">DATE</span>)</div>
-
-<div class="error-line">Incorrect Statement Order — ALIAS, DEFAULT, or INPUT statements come after other statements.</div>
-
-<p>Right:</p>
-
-<div class="codeblock"><span class="kw">ALIAS</span> PER_ASG_JOB_NAME <span class="kw">AS</span> ASG_JOB
-
-<span class="kw">DEFAULT FOR</span> ASG_HR_ASG_ID <span class="kw">IS</span> <span class="nm">0</span>
-<span class="kw">DEFAULT FOR</span> ASG_JOB <span class="kw">IS</span> <span class="st">' '</span>
-
-<span class="kw">INPUTS ARE</span> EFFECTIVE_DATE_FROM (<span class="kw">DATE</span>)</div>
-
-<p class="italic-note">When adding a new alias to an existing formula, scroll to the top, find the existing ALIAS block, and add the line there. Never insert it next to the DEFAULT or DBI it relates to — that breaks the ordering rule.</p>
-
-<hr>
-
-<!-- ── SECTION 4 ── -->
-<h2>What You Can & Cannot Alias</h2>
-
-<p>The Fusion 24D <em>Administering Fast Formulas</em> guide narrows ALIAS to one target type: database items. The compiler diagnostic for invalid targets is unambiguous: <em>"you can use an ALIAS statement only for a database item."</em> The practical test is the Database Items picker in the formula editor — if the identifier appears there for your current formula type, it's aliasable; if it doesn't, it isn't.</p>
-
-<h3>What ALIAS will accept</h3>
-
-<div class="tblwrap">
-<table class="ref">
-<thead><tr><th>Aliasable</th><th>Notes</th></tr></thead>
-<tbody>
-<tr><td><strong>Scalar DBIs</strong></td><td>The standard case. Any DBI returning a single text, number, or date value under the formula type's contexts.</td></tr>
-<tr><td><strong>Array DBIs</strong></td><td>Grammatically aliasable. Oracle docs are silent — no worked example in the 24D guide — but the language accepts it. Test in your environment before relying on it.</td></tr>
-</tbody>
-</table>
-</div>
-
-<h3>What ALIAS will not accept</h3>
-
-<p>Five identifier categories produce compilation failures. The diagnostic, the cause, and a reproduction case for each:</p>
-
-<h4>1. Local variables</h4>
-
-<p>Local variables don't exist until the formula's first assignment statement creates them. ALIAS lines run before any assignment, so the symbol has no metadata to bind to.</p>
-
-<div class="codeblock"><span class="kw">ALIAS</span> L_TEMP_VALUE <span class="kw">AS</span> TMP        <span class="cm">/* L_TEMP_VALUE is a local var, not a DBI */</span></div>
-
-<div class="error-line">Misuse of ALIAS Statement — you can use an ALIAS statement only for a database item.</div>
-
-<h4>2. Inputs from INPUTS ARE</h4>
-
-<p>Inputs are bound to the formula via the formula type definition. They're not DBIs and they're already short. There's no metadata layer to alias.</p>
-
-<div class="codeblock"><span class="kw">ALIAS</span> EFFECTIVE_DATE_FROM <span class="kw">AS</span> EFF_DT   <span class="cm">/* declared in INPUTS ARE */</span></div>
-
-<div class="error-line">Misuse of ALIAS Statement — you can use an ALIAS statement only for a database item.</div>
-
-<h4>3. Contexts</h4>
-
-<p>Contexts like <code>HR_ASSIGNMENT_ID</code>, <code>EFFECTIVE_DATE</code>, <code>ABSENCE_PLAN_ID</code>, <code>PERSON_ID</code> are language-level handles for the current evaluation state, not data records. Read them via <code>GET_CONTEXT</code>.</p>
-
-<div class="codeblock"><span class="kw">ALIAS</span> HR_ASSIGNMENT_ID <span class="kw">AS</span> AID         <span class="cm">/* contexts are not DBIs */</span>
-
-<span class="cm">/* Correct method for context access: */</span>
-L_AID = GET_CONTEXT(HR_ASSIGNMENT_ID, <span class="nm">-1</span>)</div>
-
-<div class="error-line">Misuse of ALIAS Statement — you can use an ALIAS statement only for a database item.</div>
-
-<h4>4. Formula functions</h4>
-
-<p>Functions like <code>GET_VALUE_SET</code>, <code>DAYS_BETWEEN</code>, <code>ESS_LOG_WRITE</code>, <code>GET_RATE</code>, <code>TO_CHAR</code>, <code>SUBSTR</code> are callable, not data. They take parameters and return values; they don't <em>have</em> a value to alias.</p>
-
-<div class="codeblock"><span class="kw">ALIAS</span> DAYS_BETWEEN <span class="kw">AS</span> DB             <span class="cm">/* functions cannot be aliased */</span></div>
-
-<div class="error-line">Misuse of ALIAS Statement — you can use an ALIAS statement only for a database item.</div>
-
-<h4>5. DBIs not visible to your formula type</h4>
-
-<p>The trickiest case because it <em>looks</em> correct. The DBI exists in the dictionary somewhere. But your current formula type doesn't supply the contexts the DBI's route needs, so for your formula it doesn't exist. The diagnostic differs — the compiler reports <em>"Unknown Variable"</em> on the long name itself.</p>
-
-<div class="codeblock"><span class="cm">/* In an Absence Entry Validation formula, no benefits contexts are supplied. */</span>
-<span class="cm">/* The DBI exists in the dictionary but is invisible to this formula type.   */</span>
-<span class="kw">ALIAS</span> BEN_PEN_BNFT_AMT_NN <span class="kw">AS</span> BNFT_AMT</div>
-
-<div class="error-line">Unknown Variable: BEN_PEN_BNFT_AMT_NN</div>
-
-<p class="italic-note"><strong>Diagnostic heuristic:</strong> "Misuse of ALIAS Statement" means the left-hand identifier is recognised by the compiler but isn't a DBI (input, context, function, local variable). "Unknown Variable" means the name simply doesn't resolve in your formula type — typo, wrong formula type, or a DBI requiring contexts you don't have.</p>
-
-<h3>Should I alias this? — three quick checks</h3>
-
-<div class="tblwrap">
-<table class="ref single">
-<thead><tr><th>The three-question decision</th></tr></thead>
-<tbody>
-<tr><td><div class="step-row"><span class="step-num">CHECK 1</span><div class="step-body">Is the identifier in the Database Items picker for this formula type? If no — stop. ALIAS will fail.</div></div></td></tr>
-<tr><td><div class="step-row"><span class="step-num">CHECK 2</span><div class="step-body">Will I reference it more than once, OR is its name longer than ~25 characters? If neither — don't bother. The alias adds noise without paying for itself.</div></div></td></tr>
-<tr><td><div class="step-row"><span class="step-num">CHECK 3</span><div class="step-body">Have I picked a short, project-consistent, non-reserved alias name? If no — go back to your project's naming convention.</div></div></td></tr>
-</tbody>
-</table>
-</div>
-
-<p>Three yeses → declare the alias in the ALIAS block at the top of the formula. Add a one-line trailing comment describing what the DBI represents in business terms. Use the alias name uniformly in body references, in <code>DEFAULT FOR</code>, and in any <code>WAS DEFAULTED</code> checks.</p>
-
-<hr>
-
-<!-- ── SECTION 5 ── -->
-<h2>The Reference vs Snapshot Distinction</h2>
-
-<p>ALIAS and <code>L_VAR = LONG_DBI_NAME</code> are not equivalent. They have different runtime behaviour, and one of them silently produces wrong answers under <code>CHANGE_CONTEXTS</code>.</p>
-
-<h3>The local-variable pattern (anti-pattern for shortening)</h3>
-
-<div class="codeblock"><span class="kw">DEFAULT FOR</span> PER_ASG_REL_LENGTH_OF_SERVICE <span class="kw">IS</span> <span class="nm">0</span>
-
-<span class="cm">/* Read the DBI once into a local variable for shorter access */</span>
+**`ALIAS` looks like a convenience for shortening long database item names. It is — but it's also the only shortening technique that preserves the DBI's runtime semantics. Assign a DBI to a local variable instead and you get a snapshot, which silently returns the wrong answer the moment a `CHANGE_CONTEXTS` block is involved.**
+
+---
+
+## ALIAS in the Five-Section Formula Structure
+
+Every Fast Formula follows the same five-section template, in exactly this order:
+
+| Position | Section | Purpose |
+|---|---|---|
+| 1 | `ALIAS` | Shortens long DBI names. Compile-time symbol binding. |
+| 2 | `DEFAULT FOR` | Null handling for database items, including aliased ones. |
+| 3 | `INPUTS ARE` | Typed parameters passed in by the calling formula type. |
+| 4 | Calculation body | Assignments, `IF`/`THEN`/`ELSE`, function calls — the actual logic. |
+| 5 | `RETURN` | One or more values handed back to the calling application. |
+
+A minimal formula showing all five in order:
+
+```plsql
+ALIAS CMP_ASSIGNMENT_SALARY_AMOUNT AS ASG_SAL   /* 1. ALIAS — shortens the DBI       */
+ALIAS ASG_HR_ASG_ID                AS ASG_ID    /*    one alias per line             */
+
+DEFAULT FOR ASG_SAL IS 0                        /* 2. DEFAULT — null handling        */
+DEFAULT FOR ASG_ID  IS 0
+
+INPUTS ARE BONUS_PERCENTAGE                     /* 3. INPUTS — typed parameters      */
+
+L_BONUS = ASG_SAL * (BONUS_PERCENTAGE / 100)    /* 4. CALCULATION — the logic        */
+
+RETURN L_BONUS, ASG_ID                          /* 5. RETURN — values passed back    */
+```
+
+**One structural fact drives everything that follows: ALIAS resolution happens at compile time, not at runtime.** By the time execution begins, every alias has already been substituted with the underlying DBI's fetch logic. The alias has no independent existence at runtime — it's a label the compiler removes.
+
+That's why the alias inherits the semantic properties of the underlying DBI — lazy evaluation, context-sensitive re-fetching, `WAS DEFAULTED` compatibility — that a local-variable assignment cannot reproduce.
+
+---
+
+## How the Compiler Resolves an Alias
+
+The Oracle *Administering Fast Formulas* guide defines `ALIAS` as a statement that gives a database item a shorter, formula-local name, and explicitly recommends it over assigning a DBI to a local variable for shortening — because the alias is a reference, not a copy.
+
+The compiler builds a symbol table mapping both the long DBI name and your short alias to the **same metadata handle**:
+
+| Database Item | Alias |
+|---|---|
+| `PER_ASG_REL_LENGTH_OF_SERVICE` | `ASG_LOS` |
+| `CMP_ASSIGNMENT_SALARY_AMOUNT` | `ASG_SAL` |
+| `PER_ASG_JOB_NAME` | `ASG_JOB` |
+| `ASG_HR_ASG_ID` | `ASG_ID` |
+
+![Compile-time binding: one metadata handle carrying two labels, the long DBI name and the short alias](/images/posts/how-oracle-fast-formula-resolves-alias/diagram-1.png)
+
+One handle, two labels. Reading either name at runtime triggers the same DBI fetch under whichever contexts are active.
+
+What happens behind the scenes:
+
+1. You write the `ALIAS` line.
+2. The compiler records both names — long DBI and short alias — against one metadata handle.
+3. Every later reference to the alias in the formula body resolves to that handle.
+4. No runtime storage is allocated, and no separate value is held against the alias.
+
+Every reference is a fresh evaluation of the underlying DBI under whatever contexts are active at the point of reference.
+
+---
+
+## Syntax and the Reserved Identifier List
+
+The form is fixed, one declaration per line:
+
+```plsql
+ALIAS DATABASE_ITEM_NAME AS SHORT_NAME
+```
+
+Three things to know:
+
+- **The `AS` keyword is required.** Both `ALIAS` and `AS` are reserved and can't be used as variable names elsewhere.
+- **Case-insensitive.** `ALIAS x AS Y` and `alias X as y` compile identically. Pick a convention and hold to it.
+- **One alias per line.** No comma-separated multi-alias declarations.
+
+The alias name can't collide with a reserved word. They fall into six categories:
+
+| Category | Reserved identifiers |
+|---|---|
+| Declaration & section | `ALIAS`, `AS`, `DEFAULT`, `DEFAULT_DATA_VALUE`, `DEFAULTED`, `FOR`, `INPUTS`, `ARE`, `RETURN` |
+| Control flow | `IF`, `THEN`, `ELSE`, `WHILE`, `LOOP`, `EXIT` |
+| Logical & comparison | `AND`, `OR`, `NOT`, `IS`, `LIKE`, `WAS` |
+| Context management | `CHANGE_CONTEXTS`, `GET_CONTEXT`, `CONTEXT_IS_SET`, `NEED_CONTEXT` |
+| Formula execution & I/O | `EXECUTE`, `IS_EXECUTABLE`, `SET_INPUT`, `GET_OUTPUT` |
+| Working storage area | `WSA_GET`, `WSA_SET`, `WSA_EXISTS`, `WSA_DELETE` |
+
+If your formula won't compile and you've named an alias something like `DEFAULT`, `FOR` or `IS` — that's why. Add a prefix or suffix to escape: `L_DEFAULT`, `FOR_DT`, `IS_FLAG`.
+
+---
+
+## Statement Order: Why ALIAS Comes First
+
+Fast Formula enforces strict ordering of declarative sections, and the compiler rejects violations with *Incorrect Statement Order*.
+
+| | Section |
+|---|---|
+| **First** | `ALIAS` — all declarations, grouped at the top |
+| **Second** | `DEFAULT FOR` and `DEFAULT_DATA_VALUE FOR` — scalar and array defaults |
+| **Third** | `INPUTS ARE` — single block, all parameters typed |
+| **Fourth** | Body and `RETURN` — logic, control flow, assignments |
+
+### What going out of order looks like
+
+The mistake is common when refactoring an existing formula and adding an alias mid-file.
+
+**Wrong:**
+
+```plsql
+DEFAULT FOR ASG_HR_ASG_ID IS 0      /* DEFAULT before ALIAS */
+
+ALIAS PER_ASG_JOB_NAME AS ASG_JOB   /* ← raises the error */
+
+INPUTS ARE EFFECTIVE_DATE_FROM (DATE)
+```
+
+> *Incorrect Statement Order — ALIAS, DEFAULT, or INPUT statements come after other statements.*
+
+**Right:**
+
+```plsql
+ALIAS PER_ASG_JOB_NAME AS ASG_JOB
+
+DEFAULT FOR ASG_HR_ASG_ID IS 0
+DEFAULT FOR ASG_JOB IS ' '
+
+INPUTS ARE EFFECTIVE_DATE_FROM (DATE)
+```
+
+When adding a new alias to an existing formula, scroll to the top and add it to the existing `ALIAS` block. Never insert it next to the `DEFAULT` or DBI it relates to — that breaks the ordering rule.
+
+---
+
+## What You Can and Cannot Alias
+
+The Fusion 24D guide narrows `ALIAS` to one target type: **database items**. The diagnostic is unambiguous — *you can use an ALIAS statement only for a database item.*
+
+The practical test is the Database Items picker in the formula editor. If the identifier appears there for your current formula type, it's aliasable. If it doesn't, it isn't.
+
+### What ALIAS will accept
+
+| Aliasable | Notes |
+|---|---|
+| Scalar DBIs | The standard case. Any DBI returning a single text, number or date value. |
+| Array DBIs | Grammatically aliasable. Oracle's documentation is silent — no worked examples either way. |
+
+### What ALIAS will not accept
+
+Five categories produce compilation failures.
+
+**1. Local variables.** They don't exist until the formula's first assignment creates them. `ALIAS` lines run before any assignment, so there's no metadata to bind to.
+
+```plsql
+ALIAS L_TEMP_VALUE AS TMP    /* L_TEMP_VALUE is a local var, not a DBI */
+```
+
+**2. Inputs from `INPUTS ARE`.** Inputs are bound via the formula type definition. They aren't DBIs, they're already short, and there's no metadata layer to alias.
+
+```plsql
+ALIAS EFFECTIVE_DATE_FROM AS EFF_DT   /* declared in INPUTS ARE */
+```
+
+**3. Contexts.** `HR_ASSIGNMENT_ID`, `EFFECTIVE_DATE`, `ABSENCE_PLAN_ID`, `PERSON_ID` are language-level handles for evaluation state, not data records. Read them with `GET_CONTEXT`.
+
+```plsql
+ALIAS HR_ASSIGNMENT_ID AS AID         /* contexts are not DBIs */
+```
+
+**4. Formula functions.**
+
+```plsql
+ALIAS DAYS_BETWEEN AS DB              /* functions cannot be aliased */
+```
+
+**5. DBIs not visible to your formula type.** This one is subtler — the DBI genuinely exists, just not for you.
+
+```plsql
+/* In an Absence Entry Validation formula, no benefits contexts are supplied. */
+/* The DBI exists in the dictionary but is invisible to this formula type.    */
+ALIAS BEN_PEN_BNFT_AMT_NN AS BNFT_AMT
+```
+
+The first four raise *Misuse of ALIAS Statement*. The fifth raises *Unknown Variable*.
+
+### Should I alias this? Three checks
+
+1. Is the identifier in the Database Items picker for **this** formula type?
+2. Will I reference it more than once, **or** is its name long enough to hurt readability at one use?
+3. Have I picked a short, project-consistent, non-reserved name?
+
+Three yeses means declare it in the `ALIAS` block at the top, with a one-line trailing comment describing what the DBI represents in business terms. Then use the alias uniformly — in the body, in `DEFAULT FOR`, and in any `WAS DEFAULTED` checks.
+
+---
+
+## The Reference vs Snapshot Distinction
+
+`ALIAS` and `L_VAR = LONG_DBI_NAME` are **not equivalent**. They behave differently at runtime, and one of them silently produces wrong answers under `CHANGE_CONTEXTS`.
+
+### The local-variable pattern
+
+```plsql
+DEFAULT FOR PER_ASG_REL_LENGTH_OF_SERVICE IS 0
+
+/* Read the DBI once into a local variable for shorter access */
 L_ASG_LOS = PER_ASG_REL_LENGTH_OF_SERVICE
 
-<span class="kw">IF</span> L_ASG_LOS >= <span class="nm">5</span> <span class="kw">THEN</span>
-L_FLAG = <span class="st">'Y'</span></div>
+IF L_ASG_LOS >= 5 THEN
+  L_FLAG = 'Y'
+```
 
-<p>Two things happen on the assignment line that are not always evident from the source: the DBI is fetched eagerly at that point regardless of whether the value is later read, and the local variable holds a snapshot under whichever contexts were active at assignment — any later <code>CHANGE_CONTEXTS</code> block does not update it.</p>
+Two things happen on that assignment line that aren't evident from the source. The DBI is fetched **eagerly** at that point, whether or not the value is later read. And the local variable holds a **snapshot** under whichever contexts were active at assignment — any later `CHANGE_CONTEXTS` block does not update it.
 
-<h3>The ALIAS pattern</h3>
+### The ALIAS pattern
 
-<div class="codeblock"><span class="kw">ALIAS</span> PER_ASG_REL_LENGTH_OF_SERVICE <span class="kw">AS</span> ASG_LOS
+```plsql
+ALIAS PER_ASG_REL_LENGTH_OF_SERVICE AS ASG_LOS
 
-<span class="kw">DEFAULT FOR</span> ASG_LOS <span class="kw">IS</span> <span class="nm">0</span>
+DEFAULT FOR ASG_LOS IS 0
 
-<span class="kw">IF</span> ASG_LOS >= <span class="nm">5</span> <span class="kw">THEN</span>
-L_FLAG = <span class="st">'Y'</span></div>
+IF ASG_LOS >= 5 THEN
+  L_FLAG = 'Y'
+```
 
-<p>Functionally similar in this isolated case. But four behavioural differences matter:</p>
+Functionally similar in isolation. But four behavioural differences matter:
 
-<div class="tblwrap">
-<table class="ref">
-<thead><tr><th>Property</th><th>Local-variable assignment</th><th>ALIAS</th></tr></thead>
-<tbody>
-<tr><td><strong>DBI evaluation timing</strong></td><td>Eager — fetched at assignment, regardless of later use.</td><td>Lazy — fetched only when a code path actually evaluates the alias.</td></tr>
-<tr><td><strong>Behaviour under CHANGE_CONTEXTS</strong></td><td>Frozen at original assignment context. Reads inside CHANGE_CONTEXTS return the original value.</td><td>Re-evaluates. Reads inside CHANGE_CONTEXTS fetch under the new context.</td></tr>
-<tr><td><strong>Runtime memory</strong></td><td>Allocates a variable slot in the generated PL/SQL package.</td><td>No runtime allocation; resolved at compile time.</td></tr>
-<tr><td><strong>WAS DEFAULTED compatibility</strong></td><td>Not supported. The check requires DBI metadata, lost in assignment.</td><td>Fully supported. Behaves identically to the underlying DBI.</td></tr>
-</tbody>
-</table>
-</div>
+| Property | Local-variable assignment | ALIAS |
+|---|---|---|
+| DBI evaluation timing | **Eager** — fetched at assignment, regardless of later use | **Lazy** — fetched only when a code path evaluates it |
+| Behaviour under `CHANGE_CONTEXTS` | **Frozen** at the original assignment context | **Re-evaluates** — reads fetch under the new context |
+| Runtime memory | Allocates a variable slot in the generated PL/SQL package | No runtime allocation; resolved at compile time |
+| `WAS DEFAULTED` compatibility | **Not supported** — the check needs DBI metadata, lost in assignment | **Fully supported** — behaves identically to the underlying DBI |
 
-<div class="figure">
-<div class="figure-title">Figure 2 · Reference vs Snapshot — Same Logic, Different Runtime Behaviour</div>
-<img src="/images/posts/how-oracle-fast-formula-resolves-alias/diagram-2.png" alt="Diagram 2: How Oracle Fast Formula resolves ALIAS at compile time: stat" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
-<div class="figure-caption"><strong>The same three references, two different runtime behaviours.</strong> Local-variable assignment captures the value once at the assignment line; ALIAS re-evaluates the underlying DBI at every reference, under whatever context is active.</div>
-</div>
+![Reference versus snapshot: the same three references producing two different runtime behaviours](/images/posts/how-oracle-fast-formula-resolves-alias/diagram-2.png)
 
-<p class="italic-note">For shortening identifiers, ALIAS is the correct choice every time. Use local-variable assignment from a DBI only when a snapshot value is the explicit requirement — for instance, capturing a value at one context for comparison after a deliberate context change. In that case, name the variable accordingly: <code>L_SAL_AT_PERIOD_START</code> tells the next maintainer this is a snapshot.</p>
+**For shortening identifiers, `ALIAS` is the correct choice every time.** Use local-variable assignment from a DBI only when a snapshot is the explicit requirement — capturing a value at one context for comparison after a deliberate context change. In that case name the variable accordingly: `L_SAL_AT_PERIOD_START` tells the next maintainer this is a snapshot on purpose.
 
-<hr>
+---
 
-<!-- ── SECTION 6 ── -->
-<h2>DEFAULT FOR and WAS DEFAULTED Against the Alias</h2>
+## DEFAULT FOR and WAS DEFAULTED Against the Alias
 
-<p>Once an alias is declared, the rest of the formula — including <code>DEFAULT FOR</code> and <code>WAS DEFAULTED</code> — should reference the alias name. The compiler folds the alias and the underlying DBI into the same symbol, so writing the default against either resolves to the same metadata. Consistency is a maintenance discipline, not a compiler requirement:</p>
+Once an alias is declared, the rest of the formula should reference the alias name. The compiler folds the alias and the DBI into the same symbol, so writing the default against either resolves to the same metadata.
 
-<div class="codeblock"><span class="kw">ALIAS</span> PER_ASG_JOB_NAME              <span class="kw">AS</span> ASG_JOB
-<span class="kw">ALIAS</span> CMP_ASSIGNMENT_SALARY_AMOUNT <span class="kw">AS</span> ASG_SAL
-<span class="kw">ALIAS</span> ASG_HR_ASG_ID                <span class="kw">AS</span> ASG_ID
+```plsql
+ALIAS PER_ASG_JOB_NAME              AS ASG_JOB
+ALIAS CMP_ASSIGNMENT_SALARY_AMOUNT  AS ASG_SAL
+ALIAS ASG_HR_ASG_ID                 AS ASG_ID
 
-<span class="cm">/* Defaults written against the alias names */</span>
-<span class="kw">DEFAULT FOR</span> ASG_JOB <span class="kw">IS</span> <span class="st">' '</span>
-<span class="kw">DEFAULT FOR</span> ASG_SAL <span class="kw">IS</span> <span class="nm">0</span>
-<span class="kw">DEFAULT FOR</span> ASG_ID  <span class="kw">IS</span> <span class="nm">0</span>
+/* Defaults written against the alias names */
+DEFAULT FOR ASG_JOB IS ' '
+DEFAULT FOR ASG_SAL IS 0
+DEFAULT FOR ASG_ID  IS 0
 
-<span class="kw">INPUTS ARE</span> EFFECTIVE_PERIOD_END (<span class="kw">DATE</span>)
+INPUTS ARE EFFECTIVE_PERIOD_END (DATE)
 
-<span class="cm">/* WAS DEFAULTED check against the alias */</span>
-<span class="kw">IF</span> ASG_SAL <span class="kw">WAS DEFAULTED</span> <span class="kw">THEN</span>
-L_MSG = <span class="st">'Salary DBI returned NULL — defaulted to 0'</span></div>
+/* WAS DEFAULTED check against the alias */
+IF ASG_SAL WAS DEFAULTED THEN
+  L_MSG = 'Salary DBI returned NULL — defaulted to 0'
+```
 
-<p>The <code>WAS DEFAULTED</code> check inspects whether the underlying DBI fetch returned NULL and triggered the <code>DEFAULT FOR</code> substitution. Because the alias and the DBI share a single metadata handle, asking <code>ASG_SAL WAS DEFAULTED</code> gives the same answer as asking the long name.</p>
+`WAS DEFAULTED` inspects whether the underlying DBI fetch returned NULL and triggered the `DEFAULT FOR` substitution. Because the alias and the DBI share one metadata handle, asking `ASG_SAL WAS DEFAULTED` gives the same answer as asking the long name.
 
-<p class="italic-note"><strong>Don't mix names.</strong> Technically the compiler accepts <code>DEFAULT FOR PER_ASG_JOB_NAME IS ' '</code> followed by <code>IF ASG_JOB WAS DEFAULTED</code>. But it's a maintenance nightmare. Pick the alias and use it consistently.</p>
+> **Don't mix names.** The compiler will accept `DEFAULT FOR PER_ASG_JOB_NAME IS ' '` followed by `IF ASG_JOB WAS DEFAULTED`. It's a maintenance trap. Pick the alias and use it consistently.
 
-<hr>
+---
 
-<!-- ── SECTION 7 ── -->
-<h2>ALIAS Inside CHANGE_CONTEXTS</h2>
+## ALIAS Inside CHANGE_CONTEXTS
 
-<p>The reference-vs-snapshot distinction has its biggest payoff inside <code>CHANGE_CONTEXTS</code> blocks. Because the alias compiles to a DBI fetch operation, evaluating it under a different context produces a fresh fetch under that context — exactly as if you'd written the long DBI name explicitly:</p>
+This is where the reference-versus-snapshot distinction pays off. Because the alias compiles to a DBI fetch operation, evaluating it under a different context produces a fresh fetch under that context — exactly as if you'd written the long name.
 
-<div class="codeblock"><span class="kw">ALIAS</span> CMP_ASSIGNMENT_SALARY_AMOUNT <span class="kw">AS</span> ASG_SAL
+```plsql
+ALIAS CMP_ASSIGNMENT_SALARY_AMOUNT AS ASG_SAL
 
-<span class="kw">DEFAULT FOR</span> ASG_SAL <span class="kw">IS</span> <span class="nm">0</span>
+DEFAULT FOR ASG_SAL IS 0
 
-<span class="kw">INPUTS ARE</span> PERIOD_START_DT (<span class="kw">DATE</span>), PERIOD_END_DT (<span class="kw">DATE</span>)
+INPUTS ARE PERIOD_START_DT (DATE), PERIOD_END_DT (DATE)
 
-<span class="kw">CHANGE_CONTEXTS</span> (EFFECTIVE_DATE = PERIOD_START_DT)
+CHANGE_CONTEXTS (EFFECTIVE_DATE = PERIOD_START_DT)
 (
-L_START_SAL = ASG_SAL          <span class="cm">/* fetch under PERIOD_START_DT */</span>
+  L_START_SAL = ASG_SAL          /* fetch under PERIOD_START_DT */
 )
 
-<span class="kw">CHANGE_CONTEXTS</span> (EFFECTIVE_DATE = PERIOD_END_DT)
+CHANGE_CONTEXTS (EFFECTIVE_DATE = PERIOD_END_DT)
 (
-L_END_SAL = ASG_SAL            <span class="cm">/* re-fetch under PERIOD_END_DT */</span>
+  L_END_SAL = ASG_SAL            /* re-fetch under PERIOD_END_DT */
 )
 
-L_DELTA = L_END_SAL - L_START_SAL</div>
+L_DELTA = L_END_SAL - L_START_SAL
+```
 
-<p>Two reads of the same alias <code>ASG_SAL</code>, each fetching under a different <code>EFFECTIVE_DATE</code>, each producing a different value:</p>
+Two reads of the same alias, each fetching under a different `EFFECTIVE_DATE`, each producing a different value.
 
-<div class="figure">
-<div class="figure-title">Figure 3 · ALIAS Re-Evaluates Under Each Context</div>
-<img src="/images/posts/how-oracle-fast-formula-resolves-alias/diagram-3.png" alt="Diagram 3: How Oracle Fast Formula resolves ALIAS at compile time: stat" style="max-width:100%;height:auto;margin:26px auto;display:block;border-radius:6px;border:1px solid #e5e0d8" loading="lazy" />
-<div class="figure-caption"><strong>Same alias, two contexts, two distinct values.</strong> Each evaluation is an independent DBI fetch under whichever context is active at that point in the code.</div>
-</div>
+![The same alias evaluated under two contexts, producing two distinct values](/images/posts/how-oracle-fast-formula-resolves-alias/diagram-3.png)
 
-<p>If the same logic were written using local-variable assignment at the top of the formula — <code>L_SAL = CMP_ASSIGNMENT_SALARY_AMOUNT</code> before any <code>CHANGE_CONTEXTS</code> block — the DBI would be fetched once under the formula's initial contexts. Reads of <code>L_SAL</code> inside both blocks would return the original frozen value. <code>L_DELTA</code> would silently evaluate to zero. No compiler diagnostic. No error message. Wrong answer.</p>
+> **The failure mode.** Write the same logic with a local-variable assignment at the top — `L_SAL = CMP_ASSIGNMENT_SALARY_AMOUNT` before any `CHANGE_CONTEXTS` block — and the DBI is fetched once under the formula's initial contexts. Reads of `L_SAL` inside both blocks return the original frozen value. `L_DELTA` silently evaluates to zero. No compiler diagnostic, no runtime error, just a wrong number.
 
-<p class="italic-note"><strong>Performance note:</strong> Every alias evaluation inside <code>CHANGE_CONTEXTS</code> is a potential database fetch. Use <code>CHANGE_CONTEXTS</code> only where context modification is required for correctness. Wrapping speculative or large code blocks in <code>CHANGE_CONTEXTS</code> introduces unnecessary re-fetches.</p>
+---
 
-<hr>
+## The Three Compiler Errors You'll Actually See
 
-<!-- ── SECTION 8 ── -->
-<h2>The Three Compiler Errors You'll Actually See</h2>
+### Error 1 — Incorrect Statement Order
 
-<p>The Oracle <em>Administering Fast Formulas</em> compilation-errors table lists several diagnostics that mention ALIAS. In practice, you'll bump into three of them repeatedly.</p>
+> *Incorrect Statement Order — ALIAS, DEFAULT, or INPUT statements come after other statements.*
 
-<h3>Error 1 — Incorrect Statement Order</h3>
+**Fix:** reorder so all `ALIAS` declarations precede all `DEFAULT` declarations. The required order is `ALIAS` → `DEFAULT` → `INPUTS` → body, every time.
 
-<div class="error-line">Incorrect Statement Order — ALIAS, DEFAULT, or INPUT statements come after other statements.</div>
+### Error 2 — Misuse of ALIAS Statement
 
-<div class="codeblock"><span class="kw">DEFAULT FOR</span> ASG_HR_ASG_ID <span class="kw">IS</span> <span class="nm">0</span>      <span class="cm">/* DEFAULT precedes ALIAS — invalid */</span>
+> *Misuse of ALIAS Statement — you can use an ALIAS statement only for a database item.*
 
-<span class="kw">ALIAS</span> PER_ASG_JOB_NAME <span class="kw">AS</span> ASG_JOB     <span class="cm">/* ← raises the diagnostic */</span>
+**Fix:** confirm the left-hand identifier is a DBI listed in the Database Items picker. Contexts are read with `GET_CONTEXT`; inputs are declared with `INPUTS ARE`; anything else is a typo.
 
-<span class="kw">INPUTS ARE</span> EFFECTIVE_DATE_FROM (<span class="kw">DATE</span>)</div>
+### Error 3 — Unknown Variable
 
-<p><strong>Fix:</strong> Reorder so that all ALIAS declarations precede all DEFAULT declarations. The required order is ALIAS → DEFAULT → INPUTS → body, every time.</p>
+> *Unknown Variable: `CMP_ASSIGNMENT_SALARY_AMOUNT`*
 
-<h3>Error 2 — Misuse of ALIAS Statement</h3>
+**Fix:** open the Database Items picker for the specific formula type you're authoring — Absence Accrual, OTL Time Entry Rule, Compensation Default and Override, Payroll, whichever applies — and confirm the DBI is listed. If it isn't, your formula type doesn't supply the contexts the DBI's route needs, and aliasing won't fix it.
 
-<div class="error-line">Misuse of ALIAS Statement — you can use an ALIAS statement only for a database item.</div>
+---
 
-<div class="codeblock"><span class="cm">/* Aliasing a context — invalid */</span>
-<span class="kw">ALIAS</span> HR_ASSIGNMENT_ID <span class="kw">AS</span> ASG_ID         <span class="cm">/* ← context, not a DBI */</span>
+## Production Conventions
 
-<span class="cm">/* Aliasing an input — invalid */</span>
-<span class="kw">ALIAS</span> EFFECTIVE_DATE_FROM <span class="kw">AS</span> EFF_DT      <span class="cm">/* ← input parameter */</span>
+| | Rule |
+|---|---|
+| 1 | Group all `ALIAS` declarations at the top of the formula, never scattered. |
+| 2 | Apply `ALIAS` when the DBI is referenced more than once, or when its name hurts readability at a single use. |
+| 3 | Use a project-wide naming convention. Strip product prefixes and keep the meaningful part. |
+| 4 | Annotate each alias with a one-line trailing comment describing what it represents in business terms. |
+| 5 | Default to `ALIAS` over local-variable assignment for shortening. |
+| 6 | Restrict `ALIAS` targets to database items. Inputs, contexts and functions are not valid. |
+| 7 | Apply consistent identifier casing. The compiler is case-insensitive; your reviewers aren't. |
 
-<span class="cm">/* Aliasing an unknown identifier — invalid */</span>
-<span class="kw">ALIAS</span> SOME_RANDOM_NAME <span class="kw">AS</span> SHORT_NAME      <span class="cm">/* ← unrecognised */</span></div>
+---
 
-<p><strong>Fix:</strong> Confirm the left-hand identifier is a DBI listed in the Database Items picker. Contexts are read with <code>GET_CONTEXT</code>; inputs are declared with <code>INPUTS ARE</code>; unknown identifiers are typos.</p>
+## Before and After
 
-<h3>Error 3 — Unknown Variable on the DBI Identifier</h3>
+Same logic, written twice.
 
-<div class="error-line">Unknown Variable: CMP_ASSIGNMENT_SALARY_AMOUNT</div>
+**Without ALIAS:**
 
-<div class="codeblock"><span class="cm">/* The DBI exists in the dictionary but is not visible to this formula type */</span>
-<span class="cm">/* because the formula type doesn't supply HR_ASSIGNMENT_ID as a context.   */</span>
-<span class="kw">ALIAS</span> CMP_ASSIGNMENT_SALARY_AMOUNT <span class="kw">AS</span> ASG_SAL</div>
-
-<p><strong>Fix:</strong> Open the Database Items picker for the specific formula type currently being authored — Absence Accrual, OTL Time Entry Rule, Compensation Default and Override, Payroll, whichever applies — and confirm the DBI is listed. If it isn't, your formula type doesn't supply the contexts the DBI's route needs, and aliasing won't fix it.</p>
-
-<hr>
-
-<!-- ── SECTION 9 ── -->
-<h2>Production Conventions for ALIAS</h2>
-
-<div class="tblwrap">
-<table class="ref single">
-<thead><tr><th>Seven principles that pay off across every formula</th></tr></thead>
-<tbody>
-<tr><td><div class="step-row"><span class="step-num">RULE 1</span><div class="step-body"><strong>Group all ALIAS declarations at the top of the formula</strong>, immediately after the header comment. Satisfies the ordering rule and presents the data dependencies in one block.</div></div></td></tr>
-<tr><td><div class="step-row"><span class="step-num">RULE 2</span><div class="step-body"><strong>Apply ALIAS only when the DBI is referenced more than once or longer than ~25 characters.</strong> A single short reference doesn't warrant the declaration overhead.</div></div></td></tr>
-<tr><td><div class="step-row"><span class="step-num">RULE 3</span><div class="step-body"><strong>Use a project-wide naming convention.</strong> Strip product prefixes and abbreviate consistently: <code>PER_ASG_REL_LENGTH_OF_SERVICE</code> → <code>ASG_LOS</code>, <code>ASG_HR_ASG_ID</code> → <code>ASG_ID</code>, <code>CMP_ASSIGNMENT_SALARY_AMOUNT</code> → <code>ASG_SAL</code>.</div></div></td></tr>
-<tr><td><div class="step-row"><span class="step-num">RULE 4</span><div class="step-body"><strong>Annotate each alias with a one-line trailing comment</strong> describing what the DBI represents in business terms.</div></div></td></tr>
-<tr><td><div class="step-row"><span class="step-num">RULE 5</span><div class="step-body"><strong>Default to ALIAS over local-variable assignment</strong> for shortening. Use local assignment only when snapshot semantics are explicitly required, with a name that signals the snapshot intent.</div></div></td></tr>
-<tr><td><div class="step-row"><span class="step-num">RULE 6</span><div class="step-body"><strong>Restrict ALIAS targets to database items.</strong> Inputs are short by design. Contexts are accessed through GET_CONTEXT. Local variables are named directly.</div></div></td></tr>
-<tr><td><div class="step-row"><span class="step-num">RULE 7</span><div class="step-body"><strong>Apply consistent identifier casing.</strong> The compiler is case-insensitive, but mixing <code>ASG_LOS</code> and <code>Ot_Qls</code> across one formula degrades readability.</div></div></td></tr>
-</tbody>
-</table>
-</div>
-
-<hr>
-
-<!-- ── SECTION 10 ── -->
-<h2>Before vs After — The Readability Payoff</h2>
-
-<p>Same logic, written twice. Once without aliases, once with. Watch how the body changes character.</p>
-
-<h3>Without ALIAS</h3>
-
-<div class="codeblock"><span class="cm">/*========================================================================
+```plsql
+/*======================================================================
 FORMULA NAME : XX_OT_ELIG_WITHOUT_ALIAS
 FORMULA TYPE : Element Iterative Calculator
 PURPOSE      : OT eligibility flag & multiplier from qualifying LOS
-and assignment salary.
-========================================================================*/</span>
+               and assignment salary.
+======================================================================*/
 
-<span class="kw">DEFAULT FOR</span> PER_ASG_REL_LENGTH_OF_SERVICE <span class="kw">IS</span> <span class="nm">0</span>
-<span class="kw">DEFAULT FOR</span> CMP_ASSIGNMENT_SALARY_AMOUNT          <span class="kw">IS</span> <span class="nm">0</span>
-<span class="kw">DEFAULT FOR</span> PER_ASG_JOB_NAME                      <span class="kw">IS</span> <span class="st">' '</span>
+DEFAULT FOR PER_ASG_REL_LENGTH_OF_SERVICE IS 0
+DEFAULT FOR CMP_ASSIGNMENT_SALARY_AMOUNT  IS 0
+DEFAULT FOR PER_ASG_JOB_NAME              IS ' '
 
-<span class="kw">INPUTS ARE</span> EFFECTIVE_PERIOD_END (<span class="kw">DATE</span>)
+INPUTS ARE EFFECTIVE_PERIOD_END (DATE)
 
-L_FLAG       = <span class="st">'N'</span>
-L_MULTIPLIER = <span class="nm">1</span>
+L_FLAG       = 'N'
+L_MULTIPLIER = 1
 
-<span class="kw">CHANGE_CONTEXTS</span> (EFFECTIVE_DATE = EFFECTIVE_PERIOD_END)
+CHANGE_CONTEXTS (EFFECTIVE_DATE = EFFECTIVE_PERIOD_END)
 (
-<span class="kw">IF</span> PER_ASG_REL_LENGTH_OF_SERVICE >= <span class="nm">5</span>
-<span class="kw">AND</span> CMP_ASSIGNMENT_SALARY_AMOUNT > <span class="nm">0</span>
-<span class="kw">AND</span> PER_ASG_JOB_NAME <> <span class="st">' '</span>
-<span class="kw">THEN</span>
-( L_FLAG       = <span class="st">'Y'</span>
-L_MULTIPLIER = <span class="nm">1.5</span> )
+  IF PER_ASG_REL_LENGTH_OF_SERVICE >= 5
+     AND CMP_ASSIGNMENT_SALARY_AMOUNT > 0
+     AND PER_ASG_JOB_NAME <> ' '
+  THEN
+  ( L_FLAG       = 'Y'
+    L_MULTIPLIER = 1.5 )
 
-<span class="kw">IF</span> PER_ASG_REL_LENGTH_OF_SERVICE >= <span class="nm">10</span> <span class="kw">THEN</span>
-L_MULTIPLIER = <span class="nm">2.0</span>
+  IF PER_ASG_REL_LENGTH_OF_SERVICE >= 10 THEN
+    L_MULTIPLIER = 2.0
 )
 
-<span class="kw">RETURN</span> L_FLAG, L_MULTIPLIER</div>
+RETURN L_FLAG, L_MULTIPLIER
+```
 
-<h3>With ALIAS</h3>
+**With ALIAS:**
 
-<div class="codeblock"><span class="cm">/*========================================================================
+```plsql
+/*======================================================================
 FORMULA NAME : XX_OT_ELIG_WITH_ALIAS
 FORMULA TYPE : Element Iterative Calculator
 NOTES        : ALIAS block sits FIRST. Each alias is a reference to
-its underlying DBI; evaluation is lazy and re-fetches
-under any CHANGE_CONTEXTS block.
-========================================================================*/</span>
+               its underlying DBI; evaluation is lazy and re-fetches
+               under any CHANGE_CONTEXTS block.
+======================================================================*/
 
-<span class="kw">ALIAS</span> PER_ASG_REL_LENGTH_OF_SERVICE <span class="kw">AS</span> ASG_LOS    <span class="cm">/* qualifying LOS, years */</span>
-<span class="kw">ALIAS</span> CMP_ASSIGNMENT_SALARY_AMOUNT  <span class="kw">AS</span> ASG_SAL    <span class="cm">/* current annual salary */</span>
-<span class="kw">ALIAS</span> PER_ASG_JOB_NAME              <span class="kw">AS</span> ASG_JOB    <span class="cm">/* assignment job name   */</span>
+ALIAS PER_ASG_REL_LENGTH_OF_SERVICE AS ASG_LOS    /* qualifying LOS, years */
+ALIAS CMP_ASSIGNMENT_SALARY_AMOUNT  AS ASG_SAL    /* current annual salary */
+ALIAS PER_ASG_JOB_NAME              AS ASG_JOB    /* assignment job name   */
 
-<span class="kw">DEFAULT FOR</span> ASG_LOS <span class="kw">IS</span> <span class="nm">0</span>
-<span class="kw">DEFAULT FOR</span> ASG_SAL <span class="kw">IS</span> <span class="nm">0</span>
-<span class="kw">DEFAULT FOR</span> ASG_JOB <span class="kw">IS</span> <span class="st">' '</span>
+DEFAULT FOR ASG_LOS IS 0
+DEFAULT FOR ASG_SAL IS 0
+DEFAULT FOR ASG_JOB IS ' '
 
-<span class="kw">INPUTS ARE</span> EFFECTIVE_PERIOD_END (<span class="kw">DATE</span>)
+INPUTS ARE EFFECTIVE_PERIOD_END (DATE)
 
-L_FLAG       = <span class="st">'N'</span>
-L_MULTIPLIER = <span class="nm">1</span>
+L_FLAG       = 'N'
+L_MULTIPLIER = 1
 
-<span class="kw">CHANGE_CONTEXTS</span> (EFFECTIVE_DATE = EFFECTIVE_PERIOD_END)
+CHANGE_CONTEXTS (EFFECTIVE_DATE = EFFECTIVE_PERIOD_END)
 (
-<span class="kw">IF</span> ASG_LOS >= <span class="nm">5</span> <span class="kw">AND</span> ASG_SAL > <span class="nm">0</span> <span class="kw">AND</span> ASG_JOB <> <span class="st">' '</span> <span class="kw">THEN</span>
-( L_FLAG       = <span class="st">'Y'</span>
-L_MULTIPLIER = <span class="nm">1.5</span> )
+  IF ASG_LOS >= 5 AND ASG_SAL > 0 AND ASG_JOB <> ' ' THEN
+  ( L_FLAG       = 'Y'
+    L_MULTIPLIER = 1.5 )
 
-<span class="kw">IF</span> ASG_LOS >= <span class="nm">10</span> <span class="kw">THEN</span>
-L_MULTIPLIER = <span class="nm">2.0</span>
+  IF ASG_LOS >= 10 THEN
+    L_MULTIPLIER = 2.0
 )
 
-<span class="kw">IF</span> ASG_SAL <span class="kw">WAS DEFAULTED</span> <span class="kw">THEN</span>
-L_MSG = <span class="st">'Salary DBI returned NULL — defaulted to 0'</span>
+IF ASG_SAL WAS DEFAULTED THEN
+  L_MSG = 'Salary DBI returned NULL — defaulted to 0'
 
-<span class="kw">RETURN</span> L_FLAG, L_MULTIPLIER</div>
+RETURN L_FLAG, L_MULTIPLIER
+```
 
-<p>Compare the eligibility test in the aliased version to the unaliased one. Same logical condition, but in the aliased version you can read the rule out loud: "if qualifying service is at least 5 and salary is positive and job is not blank" — without your eyes filtering through DBI prefixes. That readability is the entire point.</p>
+Compare the eligibility test in the two versions. Same logical condition, but the aliased one you can read aloud — *"if qualifying service is at least 5 and salary is positive and job is not blank"* — without filtering DBI prefixes out of your field of view. That readability is the entire point.
 
-<p>The aliased version also adds the <code>WAS DEFAULTED</code> diagnostic on the salary check, which is unavailable through local-variable assignment.</p>
+The aliased version also adds the `WAS DEFAULTED` diagnostic on the salary check, which local-variable assignment can't give you at all.
 
-<hr>
+---
 
-<!-- ── KEY TAKEAWAYS ── -->
-<h2>Key Takeaways</h2>
+## Key Takeaways
 
-<p><strong>ALIAS is a compile-time reference, not a runtime variable.</strong> The alias and the underlying DBI share a single metadata handle. No separate runtime allocation occurs.</p>
+**ALIAS is a compile-time reference, not a runtime variable.** The alias and the underlying DBI share a single metadata handle. No separate runtime allocation occurs.
 
-<p><strong>Statement ordering is enforced.</strong> The required sequence is ALIAS → DEFAULT → INPUTS → body → RETURN. Violations produce <em>"Incorrect Statement Order."</em></p>
+**Statement ordering is enforced.** `ALIAS` → `DEFAULT` → `INPUTS` → body → `RETURN`. Violations produce *Incorrect Statement Order*.
 
-<p><strong>ALIAS interacts correctly with WAS DEFAULTED and CHANGE_CONTEXTS.</strong> Local-variable assignment from a DBI does not — that produces a snapshot, not a reference, and silently breaks salary deltas, before/after comparisons, and any logic that re-evaluates a value under a different context.</p>
+**ALIAS interacts correctly with `WAS DEFAULTED` and `CHANGE_CONTEXTS`.** Local-variable assignment from a DBI does not — it produces a snapshot, not a reference, and silently breaks salary deltas, before/after comparisons, and any logic that re-evaluates a value under a different context.
 
-<p><strong>ALIAS targets are restricted to database items in current Fusion releases.</strong> Inputs, contexts, functions, and global values are not valid targets.</p>
+**ALIAS targets are restricted to database items** in current Fusion releases. Inputs, contexts, functions and global values are not valid targets.
 
-<!-- ── CLOSING BYLINE ── -->
-<table class="byline">
-<tr>
-<td class="avatar">AM</td>
-<td class="name"><strong>Abhishek Mohanty</strong><span>Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</span></td>
-</tr>
-</table>
+---
 
-<!-- ── TAGS ── -->
-<div class="tags">
-<a href="#">Fast Formula</a>
-<a href="#">ALIAS</a>
-<a href="#">Oracle HCM Cloud</a>
-<a href="#">DBI</a>
-<a href="#">CHANGE_CONTEXTS</a>
-<a href="#">WAS_DEFAULTED</a>
-<a href="#">Statement Order</a>
-<a href="#">Compilation Errors</a>
-<a href="#">Oracle Cloud</a>
-</div>
-
-</article>
-
-</body>
-</html>
+*Abhishek Mohanty · Oracle ACE Associate | AIOUG Member | Oracle HCM Cloud Consultant & Technical Architect — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
