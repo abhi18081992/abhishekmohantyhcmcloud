@@ -7,30 +7,35 @@
 
 /* ── Variables ─────────────────────────────────────────────── */
 :root {
+  /* Palette derived from the AM logo, matching the homepage band.
+     navy #003060 · blue #184878 · orange #F07818 on cream #FDF6EE */
   --white:        #ffffff;
-  --bg:           #ffffff;
-  --bg-elevated:  #f8f8f8;
-  --bg-subtle:    #f4f4f4;
-  --border:       #e8e8e8;
-  --border-strong:#cccccc;
+  --bg:           #FDF6EE;
+  --bg-elevated:  #ffffff;
+  --bg-subtle:    #F7EFE4;
+  --border:       #E6DACA;
+  --border-strong:#D3C2AB;
 
-  --ink-strong:   #111111;
-  --ink:          #333333;
-  --ink-muted:    #666666;
-  --ink-faint:    #999999;
+  --ink-strong:   #003060;
+  --ink:          #23303F;
+  --ink-muted:    #56687E;
+  --ink-faint:    #637181;
 
-  --red:          #c0392b;
-  --red-dark:     #962d22;
-  --red-soft:     #fdecea;
-  --orange:       #e67e22;
-  --orange-dark:  #b86010;
-  --orange-soft:  #fff3e0;
+  /* --red is the site's accent hook (links, tags, rules). Now the logo orange. */
+  --red:          #B75107;
+  --red-dark:     #9A4708;
+  --red-soft:     #FDEDDD;
+  --orange:       #F07818;
+  --orange-dark:  #B75107;
+  --orange-soft:  #FFF1E3;
+
+  --blue:         #184878;
 
   --code-bg:      #1E1E1E;
   --code-border:  #2D2D30;
   --code-gutter:  #3E3E42;
-  --inline-code-bg:  #f0f0f0;
-  --inline-code-ink: #c0392b;
+  --inline-code-bg:  #F3EADF;
+  --inline-code-ink: #AE4800;
 
   --font:         'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -69,7 +74,7 @@ a { color: inherit; text-decoration: none; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255,255,255,0.95);
+  background: rgba(253,246,238,0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
@@ -162,12 +167,12 @@ a { color: inherit; text-decoration: none; }
 }
 .hero-shape-1 {
   width: 360px; height: 360px;
-  background: radial-gradient(circle, #fff3e0, transparent);
+  background: radial-gradient(circle, var(--orange-soft), transparent);
   top: -80px; left: 10%;
 }
 .hero-shape-2 {
   width: 400px; height: 400px;
-  background: radial-gradient(circle, #fdecea, transparent);
+  background: radial-gradient(circle, var(--red-soft), transparent);
   bottom: -120px; right: 5%;
 }
 .hero-shape-3 {
@@ -267,7 +272,7 @@ a { color: inherit; text-decoration: none; }
   padding: 5px 14px;
   border: 1px solid var(--border);
   border-radius: 99px;
-  background: white;
+  background: var(--bg-elevated);
   transition: all .15s;
   cursor: pointer;
 }
@@ -388,9 +393,9 @@ a { color: inherit; text-decoration: none; }
   border-radius: 4px;
   letter-spacing: .02em;
 }
-.pill-red    { background: #fdecea; color: #c0392b; }
-.pill-orange { background: #fff3e0; color: #b86010; }
-.pill-navy   { background: #e8eef8; color: #2c4a8a; }
+.pill-red    { background: var(--red-soft); color: var(--red); }
+.pill-orange { background: var(--orange-soft); color: var(--orange-dark); }
+.pill-navy   { background: #E4ECF5; color: var(--blue); }
 .pill-purple { background: #f3e8ff; color: #7c3aed; }
 
 /* ── Post page layout ────────────────────────────────────────── */
