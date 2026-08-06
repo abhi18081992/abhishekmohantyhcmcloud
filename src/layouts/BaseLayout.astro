@@ -12,12 +12,15 @@ interface Props {
 
 const {
   title,
-  description = 'Oracle HCM Cloud notes by Abhishek Mohanty — Fast Formulas, Absence Management, Time and Labor, Redwood, HDL, OTBI.',
+  description = 'Oracle HCM Cloud Fast Formula deep dives by Abhishek Mohanty — Absence Management, Time and Labor, HDL, BI Publisher, OTBI and OIC.',
   ogType = 'website',
   canonical,
 } = Astro.props;
 
-const fullTitle = title === 'Home' ? 'Abhishek Mohanty — Oracle HCM Cloud' : `${title} — Abhishek Mohanty`;
+const SITE_NAME = 'Fusion Fast Formula Hub';
+const fullTitle = title === 'Home'
+  ? `${SITE_NAME} — Oracle HCM Cloud Deep Dives`
+  : `${title} — ${SITE_NAME}`;
 const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
@@ -31,12 +34,12 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toStri
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalURL} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="alternate" type="application/rss+xml" title="Abhishek Mohanty" href="/rss.xml" />
+  <link rel="alternate" type="application/rss+xml" title={SITE_NAME} href="/rss.xml" />
   <meta property="og:type" content={ogType} />
   <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonicalURL} />
-  <meta property="og:site_name" content="Abhishek Mohanty" />
+  <meta property="og:site_name" content={SITE_NAME} />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={fullTitle} />
   <meta name="twitter:description" content={description} />
