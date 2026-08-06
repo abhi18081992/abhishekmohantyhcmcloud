@@ -35,7 +35,7 @@ A big shoutout to Mr. Scott Klein — who, after reading my Fast Formula blog se
 <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;">AM</div>
 <div>
 <div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
-<div style="font-size:13px;color:#888;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant</div>
+<div style="font-size:13px;color:#888;">Oracle HCM Cloud Consultant</div>
 </div>
 </div>
 
@@ -637,7 +637,7 @@ OR<br><span style="font-size:10px;font-weight:400;opacity:0.7;">lowest</span>
 <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;">AM</div>
 <div>
 <div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
-<div style="font-size:13px;color:#888;line-height:1.5;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Core HR, Redwood, HDL, OTBI.</div>
+<div style="font-size:13px;color:#888;line-height:1.5;">Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Core HR, Redwood, HDL, OTBI.</div>
 </div>
 </div>
 

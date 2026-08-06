@@ -109,7 +109,7 @@ draft: false
 <!-- ══════ AUTHOR ══════ -->
 <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
 <div style="background:linear-gradient(135deg,var(--accent),#B8501F);color:#fff;font-size:15px;font-weight:800;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;">AM</div>
-<div><div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div><div style="font-size:13px;color:#888;line-height:1.5;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant</div></div>
+<div><div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div><div style="font-size:13px;color:#888;line-height:1.5;">Oracle HCM Cloud Consultant</div></div>
 </div>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
@@ -605,7 +605,7 @@ draft: false
 <!-- ══════ AUTHOR BOTTOM ══════ -->
 <div style="display:flex;align-items:center;gap:14px;padding:18px 0;border-top:1px solid var(--border);">
 <div style="background:linear-gradient(135deg,var(--accent),#B8501F);color:#fff;font-size:15px;font-weight:800;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;">AM</div>
-<div><div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div><div style="font-size:13px;color:#888;line-height:1.5;">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div></div>
+<div><div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div><div style="font-size:13px;color:#888;line-height:1.5;">Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div></div>
 </div>
 
 </div>

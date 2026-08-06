@@ -11,7 +11,7 @@ draft: false
 Reading Absence Balance in Fast Formulas
 Look-and-feel matched to abhishekmohanty-hcm.blogspot.com
 with rich SVG visualizations inline.
-Author: Abhishek Mohanty (Oracle ACE Apprentice, AIOUG)
+Author: Abhishek Mohanty
 -->
 
 <style>
@@ -526,7 +526,7 @@ RETURN g_live_balance
 <div class="am-bio-avatar">AM</div>
 <div>
 <div class="am-bio-name">Abhishek Mohanty</div>
-<div class="am-bio-role">Oracle ACE Apprentice | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div>
+<div class="am-bio-role">Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div>
 </div>
 </div>
 

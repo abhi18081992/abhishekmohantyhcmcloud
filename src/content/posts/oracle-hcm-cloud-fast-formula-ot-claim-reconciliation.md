@@ -169,6 +169,6 @@ Twelve sequential `IF` blocks, one per accumulated OT hour above the threshold, 
 
 ---
 
-*Abhishek Mohanty · Oracle ACE Associate | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
 
 *TCR Deep Dive · Part 8 / 11 · Series tag: #TCRDeepDive*

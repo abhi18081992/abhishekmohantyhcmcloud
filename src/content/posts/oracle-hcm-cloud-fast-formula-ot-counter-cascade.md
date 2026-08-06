@@ -139,6 +139,6 @@ The variable that walks the parallel arrays. What `nidx` actually is, how one in
 
 ---
 
-*Abhishek Mohanty · Oracle ACE Associate | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
 
 *TCR Deep Dive · Part 9 / 11 · Series tag: #TCRDeepDive*

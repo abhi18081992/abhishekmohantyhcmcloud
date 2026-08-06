@@ -532,6 +532,6 @@ CONDITION_MESSAGE = <span style="color:#8bc48b;">'No prescreen response found af
 <hr style="border:none;border-top:1px solid #e0dcd6;margin:35px 0;font-family:'Open Sans',sans-serif;"/>
 <div style="display:flex;align-items:center;gap:16px;padding-top:25px;border-top:2px solid #2D3436;margin-top:40px;font-family:'Open Sans',sans-serif;">
 <div style="width:65px;height:65px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;flex-shrink:0;font-family:'Open Sans',sans-serif;">AM</div>
-<div><div style="font-size:18px;font-weight:700;font-family:'Open Sans',sans-serif;">Abhishek Mohanty</div><div style="font-size:14px;color:#333;line-height:1.6;font-family:'Open Sans',sans-serif;">Oracle HCM Cloud Consultant | Oracle ACE Apprentice | AIOUG Member — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div></div>
+<div><div style="font-size:18px;font-weight:700;font-family:'Open Sans',sans-serif;">Abhishek Mohanty</div><div style="font-size:14px;color:#333;line-height:1.6;font-family:'Open Sans',sans-serif;">Oracle HCM Cloud Consultant |  — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div></div>
 </div>
 </div>

@@ -216,7 +216,7 @@ The next series is in early planning: *Payroll Fast Formula Deep Dive*, tracing 
 
 ---
 
-*Abhishek Mohanty · Oracle ACE Associate | AIOUG Member | Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
 
 *The views expressed in this post are my own and do not represent the views of my employer or Oracle Corporation. Oracle, Oracle HCM Cloud, and related marks are trademarks of Oracle Corporation.*
 

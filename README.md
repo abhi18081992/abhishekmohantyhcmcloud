@@ -1,6 +1,6 @@
 # abhishekmohantyhcmcloud.com
 
-The personal site and blog of **Abhishek Mohanty** — Oracle HCM Cloud Technical Architect, Oracle ACE Associate, AIOUG member.
+The personal site and blog of **Abhishek Mohanty** — Oracle HCM Cloud Technical Architect.
 
 Built with [Astro](https://astro.build), styled with a custom editorial design system, and deployed on Cloudflare Pages.
 

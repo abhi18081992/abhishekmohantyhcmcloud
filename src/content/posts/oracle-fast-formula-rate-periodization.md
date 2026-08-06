@@ -172,7 +172,7 @@ Labels: Fast Formula, Benefits, Rate Periodization, HSA, CHANGE_CONTEXTS, ESS_LO
 <div class="bl-av">AM</div>
 <div>
 <div class="bl-aname">Abhishek Mohanty</div>
-<div class="bl-arole">Oracle ACE Apprentice · AIOUG Member · HCM Cloud Consultant</div>
+<div class="bl-arole">HCM Cloud Consultant</div>
 </div>
 </div>
 
@@ -1112,7 +1112,7 @@ l_proration_numerator = <span class="num">13</span>  <span class="cm">/* now the
 <div class="bl-av">AM</div>
 <div>
 <div class="bl-footer-name">Abhishek Mohanty</div>
-<div class="bl-footer-bio">Oracle ACE Apprentice · AIOUG Member · HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div>
+<div class="bl-footer-bio">HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div>
 </div>
 </div>
 
