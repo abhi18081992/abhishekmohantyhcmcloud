@@ -3,7 +3,7 @@ title: "Oracle HCM Cloud Fast Formula: OT Claim Reconciliation in a TCR — GET_
 pubDate: 2026-07-13
 description: "How the TCR reconciles OT hours it just allocated against previously-claimed OT balances stored in the absence plan, why GET_PLAN_BALANCE must run inside a CHANGE_CONTEXTS block, and how the reconciliation delta keeps re-runs of the TCR idempotent."
 tags: ["Fast Formula", "Oracle HCM Cloud", "Time & Labor"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -169,6 +169,6 @@ Twelve sequential `IF` blocks, one per accumulated OT hour above the threshold, 
 
 ---
 
-*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Fusion Fast Formula Hub Team · Oracle HCM Cloud — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
 
 *TCR Deep Dive · Part 8 / 11 · Series tag: #TCRDeepDive*

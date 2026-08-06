@@ -3,7 +3,7 @@ title: "Oracle HCM Cloud Fast Formula: Debug Logging with ADD_RLOG, the Log Leve
 pubDate: 2026-08-08
 description: "Why ADD_RLOG is the right way to log from a TCR, why the ORA_HWM_RULES_LOG_LEVEL profile is the piece everyone forgets to set, why ESS_LOG_WRITE silently does nothing in real-time formulas — and what the RETURN statement finally sends home. Series closes."
 tags: ["Fast Formula", "Oracle HCM Cloud", "Time & Labor", "Debugging"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -216,7 +216,7 @@ The next series is in early planning: *Payroll Fast Formula Deep Dive*, tracing 
 
 ---
 
-*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Fusion Fast Formula Hub Team · Oracle HCM Cloud — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
 
 *The views expressed in this post are my own and do not represent the views of my employer or Oracle Corporation. Oracle, Oracle HCM Cloud, and related marks are trademarks of Oracle Corporation.*
 

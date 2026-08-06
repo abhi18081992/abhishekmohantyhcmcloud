@@ -3,7 +3,7 @@ title: "Step-by-step WSA implementation and complete code of Oracle HCM Cloud HD
 pubDate: 2026-03-27
 description: "Step-by-step WSA implementation and complete code of Oracle HCM Cloud HDL Transformation Fast Formula — WSA_EXISTS, WSA_GET, WSA_SET for Person caching..."
 tags: ["Fast Formula", "HDL", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -17,7 +17,7 @@ draft: false
 <meta property="og:title" content="Oracle HCM Cloud HDL Transformation Fast Formula — WSA Implementation and Complete Formula Code (Part 3 of 3)">
 <meta property="og:description" content="WSA caching code (WSA_EXISTS, WSA_GET, WSA_SET) integrated into a complete HDL Transformation Formula. Full code ready to adapt.">
 <meta property="og:type" content="article">
-<meta name="author" content="Abhishek Mohanty">
+<meta name="author" content="Fusion Fast Formula Hub Team">
 <title>Oracle HCM Cloud HDL Transformation Fast Formula — WSA Implementation and Complete Formula Code (Part 3 of 3)</title>
 <style>
 :root { --accent: #D4622B; --dark: #1A1A2E; --text: #3D3D5C; --muted: #8B8FA8; --bg-subtle: #F8F7F4; --border: #E8E4DE; --green: #2D8B6F; --red: #B8423A; --blue: #4A6FA5; --code-bg: #1B1D2E; }
@@ -109,7 +109,7 @@ draft: false
 <!-- ══════ AUTHOR ══════ -->
 <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
 <div style="background:linear-gradient(135deg,var(--accent),#B8501F);color:#fff;font-size:15px;font-weight:800;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;">AM</div>
-<div><div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div><div style="font-size:13px;color:#888;line-height:1.5;">Oracle HCM Cloud Consultant</div></div>
+<div><div style="font-weight:700;font-size:15px;">Fusion Fast Formula Hub Team</div><div style="font-size:13px;color:#888;line-height:1.5;">Oracle HCM Cloud Consultant</div></div>
 </div>
 
 <hr style="border:none;border-top:1px solid var(--border);margin:36px 0;">
@@ -605,7 +605,7 @@ draft: false
 <!-- ══════ AUTHOR BOTTOM ══════ -->
 <div style="display:flex;align-items:center;gap:14px;padding:18px 0;border-top:1px solid var(--border);">
 <div style="background:linear-gradient(135deg,var(--accent),#B8501F);color:#fff;font-size:15px;font-weight:800;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;">AM</div>
-<div><div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div><div style="font-size:13px;color:#888;line-height:1.5;">Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div></div>
+<div><div style="font-weight:700;font-size:15px;">Fusion Fast Formula Hub Team</div><div style="font-size:13px;color:#888;line-height:1.5;">Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div></div>
 </div>
 
 </div>

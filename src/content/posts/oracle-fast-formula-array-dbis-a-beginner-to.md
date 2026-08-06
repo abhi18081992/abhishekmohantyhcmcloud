@@ -3,7 +3,7 @@ title: "Oracle Fast Formula Array DBIs: A Beginner-to-Expert Guide to Indexing, 
 pubDate: 2026-03-16
 description: "Oracle Fast Formula Array DBIs: A Beginner-to-Expert Guide to Indexing, Looping & CHANGE_CONTEXTS"
 tags: ["Fast Formula", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -25,7 +25,7 @@ Most Fast Formulas work with single values — one hire date, one assignment sta
 <tr>
 <td style="width:50px;vertical-align:middle;padding-right:14px;"><div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);text-align:center;line-height:50px;color:#fff;font-weight:700;font-size:18px;">AM</div></td>
 <td style="vertical-align:middle;">
-<div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
+<div style="font-weight:700;font-size:15px;">Fusion Fast Formula Hub Team</div>
 <div style="font-size:13px;color:#888;">Oracle HCM Cloud Consultant</div>
 </td>
 </tr>
@@ -659,7 +659,7 @@ This query is your debugging tool. When a DBI returns unexpected data, it shows 
 <tr>
 <td style="width:65px;vertical-align:middle;padding-right:16px;"><div style="width:65px;height:65px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);text-align:center;line-height:65px;color:#fff;font-weight:700;font-size:22px;">AM</div></td>
 <td style="vertical-align:middle;">
-<div style="font-size:18px;font-weight:700;">Abhishek Mohanty</div>
+<div style="font-size:18px;font-weight:700;">Fusion Fast Formula Hub Team</div>
 <div style="font-size:14px;color:#666;line-height:1.6;">Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Core HR, Redwood, HDL, OTBI.</div>
 </td>
 </tr>

@@ -3,7 +3,7 @@ title: "ISNULL and WAS DEFAULTED in Oracle Fast Formula — Concepts"
 pubDate: 2026-04-08
 description: "ISNULL and WAS DEFAULTED in Oracle Fast Formula — Concepts"
 tags: ["Fast Formula", "Null Handling", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -34,7 +34,7 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 <div style="display:flex;align-items:center;gap:14px;padding:20px 0;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;margin-bottom:35px;">
 <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;">AM</div>
 <div>
-<div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
+<div style="font-weight:700;font-size:15px;">Fusion Fast Formula Hub Team</div>
 <div style="font-size:13px;color:#888;">Oracle HCM Cloud Consultant</div>
 </div>
 </div>
@@ -350,7 +350,7 @@ Oracle Fast Formula has three distinct "missing data" states that are easy to co
 <div style="display:flex;align-items:center;gap:14px;padding:20px 0;border-top:2px solid #1a1a1a;">
 <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;">AM</div>
 <div>
-<div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
+<div style="font-weight:700;font-size:15px;">Fusion Fast Formula Hub Team</div>
 <div style="font-size:13px;color:#888;line-height:1.5;">Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div>
 </div>
 </div>

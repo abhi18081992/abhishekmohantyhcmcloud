@@ -3,7 +3,7 @@ title: "Oracle Fast Formula: How to Generate Logs in OTL — Setup, Code, and Wh
 pubDate: 2026-04-19
 description: "Why OTL logging fails in two distinct ways — an incomplete setup chain, or a visibility switch left off — and how to fix both. Covers TCR and TER template configuration, add_log and add_rlog, the profile option that gates everything, and working skeletons for both rule types."
 tags: ["Debugging", "Fast Formula", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -561,4 +561,4 @@ If logs don't appear, walk these in order.
 
 ---
 
-*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Fusion Fast Formula Hub Team · Oracle HCM Cloud — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*

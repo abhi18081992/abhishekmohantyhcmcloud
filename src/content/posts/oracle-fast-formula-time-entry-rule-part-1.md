@@ -3,7 +3,7 @@ title: "Oracle Fast Formula: Time Entry Rules in OTL — Where TER Sits, Why Cro
 pubDate: 2026-05-21
 description: "Where Time Entry Rules sit in OTL's submission pipeline, why declarative validation can't express cross-row rules, and a worked example of a four-row timecard that trips the continuous-work cap, the meal-break window, and the overlap check."
 tags: ["Fast Formula", "Oracle HCM Cloud", "Time & Labor"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -162,6 +162,6 @@ OTL doesn't hand your formula a timecard object. It hands you six parallel array
 
 ---
 
-*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Fusion Fast Formula Hub Team · Oracle HCM Cloud — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
 
 *The TER Series · Part 1 / 4*

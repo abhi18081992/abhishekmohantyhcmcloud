@@ -3,7 +3,7 @@ title: "Oracle Recruiting Cloud Fast Formulas — The Fast Formula Guide Every H
 pubDate: 2026-04-02
 description: "Oracle Recruiting Cloud Fast Formulas — The Fast Formula Guide Every HCM Cloud Consultant Needs"
 tags: ["Fast Formula", "Oracle HCM Cloud", "Recruiting"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -25,7 +25,7 @@ Labels: Fast Formula, Recruiting, Candidate Selection Process, Oracle HCM Cloud,
 
 <div style="display:flex;align-items:center;gap:14px;padding:18px 0;border-top:2px solid #2D3436;border-bottom:2px solid #2D3436;margin-bottom:30px;font-family:'Open Sans',sans-serif;">
 <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;font-family:'Open Sans',sans-serif;">AM</div>
-<div><div style="font-weight:700;font-size:15px;font-family:'Open Sans',sans-serif;">Abhishek Mohanty</div><div style="font-size:13px;color:#888;font-family:'Open Sans',sans-serif;">Oracle HCM Cloud Consultant — Fast Formulas, Absence, Recruiting, Core HR, Redwood, HDL, OTBI</div></div>
+<div><div style="font-weight:700;font-size:15px;font-family:'Open Sans',sans-serif;">Fusion Fast Formula Hub Team</div><div style="font-size:13px;color:#888;font-family:'Open Sans',sans-serif;">Oracle HCM Cloud Consultant — Fast Formulas, Absence, Recruiting, Core HR, Redwood, HDL, OTBI</div></div>
 </div>
 <div style="font-size:16px;color:#444;line-height:1.7;margin-bottom:30px;font-style:italic;font-family:'Open Sans',sans-serif;">Recruiting CSP formulas are powerful — but the documentation is scattered. This post is the reference I wished I had. Every DBI, every context, every code pattern — in one place.</div>
 <div style="font-size:28px;font-weight:900;color:#000;margin:45px 0 18px;line-height:1.3;font-family:'Open Sans',sans-serif;">What CSP Formulas Can Do</div>
@@ -532,6 +532,6 @@ CONDITION_MESSAGE = <span style="color:#8bc48b;">'No prescreen response found af
 <hr style="border:none;border-top:1px solid #e0dcd6;margin:35px 0;font-family:'Open Sans',sans-serif;"/>
 <div style="display:flex;align-items:center;gap:16px;padding-top:25px;border-top:2px solid #2D3436;margin-top:40px;font-family:'Open Sans',sans-serif;">
 <div style="width:65px;height:65px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;flex-shrink:0;font-family:'Open Sans',sans-serif;">AM</div>
-<div><div style="font-size:18px;font-weight:700;font-family:'Open Sans',sans-serif;">Abhishek Mohanty</div><div style="font-size:14px;color:#333;line-height:1.6;font-family:'Open Sans',sans-serif;">Oracle HCM Cloud Consultant |  — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div></div>
+<div><div style="font-size:18px;font-weight:700;font-family:'Open Sans',sans-serif;">Fusion Fast Formula Hub Team</div><div style="font-size:14px;color:#333;line-height:1.6;font-family:'Open Sans',sans-serif;">Oracle HCM Cloud Consultant |  — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div></div>
 </div>
 </div>

@@ -3,7 +3,7 @@ title: "The 7 Pillars in Action: How a Philippine Leave Formula Brings Every Con
 pubDate: 2026-03-16
 description: "The 7 Pillars in Action: How a Philippine Leave Formula Brings Every Concept to Life"
 tags: ["Absence Management", "Fast Formula", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -29,7 +29,7 @@ You can't write a formula without a Formula Type. You can't attach it without kn
 
 <div>
 
-<div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
+<div style="font-weight:700;font-size:15px;">Fusion Fast Formula Hub Team</div>
 
 <div style="font-size:13px;color:#888;">Oracle HCM Cloud Consultant & Technical Lead</div>
 
@@ -499,7 +499,7 @@ If your formula isn't showing up in a dropdown, it's almost always the wrong typ
 
 <div>
 
-<div style="font-size:18px;font-weight:700;">Abhishek Mohanty</div>
+<div style="font-size:18px;font-weight:700;">Fusion Fast Formula Hub Team</div>
 
 <div style="font-size:14px;color:#666;line-height:1.6;">Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Core HR, Redwood, HDL, OTBI.</div>
 

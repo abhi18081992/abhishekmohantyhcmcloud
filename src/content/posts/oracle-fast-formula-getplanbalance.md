@@ -3,7 +3,7 @@ title: "Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, and the Two T
 pubDate: 2026-04-28
 description: "Oracle Fast Formula: GET_PLAN_BALANCE, GET_ABSENCE_COUNTS, and the Two Traps That Quietly Ship the Wrong Number"
 tags: ["Absence Management", "Fast Formula", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -11,7 +11,7 @@ draft: false
 Reading Absence Balance in Fast Formulas
 Look-and-feel matched to abhishekmohanty-hcm.blogspot.com
 with rich SVG visualizations inline.
-Author: Abhishek Mohanty
+Author: Fusion Fast Formula Hub Team
 -->
 
 <style>
@@ -87,7 +87,7 @@ Author: Abhishek Mohanty
 <h1>Oracle Fast Formula: Reading Absence Balance — Four Mechanisms, the Naming Traps, and a Recipe That Actually Works</h1>
 
 <div class="am-meta">
-<strong>Abhishek Mohanty</strong> · April 2026 · 14 min read · Oracle HCM Cloud
+<strong>Fusion Fast Formula Hub Team</strong> · April 2026 · 14 min read · Oracle HCM Cloud
 </div>
 
 <p>If you have ever written an absence Fast Formula, deployed it, watched it compile cleanly, and then opened the timecard or the absence record only to find a wrong balance — this post is for you.</p>
@@ -525,7 +525,7 @@ RETURN g_live_balance
 <div class="am-bio">
 <div class="am-bio-avatar">AM</div>
 <div>
-<div class="am-bio-name">Abhishek Mohanty</div>
+<div class="am-bio-name">Fusion Fast Formula Hub Team</div>
 <div class="am-bio-role">Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time and Labor, Core HR, Redwood, HDL, OTBI.</div>
 </div>
 </div>

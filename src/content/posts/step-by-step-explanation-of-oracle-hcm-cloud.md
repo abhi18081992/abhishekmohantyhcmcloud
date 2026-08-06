@@ -3,7 +3,7 @@ title: "HDL Transformation Formula Deep Dive — Part 1: OPERATION Routing, META
 pubDate: 2026-03-25
 description: "How an HDL Transformation Formula turns one vendor CSV row into an ElementEntry header plus up to six ElementEntryValue rows — the OPERATION handshake, METADATA column definitions, the five MAP steps, why WSA caching is a correctness requirement and not just a performance one, and how LINEREPEATNO drives the passes. Part 1 of 3, concepts only."
 tags: ["Fast Formula", "HDL", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -467,4 +467,4 @@ The concepts don't change whether you're building a vendor deduction interface, 
 
 ---
 
-*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Architect — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Fusion Fast Formula Hub Team · Oracle HCM Cloud — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*

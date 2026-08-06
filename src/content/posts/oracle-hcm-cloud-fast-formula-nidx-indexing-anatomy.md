@@ -3,7 +3,7 @@ title: "Oracle HCM Cloud Fast Formula: TCR Indexing Anatomy — What nidx Actual
 pubDate: 2026-08-04
 description: "The variable that walks the parallel arrays. Nine parts of the series used nidx in every code sample — this one stops to explain what it is, how the same index reaches into every parallel track simultaneously, why Fast Formula makes you increment it by hand, and the bounds-and-guard patterns that keep the loop honest."
 tags: ["Fast Formula", "Oracle HCM Cloud", "Time & Labor"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -211,6 +211,6 @@ The series closes with the two topics every TCR author eventually needs — how 
 
 ---
 
-*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Fusion Fast Formula Hub Team · Oracle HCM Cloud — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
 
 *TCR Deep Dive · Part 10 / 11 · Series tag: #TCRDeepDive*

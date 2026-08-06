@@ -3,7 +3,7 @@ title: "Debugging Oracle Fast Formula: 5 Logging Patterns Every HCM Cloud Consul
 pubDate: 2026-03-17
 description: "Debugging Oracle Fast Formula: 5 Logging Patterns Every HCM Cloud Consultant Must Know"
 tags: ["Debugging", "Fast Formula", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -25,7 +25,7 @@ Your formula compiled successfully. It even runs without errors. But the result 
 <tr>
 <td style="width:50px;vertical-align:middle;padding-right:14px;"><div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);text-align:center;line-height:50px;color:#fff;font-weight:700;font-size:18px;">AM</div></td>
 <td style="vertical-align:middle;">
-<div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
+<div style="font-weight:700;font-size:15px;">Fusion Fast Formula Hub Team</div>
 <div style="font-size:13px;color:#888;">Oracle HCM Cloud Consultant</div>
 </td>
 </tr>
@@ -703,7 +703,7 @@ This is the only way to get debug output from formulas that don't run through sc
 <tr>
 <td style="width:65px;vertical-align:middle;padding-right:16px;"><div style="width:65px;height:65px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);text-align:center;line-height:65px;color:#fff;font-weight:700;font-size:22px;">AM</div></td>
 <td style="vertical-align:middle;">
-<div style="font-size:18px;font-weight:700;">Abhishek Mohanty</div>
+<div style="font-size:18px;font-weight:700;">Fusion Fast Formula Hub Team</div>
 <div style="font-size:14px;color:#666;line-height:1.6;">Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Core HR, Redwood, HDL, OTBI.</div>
 </td>
 </tr>

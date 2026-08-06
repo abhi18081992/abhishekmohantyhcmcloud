@@ -3,7 +3,7 @@ title: "Oracle Benefits Rate Periodization Formula — Mid Year Proration with Y
 pubDate: 2026-03-31
 description: "Oracle Benefits Rate Periodization Formula — Mid Year Proration with YTD Cap and CHANGE_CONTEXTS"
 tags: ["Benefits", "Fast Formula", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -171,7 +171,7 @@ Labels: Fast Formula, Benefits, Rate Periodization, HSA, CHANGE_CONTEXTS, ESS_LO
 <div class="bl-author">
 <div class="bl-av">AM</div>
 <div>
-<div class="bl-aname">Abhishek Mohanty</div>
+<div class="bl-aname">Fusion Fast Formula Hub Team</div>
 <div class="bl-arole">HCM Cloud Consultant</div>
 </div>
 </div>
@@ -1111,11 +1111,11 @@ l_proration_numerator = <span class="num">13</span>  <span class="cm">/* now the
 <div class="bl-footer">
 <div class="bl-av">AM</div>
 <div>
-<div class="bl-footer-name">Abhishek Mohanty</div>
+<div class="bl-footer-name">Fusion Fast Formula Hub Team</div>
 <div class="bl-footer-bio">HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div>
 </div>
 </div>
 
-<div style="text-align:center;font-size:11px;color:var(--faint);margin-top:16px;">© 2026 Abhishek Mohanty</div>
+<div style="text-align:center;font-size:11px;color:var(--faint);margin-top:16px;">© 2026 Fusion Fast Formula Hub Team</div>
 
 </div>

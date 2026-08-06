@@ -3,7 +3,7 @@ title: "Oracle Fast Formula: Post Election Edit — Cross-Plan Validation with C
 pubDate: 2026-04-06
 description: "Why a Post Election Edit that reads enrollment at today's date lets invalid elections through, and how a waiting-period calculation plus CHANGE_CONTEXTS fixes it. Includes the full formula, four worked employee scenarios, and the amount check no configuration can do."
 tags: ["Benefits", "Fast Formula", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -341,4 +341,4 @@ Three things to watch when adapting it: plan and option names must match Plan Co
 
 ---
 
-*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Fusion Fast Formula Hub Team · Oracle HCM Cloud — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*

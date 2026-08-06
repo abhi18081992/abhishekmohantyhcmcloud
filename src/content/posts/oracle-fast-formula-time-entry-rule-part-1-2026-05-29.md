@@ -3,7 +3,7 @@ title: "Oracle Fast Formula: The TER State Machine — Continuous-Hours Tracking
 pubDate: 2026-05-29
 description: "The two-state machine that makes the TER formula stateful, why Julian Day arithmetic is non-negotiable for night shifts, the twelve setup artefacts that must exist before the formula fires, and a complete trace of a broken timecard from Submit to error markers. Series finale."
 tags: ["Fast Formula", "Oracle HCM Cloud", "Time & Labor"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -203,6 +203,6 @@ That's the complete picture of how a production Oracle HCM Cloud TER formula wor
 
 ---
 
-*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Fusion Fast Formula Hub Team · Oracle HCM Cloud — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
 
 *The TER Series · Part 4 / 4 · Series complete*

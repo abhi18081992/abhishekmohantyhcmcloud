@@ -3,7 +3,7 @@ title: "Oracle Fast Formula: The TER Algorithm — Setup, Per-Line Routing, and 
 pubDate: 2026-05-29
 description: "The five setup blocks that run before the loop, the routing tree that decides which validation applies to each timecard row, and the day-boundary overlap test — including the strict less-than that separates a usable formula from an unusable one."
 tags: ["Fast Formula", "Oracle HCM Cloud", "Time & Labor"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -335,6 +335,6 @@ The hardest part of the formula is the continuous-hours tracker — a two-state 
 
 ---
 
-*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Fusion Fast Formula Hub Team · Oracle HCM Cloud — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
 
 *The TER Series · Part 3 / 4*

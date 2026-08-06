@@ -3,7 +3,7 @@ title: "Fast Formula Deep Dive: Contexts, DBIs, Routes & the 7 Building Blocks O
 pubDate: 2026-03-14
 description: "The seven components every Fast Formula rests on — Formula Type, Contexts, Input Values, Database Items, Routes, Functions, and Return Variables. What each one does, how they connect, and the practical details that cause most compilation errors and runtime surprises."
 tags: ["Fast Formula", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -175,4 +175,4 @@ Understanding these seven before writing your first line saves hours of debuggin
 
 ---
 
-*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Architect — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Fusion Fast Formula Hub Team · Oracle HCM Cloud — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*

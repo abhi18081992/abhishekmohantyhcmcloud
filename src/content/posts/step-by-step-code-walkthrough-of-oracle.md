@@ -3,7 +3,7 @@ title: "HDL Transformation Formula Deep Dive — Part 2: The Code, Line by Line"
 pubDate: 2026-03-26
 description: "The actual formula code — INPUTS ARE and DEFAULT FOR, GET_VALUE_SET parameter string construction with pipe delimiters and triple quotes, why ISNULL returns 'N' for null, the lookup-or-construct SourceSystemId pattern, ESS_LOG_WRITE tracing, and the LINEREPEATNO passes including the Cancel end-dating branch. Part 2 of 3."
 tags: ["Fast Formula", "HDL", "Null Handling", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -399,4 +399,4 @@ After Parts 1 and 2 you can open any HDL Transformation Formula and read it. You
 
 ---
 
-*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Architect — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Fusion Fast Formula Hub Team · Oracle HCM Cloud — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*

@@ -1,6 +1,6 @@
 # abhishekmohantyhcmcloud.com
 
-The personal site and blog of **Abhishek Mohanty** — Oracle HCM Cloud Technical Architect.
+**Fusion Fast Formula Hub** — Oracle HCM Cloud Fast Formula, HDL, BI Publisher, OTBI and OIC notes from the Fusion Fast Formula Hub Team.
 
 Built with [Astro](https://astro.build), styled with a custom editorial design system, and deployed on Cloudflare Pages.
 
@@ -266,6 +266,6 @@ Make sure you've removed the old Blogger DNS records (the `ghs.google.com` CNAME
 
 ## Credits
 
-Design and build by Claude (Anthropic) for Abhishek Mohanty, April 2026.
+Design and build by Claude (Anthropic) for the Fusion Fast Formula Hub Team, April 2026.
 
 The notes published on this site are personal and reflect the author's views, not those of any employer or client. Oracle and the Oracle product names referenced are trademarks of Oracle Corporation.

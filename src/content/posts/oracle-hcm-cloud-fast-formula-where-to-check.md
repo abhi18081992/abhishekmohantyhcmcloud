@@ -3,7 +3,7 @@ title: "Oracle HCM Cloud Fast Formula — Where to Check Logs: ESS Process Names
 pubDate: 2026-03-20
 description: "Oracle HCM Cloud Fast Formula — Where to Check Logs: ESS Process Names, Navigation Paths & Prerequisites for Absence, Payroll, Compensation, Benefits,..."
 tags: ["Absence Management", "Benefits", "Debugging", "Fast Formula", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -30,7 +30,7 @@ draft: false
 <div style="display:flex;align-items:center;gap:14px;padding:20px 0;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;margin-bottom:35px">
 <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0">AM</div>
 <div>
-<div style="font-weight:700;font-size:15px">Abhishek Mohanty</div>
+<div style="font-weight:700;font-size:15px">Fusion Fast Formula Hub Team</div>
 <div style="font-size:13px;color:#888">Oracle HCM Cloud Consultant</div>
 </div>
 </div>
@@ -257,7 +257,7 @@ draft: false
 <div style="display:flex;align-items:center;gap:16px;padding-top:25px;border-top:2px solid #1a1a1a;margin-top:40px">
 <div style="width:65px;height:65px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;flex-shrink:0">AM</div>
 <div>
-<div style="font-size:18px;font-weight:700">Abhishek Mohanty</div>
+<div style="font-size:18px;font-weight:700">Fusion Fast Formula Hub Team</div>
 <div style="font-size:14px;color:#666;line-height:1.6">Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div>
 </div>
 </div>

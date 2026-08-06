@@ -3,7 +3,7 @@ title: "Oracle HCM Cloud Fast Formula - Participation and Rate Eligibility formu
 pubDate: 2026-03-19
 description: "Oracle HCM Cloud Fast Formula - Participation and Rate Eligibility formula with CHANGE_CONTEXTS, WAS DEFAULTED null handling, PER_EXT_ORG array DBI loop"
 tags: ["Fast Formula", "Null Handling", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -25,7 +25,7 @@ The business says "exclude workers in Puerto Rico and Washington DC." Simple —
 <div style="display:flex;align-items:center;gap:14px;padding:20px 0;border-top:2px solid #1a1a1a;border-bottom:2px solid #1a1a1a;margin-bottom:35px;">
 <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;">AM</div>
 <div>
-<div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
+<div style="font-weight:700;font-size:15px;">Fusion Fast Formula Hub Team</div>
 <div style="font-size:13px;color:#888;">Oracle HCM Cloud Consultant</div>
 </div>
 </div>
@@ -884,7 +884,7 @@ AND    r.route_id = u.route_id</pre>
 <div style="display:flex;align-items:center;gap:14px;padding:20px 0;border-top:2px solid #1a1a1a;">
 <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:18px;flex-shrink:0;">AM</div>
 <div>
-<div style="font-weight:700;font-size:15px;">Abhishek Mohanty</div>
+<div style="font-weight:700;font-size:15px;">Fusion Fast Formula Hub Team</div>
 <div style="font-size:13px;color:#888;line-height:1.5;">Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.</div>
 </div>
 </div>

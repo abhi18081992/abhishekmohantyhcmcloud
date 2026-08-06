@@ -3,7 +3,7 @@ title: "Breaking Down a PH Vacation Leave Accrual Matrix Formula — Section by 
 pubDate: 2026-03-14
 description: "A production Philippine vacation leave accrual matrix formula, walked through block by block — DEFAULT handling, DBIs versus input values, the l_process flag pattern, the monthly frequency guard, and the three-phase accrual logic with its one-time January credit."
 tags: ["Absence Management", "Fast Formula", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -379,4 +379,4 @@ If you're new to Fast Formula, type this out in the formula editor rather than p
 
 ---
 
-*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Architect — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Fusion Fast Formula Hub Team · Oracle HCM Cloud — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*

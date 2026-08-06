@@ -3,7 +3,7 @@ title: "Oracle Fast Formula: The TER Input Contract — Marker Rows, Parallel Ar
 pubDate: 2026-05-22
 description: "OTL doesn't hand your formula a timecard object. It hands you six parallel arrays with shared row indexes, wrapped in marker rows the worker never sees. Part 2 dissects the data shape, every input variable, and the naming conventions that keep production TER code maintainable."
 tags: ["Fast Formula", "Oracle HCM Cloud", "Time & Labor"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -262,6 +262,6 @@ The data shape is settled. Now the algorithm. Part 3 walks through the formula's
 
 ---
 
-*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Lead — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Fusion Fast Formula Hub Team · Oracle HCM Cloud — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
 
 *The TER Series · Part 2 / 4*

@@ -3,7 +3,7 @@ title: "Oracle Fast Formula ALIAS: How the Compiler Resolves Long DBI Names at P
 pubDate: 2026-05-16
 description: "ALIAS is a compile-time reference, not a runtime variable — and that distinction decides whether your formula returns the right answer inside CHANGE_CONTEXTS. Statement order, what you can and cannot alias, reference-versus-snapshot semantics, WAS DEFAULTED compatibility, and the three compiler errors you'll actually hit."
 tags: ["Fast Formula", "Null Handling", "Oracle HCM Cloud"]
-author: "Abhishek Mohanty"
+author: "Fusion Fast Formula Hub Team"
 draft: false
 ---
 
@@ -441,4 +441,4 @@ The aliased version also adds the `WAS DEFAULTED` diagnostic on the salary check
 
 ---
 
-*Abhishek Mohanty · Oracle HCM Cloud Consultant & Technical Architect — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
+*Fusion Fast Formula Hub Team · Oracle HCM Cloud — Fast Formulas, Absence Management, Time & Labor, Core HR, Redwood, HDL, OTBI.*
