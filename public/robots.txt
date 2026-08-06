@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.abhishekmohantyhcmcloud.com/sitemap-index.xml
+Sitemap: https://fusionfastformulahub.com/sitemap-index.xml

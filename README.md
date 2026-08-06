@@ -1,4 +1,4 @@
-# abhishekmohantyhcmcloud.com
+# fusionfastformulahub.com
 
 **Fusion Fast Formula Hub** — Oracle HCM Cloud Fast Formula, HDL, BI Publisher, OTBI and OIC notes from the Fusion Fast Formula Hub Team.
 
@@ -15,7 +15,7 @@ Built with [Astro](https://astro.build), styled with a custom editorial design s
 | Syntax highlighting  | Shiki, theme: **One Dark Pro**                  |
 | Typography           | Lora (display) + IBM Plex Sans (body) + IBM Plex Mono (code) |
 | Hosting              | Cloudflare Pages (free tier)                    |
-| Domain               | abhishekmohantyhcmcloud.com (Cloudflare Registrar) |
+| Domain               | fusionfastformulahub.com (Cloudflare Registrar) |
 | Source control       | GitHub (any free public or private repo works)  |
 
 ---
@@ -67,10 +67,10 @@ The first build takes 1–2 minutes. When it finishes you'll get a URL like `abh
 ### Step 4 — Point the custom domain at Pages
 
 1. In the Pages project settings, go to **Custom domains** → **Set up a custom domain**.
-2. Enter `www.abhishekmohantyhcmcloud.com`. Cloudflare will automatically create the right CNAME because the domain is already on the same Cloudflare account.
-3. Add a second domain entry for the apex `abhishekmohantyhcmcloud.com`. Cloudflare will set up the redirect.
+2. Enter `fusionfastformulahub.com`. Cloudflare will automatically create the right CNAME because the domain is already on the same Cloudflare account.
+3. Add a second domain entry for the apex `fusionfastformulahub.com`. Cloudflare will set up the redirect.
 4. Wait 1–2 minutes. SSL is provisioned automatically — you don't have to configure anything.
-5. Test all four URL variants in a browser; they should all land on `https://www.abhishekmohantyhcmcloud.com/`.
+5. Test all four URL variants in a browser; they should all land on `https://fusionfastformulahub.com/`.
 
 **Important:** if you previously added DNS records for Blogger (the `ghs.google.com` CNAMEs and the four Google A records), **delete them now**. Cloudflare Pages will manage the DNS for you.
 
@@ -170,7 +170,7 @@ Once the new site is live and the old Blogger URLs are 301-redirecting via the `
 
 ### Step 1 — Add the new property
 
-In Search Console, click the property dropdown → **Add property**. Choose **Domain property** (not URL prefix) and enter `abhishekmohantyhcmcloud.com`. Google will give you a TXT record to verify — add it in your Cloudflare DNS settings.
+In Search Console, click the property dropdown → **Add property**. Choose **Domain property** (not URL prefix) and enter `fusionfastformulahub.com`. Google will give you a TXT record to verify — add it in your Cloudflare DNS settings.
 
 Domain property is the right choice because it covers `http`, `https`, `www`, non-www, and any future subdomains in one go.
 
@@ -183,7 +183,7 @@ In the new property, go to **Sitemaps** → enter `sitemap-index.xml` → Submit
 In your **old** `abhishekmohanty-hcm.blogspot.com` property:
 
 1. **Settings** (gear icon) → **Change of address**.
-2. Select the new property (`abhishekmohantyhcmcloud.com`).
+2. Select the new property (`fusionfastformulahub.com`).
 3. Google will run a few checks — it specifically looks for the 301 redirects, which the `_redirects` file in this project provides.
 4. Confirm.
 
@@ -257,7 +257,7 @@ Check the build log in the Pages dashboard. The most common cause is a syntax er
 Check that the file is in `src/content/posts/`, has the `.md` extension, has valid frontmatter, and that `draft: true` is **not** set in the frontmatter. Drafts are filtered out of the homepage and the RSS feed.
 
 **Old Blogger URLs aren't redirecting.**
-Cloudflare Pages reads `_redirects` from `public/`. Make sure the file is committed and the latest deployment includes it. You can check by visiting `https://www.abhishekmohantyhcmcloud.com/_redirects` — it should serve as a text file. If it 404s, your build didn't pick it up.
+Cloudflare Pages reads `_redirects` from `public/`. Make sure the file is committed and the latest deployment includes it. You can check by visiting `https://fusionfastformulahub.com/_redirects` — it should serve as a text file. If it 404s, your build didn't pick it up.
 
 **Custom domain won't activate in Pages.**
 Make sure you've removed the old Blogger DNS records (the `ghs.google.com` CNAME and the four Google A records) from the Cloudflare DNS settings. Pages cannot bind to a domain whose DNS is pointing somewhere else.
